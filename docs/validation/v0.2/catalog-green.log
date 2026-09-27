@@ -1,0 +1,129 @@
+Building for debugging...
+[Planning deferred tasks]
+[8 / 34] CinemaCore
+[17 / 43] CinemaCore
+[23 / 41] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[37 / 51] CinemaCoreTests-product
+[38 / 59] Cinema-product
+[40 / 59] Cinema-product
+[42 / 59] Cinema-product
+[46 / 58] CinemaCoreTests-product
+[51 / 59] Cinema-product
+error: SwiftCompile normal arm64 /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift failed with a nonzero exit code. Command line:     cd /Users/yangjun/Downloads
+    builtin-SwiftPerFileCompile PlaybackPreferencesTests.swift
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:7:23: error: cannot find 'PlaybackPreferences' in scope
+  5 | struct PlaybackPreferencesTests {
+  6 |     @Test func invalidValuesCannotReachPlayback() {
+  7 |         let clamped = PlaybackPreferences(volume: 4, rate: -10, enhancement: "unknown", lastAudibleVolume: -1)
+    |                       `- error: cannot find 'PlaybackPreferences' in scope
+  8 |         #expect(clamped.volume == 1)
+  9 |         #expect(clamped.rate == 0.5)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:12:25: error: cannot find 'PlaybackPreferences' in scope
+ 10 |         #expect(clamped.enhancement == "upscale4K")
+ 11 |         #expect(clamped.lastAudibleVolume == 1)
+ 12 |         let nonfinite = PlaybackPreferences(volume: .nan, rate: .infinity, lastAudibleVolume: .nan)
+    |                         `- error: cannot find 'PlaybackPreferences' in scope
+ 13 |         #expect(nonfinite.volume == 0.8)
+ 14 |         #expect(nonfinite.rate == 1)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:18:27: error: cannot find 'PlaybackPreferences' in scope
+ 16 |
+ 17 |     @Test func unmutingRestoresLastAudibleVolumeAfterMultipleChanges() {
+ 18 |         var preferences = PlaybackPreferences(volume: 0.35)
+    |                           `- error: cannot find 'PlaybackPreferences' in scope
+ 19 |         preferences.toggleMute()
+ 20 |         #expect(preferences.volume == 0)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:33:21: error: cannot find 'PlaybackPreferencesStore' in scope
+ 31 |         let defaults = try #require(UserDefaults(suiteName: suite))
+ 32 |         defer { defaults.removePersistentDomain(forName: suite) }
+ 33 |         let store = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+    |                     `- error: cannot find 'PlaybackPreferencesStore' in scope
+ 34 |         var preferences = PlaybackPreferences(volume: 0.37, rate: 1.5, enhancement: "clarity")
+ 35 |         preferences.toggleMute()
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:34:27: error: cannot find 'PlaybackPreferences' in scope
+ 32 |         defer { defaults.removePersistentDomain(forName: suite) }
+ 33 |         let store = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+ 34 |         var preferences = PlaybackPreferences(volume: 0.37, rate: 1.5, enhancement: "clarity")
+    |                           `- error: cannot find 'PlaybackPreferences' in scope
+ 35 |         preferences.toggleMute()
+ 36 |         store.save(preferences)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:37:24: error: cannot find 'PlaybackPreferencesStore' in scope
+ 35 |         preferences.toggleMute()
+ 36 |         store.save(preferences)
+ 37 |         var restored = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"]).load()
+    |                        `- error: cannot find 'PlaybackPreferencesStore' in scope
+ 38 |         #expect(restored.volume == 0)
+ 39 |         #expect(restored.rate == 1.5)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:49:21: error: cannot find 'PlaybackPreferencesStore' in scope
+ 47 |         let defaults = try #require(UserDefaults(suiteName: suite))
+ 48 |         defer { defaults.removePersistentDomain(forName: suite) }
+ 49 |         let daily = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+    |                     `- error: cannot find 'PlaybackPreferencesStore' in scope
+ 50 |         daily.save(PlaybackPreferences(volume: 0.42, rate: 1.5, enhancement: "clarity"))
+ 51 |         for flag in ["--validate", "--benchmark"] {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:50:20: error: cannot find 'PlaybackPreferences' in scope
+ 48 |         defer { defaults.removePersistentDomain(forName: suite) }
+ 49 |         let daily = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+ 50 |         daily.save(PlaybackPreferences(volume: 0.42, rate: 1.5, enhancement: "clarity"))
+    |                    `- error: cannot find 'PlaybackPreferences' in scope
+ 51 |         for flag in ["--validate", "--benchmark"] {
+ 52 |             let isolated = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema", flag])
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:52:28: error: cannot find 'PlaybackPreferencesStore' in scope
+ 50 |         daily.save(PlaybackPreferences(volume: 0.42, rate: 1.5, enhancement: "clarity"))
+ 51 |         for flag in ["--validate", "--benchmark"] {
+ 52 |             let isolated = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema", flag])
+    |                            `- error: cannot find 'PlaybackPreferencesStore' in scope
+ 53 |             #expect(isolated.load().volume == 0.8)
+ 54 |             #expect(isolated.load().rate == 1)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:55:27: error: cannot find 'PlaybackPreferences' in scope
+ 53 |             #expect(isolated.load().volume == 0.8)
+ 54 |             #expect(isolated.load().rate == 1)
+ 55 |             isolated.save(PlaybackPreferences(volume: 0, rate: 2, enhancement: "original"))
+    |                           `- error: cannot find 'PlaybackPreferences' in scope
+ 56 |             #expect(daily.load().volume == 0.42)
+ 57 |             #expect(daily.load().rate == 1.5)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:64:48: error: cannot find 'PlaybackPreferences' in scope
+ 62 |     @Test func decodingValidatesOutOfRangeStoredValues() throws {
+ 63 |         let data = Data(#"{"volume":-9,"rate":100,"enhancement":"missing","lastAudibleVolume":0.27}"#.utf8)
+ 64 |         var decoded = try JSONDecoder().decode(PlaybackPreferences.self, from: data)
+    |                                                `- error: cannot find 'PlaybackPreferences' in scope
+ 65 |         #expect(decoded.volume == 0)
+ 66 |         #expect(decoded.rate == 2)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:64:41: error: failed to produce diagnostic for expression; please submit a bug report (https://swift.org/contributing/#reporting-bugs)
+ 62 |     @Test func decodingValidatesOutOfRangeStoredValues() throws {
+ 63 |         let data = Data(#"{"volume":-9,"rate":100,"enhancement":"missing","lastAudibleVolume":0.27}"#.utf8)
+ 64 |         var decoded = try JSONDecoder().decode(PlaybackPreferences.self, from: data)
+    |                                         `- error: failed to produce diagnostic for expression; please submit a bug report (https://swift.org/contributing/#reporting-bugs)
+ 65 |         #expect(decoded.volume == 0)
+ 66 |         #expect(decoded.rate == 2)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:74:21: error: cannot find 'PlaybackSleepTimer' in scope
+ 72 |     @Test func timerRoundsRemainingTimeUpAndExpiresOnlyOnce() {
+ 73 |         let now = Date(timeIntervalSince1970: 10_000)
+ 74 |         var timer = PlaybackSleepTimer()
+    |                     `- error: cannot find 'PlaybackSleepTimer' in scope
+ 75 |         #expect(timer.schedule(minutes: 15, now: now))
+ 76 |         #expect(timer.remainingSeconds(at: now.addingTimeInterval(0.2)) == 900)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift:86:21: error: cannot find 'PlaybackSleepTimer' in scope
+ 84 |     @Test func timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() {
+ 85 |         let now = Date(timeIntervalSince1970: 10_000)
+ 86 |         var timer = PlaybackSleepTimer()
+    |                     `- error: cannot find 'PlaybackSleepTimer' in scope
+ 87 |         #expect(timer.schedule(minutes: 15, now: now))
+ 88 |         #expect(timer.schedule(minutes: 30, now: now.addingTimeInterval(20)))
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogLibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/LibraryTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/QualityTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceMatchingTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceTests.swift -emit-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.d -emit-const-values-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.swiftconstvalues -emit-reference-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.swiftdeps -serialize-diagnostics-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.dia -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/PackageFrameworks -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 5 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/yangjun/Downloads/视频播放器/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/yangjun/Downloads -enable-anonymous-context-mangled-names -file-compilation-dir /Users/yangjun/Downloads -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/yangjun/Downloads/视频播放器/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-a0facfad118c1a7a18f0aad9463f6549ffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/include -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name CinemaCoreTests -package-name 视频播放器 -const-gather-protocols-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.o -debug-module-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests.swiftmodule -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackPreferencesTests.o -index-store-path /Users/yangjun/Downloads/视频播放器/.build/out -index-system-modules
+error: Build failed
+error: fatalError

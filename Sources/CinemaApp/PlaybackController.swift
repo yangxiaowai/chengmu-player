@@ -18,12 +18,31 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published var error: String?
     @Published var position = 0.0
     @Published var duration = 0.0
-    @Published var rate: Float = 1
-    @Published var volume: Float = 0.8 { didSet { player.volume = volume } }
+    @Published var rate: Float = 1 {
+        didSet {
+            preferences.setRate(Double(rate))
+            let validated = Float(preferences.rate)
+            if rate != validated { rate = validated }
+            if wantsPlay { player.rate = rate }
+            preferencesStore.save(preferences)
+        }
+    }
+    @Published var volume: Float = 0.8 {
+        didSet {
+            preferences.setVolume(Double(volume))
+            let validated = Float(preferences.volume)
+            if volume != validated { volume = validated }
+            player.volume = volume; preferencesStore.save(preferences)
+        }
+    }
     @Published var generation = UUID()
-    @Published var enhancementMode: EnhancementMode = .upscale4K
+    @Published var enhancementMode: EnhancementMode = .upscale4K {
+        didSet { preferences.setEnhancement(enhancementMode.rawValue); preferencesStore.save(preferences) }
+    }
+    @Published private(set) var sleepRemainingSeconds: Int?
     @Published var metrics: EnhancementMetrics?
     @Published var subtitleText = ""
+    @Published var subtitleNotice: String?
     @Published var subtitleOffset = 0.0
     @Published var audioTracks: [MediaTrack] = []
     @Published var subtitleTracks: [MediaTrack] = []
@@ -50,14 +69,21 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var lastSave = 0.0
     private var probeTask: Task<Void, Never>?
     private var prepareTask: Task<Void, Never>?
+    private var preparedItemID: UUID?
+    private let preferencesStore: PlaybackPreferencesStore
+    private var preferences: PlaybackPreferences
+    private var sleepState = PlaybackSleepTimer()
+    private var sleepTimer: Timer?
 
     override init() {
+        let store = PlaybackPreferencesStore()
+        let saved = store.load()
+        preferencesStore = store; preferences = saved
+        rate = Float(saved.rate); volume = Float(saved.volume)
+        enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .upscale4K
         super.init()
         player.volume = volume
         player.automaticallyWaitsToMinimizeStalling = true
-        observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.2, preferredTimescale: 600), queue: .main) { [weak self] time in
-            Task { @MainActor in self?.tick(time) }
-        }
         controlObservation = player.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             Task { @MainActor in
                 self?.isPlaying = player.timeControlStatus == .playing
@@ -72,11 +98,11 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         clearItemObservers()
         player.pause()
         self.url = url; self.title = title; episodeName = episode
-        itemID = UUID(); generation = UUID()
+        itemID = UUID(); generation = UUID(); preparedItemID = nil
         let token = itemID
         desiredResume = max(0, resume); wantsPlay = true
         position = 0; duration = 0; error = nil; isLoading = true
-        cues = []; subtitleText = ""; externalSubtitleName = nil; subtitleOffset = 0
+        cues = []; subtitleText = ""; subtitleNotice = nil; externalSubtitleName = nil; subtitleOffset = 0
         audioTracks = []; subtitleTracks = []; audioGroup = nil; subtitleGroup = nil
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
         let item = AVPlayerItem(url: url)
@@ -86,6 +112,13 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         output.setDelegate(self, queue: .main)
         item.add(output); subtitleOutput = output
         player.replaceCurrentItem(with: item)
+        if let observer { player.removeTimeObserver(observer) }
+        observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.2, preferredTimescale: 600), queue: .main) { [weak self] time in
+            Task { @MainActor in
+                guard let self, self.itemID == token else { return }
+                self.tick(time)
+            }
+        }
         statusObservation = item.observe(\.status, options: [.initial, .new]) { [weak self, weak item] _, _ in
             Task { @MainActor in
                 guard let self, let item, self.itemID == token else { return }
@@ -102,7 +135,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         finishedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in
                 guard let self, self.itemID == token else { return }
-                self.saveProgress(); self.wantsPlay = false; self.isPlaying = false; self.onFinished?()
+                let shouldAdvance = self.wantsPlay
+                self.saveProgress(); self.wantsPlay = false; self.isPlaying = false
+                if self.sleepState.consumeExpiration() { self.cancelSleepTimer(); return }
+                if shouldAdvance { self.onFinished?() }
             }
         }
         failedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
@@ -127,6 +163,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
 
     private func prepareReady(_ item: AVPlayerItem, token: UUID) {
+        guard itemID == token, player.currentItem === item, preparedItemID != token else { return }
+        preparedItemID = token
         isLoading = false
         let value = item.duration.seconds
         if value.isFinite && value > 0 { duration = value }
@@ -139,16 +177,21 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             guard let self, let item else { return }
             do {
                 let audio = try await item.asset.loadMediaSelectionGroup(for: .audible)
+                guard !Task.isCancelled, self.itemID == token, self.player.currentItem === item else { return }
                 let subtitles = try await item.asset.loadMediaSelectionGroup(for: .legible)
-                guard !Task.isCancelled, self.itemID == token else { return }
+                guard !Task.isCancelled, self.itemID == token, self.player.currentItem === item else { return }
                 self.audioGroup = audio; self.subtitleGroup = subtitles
                 self.audioTracks = (audio?.options ?? []).enumerated().map { MediaTrack(id: $0.offset, name: $0.element.displayName) }
                 self.subtitleTracks = (subtitles?.options ?? []).enumerated().map { MediaTrack(id: $0.offset, name: $0.element.displayName) }
                 if let audio, let selected = item.currentMediaSelection.selectedMediaOption(in: audio) {
                     self.selectedAudio = audio.options.firstIndex(of: selected) ?? -1
                 }
-                if let subtitles, let selected = item.currentMediaSelection.selectedMediaOption(in: subtitles) {
-                    self.selectedSubtitle = subtitles.options.firstIndex(of: selected) ?? -1
+                if let subtitles {
+                    if !self.cues.isEmpty {
+                        item.select(nil, in: subtitles); self.selectedSubtitle = -1
+                    } else if let selected = item.currentMediaSelection.selectedMediaOption(in: subtitles) {
+                        self.selectedSubtitle = subtitles.options.firstIndex(of: selected) ?? -1
+                    }
                 }
             } catch { /* Some sources expose no track groups. */ }
         }
@@ -166,7 +209,15 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     func pause() { wantsPlay = false; player.pause(); saveProgress() }
     func retry() {
         guard let url else { return }
-        open(url: url, title: title, episode: episodeName, resume: position)
+        let savedCues = cues, savedName = externalSubtitleName, savedOffset = subtitleOffset
+        // A failed item clears wantsPlay; retrying that failure still requests play.
+        // Normal paused retries retain their pause, including during preparation.
+        let shouldPlay = wantsPlay || error != nil
+        let resumePosition = desiredResume > 0 ? desiredResume : position
+        open(url: url, title: title, episode: episodeName, resume: resumePosition)
+        cues = savedCues; externalSubtitleName = savedName; subtitleOffset = savedOffset
+        wantsPlay = shouldPlay
+        if !shouldPlay { player.pause() }
     }
     func seek(to value: Double) {
         guard value.isFinite, player.currentItem != nil else { return }
@@ -186,13 +237,34 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         else { desiredResume = max(0, position) }
     }
     func skip(_ amount: Double) { seek(to: position + amount) }
-    func setRate(_ rate: Float) { self.rate = rate; if wantsPlay { player.rate = rate } }
+    func setRate(_ rate: Float) { self.rate = rate }
+    func toggleMute() { preferences.toggleMute(); volume = Float(preferences.volume) }
+    func adjustVolume(_ amount: Float) { volume += amount }
+    func scheduleSleepTimer(minutes: Int) {
+        guard sleepState.schedule(minutes: minutes) else { return }
+        sleepTimer?.invalidate()
+        sleepRemainingSeconds = sleepState.remainingSeconds()
+        let timer = Timer(timeInterval: 0.5, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.updateSleepTimer() }
+        }
+        sleepTimer = timer
+        RunLoop.main.add(timer, forMode: .common)
+    }
+    func cancelSleepTimer() {
+        sleepTimer?.invalidate(); sleepTimer = nil
+        sleepState.cancel(); sleepRemainingSeconds = nil
+    }
+    private func updateSleepTimer() {
+        if sleepState.consumeExpiration() {
+            pause(); cancelSleepTimer()
+        } else { sleepRemainingSeconds = sleepState.remainingSeconds() }
+    }
     func selectAudio(_ index: Int) {
         guard let group = audioGroup, group.options.indices.contains(index) else { return }
         player.currentItem?.select(group.options[index], in: group); selectedAudio = index
     }
     func selectSubtitle(_ index: Int) {
-        cues = []; externalSubtitleName = nil; subtitleText = ""
+        cues = []; externalSubtitleName = nil; subtitleText = ""; subtitleNotice = nil
         guard let group = subtitleGroup else { selectedSubtitle = -1; return }
         player.currentItem?.select(group.options.indices.contains(index) ? group.options[index] : nil, in: group)
         selectedSubtitle = index
@@ -201,10 +273,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         do {
             let text = try String(contentsOf: file, encoding: .utf8)
             let parsed = SubtitleParser.parse(text)
-            guard !parsed.isEmpty else { error = "没有识别到有效字幕。支持UTF-8编码的SRT、VTT和ASS文本字幕。"; return }
+            guard !parsed.isEmpty else { subtitleNotice = "没有识别到有效字幕。支持 UTF-8 编码的 SRT、VTT 和 ASS 文本字幕，当前影片会继续播放。"; return }
             if let group = subtitleGroup { player.currentItem?.select(nil, in: group) }
-            selectedSubtitle = -1; cues = parsed; externalSubtitleName = file.lastPathComponent
-        } catch { self.error = "无法读取字幕，请使用UTF-8编码的字幕文件。" }
+            selectedSubtitle = -1; cues = parsed; externalSubtitleName = file.lastPathComponent; subtitleNotice = nil
+        } catch { subtitleNotice = "无法读取字幕，请使用 UTF-8 编码的字幕文件，当前影片会继续播放。" }
     }
     nonisolated func legibleOutput(_ output: AVPlayerItemLegibleOutput, didOutputAttributedStrings strings: [NSAttributedString], nativeSampleBuffers: [Any], forItemTime itemTime: CMTime) {
         Task { @MainActor [weak self] in

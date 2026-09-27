@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-27T05:04:46.905950+00:00",
+  "version": "0.2.0",
+  "build": "2",
+  "signing": "ad-hoc; codesign --verify --deep --strict passed; not notarized",
+  "files": [
+    {
+      "path": "dist/映川.app/Contents/MacOS/Cinema",
+      "bytes": 3229296,
+      "sha256": "f40e1ace04c74ca5a7c783760ec33e3dc3413bedf9491d234f7263e3a4d0f7f5"
+    },
+    {
+      "path": "dist/映川-v0.2.0.zip",
+      "bytes": 1150493,
+      "sha256": "e165bf8b5874b69ca183c007ba6704c1946a47e47eec7cbd05fc91df21025f3d"
+    }
+  ]
+}

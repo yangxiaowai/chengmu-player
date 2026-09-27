@@ -1,0 +1,5462 @@
+{
+  "began_at": "2026-09-27T04:42:42.475304+00:00",
+  "status": "finished",
+  "maximum_parallel_network_requests": 3,
+  "request_timeout_seconds": 12,
+  "request_byte_limit": 2097152,
+  "maximum_media_bytes_per_sample": 8388608,
+  "requested_decode_seconds": 2,
+  "media_files_saved": false,
+  "in_app_playback_verified": false,
+  "content_identity_verified": false,
+  "full_episode_verified": false,
+  "licensing_verified": false,
+  "resolution_basis": "FFprobe stream metadata, with separate FFmpeg decoding; playlist declarations retained only as declarations",
+  "discovery_references": [
+    "docs/validation/higher-quality-source-research.md",
+    "https://github.com/zlinoliver/moontv/blob/main/config.json",
+    "https://github.com/hafrey1/LunaTV-config/blob/main/jin18.json"
+  ],
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "sources": [
+    {
+      "id": "ruyi",
+      "name": "如意目录",
+      "endpoint": "https://cj.rycjapi.com/api.php/provide/vod",
+      "checked_at": "2026-09-27T04:42:42.676770+00:00",
+      "api_checks": [
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=list&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=list&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 6945,
+          "sha256": "327209d2ba0582dc0105d590ae23fb2d1d83ab7a9662beb65d01bd8078fcdbd5",
+          "wall_seconds": 0.781,
+          "page": 1,
+          "pagecount": 4324,
+          "total": 86477,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 87016,
+              "vod_name": "超三联赛 成都和众22.15广东生涯20260925",
+              "type_id": 38,
+              "type_name": "篮球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87015,
+              "vod_name": "比利简金杯总决赛半决赛 博萨斯·马内罗0-2穆霍娃20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87014,
+              "vod_name": "WTA500新加坡站1.4决赛 王欣瑜1-2普罗佐洛娃20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87013,
+              "vod_name": "WTA500新加坡站1.4决赛 萨卡里1-2吉布森20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87012,
+              "vod_name": "知意归舟",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87011,
+              "vod_name": "WTA500新加坡站1.4决赛 梅尔滕斯0-2赫瓦林斯卡20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87010,
+              "vod_name": "WTA500新加坡站1.4决赛 安德列娃0-2费尔南德斯20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87009,
+              "vod_name": "WTA250首尔站1.4决赛 沃利内茨1-1比勒尔20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87008,
+              "vod_name": "WTA250首尔站1.4决赛 塔拉鲁迪0-2乔恩特20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87007,
+              "vod_name": "WTA250首尔站1.4决赛 邦达尔2-1鲁塞20260925",
+              "type_id": 39,
+              "type_name": "网球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87006,
+              "vod_name": "NBA经典赛事 雷霆vs湖人 G4 20260925",
+              "type_id": 38,
+              "type_name": "篮球",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87005,
+              "vod_name": "离婚后前夫后悔不已",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86783,
+              "vod_name": "长生契",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86002,
+              "vod_name": "南诏王",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86563,
+              "vod_name": "如期",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86072,
+              "vod_name": "云雀叫天录",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87002,
+              "vod_name": "大刑伺候",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86856,
+              "vod_name": "假面良人",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86712,
+              "vod_name": "法医秦明之天谴者",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87003,
+              "vod_name": "染指流年",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": null
+            }
+          ],
+          "purpose": "categories_and_health"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 144454,
+          "sha256": "869762967a4190c236d69361fca45ceebccb2c9a53d8ed872c3b58006d5f1e78",
+          "wall_seconds": 0.918,
+          "page": 1,
+          "pagecount": 18,
+          "total": 347,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 86896,
+              "vod_name": "爱情公式[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "1984"
+            },
+            {
+              "vod_id": 21541,
+              "vod_name": "爱情保卫战",
+              "type_id": 25,
+              "type_name": "大陆综艺",
+              "vod_year": "2010"
+            },
+            {
+              "vod_id": 86801,
+              "vod_name": "爱情假说",
+              "type_id": 7,
+              "type_name": "喜剧片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82663,
+              "vod_name": "爱情决胜点",
+              "type_id": 24,
+              "type_name": "泰国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82597,
+              "vod_name": "爱情来了2026",
+              "type_id": 15,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80683,
+              "vod_name": "爱情契约Knot",
+              "type_id": 24,
+              "type_name": "泰国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86031,
+              "vod_name": "黑莲花姐弟，整顿八零父母爱情",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 86027,
+              "vod_name": "德古拉：爱情故事",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 85710,
+              "vod_name": "爱情保险公司[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 85521,
+              "vod_name": "爱情麻辣烫[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "1999"
+            },
+            {
+              "vod_id": 84412,
+              "vod_name": "爱情盲选：英国篇第三季",
+              "type_id": 28,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83538,
+              "vod_name": "联姻之上，爱情未满",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 83422,
+              "vod_name": "爱情正路过",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82472,
+              "vod_name": "有毒爱情故事",
+              "type_id": 20,
+              "type_name": "记录片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80611,
+              "vod_name": "爱情盲选：阿根廷篇第二季",
+              "type_id": 28,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 69600,
+              "vod_name": "给你爱情处方",
+              "type_id": 15,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 78243,
+              "vod_name": "爱情同课程3",
+              "type_id": 15,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81743,
+              "vod_name": "速度与爱情[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2023"
+            },
+            {
+              "vod_id": 80717,
+              "vod_name": "第二次爱情短剧",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 80956,
+              "vod_name": "猛鬼爱情故事[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2011"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 89123,
+          "sha256": "66f5c2f3114c8028428e0665a3262d50de51a3d6aed9f5bf37c9623a526bddcd",
+          "wall_seconds": 1.415,
+          "page": 2,
+          "pagecount": 18,
+          "total": 347,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 79529,
+              "vod_name": "爱情有烟火",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80547,
+              "vod_name": "东北爱情往事2",
+              "type_id": 46,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 80503,
+              "vod_name": "爱情梦幻号[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "1999"
+            },
+            {
+              "vod_id": 77311,
+              "vod_name": "爱情盲选：波兰篇",
+              "type_id": 27,
+              "type_name": "日韩综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 78419,
+              "vod_name": "像我这样的爱情[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 78349,
+              "vod_name": "爱情抓马[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 78257,
+              "vod_name": "当爱情到来[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2021"
+            },
+            {
+              "vod_id": 75718,
+              "vod_name": "秒杀爱情",
+              "type_id": 15,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 77997,
+              "vod_name": "爱情啊，你姓什么？[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "1980"
+            },
+            {
+              "vod_id": 77752,
+              "vod_name": "爱情鹤顶红",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2025(未定)"
+            },
+            {
+              "vod_id": 77531,
+              "vod_name": "爱情抓马",
+              "type_id": 7,
+              "type_name": "喜剧片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 76096,
+              "vod_name": "爱情没有神话",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 76066,
+              "vod_name": "爱情天梯[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2013"
+            },
+            {
+              "vod_id": 71921,
+              "vod_name": "爱情单车",
+              "type_id": 24,
+              "type_name": "泰国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 75370,
+              "vod_name": "像我这样的爱情",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 75037,
+              "vod_name": "爱情导师2008[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2008"
+            },
+            {
+              "vod_id": 74572,
+              "vod_name": "爱情真可怕[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2012"
+            },
+            {
+              "vod_id": 70492,
+              "vod_name": "爱情盲选第十季",
+              "type_id": 28,
+              "type_name": "欧美综艺",
+              "vod_year": "2026(美国)"
+            },
+            {
+              "vod_id": 72749,
+              "vod_name": "爱情盲选：瑞典篇第3季",
+              "type_id": 28,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74086,
+              "vod_name": "爱情呼叫转移Ⅱ：爱情左右[电影解说]",
+              "type_id": 35,
+              "type_name": "电影解说",
+              "vod_year": "2008"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=9&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=9&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 55217,
+          "sha256": "528f5f04f755fd69182f917e8af49b82b1abf9e501fb2b4f192ffa0bb2178a9e",
+          "wall_seconds": 1.747,
+          "page": 1,
+          "pagecount": 40,
+          "total": 791,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 86648,
+              "vod_name": "心境之旅",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2024"
+            },
+            {
+              "vod_id": 85976,
+              "vod_name": "最后的刺客",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80066,
+              "vod_name": "疾患",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 79459,
+              "vod_name": "人格2025",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 77522,
+              "vod_name": "极限启航",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 75446,
+              "vod_name": "挽救计划",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 76650,
+              "vod_name": "寂静的朋友",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 76392,
+              "vod_name": "星河入梦",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 75024,
+              "vod_name": "最优路径",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74520,
+              "vod_name": "多重宇宙危机",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 67807,
+              "vod_name": "特殊检测",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025(中国大陆)"
+            },
+            {
+              "vod_id": 73287,
+              "vod_name": "异星迷航",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 72004,
+              "vod_name": "外星人2025",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 71997,
+              "vod_name": "太空异种",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 71782,
+              "vod_name": "眨眼之间",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 71778,
+              "vod_name": "未来之心",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 64725,
+              "vod_name": "狂野时代",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 71492,
+              "vod_name": "圣刃＋全开者 超级英雄战记",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2021"
+            },
+            {
+              "vod_id": 71374,
+              "vod_name": "玛丽亚的复仇",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2023"
+            },
+            {
+              "vod_id": 70095,
+              "vod_name": "星际变种",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            }
+          ],
+          "purpose": "browse_movie"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 101464,
+          "sha256": "bf551b21cc4b9531b60d5beca0feb9320c8de3f1b5d451b1116bbb5a6667e9bb",
+          "wall_seconds": 0.847,
+          "page": 1,
+          "pagecount": 202,
+          "total": 4024,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 86783,
+              "vod_name": "长生契",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86002,
+              "vod_name": "南诏王",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2023"
+            },
+            {
+              "vod_id": 86563,
+              "vod_name": "如期",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86072,
+              "vod_name": "云雀叫天录",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87002,
+              "vod_name": "大刑伺候",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86856,
+              "vod_name": "假面良人",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86712,
+              "vod_name": "法医秦明之天谴者",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87003,
+              "vod_name": "染指流年",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86778,
+              "vod_name": "今日宜偏爱2026",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87001,
+              "vod_name": "非你之物",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 84560,
+              "vod_name": "特战英雄榜",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2018"
+            },
+            {
+              "vod_id": 86069,
+              "vod_name": "请记住我的名字",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86997,
+              "vod_name": "征途2026",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86003,
+              "vod_name": "兰香如故",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86699,
+              "vod_name": "法医秦明之龙番往事",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86273,
+              "vod_name": "一瓯春",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86847,
+              "vod_name": "我不是大师",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86710,
+              "vod_name": "黑岛监狱",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86934,
+              "vod_name": "开标之战",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86498,
+              "vod_name": "行镖",
+              "type_id": 13,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_chinese_series"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=16&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=16&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 65811,
+          "sha256": "4c4940d810d6f940cb8663a40f2bc225e709080e1ac9b56149b004b2a811d4ad",
+          "wall_seconds": 0.664,
+          "page": 1,
+          "pagecount": 118,
+          "total": 2343,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 87000,
+              "vod_name": "保罗2026",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83640,
+              "vod_name": "林间鸽踪",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86808,
+              "vod_name": "莎士比亚与哈撒韦：私人调查员第六季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86933,
+              "vod_name": "我悲伤的逝者们",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86931,
+              "vod_name": "反恐特警组：放逐者",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83064,
+              "vod_name": "战斗之地",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86418,
+              "vod_name": "古战场传奇：吾血之亲第二季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86915,
+              "vod_name": "最后一案",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85050,
+              "vod_name": "人生复本第二季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83572,
+              "vod_name": "方舟一号第三季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82478,
+              "vod_name": "斯图尔特未能拯救宇宙",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86861,
+              "vod_name": "美国恐怖故事第十三季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82447,
+              "vod_name": "星际迷航：奇异新世界第四季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86417,
+              "vod_name": "万物生灵第七季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86379,
+              "vod_name": "黑帮领地第二季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86855,
+              "vod_name": "别样世界",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86262,
+              "vod_name": "侠女内莉",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86269,
+              "vod_name": "劣探德克尔第二季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 63194,
+              "vod_name": "神探默多克第十九季",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 86777,
+              "vod_name": "人身保护令",
+              "type_id": 16,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_overseas_series"
+        },
+        {
+          "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=30&pg=1",
+          "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&t=30&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 311739,
+          "sha256": "2df789cced66dff2b7730d2103d345e4e35d55e242a67999d7705431a073f652",
+          "wall_seconds": 1.202,
+          "page": 1,
+          "pagecount": 156,
+          "total": 3114,
+          "limit": 20,
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 74371,
+              "vod_name": "摩绪",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85644,
+              "vod_name": "假面骑士麦斯",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 69635,
+              "vod_name": "名侦探光之美少女！",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81043,
+              "vod_name": "魔法光源股份有限公司第二季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81560,
+              "vod_name": "花织同学转生后还是想干架",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80997,
+              "vod_name": "成长秀～向日葵马戏团～",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86998,
+              "vod_name": "野生的大魔王出现了！第二季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74300,
+              "vod_name": "入间同学入魔了！第四季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 19145,
+              "vod_name": "名侦探柯南",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "1996"
+            },
+            {
+              "vod_id": 85620,
+              "vod_name": "怪兽8号鸣海的日常",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74310,
+              "vod_name": "小书痴的下克上领主的养女",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81329,
+              "vod_name": "不虐待我的继母与继姐",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80998,
+              "vod_name": "提欧奥特曼",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80987,
+              "vod_name": "我家的弟弟们真是让您费心了",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82007,
+              "vod_name": "擅长逃跑的殿下第二季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80990,
+              "vod_name": "地狱模式～喜欢速通游戏的玩家在废设定异世界无双～第2季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80985,
+              "vod_name": "描绘直至生命尽头",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74220,
+              "vod_name": "关于我转生变成史莱姆这档事第四季",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 25104,
+              "vod_name": "宝可梦地平线",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2023"
+            },
+            {
+              "vod_id": 86932,
+              "vod_name": "魔法★探险家",
+              "type_id": 30,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_animation"
+        }
+      ],
+      "samples": [
+        {
+          "category_group": "movie",
+          "query": "流浪地球",
+          "category": {
+            "type_id": 9,
+            "type_pid": 1,
+            "type_name": "科幻片"
+          },
+          "search": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 19507,
+            "sha256": "fa741c949a96a5e1aef36527a393312810ce7ef5bfb610cd97cb6fd4bf2538ca",
+            "wall_seconds": 0.569,
+            "page": 1,
+            "pagecount": 1,
+            "total": 5,
+            "limit": 20,
+            "item_count": 5,
+            "items": [
+              {
+                "vod_id": 35942,
+                "vod_name": "流浪地球[电影解说]",
+                "type_id": 35,
+                "type_name": "电影解说",
+                "vod_year": "2019"
+              },
+              {
+                "vod_id": 32300,
+                "vod_name": "流浪地球2[电影解说]",
+                "type_id": 35,
+                "type_name": "电影解说",
+                "vod_year": "2023"
+              },
+              {
+                "vod_id": 26675,
+                "vod_name": "流浪地球2：再次冒险",
+                "type_id": 20,
+                "type_name": "记录片",
+                "vod_year": "2024"
+              },
+              {
+                "vod_id": 15971,
+                "vod_name": "流浪地球",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              },
+              {
+                "vod_id": 6573,
+                "vod_name": "流浪地球2",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2023"
+              }
+            ]
+          },
+          "catalog_id": "15971",
+          "catalog_title": "流浪地球",
+          "year": "2019",
+          "type_name": "科幻片",
+          "detail": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=15971",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=15971",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3982,
+            "sha256": "1bcd4467577b2097b70df29a3214a7a70cc698b800e61d652d144c711ad27609",
+            "wall_seconds": 0.63,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": 20,
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 15971,
+                "vod_name": "流浪地球",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              }
+            ]
+          },
+          "line": "rym3u8",
+          "episode_count": 1,
+          "episode": "HD中字",
+          "hls_url": "https://cdn1.ryplay1.com/20240909/7654_11abb47d/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: invalid literal for int() with base 10: 'N/A'"
+        },
+        {
+          "category_group": "chinese_series",
+          "query": "琅琊榜",
+          "category": {
+            "type_id": 13,
+            "type_pid": 2,
+            "type_name": "国产剧"
+          },
+          "search": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 25503,
+            "sha256": "aa9bb3b43505a22d3841505c1650a58212a5dba337337f1a68e47748cfdbe20e",
+            "wall_seconds": 0.749,
+            "page": 1,
+            "pagecount": 1,
+            "total": 3,
+            "limit": 20,
+            "item_count": 3,
+            "items": [
+              {
+                "vod_id": 30441,
+                "vod_name": "琅琊榜[电影解说]",
+                "type_id": 35,
+                "type_name": "电影解说",
+                "vod_year": "2015"
+              },
+              {
+                "vod_id": 11751,
+                "vod_name": "琅琊榜",
+                "type_id": 13,
+                "type_name": "国产剧",
+                "vod_year": "2015"
+              },
+              {
+                "vod_id": 3185,
+                "vod_name": "琅琊榜之风起长林",
+                "type_id": 13,
+                "type_name": "国产剧",
+                "vod_year": "2017"
+              }
+            ]
+          },
+          "catalog_id": "11751",
+          "catalog_title": "琅琊榜",
+          "year": "2015",
+          "type_name": "国产剧",
+          "detail": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=11751",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=11751",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 11039,
+            "sha256": "399c1775d3d3f6068388fdfe9b9aa09c22fa8eda8e54786b3f6c4132f41c9d5c",
+            "wall_seconds": 0.55,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": 20,
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 11751,
+                "vod_name": "琅琊榜",
+                "type_id": 13,
+                "type_name": "国产剧",
+                "vod_year": "2015"
+              }
+            ]
+          },
+          "line": "rym3u8",
+          "episode_count": 54,
+          "episode": "第01集",
+          "hls_url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/index.m3u8",
+                "final_url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 96,
+                "sha256": "8dcb4487f749170253b047ccb7bccf0c27840bbec81dc084d77687efcdd9b105",
+                "wall_seconds": 1.065,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+                ]
+              },
+              {
+                "url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/2000k/hls/index.m3u8",
+                "final_url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/2000k/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 38492,
+                "sha256": "0c7972ed849d69a989f2d1e928bacdf2c58217293d51902472520ad48390204e",
+                "wall_seconds": 2.279,
+                "segment_count": 659,
+                "endlist": true,
+                "declared_duration_seconds": 2637.84
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/2000k/hls/4a709d6194c8480e2d5d83240c5a0090.ts",
+                "final_url": "https://cdn3.ryplay3.com/20240901/32158_ca03e426/2000k/hls/4a709d6194c8480e2d5d83240c5a0090.ts",
+                "http_status": 206,
+                "content_type": "video/mp2t",
+                "bytes_read": 600660,
+                "sha256": "dddd5cc5f67e7bd0246861aa5ebd792e174ec11d4322e40f611d59444bad146b",
+                "wall_seconds": 2.471,
+                "declared_duration_seconds": 5.8
+              }
+            ],
+            "media_bytes_read": 600660,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1080,
+                "height": 606,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "44100",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 48,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        },
+        {
+          "category_group": "overseas_series",
+          "query": "怪奇物语第一季",
+          "category": {
+            "type_id": 16,
+            "type_pid": 2,
+            "type_name": "欧美剧"
+          },
+          "search": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 4339,
+            "sha256": "87a09d99c90a4d4ce31230df1d5bebce6f9e6293c98aa0a0ced2ebabfc3347ea",
+            "wall_seconds": 0.63,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": 20,
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 26019,
+                "vod_name": "怪奇物语第一季",
+                "type_id": 16,
+                "type_name": "欧美剧",
+                "vod_year": "2016"
+              }
+            ]
+          },
+          "catalog_id": "26019",
+          "catalog_title": "怪奇物语第一季",
+          "year": "2016",
+          "type_name": "欧美剧",
+          "detail": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=26019",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=26019",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 4339,
+            "sha256": "87a09d99c90a4d4ce31230df1d5bebce6f9e6293c98aa0a0ced2ebabfc3347ea",
+            "wall_seconds": 0.544,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": 20,
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 26019,
+                "vod_name": "怪奇物语第一季",
+                "type_id": 16,
+                "type_name": "欧美剧",
+                "vod_year": "2016"
+              }
+            ]
+          },
+          "line": "rym3u8",
+          "episode_count": 8,
+          "episode": "第01集",
+          "hls_url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/index.m3u8",
+                "final_url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 96,
+                "sha256": "8dcb4487f749170253b047ccb7bccf0c27840bbec81dc084d77687efcdd9b105",
+                "wall_seconds": 0.726,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+                ]
+              },
+              {
+                "url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/2000k/hls/index.m3u8",
+                "final_url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/2000k/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 41801,
+                "sha256": "4d99d361a55c26209ecee84e116c7b88bbb1fcd141a792fd5299621584cabc1b",
+                "wall_seconds": 1.099,
+                "segment_count": 716,
+                "endlist": true,
+                "declared_duration_seconds": 2865.990182
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/2000k/hls/c5cc5b26db3403fd3c68c36bb4b4468f.ts",
+                "final_url": "https://cdn7.ryplay7.com/20241027/5998_f0eb5aa5/2000k/hls/c5cc5b26db3403fd3c68c36bb4b4468f.ts",
+                "http_status": 206,
+                "content_type": "video/mp2t",
+                "bytes_read": 267524,
+                "sha256": "a9feb3496b0f287ede2f727477455de807a636545c26a3f91fb121fcf4fdef14",
+                "wall_seconds": 1.1,
+                "declared_duration_seconds": 4.170833
+              }
+            ],
+            "media_bytes_read": 267524,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1080,
+                "height": 606,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "44100",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 46,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        },
+        {
+          "category_group": "animation",
+          "query": "火影忍者",
+          "category": {
+            "type_id": 30,
+            "type_pid": 4,
+            "type_name": "日韩动漫"
+          },
+          "search": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 228569,
+            "sha256": "2db443993435aba596884f40bdfa83157cd233d4538dabbbb13f70be0454f3ec",
+            "wall_seconds": 1.562,
+            "page": 1,
+            "pagecount": 1,
+            "total": 7,
+            "limit": 20,
+            "item_count": 7,
+            "items": [
+              {
+                "vod_id": 42151,
+                "vod_name": "火影忍者剧场版：忍者之路",
+                "type_id": 47,
+                "type_name": "动画电影",
+                "vod_year": "2024"
+              },
+              {
+                "vod_id": 39289,
+                "vod_name": "火影忍者疾风传",
+                "type_id": 30,
+                "type_name": "日韩动漫",
+                "vod_year": "2007"
+              },
+              {
+                "vod_id": 39129,
+                "vod_name": "火影忍者",
+                "type_id": 30,
+                "type_name": "日韩动漫",
+                "vod_year": "2002"
+              },
+              {
+                "vod_id": 19128,
+                "vod_name": "火影忍者",
+                "type_id": 30,
+                "type_name": "日韩动漫",
+                "vod_year": "2002"
+              },
+              {
+                "vod_id": 23827,
+                "vod_name": "火影忍者剧场版：博人传",
+                "type_id": 47,
+                "type_name": "动画电影",
+                "vod_year": "2016"
+              },
+              {
+                "vod_id": 18258,
+                "vod_name": "火影忍者剧场版：终章",
+                "type_id": 47,
+                "type_name": "动画电影",
+                "vod_year": "2014"
+              },
+              {
+                "vod_id": 17539,
+                "vod_name": "火影忍者疾风 鼬真传篇~光与暗~",
+                "type_id": 30,
+                "type_name": "日韩动漫",
+                "vod_year": "2016"
+              }
+            ]
+          },
+          "catalog_id": "39129",
+          "catalog_title": "火影忍者",
+          "year": "2002",
+          "type_name": "日韩动漫",
+          "detail": {
+            "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=39129",
+            "final_url": "https://cj.rycjapi.com/api.php/provide/vod?ac=detail&ids=39129",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 35694,
+            "sha256": "c4685360ecc4cbdab83c03fd875ca70b1153a722222f87eda709fe9f11eed792",
+            "wall_seconds": 1.829,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": 20,
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 39129,
+                "vod_name": "火影忍者",
+                "type_id": 30,
+                "type_name": "日韩动漫",
+                "vod_year": "2002"
+              }
+            ]
+          },
+          "line": "rym3u8",
+          "episode_count": 220,
+          "episode": "第01集",
+          "hls_url": "https://cdn7.ryplay7.com/20250405/12099_18788228/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://cdn7.ryplay7.com/20250405/12099_18788228/index.m3u8",
+                "final_url": "https://cdn7.ryplay7.com/20250405/12099_18788228/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 96,
+                "sha256": "8dcb4487f749170253b047ccb7bccf0c27840bbec81dc084d77687efcdd9b105",
+                "wall_seconds": 0.884,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+                ]
+              },
+              {
+                "url": "https://cdn7.ryplay7.com/20250405/12099_18788228/2000k/hls/index.m3u8",
+                "final_url": "https://cdn7.ryplay7.com/20250405/12099_18788228/2000k/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 21071,
+                "sha256": "c6c3ac7c6affdd7c204c133018de8f3c0b868d395ca10e386feca173d2f60e22",
+                "wall_seconds": 0.672,
+                "segment_count": 364,
+                "endlist": true,
+                "declared_duration_seconds": 1452.244363
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://cdn7.ryplay7.com/20250405/12099_18788228/2000k/hls/c8ab2ea1da7b3efd178734d172601576.ts",
+                "final_url": "https://cdn7.ryplay7.com/20250405/12099_18788228/2000k/hls/c8ab2ea1da7b3efd178734d172601576.ts",
+                "http_status": 206,
+                "content_type": "video/mp2t",
+                "bytes_read": 648976,
+                "sha256": "9d819f189f1d3a1994fb74b4ce3a8f9afe85544a18f74138801ca3023580f787",
+                "wall_seconds": 1.843,
+                "declared_duration_seconds": 6.6066
+              }
+            ],
+            "media_bytes_read": 648976,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1080,
+                "height": 606,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "44100",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 58,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 1,
+          "type_pid": 0,
+          "type_name": "电影片"
+        },
+        {
+          "type_id": 2,
+          "type_pid": 0,
+          "type_name": "连续剧"
+        },
+        {
+          "type_id": 3,
+          "type_pid": 0,
+          "type_name": "综艺片"
+        },
+        {
+          "type_id": 4,
+          "type_pid": 0,
+          "type_name": "动漫片"
+        },
+        {
+          "type_id": 6,
+          "type_pid": 1,
+          "type_name": "动作片"
+        },
+        {
+          "type_id": 7,
+          "type_pid": 1,
+          "type_name": "喜剧片"
+        },
+        {
+          "type_id": 8,
+          "type_pid": 1,
+          "type_name": "爱情片"
+        },
+        {
+          "type_id": 9,
+          "type_pid": 1,
+          "type_name": "科幻片"
+        },
+        {
+          "type_id": 10,
+          "type_pid": 1,
+          "type_name": "恐怖片"
+        },
+        {
+          "type_id": 11,
+          "type_pid": 1,
+          "type_name": "剧情片"
+        },
+        {
+          "type_id": 12,
+          "type_pid": 1,
+          "type_name": "战争片"
+        },
+        {
+          "type_id": 13,
+          "type_pid": 2,
+          "type_name": "国产剧"
+        },
+        {
+          "type_id": 14,
+          "type_pid": 2,
+          "type_name": "香港剧"
+        },
+        {
+          "type_id": 15,
+          "type_pid": 2,
+          "type_name": "韩国剧"
+        },
+        {
+          "type_id": 16,
+          "type_pid": 2,
+          "type_name": "欧美剧"
+        },
+        {
+          "type_id": 20,
+          "type_pid": 1,
+          "type_name": "记录片"
+        },
+        {
+          "type_id": 21,
+          "type_pid": 2,
+          "type_name": "台湾剧"
+        },
+        {
+          "type_id": 22,
+          "type_pid": 2,
+          "type_name": "日本剧"
+        },
+        {
+          "type_id": 23,
+          "type_pid": 2,
+          "type_name": "海外剧"
+        },
+        {
+          "type_id": 24,
+          "type_pid": 2,
+          "type_name": "泰国剧"
+        },
+        {
+          "type_id": 25,
+          "type_pid": 3,
+          "type_name": "大陆综艺"
+        },
+        {
+          "type_id": 26,
+          "type_pid": 3,
+          "type_name": "港台综艺"
+        },
+        {
+          "type_id": 27,
+          "type_pid": 3,
+          "type_name": "日韩综艺"
+        },
+        {
+          "type_id": 28,
+          "type_pid": 3,
+          "type_name": "欧美综艺"
+        },
+        {
+          "type_id": 29,
+          "type_pid": 4,
+          "type_name": "国产动漫"
+        },
+        {
+          "type_id": 30,
+          "type_pid": 4,
+          "type_name": "日韩动漫"
+        },
+        {
+          "type_id": 31,
+          "type_pid": 4,
+          "type_name": "欧美动漫"
+        },
+        {
+          "type_id": 32,
+          "type_pid": 4,
+          "type_name": "港台动漫"
+        },
+        {
+          "type_id": 33,
+          "type_pid": 4,
+          "type_name": "海外动漫"
+        },
+        {
+          "type_id": 34,
+          "type_pid": 1,
+          "type_name": "伦理片"
+        },
+        {
+          "type_id": 35,
+          "type_pid": 0,
+          "type_name": "电影解说"
+        },
+        {
+          "type_id": 36,
+          "type_pid": 0,
+          "type_name": "体育"
+        },
+        {
+          "type_id": 37,
+          "type_pid": 36,
+          "type_name": "足球"
+        },
+        {
+          "type_id": 38,
+          "type_pid": 36,
+          "type_name": "篮球"
+        },
+        {
+          "type_id": 39,
+          "type_pid": 36,
+          "type_name": "网球"
+        },
+        {
+          "type_id": 40,
+          "type_pid": 36,
+          "type_name": "斯诺克"
+        },
+        {
+          "type_id": 45,
+          "type_pid": 1,
+          "type_name": "预告片"
+        },
+        {
+          "type_id": 46,
+          "type_pid": 2,
+          "type_name": "短剧"
+        },
+        {
+          "type_id": 47,
+          "type_pid": 1,
+          "type_name": "动画电影"
+        }
+      ],
+      "search_pages_have_distinct_ids": true,
+      "search_page_overlap_count": 0,
+      "short_decode_passes": 3,
+      "eligible_default_candidate": true
+    },
+    {
+      "id": "mdzy",
+      "name": "魔都目录",
+      "endpoint": "https://www.mdzyapi.com/api.php/provide/vod",
+      "checked_at": "2026-09-27T04:42:42.676871+00:00",
+      "api_checks": [
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=list&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=list&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 6568,
+          "sha256": "7bafe9ca669c7bedc239cf6afeafe63206e483989a27729fca662b8006575ca7",
+          "wall_seconds": 1.108,
+          "page": "1",
+          "pagecount": 4467,
+          "total": 89321,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 90321,
+              "vod_name": "掀桌退婚：保安男友身份藏不住了",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 89998,
+              "vod_name": "如期",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90225,
+              "vod_name": "假面良人",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90320,
+              "vod_name": "我直播间的emo客户",
+              "type_id": 42,
+              "type_name": "AI漫剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 9173,
+              "vod_name": "非你莫属",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90319,
+              "vod_name": "我海洛薇兹，在韩国贵族学院假扮千金",
+              "type_id": 42,
+              "type_name": "AI漫剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 79784,
+              "vod_name": "职来职往2026",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87467,
+              "vod_name": "一路向海的少年",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86762,
+              "vod_name": "一饭封神第二季",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87282,
+              "vod_name": "心动的信号第九季",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 82918,
+              "vod_name": "笑动剧场2026",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90318,
+              "vod_name": "团圆令",
+              "type_id": 5,
+              "type_name": "动漫电影",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87207,
+              "vod_name": "太古神尊",
+              "type_id": 1,
+              "type_name": "国产动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 89222,
+              "vod_name": "死亡（青春）游戏",
+              "type_id": 31,
+              "type_name": "日本剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 89168,
+              "vod_name": "深渊之上",
+              "type_id": 1,
+              "type_name": "国产动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 87400,
+              "vod_name": "你的天空～晴转恋～",
+              "type_id": 31,
+              "type_name": "日本剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 86962,
+              "vod_name": "开始奏乐开始舞",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90168,
+              "vod_name": "甲武神",
+              "type_id": 1,
+              "type_name": "国产动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 83128,
+              "vod_name": "欢乐集结号2026",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 90107,
+              "vod_name": "黑岛监狱",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": null
+            }
+          ],
+          "purpose": "categories_and_health"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 93445,
+          "sha256": "be08e9a9d4594bf6fa9a8fdce695a0a3d44562bcdca11febaed6a64cb7b4cd9d",
+          "wall_seconds": 0.768,
+          "page": "1",
+          "pagecount": 9,
+          "total": 165,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 8766,
+              "vod_name": "爱情保卫战",
+              "type_id": 34,
+              "type_name": "大陆综艺",
+              "vod_year": "2010"
+            },
+            {
+              "vod_id": 90117,
+              "vod_name": "爱情假说",
+              "type_id": 11,
+              "type_name": "喜剧片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86932,
+              "vod_name": "爱情来了2026",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86963,
+              "vod_name": "爱情决胜点",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 89771,
+              "vod_name": "爱情上升期",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85438,
+              "vod_name": "爱情契约",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 88402,
+              "vod_name": "爱情小狗牵第三季",
+              "type_id": 32,
+              "type_name": "海外剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87598,
+              "vod_name": "爱情正路过",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83662,
+              "vod_name": "爱情同课程3",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85477,
+              "vod_name": "爱情盲选：阿根廷篇第二季",
+              "type_id": 37,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 84575,
+              "vod_name": "爱情有烟火",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82786,
+              "vod_name": "爱情盲选：波兰篇",
+              "type_id": 37,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 83267,
+              "vod_name": "爱情鹤顶红",
+              "type_id": 15,
+              "type_name": "剧情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 82017,
+              "vod_name": "爱情没有神话",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82432,
+              "vod_name": "爱情抓马",
+              "type_id": 12,
+              "type_name": "爱情片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81535,
+              "vod_name": "爱情啊，结果都那样",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 77948,
+              "vod_name": "爱情单车",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 76602,
+              "vod_name": "爱情故事：小约翰·肯尼迪与卡罗琳·贝塞特",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 79198,
+              "vod_name": "爱情咖啡师",
+              "type_id": 11,
+              "type_name": "喜剧片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 77087,
+              "vod_name": "爱情恐惧症",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 67500,
+          "sha256": "ad3adf6874b765f83a3a050cebb0db08b7ced3ff7b696f07a2ec82c2a2bfb886",
+          "wall_seconds": 0.777,
+          "page": "2",
+          "pagecount": 9,
+          "total": 165,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 76676,
+              "vod_name": "爱情面包屑",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 75822,
+              "vod_name": "爱情坐标",
+              "type_id": 11,
+              "type_name": "喜剧片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 74086,
+              "vod_name": "爱情怎么翻译？",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 66747,
+              "vod_name": "爱情的理解",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2022"
+            },
+            {
+              "vod_id": 65561,
+              "vod_name": "爱情重启",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 63271,
+              "vod_name": "爱情外卖",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 59271,
+              "vod_name": "爱情重拍中",
+              "type_id": 30,
+              "type_name": "台湾剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 56003,
+              "vod_name": "爱情季节",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 51835,
+              "vod_name": "爱情发芽中",
+              "type_id": 28,
+              "type_name": "韩国剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 53128,
+              "vod_name": "爱情坠落的那天",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 53413,
+              "vod_name": "爱情有约",
+              "type_id": 12,
+              "type_name": "爱情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 50599,
+              "vod_name": "爱情现状",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 50870,
+              "vod_name": "爱情转移",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 45306,
+              "vod_name": "爱情猎杀",
+              "type_id": 33,
+              "type_name": "泰国剧",
+              "vod_year": "2024"
+            },
+            {
+              "vod_id": 49979,
+              "vod_name": "爱情近在咫尺",
+              "type_id": 38,
+              "type_name": "短剧",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 49718,
+              "vod_name": "爱情神话2021",
+              "type_id": 15,
+              "type_name": "剧情片",
+              "vod_year": "2021"
+            },
+            {
+              "vod_id": 47101,
+              "vod_name": "爱情诅咒",
+              "type_id": 12,
+              "type_name": "爱情片",
+              "vod_year": "2019"
+            },
+            {
+              "vod_id": 47100,
+              "vod_name": "爱情与灵药",
+              "type_id": 15,
+              "type_name": "剧情片",
+              "vod_year": "2010"
+            },
+            {
+              "vod_id": 47099,
+              "vod_name": "爱情税",
+              "type_id": 12,
+              "type_name": "爱情片",
+              "vod_year": "2018"
+            },
+            {
+              "vod_id": 47098,
+              "vod_name": "爱情是什么",
+              "type_id": 15,
+              "type_name": "剧情片",
+              "vod_year": "2018"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 42578,
+          "sha256": "d95d3b4c77ba2e8d760e0b665a04210810eb75bc7100942027cc432d8232c447",
+          "wall_seconds": 0.486,
+          "page": "1",
+          "pagecount": 28,
+          "total": 551,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 90235,
+              "vod_name": "罪火焦点",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87464,
+              "vod_name": "灵魂伴侣2026",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86696,
+              "vod_name": "揭秘日",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86519,
+              "vod_name": "荒漠异形",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 82222,
+              "vod_name": "星河入梦",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 84470,
+              "vod_name": "人格2025",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 81468,
+              "vod_name": "惊奇少女",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81330,
+              "vod_name": "不可触碰",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81299,
+              "vod_name": "侵入",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81245,
+              "vod_name": "金箍上的裂痕",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81167,
+              "vod_name": "完美的一天",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 81098,
+              "vod_name": "暗流低语",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 80986,
+              "vod_name": "我的学姐是青蛇",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80930,
+              "vod_name": "最优路径",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80669,
+              "vod_name": "致命解药",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80555,
+              "vod_name": "守护游戏",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 77900,
+              "vod_name": "太空异种",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 77622,
+              "vod_name": "未来之心",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 71747,
+              "vod_name": "杀戮循环",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 71734,
+              "vod_name": "玩具熊的五夜惊魂2",
+              "type_id": 13,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            }
+          ],
+          "purpose": "browse_movie"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=26&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=26&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 69839,
+          "sha256": "5efd6eeba833cf576baddfc7d7e40eb1c47c27be2176e98b374f22a1e4dc0469",
+          "wall_seconds": 0.769,
+          "page": "1",
+          "pagecount": 240,
+          "total": 4799,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 89998,
+              "vod_name": "如期",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90225,
+              "vod_name": "假面良人",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90107,
+              "vod_name": "黑岛监狱",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90045,
+              "vod_name": "亲亲客栈不能亲",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90123,
+              "vod_name": "破浪·十年",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90120,
+              "vod_name": "今日宜偏爱",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90293,
+              "vod_name": "征途",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89109,
+              "vod_name": "末誓",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89276,
+              "vod_name": "请记住我的名字",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 88491,
+              "vod_name": "特战英雄榜",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2018"
+            },
+            {
+              "vod_id": 89508,
+              "vod_name": "兰香如故",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90052,
+              "vod_name": "法医秦明之龙番往事",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90171,
+              "vod_name": "我不是大师",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89814,
+              "vod_name": "一瓯春",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89652,
+              "vod_name": "云雀叫天录",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89513,
+              "vod_name": "南诏王",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2023"
+            },
+            {
+              "vod_id": 90167,
+              "vod_name": "长生契",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90287,
+              "vod_name": "开标之战",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89960,
+              "vod_name": "行镖",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90109,
+              "vod_name": "法医秦明之天谴者",
+              "type_id": 26,
+              "type_name": "国产剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_chinese_series"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=29&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=29&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 52426,
+          "sha256": "393ec12d46df8c91434a8adf52ea57c66ff085192f1c88dabafe65f775c43940",
+          "wall_seconds": 1.741,
+          "page": "1",
+          "pagecount": 269,
+          "total": 5372,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 90291,
+              "vod_name": "零号街区",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90285,
+              "vod_name": "慢投垒球",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 90283,
+              "vod_name": "反恐特警组：放逐者",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 87791,
+              "vod_name": "战斗之地",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87281,
+              "vod_name": "方舟一号第三季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 88719,
+              "vod_name": "人生复本第二季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89869,
+              "vod_name": "万物生灵第七季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89866,
+              "vod_name": "黑帮领地第二季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90228,
+              "vod_name": "美国恐怖故事第十三季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86825,
+              "vod_name": "斯图尔特未能拯救宇宙",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 90173,
+              "vod_name": "别样世界",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 86761,
+              "vod_name": "星际迷航：奇异新世界第四季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90170,
+              "vod_name": "莎士比亚与哈撒韦：私人调查员第六季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90119,
+              "vod_name": "失忆医生第三季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89767,
+              "vod_name": "劣探德克尔第二季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89765,
+              "vod_name": "毒潮：白粉飞纪事",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 90115,
+              "vod_name": "密涅瓦学院",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 89764,
+              "vod_name": "流人第六季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 87529,
+              "vod_name": "足球教练第四季",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 90112,
+              "vod_name": "无间兄弟情",
+              "type_id": 29,
+              "type_name": "欧美剧",
+              "vod_year": "2026–"
+            }
+          ],
+          "purpose": "browse_overseas_series"
+        },
+        {
+          "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=2&pg=1",
+          "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&t=2&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 243304,
+          "sha256": "42ca2aa8b61c660c8a17828e15d9d78b4aeeb5482608856267cc76ebda6b788c",
+          "wall_seconds": 2.163,
+          "page": "1",
+          "pagecount": 224,
+          "total": 4462,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 85699,
+              "vod_name": "成长秀～向日葵马戏团～",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86131,
+              "vod_name": "花织同学转生后还是想干架",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 2718,
+              "vod_name": "名侦探柯南国语版",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "1996"
+            },
+            {
+              "vod_id": 90294,
+              "vod_name": "野生的大魔王出现了！第二季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80346,
+              "vod_name": "入间同学入魔了！第四季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 89171,
+              "vod_name": "怪兽8号 鸣海的日常",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 2668,
+              "vod_name": "名侦探柯南日语版",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "1996"
+            },
+            {
+              "vod_id": 86507,
+              "vod_name": "擅长逃跑的殿下第二季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85596,
+              "vod_name": "描绘直至生命尽头",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85595,
+              "vod_name": "地狱模式 喜欢速通游戏的玩家在废设定异世界无双第二季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85597,
+              "vod_name": "我家的弟弟们真是让您费心了",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85921,
+              "vod_name": "不虐待我的继母与继姐",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 80267,
+              "vod_name": "关于我转生变成史莱姆这档事第四季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85546,
+              "vod_name": "尼古喵喵",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 79110,
+              "vod_name": "JOJO的奇妙冒险 飙马野郎",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026–"
+            },
+            {
+              "vod_id": 85548,
+              "vod_name": "被追放的转生重骑士用游戏知识开无双",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 86094,
+              "vod_name": "梅比乌斯之尘",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85841,
+              "vod_name": "与你相恋到生命尽头",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85592,
+              "vod_name": "令和的斑小姐",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 85981,
+              "vod_name": "乡下大叔成为剑圣第二季",
+              "type_id": 2,
+              "type_name": "日韩动漫",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_animation"
+        }
+      ],
+      "samples": [
+        {
+          "category_group": "movie",
+          "query": "流浪地球",
+          "category": {
+            "type_id": 13,
+            "type_pid": 7,
+            "type_name": "科幻片"
+          },
+          "search": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 14075,
+            "sha256": "f7f99e67d547681c28c1490e25b2ba83b7beed67b0a7b5a67b5f5c1581ce96be",
+            "wall_seconds": 0.412,
+            "page": "1",
+            "pagecount": 1,
+            "total": 4,
+            "limit": "20",
+            "item_count": 4,
+            "items": [
+              {
+                "vod_id": 43165,
+                "vod_name": "流浪地球之大夏战狼",
+                "type_id": 38,
+                "type_name": "短剧",
+                "vod_year": "2024"
+              },
+              {
+                "vod_id": 35125,
+                "vod_name": "流浪地球2",
+                "type_id": 13,
+                "type_name": "科幻片",
+                "vod_year": "2023"
+              },
+              {
+                "vod_id": 35115,
+                "vod_name": "流浪地球(特别版)",
+                "type_id": 13,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              },
+              {
+                "vod_id": 20148,
+                "vod_name": "流浪地球",
+                "type_id": 13,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              }
+            ]
+          },
+          "catalog_id": "20148",
+          "catalog_title": "流浪地球",
+          "year": "2019",
+          "type_name": "科幻片",
+          "detail": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=20148",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=20148",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3635,
+            "sha256": "42692de720000085df7dc3564de26d1ffd1215c41a20e3e4f43c4ed5d3b37bb8",
+            "wall_seconds": 0.576,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 20148,
+                "vod_name": "流浪地球",
+                "type_id": 13,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              }
+            ]
+          },
+          "line": "modum3u8",
+          "episode_count": 1,
+          "episode": "正片",
+          "hls_url": "https://play.modujx14.com/20240810/BNufXSvw/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://play.modujx14.com/20240810/BNufXSvw/index.m3u8",
+                "final_url": "https://play.modujx14.com/20240810/BNufXSvw/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 99,
+                "sha256": "4738a80041a2a1921ed43cf6639a10672246cb9860a6101e0a68fb8580c6902a",
+                "wall_seconds": 1.087,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2105000,RESOLUTION=1920x756"
+                ]
+              },
+              {
+                "url": "https://play.modujx14.com/20240810/BNufXSvw/2105kb/hls/index.m3u8",
+                "final_url": "https://play.modujx14.com/20240810/BNufXSvw/2105kb/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegurl",
+                "bytes_read": 311507,
+                "sha256": "93c444d503d9a2ccb7188b5ef97772f0875f742bf51507fd684c0cfec2075f40",
+                "wall_seconds": 2.451,
+                "segment_count": 3849,
+                "endlist": true,
+                "declared_duration_seconds": 7694.908
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://bf.modujx14.com/20240810/BNufXSvw/2105kb/hls/7nsE53a3.ts",
+                "final_url": "https://bf.modujx14.com/20240810/BNufXSvw/2105kb/hls/7nsE53a3.ts",
+                "http_status": 206,
+                "content_type": "application/octet-stream",
+                "bytes_read": 400628,
+                "sha256": "e8fd9d78997663eb5a8a9af67ac27910217c1730f4d158ece8e476f1433b9c07",
+                "wall_seconds": 2.07,
+                "declared_duration_seconds": 2.083
+              },
+              {
+                "url": "https://bf.modujx14.com/20240810/BNufXSvw/2105kb/hls/lohEttHP.ts",
+                "final_url": "https://bf.modujx14.com/20240810/BNufXSvw/2105kb/hls/lohEttHP.ts",
+                "http_status": 206,
+                "content_type": "application/octet-stream",
+                "bytes_read": 244024,
+                "sha256": "d2f17c43cba844882d830755b64c2a101c8f68bbe5a990418acb13e610b9b9a4",
+                "wall_seconds": 1.684,
+                "declared_duration_seconds": 2.083
+              }
+            ],
+            "media_bytes_read": 644652,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 756,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "44100",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 46,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        },
+        {
+          "category_group": "chinese_series",
+          "query": "琅琊榜",
+          "category": {
+            "type_id": 26,
+            "type_pid": 8,
+            "type_name": "国产剧"
+          },
+          "search": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 12962,
+            "sha256": "b461257130df402eb15b600bbc353a091cb5dd9496b57c70a72cd65deb65e4de",
+            "wall_seconds": 0.518,
+            "page": "1",
+            "pagecount": 1,
+            "total": 2,
+            "limit": "20",
+            "item_count": 2,
+            "items": [
+              {
+                "vod_id": 15824,
+                "vod_name": "琅琊榜",
+                "type_id": 26,
+                "type_name": "国产剧",
+                "vod_year": "2015–"
+              },
+              {
+                "vod_id": 15636,
+                "vod_name": "琅琊榜之风起长林",
+                "type_id": 26,
+                "type_name": "国产剧",
+                "vod_year": "2017–2018"
+              }
+            ]
+          },
+          "catalog_id": "15824",
+          "catalog_title": "琅琊榜",
+          "year": "2015–",
+          "type_name": "国产剧",
+          "detail": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=15824",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=15824",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 6833,
+            "sha256": "5455ce9d106c49f83e126a6994e6f95beceb2da03c79423f441c49eea0d93897",
+            "wall_seconds": 0.412,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 15824,
+                "vod_name": "琅琊榜",
+                "type_id": 26,
+                "type_name": "国产剧",
+                "vod_year": "2015–"
+              }
+            ]
+          },
+          "line": "modum3u8",
+          "episode_count": 54,
+          "episode": "第01集",
+          "hls_url": "https://play.modujx13.com/20240716/27crlaYI/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: HTTP 0 curl exit 28"
+        },
+        {
+          "category_group": "overseas_series",
+          "query": "怪奇物语第一季",
+          "category": {
+            "type_id": 29,
+            "type_pid": 8,
+            "type_name": "欧美剧"
+          },
+          "search": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3600,
+            "sha256": "8794efc8cd05a6f1ec8a06586fb7fa35af1eb8e3a77a1fefea57218ba6b2fd04",
+            "wall_seconds": 0.43,
+            "page": "1",
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 10734,
+                "vod_name": "怪奇物语第一季",
+                "type_id": 29,
+                "type_name": "欧美剧",
+                "vod_year": "2016–"
+              }
+            ]
+          },
+          "catalog_id": "10734",
+          "catalog_title": "怪奇物语第一季",
+          "year": "2016–",
+          "type_name": "欧美剧",
+          "detail": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=10734",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=10734",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3598,
+            "sha256": "1e63a99ba537896d6836e4a252b639457590c723b578f6e81754eb5ba7dfabb5",
+            "wall_seconds": 1.689,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 10734,
+                "vod_name": "怪奇物语第一季",
+                "type_id": 29,
+                "type_name": "欧美剧",
+                "vod_year": "2016–"
+              }
+            ]
+          },
+          "line": "modum3u8",
+          "episode_count": 8,
+          "episode": "第01集",
+          "hls_url": "https://play.modujx12.com/20240701/gLgDbkaF/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://play.modujx12.com/20240701/gLgDbkaF/index.m3u8",
+                "final_url": "https://play.modujx12.com/20240701/gLgDbkaF/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegURL",
+                "bytes_read": 118,
+                "sha256": "d13a268740bdc054d31f4510962e04dd94f389c8b527e389c0038a19ac0a5619",
+                "wall_seconds": 0.884,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000,RESOLUTION=1024x576"
+                ]
+              },
+              {
+                "url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/index.m3u8",
+                "final_url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegURL",
+                "bytes_read": 83547,
+                "sha256": "b978e7cb9d5a8e61c0689a06da03ea9bb5fe00a42bead0b61a9824de27db2f05",
+                "wall_seconds": 1.848,
+                "segment_count": 1463,
+                "endlist": true,
+                "declared_duration_seconds": 2942.073
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/fBtI279J.ts",
+                "final_url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/fBtI279J.ts",
+                "http_status": 206,
+                "content_type": "application/octet-stream",
+                "bytes_read": 119004,
+                "sha256": "ba7f5df983cee27fe8663d116741072ba3f9ed567cb77b621347e45194ce70f0",
+                "wall_seconds": 1.64,
+                "declared_duration_seconds": 3.212
+              }
+            ],
+            "media_bytes_read": 119004,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1024,
+                "height": 576,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "44100",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 47,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        },
+        {
+          "category_group": "animation",
+          "query": "火影忍者",
+          "category": {
+            "type_id": 2,
+            "type_pid": 0,
+            "type_name": "日韩动漫"
+          },
+          "search": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 48581,
+            "sha256": "d62df9660cebee6aff2e788fb685334c97e25b042ea0165ab23e50f4421eea3a",
+            "wall_seconds": 1.184,
+            "page": "1",
+            "pagecount": 1,
+            "total": 7,
+            "limit": "20",
+            "item_count": 7,
+            "items": [
+              {
+                "vod_id": 39942,
+                "vod_name": "火影忍者剧场版：博人传",
+                "type_id": 5,
+                "type_name": "动漫电影",
+                "vod_year": "2015"
+              },
+              {
+                "vod_id": 29359,
+                "vod_name": "火影忍者剧场版9",
+                "type_id": 5,
+                "type_name": "动漫电影",
+                "vod_year": "2012"
+              },
+              {
+                "vod_id": 29358,
+                "vod_name": "火影忍者剧场版8：血狱特别篇",
+                "type_id": 5,
+                "type_name": "动漫电影",
+                "vod_year": "2011"
+              },
+              {
+                "vod_id": 29356,
+                "vod_name": "火影忍者2010剧场版6继承火之意志者",
+                "type_id": 5,
+                "type_name": "动漫电影",
+                "vod_year": "2009"
+              },
+              {
+                "vod_id": 28162,
+                "vod_name": "火影忍者剧场版：终章",
+                "type_id": 5,
+                "type_name": "动漫电影",
+                "vod_year": "2014"
+              },
+              {
+                "vod_id": 5353,
+                "vod_name": "火影忍者 -博人传- 次世代继承者",
+                "type_id": 2,
+                "type_name": "日韩动漫",
+                "vod_year": "2017"
+              },
+              {
+                "vod_id": 3855,
+                "vod_name": "火影忍者 疾风传",
+                "type_id": 2,
+                "type_name": "日韩动漫",
+                "vod_year": "2007"
+              }
+            ]
+          },
+          "catalog_id": "5353",
+          "catalog_title": "火影忍者 -博人传- 次世代继承者",
+          "year": "2017",
+          "type_name": "日韩动漫",
+          "detail": {
+            "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=5353",
+            "final_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=detail&ids=5353",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 23038,
+            "sha256": "908dd7527d4d53266a6cc7be425888b32888ff39a2555a3e93813fdf9124579c",
+            "wall_seconds": 0.961,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 5353,
+                "vod_name": "火影忍者 -博人传- 次世代继承者",
+                "type_id": 2,
+                "type_name": "日韩动漫",
+                "vod_year": "2017"
+              }
+            ]
+          },
+          "line": "modum3u8",
+          "episode_count": 293,
+          "episode": "第1集",
+          "hls_url": "https://play.modujx10.com/20230919/vC2WqctU/index.m3u8",
+          "media": {
+            "status": "short_decode_pass",
+            "manifests": [
+              {
+                "url": "https://play.modujx10.com/20230919/vC2WqctU/index.m3u8",
+                "final_url": "https://play.modujx10.com/20230919/vC2WqctU/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegURL",
+                "bytes_read": 117,
+                "sha256": "b5bf3bbe832ee68e4252515622928ce5d0d96f458088563c5195ab84501b6d5c",
+                "wall_seconds": 0.932,
+                "declared_streams": [
+                  "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=928000,RESOLUTION=1920x1080"
+                ]
+              },
+              {
+                "url": "https://play.modujx10.com/20230919/vC2WqctU/928kb/hls/index.m3u8",
+                "final_url": "https://play.modujx10.com/20230919/vC2WqctU/928kb/hls/index.m3u8",
+                "http_status": 200,
+                "content_type": "application/vnd.apple.mpegURL",
+                "bytes_read": 24969,
+                "sha256": "985167ee9a571b2cb71508d6f26b426b8d3e7a77ddb3a1c977e630b2b6391e93",
+                "wall_seconds": 0.73,
+                "segment_count": 436,
+                "endlist": true,
+                "declared_duration_seconds": 1538.804
+              }
+            ],
+            "segments": [
+              {
+                "url": "https://play.modujx10.com/20230919/vC2WqctU/928kb/hls/yho86ysT.ts",
+                "final_url": "https://play.modujx10.com/20230919/vC2WqctU/928kb/hls/yho86ysT.ts",
+                "http_status": 206,
+                "content_type": "application/octet-stream",
+                "bytes_read": 216764,
+                "sha256": "9a30aca3f5146b14f6fa8095f4589b908e78238e51a5f1a59f09f10905b5df46",
+                "wall_seconds": 1.554,
+                "declared_duration_seconds": 3.753
+              }
+            ],
+            "media_bytes_read": 216764,
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "pix_fmt": "yuv420p"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "48000",
+                "channels": 2
+              }
+            ],
+            "ffprobe_exit": 0,
+            "decode": {
+              "exit_code": 0,
+              "frames": 47,
+              "output_seconds": 2.0,
+              "progress_end": true,
+              "stderr": ""
+            }
+          },
+          "status": "short_decode_pass"
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 1,
+          "type_pid": 0,
+          "type_name": "国产动漫"
+        },
+        {
+          "type_id": 2,
+          "type_pid": 0,
+          "type_name": "日韩动漫"
+        },
+        {
+          "type_id": 3,
+          "type_pid": 0,
+          "type_name": "欧美动漫"
+        },
+        {
+          "type_id": 4,
+          "type_pid": 0,
+          "type_name": "港台动漫"
+        },
+        {
+          "type_id": 5,
+          "type_pid": 0,
+          "type_name": "动漫电影"
+        },
+        {
+          "type_id": 6,
+          "type_pid": 0,
+          "type_name": "里番动漫"
+        },
+        {
+          "type_id": 7,
+          "type_pid": 0,
+          "type_name": "电影"
+        },
+        {
+          "type_id": 8,
+          "type_pid": 0,
+          "type_name": "连续剧"
+        },
+        {
+          "type_id": 9,
+          "type_pid": 0,
+          "type_name": "综艺"
+        },
+        {
+          "type_id": 10,
+          "type_pid": 7,
+          "type_name": "动作片"
+        },
+        {
+          "type_id": 11,
+          "type_pid": 7,
+          "type_name": "喜剧片"
+        },
+        {
+          "type_id": 12,
+          "type_pid": 7,
+          "type_name": "爱情片"
+        },
+        {
+          "type_id": 13,
+          "type_pid": 7,
+          "type_name": "科幻片"
+        },
+        {
+          "type_id": 14,
+          "type_pid": 7,
+          "type_name": "恐怖片"
+        },
+        {
+          "type_id": 15,
+          "type_pid": 7,
+          "type_name": "剧情片"
+        },
+        {
+          "type_id": 16,
+          "type_pid": 7,
+          "type_name": "战争片"
+        },
+        {
+          "type_id": 17,
+          "type_pid": 7,
+          "type_name": "惊悚片"
+        },
+        {
+          "type_id": 18,
+          "type_pid": 7,
+          "type_name": "家庭片"
+        },
+        {
+          "type_id": 19,
+          "type_pid": 7,
+          "type_name": "古装片"
+        },
+        {
+          "type_id": 20,
+          "type_pid": 7,
+          "type_name": "历史片"
+        },
+        {
+          "type_id": 21,
+          "type_pid": 7,
+          "type_name": "悬疑片"
+        },
+        {
+          "type_id": 22,
+          "type_pid": 7,
+          "type_name": "犯罪片"
+        },
+        {
+          "type_id": 23,
+          "type_pid": 7,
+          "type_name": "灾难片"
+        },
+        {
+          "type_id": 24,
+          "type_pid": 7,
+          "type_name": "记录片"
+        },
+        {
+          "type_id": 25,
+          "type_pid": 7,
+          "type_name": "短片"
+        },
+        {
+          "type_id": 26,
+          "type_pid": 8,
+          "type_name": "国产剧"
+        },
+        {
+          "type_id": 27,
+          "type_pid": 8,
+          "type_name": "香港剧"
+        },
+        {
+          "type_id": 28,
+          "type_pid": 8,
+          "type_name": "韩国剧"
+        },
+        {
+          "type_id": 29,
+          "type_pid": 8,
+          "type_name": "欧美剧"
+        },
+        {
+          "type_id": 30,
+          "type_pid": 8,
+          "type_name": "台湾剧"
+        },
+        {
+          "type_id": 31,
+          "type_pid": 8,
+          "type_name": "日本剧"
+        },
+        {
+          "type_id": 32,
+          "type_pid": 8,
+          "type_name": "海外剧"
+        },
+        {
+          "type_id": 33,
+          "type_pid": 8,
+          "type_name": "泰国剧"
+        },
+        {
+          "type_id": 34,
+          "type_pid": 9,
+          "type_name": "大陆综艺"
+        },
+        {
+          "type_id": 35,
+          "type_pid": 9,
+          "type_name": "港台综艺"
+        },
+        {
+          "type_id": 36,
+          "type_pid": 9,
+          "type_name": "日韩综艺"
+        },
+        {
+          "type_id": 37,
+          "type_pid": 9,
+          "type_name": "欧美综艺"
+        },
+        {
+          "type_id": 38,
+          "type_pid": 8,
+          "type_name": "短剧"
+        },
+        {
+          "type_id": 39,
+          "type_pid": 7,
+          "type_name": "伦理片"
+        },
+        {
+          "type_id": 40,
+          "type_pid": 0,
+          "type_name": "体育"
+        },
+        {
+          "type_id": 41,
+          "type_pid": 40,
+          "type_name": "足球"
+        },
+        {
+          "type_id": 42,
+          "type_pid": 0,
+          "type_name": "AI漫剧"
+        }
+      ],
+      "search_pages_have_distinct_ids": true,
+      "search_page_overlap_count": 0,
+      "short_decode_passes": 3,
+      "eligible_default_candidate": true
+    },
+    {
+      "id": "guangsu",
+      "name": "光速目录",
+      "endpoint": "https://api.guangsuapi.com/api.php/provide/vod",
+      "checked_at": "2026-09-27T04:42:42.676978+00:00",
+      "api_checks": [
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=list&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=list&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 7137,
+          "sha256": "0b25aa2a429265d393c8043d3bfe0363e5c485267a900eb9b478a8a868994576",
+          "wall_seconds": 0.743,
+          "page": "1",
+          "pagecount": 5685,
+          "total": 113689,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 172332,
+              "vod_name": "花织同学转生后还是想干架",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 172312,
+              "vod_name": "我带超市穿到古代养丞相",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 172311,
+              "vod_name": "反派大师兄 师妹们不按套路出牌·动态漫画",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 216124,
+              "vod_name": "财神窦占龙",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 172071,
+              "vod_name": "魔道重生的女武神",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 172060,
+              "vod_name": "禅王渡尘",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 219293,
+              "vod_name": "假面良人",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218460,
+              "vod_name": "寄生之心",
+              "type_id": 23,
+              "type_name": "泰剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218206,
+              "vod_name": "打歌2026·X舞台",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218859,
+              "vod_name": "奔跑吧少年第7季",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 177497,
+              "vod_name": "你好，星期六 2022",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 177749,
+              "vod_name": "职来职往2026",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 177470,
+              "vod_name": "地球超新鲜 第二季",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 219277,
+              "vod_name": "2026湖南卫视芒果TV中秋之夜",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 172233,
+              "vod_name": "武神主宰",
+              "type_id": 41,
+              "type_name": "中国动漫",
+              "vod_year": null
+            },
+            {
+              "vod_id": 219348,
+              "vod_name": "朋友别见外",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 217590,
+              "vod_name": "花儿与少年2026",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218881,
+              "vod_name": "如期",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218798,
+              "vod_name": "行镖",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": null
+            },
+            {
+              "vod_id": 218339,
+              "vod_name": "云雀叫天录",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": null
+            }
+          ],
+          "purpose": "categories_and_health"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 68418,
+          "sha256": "a4ccfd797d1447886f527ffc8f7a8124028b1d369b77df619e863bf862ab8f4c",
+          "wall_seconds": 1.008,
+          "page": "1",
+          "pagecount": 25,
+          "total": 490,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 177494,
+              "vod_name": "爱情保卫战2026",
+              "type_id": 37,
+              "type_name": "大陆综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 217107,
+              "vod_name": "邂逅爱情天堂岛",
+              "type_id": 23,
+              "type_name": "泰剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219111,
+              "vod_name": "爱情假说",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171174,
+              "vod_name": "爱情来了",
+              "type_id": 16,
+              "type_name": "韩剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218632,
+              "vod_name": "爱情上升期",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 169118,
+              "vod_name": "爱情契约",
+              "type_id": 23,
+              "type_name": "泰剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171410,
+              "vod_name": "爱情小狗牵第三季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 216417,
+              "vod_name": "爱情盲选：英国篇第三季",
+              "type_id": 40,
+              "type_name": "欧美综艺",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 216253,
+              "vod_name": "爱情可以分割吗",
+              "type_id": 20,
+              "type_name": "动漫电影",
+              "vod_year": "2020"
+            },
+            {
+              "vod_id": 183652,
+              "vod_name": "理想年代的爱情",
+              "type_id": 47,
+              "type_name": "言情总裁",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171030,
+              "vod_name": "有毒爱情故事",
+              "type_id": 24,
+              "type_name": "记录片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 156075,
+              "vod_name": "给你爱情处方",
+              "type_id": 16,
+              "type_name": "韩剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 183781,
+              "vod_name": "联姻之上，爱情未满",
+              "type_id": 47,
+              "type_name": "言情总裁",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 166630,
+              "vod_name": "爱情同课程3",
+              "type_id": 16,
+              "type_name": "韩剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 181151,
+              "vod_name": "路遇爱情",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 179972,
+              "vod_name": "理想年代的爱情归途",
+              "type_id": 46,
+              "type_name": "穿越年代",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 167811,
+              "vod_name": "爱情有烟火",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 168014,
+              "vod_name": "萨德利的爱情",
+              "type_id": 10,
+              "type_name": "剧情片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 182445,
+              "vod_name": "第二次爱情",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 182557,
+              "vod_name": "东北爱情往事：闪婚玫瑰第一季",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%88%B1%E6%83%85&pg=2",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 64383,
+          "sha256": "b669267923a04ca780a1e67f33dd9b8649dc89c8c620e654215c73c7a488415e",
+          "wall_seconds": 1.209,
+          "page": "2",
+          "pagecount": 25,
+          "total": 490,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 182558,
+              "vod_name": "东北爱情往事2",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 163963,
+              "vod_name": "秒杀爱情",
+              "type_id": 16,
+              "type_name": "韩剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 166099,
+              "vod_name": "爱情鹤顶红",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 184600,
+              "vod_name": "边界爱情",
+              "type_id": 47,
+              "type_name": "言情总裁",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172833,
+              "vod_name": "恋爱情结",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2007"
+            },
+            {
+              "vod_id": 164486,
+              "vod_name": "爱情没有神话",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 162493,
+              "vod_name": "爱情抓马",
+              "type_id": 8,
+              "type_name": "爱情片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 164289,
+              "vod_name": "爱情睡醒了",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2011"
+            },
+            {
+              "vod_id": 184411,
+              "vod_name": "爱情啊，结果都那样",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 180777,
+              "vod_name": "七零爱情不顾全世界反对",
+              "type_id": 46,
+              "type_name": "穿越年代",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 185092,
+              "vod_name": "假如爱情看不见",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 159160,
+              "vod_name": "爱情单车",
+              "type_id": 23,
+              "type_name": "泰剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 180786,
+              "vod_name": "父母爱情故事",
+              "type_id": 46,
+              "type_name": "穿越年代",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 185282,
+              "vod_name": "漂亮老婆陪过年-蛇年大吉之爱情事业双丰收",
+              "type_id": 45,
+              "type_name": "现代都市",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 185626,
+              "vod_name": "爱情转移",
+              "type_id": 47,
+              "type_name": "言情总裁",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 163658,
+              "vod_name": "像我这样的爱情",
+              "type_id": 10,
+              "type_name": "剧情片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 157439,
+              "vod_name": "爱情故事：小约翰·肯尼迪与卡罗琳·贝塞特",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 158050,
+              "vod_name": "爱情恐惧症",
+              "type_id": 16,
+              "type_name": "韩剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 186851,
+              "vod_name": "顾总，你的爱情蛋炒饭已送达",
+              "type_id": 47,
+              "type_name": "言情总裁",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 157126,
+              "vod_name": "乡村爱情18",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "search_pagination"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=9&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=9&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 48334,
+          "sha256": "8c0a5b7a131a0a537a98f7e990293b19152836c3bb658bec9c81a10cab998eee",
+          "wall_seconds": 0.613,
+          "page": "1",
+          "pagecount": 65,
+          "total": 1283,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 219090,
+              "vod_name": "白龙传说",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219087,
+              "vod_name": "星墟流浪者",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218402,
+              "vod_name": "完美复制品",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218328,
+              "vod_name": "异况",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218249,
+              "vod_name": "管控成瘾",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 217174,
+              "vod_name": "我看见两朵一样的云",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 216652,
+              "vod_name": "最后的刺客",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 216523,
+              "vod_name": "深空法则",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 216375,
+              "vod_name": "崩坏",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 215814,
+              "vod_name": "银河奥特曼剧场版SP（普通话版）",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2013"
+            },
+            {
+              "vod_id": 171627,
+              "vod_name": "灵魂伴侣",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 157670,
+              "vod_name": "绿液惊魂",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 168753,
+              "vod_name": "超级少女(2026)",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171136,
+              "vod_name": "恐怖感受",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 170882,
+              "vod_name": "创世之伪",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 170849,
+              "vod_name": "奥特Q电影版 星之传说",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "1990"
+            },
+            {
+              "vod_id": 170669,
+              "vod_name": "A Sense of Dread",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 166663,
+              "vod_name": "后室",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 170039,
+              "vod_name": "危险地带",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 167003,
+              "vod_name": "宇宙巨人，希曼崛起",
+              "type_id": 9,
+              "type_name": "科幻片",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_movie"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=13&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 83513,
+          "sha256": "23c1ff35746681743599f38eccbc19512b737a0e51994325d821fa7ff6139437",
+          "wall_seconds": 0.732,
+          "page": "1",
+          "pagecount": 343,
+          "total": 6852,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 219293,
+              "vod_name": "假面良人",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218881,
+              "vod_name": "如期",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218798,
+              "vod_name": "行镖",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218339,
+              "vod_name": "云雀叫天录",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219271,
+              "vod_name": "法医秦明之天谴者",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219219,
+              "vod_name": "长生契",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219075,
+              "vod_name": "黑岛监狱",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219130,
+              "vod_name": "今日宜偏爱",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219013,
+              "vod_name": "法医秦明之龙番往事",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 217608,
+              "vod_name": "末誓",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 217949,
+              "vod_name": "请记住我的名字",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219337,
+              "vod_name": "征途",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218164,
+              "vod_name": "兰香如故",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218617,
+              "vod_name": "妾本草芥",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218198,
+              "vod_name": "熔城",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218443,
+              "vod_name": "为爱正名",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219204,
+              "vod_name": "我不是大师",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218570,
+              "vod_name": "一瓯春",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219294,
+              "vod_name": "开标之战",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218011,
+              "vod_name": "独剑九天",
+              "type_id": 13,
+              "type_name": "大陆剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_chinese_series"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=14&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=14&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 56881,
+          "sha256": "0ae737419d10b54f92feac8d43beef8fca9d4c7d757c27f0ed43e1f8be284308",
+          "wall_seconds": 0.632,
+          "page": "1",
+          "pagecount": 205,
+          "total": 4083,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 219344,
+              "vod_name": "彼得温西爵爷探案烈性毒药篇",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "1987"
+            },
+            {
+              "vod_id": 218728,
+              "vod_name": "古战场传奇：吾血之亲第二季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 215657,
+              "vod_name": "林间鸽踪",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219341,
+              "vod_name": "零号街区4",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219335,
+              "vod_name": "寻女无归途",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219333,
+              "vod_name": "反恐特警组：放逐者",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219332,
+              "vod_name": "慢投垒球",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219302,
+              "vod_name": "血色遗产第二季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219213,
+              "vod_name": "人身保护令",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219215,
+              "vod_name": "我悲伤的逝者们",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171735,
+              "vod_name": "方舟一号第三季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219274,
+              "vod_name": "最后一案",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171596,
+              "vod_name": "战斗之地",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171043,
+              "vod_name": "斯图尔特未能拯救宇宙",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218340,
+              "vod_name": "喜鹊谋杀案第三季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218188,
+              "vod_name": "致命羁绊",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218725,
+              "vod_name": "黑帮领地第二季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219231,
+              "vod_name": "美国恐怖故事第十三季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 218722,
+              "vod_name": "万物生灵第七季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 171029,
+              "vod_name": "星际迷航，奇异新世界第四季",
+              "type_id": 14,
+              "type_name": "欧美剧",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_overseas_series"
+        },
+        {
+          "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=42&pg=1",
+          "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&t=42&pg=1",
+          "http_status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "bytes_read": 354746,
+          "sha256": "798986526b272a51d038a9fd136bdfac1d7ffa6ca78f282e94e68cc1b3ec2e60",
+          "wall_seconds": 2.03,
+          "page": "1",
+          "pagecount": 124,
+          "total": 2463,
+          "limit": "20",
+          "item_count": 20,
+          "items": [
+            {
+              "vod_id": 172332,
+              "vod_name": "花织同学转生后还是想干架",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172329,
+              "vod_name": "魔法光源股份有限公司第二季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172335,
+              "vod_name": "成长秀 向日葵马戏团",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219345,
+              "vod_name": "野生的大魔王出现了！第二季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172341,
+              "vod_name": "入间同学入魔了第四季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 217690,
+              "vod_name": "怪兽8号鸣海的日常",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172340,
+              "vod_name": "小书痴的下克上领主的养女",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172345,
+              "vod_name": "名侦探柯南",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "1996"
+            },
+            {
+              "vod_id": 172344,
+              "vod_name": "名侦探柯南（中配）",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "1996"
+            },
+            {
+              "vod_id": 172186,
+              "vod_name": "元祖！BanG Dream酱",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2025"
+            },
+            {
+              "vod_id": 172221,
+              "vod_name": "我独自盗墓",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172174,
+              "vod_name": "擅长逃跑的殿下 第二季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172180,
+              "vod_name": "我家的弟弟们真是让您费心了",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219291,
+              "vod_name": "魔法★探险家",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172177,
+              "vod_name": "地狱模式喜欢速通游戏的玩家在废设定异世界无双 第二季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172231,
+              "vod_name": "不虐待我的继母与继姐",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172178,
+              "vod_name": "描绘直至生命尽头",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 172182,
+              "vod_name": "关于我转生变成史莱姆这档事第四季",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            },
+            {
+              "vod_id": 219276,
+              "vod_name": "妖魔",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "1989"
+            },
+            {
+              "vod_id": 173547,
+              "vod_name": "JOJO的奇妙冒险飙马野郎",
+              "type_id": 42,
+              "type_name": "日本动漫",
+              "vod_year": "2026"
+            }
+          ],
+          "purpose": "browse_animation"
+        }
+      ],
+      "samples": [
+        {
+          "category_group": "movie",
+          "query": "流浪地球",
+          "category": {
+            "type_id": 9,
+            "type_pid": 1,
+            "type_name": "科幻片"
+          },
+          "search": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 13569,
+            "sha256": "ac554afff682dc009317161c23731231159c7056996e31945d3a1bec031687c1",
+            "wall_seconds": 0.566,
+            "page": "1",
+            "pagecount": 1,
+            "total": 5,
+            "limit": "20",
+            "item_count": 5,
+            "items": [
+              {
+                "vod_id": 148279,
+                "vod_name": "流浪地球3(上)（预告片）",
+                "type_id": 32,
+                "type_name": "预告片",
+                "vod_year": "2027"
+              },
+              {
+                "vod_id": 123256,
+                "vod_name": "流浪地球2：再次冒险",
+                "type_id": 24,
+                "type_name": "记录片",
+                "vod_year": "2024"
+              },
+              {
+                "vod_id": 208640,
+                "vod_name": "流浪地球之大夏战狼",
+                "type_id": 50,
+                "type_name": "脑洞悬疑",
+                "vod_year": "2024"
+              },
+              {
+                "vod_id": 95400,
+                "vod_name": "流浪地球2",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2023"
+              },
+              {
+                "vod_id": 41107,
+                "vod_name": "流浪地球",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              }
+            ]
+          },
+          "catalog_id": "41107",
+          "catalog_title": "流浪地球",
+          "year": "2019",
+          "type_name": "科幻片",
+          "detail": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=41107",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=41107",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3416,
+            "sha256": "860208884bdb02eb4822430b296f06f43431eaa3e7072aeec98d510ebf1bfef6",
+            "wall_seconds": 0.605,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 41107,
+                "vod_name": "流浪地球",
+                "type_id": 9,
+                "type_name": "科幻片",
+                "vod_year": "2019"
+              }
+            ]
+          },
+          "line": "gsm3u8",
+          "episode_count": 1,
+          "episode": "正片",
+          "hls_url": "https://v.gsuus.com/play/7e57E98b/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: Encrypted playlist; skipped without requesting key"
+        },
+        {
+          "category_group": "chinese_series",
+          "query": "琅琊榜",
+          "category": {
+            "type_id": 13,
+            "type_pid": 2,
+            "type_name": "大陆剧"
+          },
+          "search": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%90%85%E7%90%8A%E6%A6%9C&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 16303,
+            "sha256": "5374f5bc21bd07de6fce39992f8a270b4251a2aff3bf97251b66241d95d6580d",
+            "wall_seconds": 0.678,
+            "page": "1",
+            "pagecount": 1,
+            "total": 2,
+            "limit": "20",
+            "item_count": 2,
+            "items": [
+              {
+                "vod_id": 58669,
+                "vod_name": "琅琊榜",
+                "type_id": 13,
+                "type_name": "大陆剧",
+                "vod_year": "2015"
+              },
+              {
+                "vod_id": 79604,
+                "vod_name": "琅琊榜之风起长林",
+                "type_id": 13,
+                "type_name": "大陆剧",
+                "vod_year": "2017"
+              }
+            ]
+          },
+          "catalog_id": "58669",
+          "catalog_title": "琅琊榜",
+          "year": "2015",
+          "type_name": "大陆剧",
+          "detail": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=58669",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=58669",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 8814,
+            "sha256": "78ce5d3e7dfb35049d1b85c9022f8fafeb3f2f223301281306117f1f2ba35afb",
+            "wall_seconds": 0.595,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 58669,
+                "vod_name": "琅琊榜",
+                "type_id": 13,
+                "type_name": "大陆剧",
+                "vod_year": "2015"
+              }
+            ]
+          },
+          "line": "gsm3u8",
+          "episode_count": 54,
+          "episode": "第01集",
+          "hls_url": "https://v.gsuus.com/play/Pe98DMzd/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: Encrypted playlist; skipped without requesting key"
+        },
+        {
+          "category_group": "overseas_series",
+          "query": "怪奇物语第一季",
+          "category": {
+            "type_id": 14,
+            "type_pid": 2,
+            "type_name": "欧美剧"
+          },
+          "search": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD%E7%AC%AC%E4%B8%80%E5%AD%A3&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3417,
+            "sha256": "3dfc1d88c9b6ad93f8604707949a0dee16032e1be6379be4ce4775a0e661b910",
+            "wall_seconds": 0.765,
+            "page": "1",
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 63516,
+                "vod_name": "怪奇物语 第一季",
+                "type_id": 14,
+                "type_name": "欧美剧",
+                "vod_year": "2016"
+              }
+            ]
+          },
+          "catalog_id": "63516",
+          "catalog_title": "怪奇物语 第一季",
+          "year": "2016",
+          "type_name": "欧美剧",
+          "detail": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=63516",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=63516",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 3415,
+            "sha256": "8bfa23c4ecac35c8b01f61c78df92e2ef3cf5048db6ae658fcab664470fa7a96",
+            "wall_seconds": 0.422,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 63516,
+                "vod_name": "怪奇物语 第一季",
+                "type_id": 14,
+                "type_name": "欧美剧",
+                "vod_year": "2016"
+              }
+            ]
+          },
+          "line": "gsm3u8",
+          "episode_count": 8,
+          "episode": "第01集",
+          "hls_url": "https://v.gsuus.com/play/Qe1jrDRa/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: Encrypted playlist; skipped without requesting key"
+        },
+        {
+          "category_group": "animation",
+          "query": "火影忍者",
+          "category": {
+            "type_id": 42,
+            "type_pid": 4,
+            "type_name": "日本动漫"
+          },
+          "search": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&wd=%E7%81%AB%E5%BD%B1%E5%BF%8D%E8%80%85&pg=1",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 164537,
+            "sha256": "b7f71bcff43aabe35ee7fabac5ee7ede07a81c4357cb7aa3e0bcc80f55e8f343",
+            "wall_seconds": 0.959,
+            "page": "1",
+            "pagecount": 1,
+            "total": 16,
+            "limit": "20",
+            "item_count": 16,
+            "items": [
+              {
+                "vod_id": 172902,
+                "vod_name": "火影忍者疾风传",
+                "type_id": 42,
+                "type_name": "日本动漫",
+                "vod_year": "2007"
+              },
+              {
+                "vod_id": 172903,
+                "vod_name": "火影忍者",
+                "type_id": 42,
+                "type_name": "日本动漫",
+                "vod_year": "2002"
+              },
+              {
+                "vod_id": 158766,
+                "vod_name": "火影忍者剧场版：血狱",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2011"
+              },
+              {
+                "vod_id": 158763,
+                "vod_name": "火影忍者剧场版：大兴奋！三日月岛的动物骚动",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2006"
+              },
+              {
+                "vod_id": 158762,
+                "vod_name": "火影忍者疾风传剧场版：失落之塔",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2010"
+              },
+              {
+                "vod_id": 158760,
+                "vod_name": "火影忍者疾风传剧场版：羁绊",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2008"
+              },
+              {
+                "vod_id": 156781,
+                "vod_name": "火影忍者剧场版：大活剧雪姬忍法帖",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2004"
+              },
+              {
+                "vod_id": 174099,
+                "vod_name": "火影忍者外传：李洛克的青春FULL POWER忍传",
+                "type_id": 42,
+                "type_name": "日本动漫",
+                "vod_year": "2012"
+              },
+              {
+                "vod_id": 176040,
+                "vod_name": "火影忍者：博人传之次世代继承者",
+                "type_id": 42,
+                "type_name": "日本动漫",
+                "vod_year": "2017"
+              },
+              {
+                "vod_id": 130302,
+                "vod_name": "火影忍者剧场版：忍者之路",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2012"
+              },
+              {
+                "vod_id": 130303,
+                "vod_name": "火影忍者：忍者之路（普通话版）",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2012"
+              },
+              {
+                "vod_id": 55534,
+                "vod_name": "火影忍者剧场版：博人传",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2015"
+              },
+              {
+                "vod_id": 65997,
+                "vod_name": "火影忍者疾风传剧场版：火之意志的继承者",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2009"
+              },
+              {
+                "vod_id": 61840,
+                "vod_name": "火影忍者剧场版：大激突！幻之地底遗迹",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2005"
+              },
+              {
+                "vod_id": 63485,
+                "vod_name": "火影忍者疾风传剧场版：鸣人之死",
+                "type_id": 20,
+                "type_name": "动漫电影",
+                "vod_year": "2007"
+              },
+              {
+                "vod_id": 77813,
+                "vod_name": "火影忍者剧场版：终章",
+                "type_id": 10,
+                "type_name": "剧情片",
+                "vod_year": "2014"
+              }
+            ]
+          },
+          "catalog_id": "172903",
+          "catalog_title": "火影忍者",
+          "year": "2002",
+          "type_name": "日本动漫",
+          "detail": {
+            "url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=172903",
+            "final_url": "https://api.guangsuapi.com/api.php/provide/vod?ac=detail&ids=172903",
+            "http_status": 200,
+            "content_type": "text/html;charset=utf-8",
+            "bytes_read": 26851,
+            "sha256": "855c3188086f4e2c673fd5536087f461e3967d804d141160b56daef88af15863",
+            "wall_seconds": 0.548,
+            "page": 1,
+            "pagecount": 1,
+            "total": 1,
+            "limit": "20",
+            "item_count": 1,
+            "items": [
+              {
+                "vod_id": 172903,
+                "vod_name": "火影忍者",
+                "type_id": 42,
+                "type_name": "日本动漫",
+                "vod_year": "2002"
+              }
+            ]
+          },
+          "line": "gsm3u8",
+          "episode_count": 220,
+          "episode": "第001集",
+          "hls_url": "https://v.gsuus.com/play/9avgzQgb/index.m3u8",
+          "status": "failed_or_skipped",
+          "error": "ValueError: Encrypted playlist; skipped without requesting key"
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 1,
+          "type_pid": 0,
+          "type_name": "电影"
+        },
+        {
+          "type_id": 2,
+          "type_pid": 0,
+          "type_name": "电视剧"
+        },
+        {
+          "type_id": 3,
+          "type_pid": 0,
+          "type_name": "综艺"
+        },
+        {
+          "type_id": 4,
+          "type_pid": 0,
+          "type_name": "动漫"
+        },
+        {
+          "type_id": 6,
+          "type_pid": 1,
+          "type_name": "动作片"
+        },
+        {
+          "type_id": 7,
+          "type_pid": 1,
+          "type_name": "喜剧片"
+        },
+        {
+          "type_id": 8,
+          "type_pid": 1,
+          "type_name": "爱情片"
+        },
+        {
+          "type_id": 9,
+          "type_pid": 1,
+          "type_name": "科幻片"
+        },
+        {
+          "type_id": 10,
+          "type_pid": 1,
+          "type_name": "剧情片"
+        },
+        {
+          "type_id": 11,
+          "type_pid": 1,
+          "type_name": "恐怖片"
+        },
+        {
+          "type_id": 12,
+          "type_pid": 1,
+          "type_name": "战争片"
+        },
+        {
+          "type_id": 13,
+          "type_pid": 2,
+          "type_name": "大陆剧"
+        },
+        {
+          "type_id": 14,
+          "type_pid": 2,
+          "type_name": "欧美剧"
+        },
+        {
+          "type_id": 15,
+          "type_pid": 2,
+          "type_name": "港澳剧"
+        },
+        {
+          "type_id": 16,
+          "type_pid": 2,
+          "type_name": "韩剧"
+        },
+        {
+          "type_id": 20,
+          "type_pid": 1,
+          "type_name": "动漫电影"
+        },
+        {
+          "type_id": 21,
+          "type_pid": 2,
+          "type_name": "日剧"
+        },
+        {
+          "type_id": 22,
+          "type_pid": 2,
+          "type_name": "台湾剧"
+        },
+        {
+          "type_id": 23,
+          "type_pid": 2,
+          "type_name": "泰剧"
+        },
+        {
+          "type_id": 24,
+          "type_pid": 0,
+          "type_name": "记录片"
+        },
+        {
+          "type_id": 25,
+          "type_pid": 0,
+          "type_name": "伦理片"
+        },
+        {
+          "type_id": 30,
+          "type_pid": 0,
+          "type_name": "体育赛事"
+        },
+        {
+          "type_id": 31,
+          "type_pid": 0,
+          "type_name": "短剧"
+        },
+        {
+          "type_id": 32,
+          "type_pid": 0,
+          "type_name": "预告片"
+        },
+        {
+          "type_id": 33,
+          "type_pid": 30,
+          "type_name": "足球"
+        },
+        {
+          "type_id": 34,
+          "type_pid": 30,
+          "type_name": "篮球"
+        },
+        {
+          "type_id": 35,
+          "type_pid": 30,
+          "type_name": "台球"
+        },
+        {
+          "type_id": 36,
+          "type_pid": 30,
+          "type_name": "其他赛事"
+        },
+        {
+          "type_id": 37,
+          "type_pid": 3,
+          "type_name": "大陆综艺"
+        },
+        {
+          "type_id": 38,
+          "type_pid": 3,
+          "type_name": "日韩综艺"
+        },
+        {
+          "type_id": 39,
+          "type_pid": 3,
+          "type_name": "港台综艺"
+        },
+        {
+          "type_id": 40,
+          "type_pid": 3,
+          "type_name": "欧美综艺"
+        },
+        {
+          "type_id": 41,
+          "type_pid": 4,
+          "type_name": "中国动漫"
+        },
+        {
+          "type_id": 42,
+          "type_pid": 4,
+          "type_name": "日本动漫"
+        },
+        {
+          "type_id": 43,
+          "type_pid": 4,
+          "type_name": "欧美动漫"
+        },
+        {
+          "type_id": 44,
+          "type_pid": 31,
+          "type_name": "古装仙侠"
+        },
+        {
+          "type_id": 45,
+          "type_pid": 31,
+          "type_name": "现代都市"
+        },
+        {
+          "type_id": 46,
+          "type_pid": 31,
+          "type_name": "穿越年代"
+        },
+        {
+          "type_id": 47,
+          "type_pid": 31,
+          "type_name": "言情总裁"
+        },
+        {
+          "type_id": 48,
+          "type_pid": 31,
+          "type_name": "重生民国"
+        },
+        {
+          "type_id": 49,
+          "type_pid": 31,
+          "type_name": "反转爽剧"
+        },
+        {
+          "type_id": 50,
+          "type_pid": 31,
+          "type_name": "脑洞悬疑"
+        },
+        {
+          "type_id": 51,
+          "type_pid": 31,
+          "type_name": "擦边短剧"
+        },
+        {
+          "type_id": 52,
+          "type_pid": 31,
+          "type_name": "AI漫剧"
+        }
+      ],
+      "search_pages_have_distinct_ids": true,
+      "search_page_overlap_count": 0,
+      "short_decode_passes": 0,
+      "eligible_default_candidate": false
+    }
+  ],
+  "ended_at": "2026-09-27T04:43:17.204910+00:00"
+}

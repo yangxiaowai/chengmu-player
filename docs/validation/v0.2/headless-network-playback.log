@@ -1,0 +1,10 @@
+START wujin 流浪地球 catalog=25734
+READY wujin after 4.24s
+PASS wujin position=14.95s decoded=1280x504 frames=145 error=none
+START ruyi 琅琊榜 catalog=11751
+READY ruyi after 2.67s
+PASS ruyi position=14.95s decoded=1080x606 frames=145 error=none
+START mdzy 怪奇物语第一季 catalog=10734
+READY mdzy after 1.97s
+PASS mdzy position=14.98s decoded=1024x576 frames=143 error=none
+HEADLESS_NETWORK_PLAYBACK_PASS — not UI/GPU presentation validation

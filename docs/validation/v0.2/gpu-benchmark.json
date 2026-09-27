@@ -1,0 +1,80 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "actual_mode" : "GPU 清晰增强",
+      "completed_frames" : 240,
+      "first_frame_ms" : 64.151333412155509,
+      "input" : [
+        1280,
+        720
+      ],
+      "last_frame_rgb_range" : [
+        17,
+        229
+      ],
+      "mean_ms" : 2.0718364612548612,
+      "output" : [
+        1280,
+        720
+      ],
+      "p95_ms" : 2.3223332827910781,
+      "requested_mode" : "clarity",
+      "warm_mean_ms" : 1.8120896120879129
+    },
+    {
+      "actual_mode" : "GPU 增强至 4K",
+      "completed_frames" : 240,
+      "first_frame_ms" : 30.563124921172857,
+      "input" : [
+        1280,
+        720
+      ],
+      "last_frame_rgb_range" : [
+        20,
+        236
+      ],
+      "mean_ms" : 11.902506946353242,
+      "output" : [
+        3840,
+        2160
+      ],
+      "p95_ms" : 13.080750009976327,
+      "requested_mode" : "upscale4K",
+      "warm_mean_ms" : 11.824429046877009
+    },
+    {
+      "actual_mode" : "Apple AI ×1.5",
+      "completed_frames" : 240,
+      "first_frame_ms" : 86.761708371341228,
+      "input" : [
+        1280,
+        720
+      ],
+      "last_frame_rgb_range" : [
+        19,
+        229
+      ],
+      "mean_ms" : 4.1012121534246644,
+      "output" : [
+        1920,
+        1080
+      ],
+      "p95_ms" : 4.0474584093317389,
+      "requested_mode" : "appleAI",
+      "warm_mean_ms" : 3.7553523366132979
+    }
+  ],
+  "rotation_check" : {
+    "input" : [
+      1280,
+      720
+    ],
+    "output" : [
+      720,
+      1280
+    ],
+    "passed" : true
+  },
+  "scope" : "Generated SDR 720p frames; completed GPU processing only. Not playback, sync, or 30-minute validation."
+}

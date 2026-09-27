@@ -1,0 +1,28 @@
+{
+  "checked_at" : "2026-09-27T04:59:42Z",
+  "checks" : [
+    {
+      "categories" : 32,
+      "endpoint" : "https:\/\/caiji.dyttzyapi.com\/api.php\/provide\/vod",
+      "page" : 1,
+      "pageCount" : 4207,
+      "provider" : "dytt",
+      "status" : "catalog_reachable",
+      "titles" : 20,
+      "total" : 84131,
+      "wall_seconds" : 1.3258250951766968
+    },
+    {
+      "categories" : 31,
+      "endpoint" : "https:\/\/ffzy5.tv\/api.php\/provide\/vod",
+      "page" : 1,
+      "pageCount" : 4913,
+      "provider" : "ffzy",
+      "status" : "catalog_reachable",
+      "titles" : 20,
+      "total" : 98252,
+      "wall_seconds" : 1.8357210159301758
+    }
+  ],
+  "method" : "Actual SourceService.browse first page; no media fetched"
+}

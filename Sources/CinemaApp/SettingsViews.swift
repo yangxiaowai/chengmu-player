@@ -35,11 +35,24 @@ struct SourcesView: View {
         VStack(alignment: .leading, spacing: 25) {
             Text("每个故事，都有来处。").font(.system(size: 30, weight: .medium, design: .serif))
             Text("应用会检索已启用的来源，读取真实线路与集数。你可以添加兼容的公开 CMS JSON 接口。").font(.system(size: 13)).foregroundStyle(CinemaStyle.secondary)
+            HStack {
+                Text("\(app.enabledProviderCount) 个已启用 / \(app.providers.count) 个来源").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
+                Spacer()
+                Button("检测全部目录") { app.checkAllProviders() }.disabled(!app.checkingProviders.isEmpty)
+                Button("补全内置来源") { app.restoreBuiltinProviders() }
+            }.buttonStyle(.bordered)
+            Text("健康检测只验证目录接口；影片仍需逐个读取实际媒体，不能用目录在线代替全部可播。").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
             ForEach(app.providers) { provider in
                 HStack(spacing: 18) {
                     Image(systemName: "network").font(.system(size: 25, weight: .light)).foregroundStyle(CinemaStyle.accent)
-                    VStack(alignment: .leading, spacing: 7) { Text(provider.name).font(.system(size: 15, weight: .medium)); Text(provider.endpoint.absoluteString).font(.system(size: 11, design: .monospaced)).foregroundStyle(CinemaStyle.secondary).textSelection(.enabled) }
+                    VStack(alignment: .leading, spacing: 7) {
+                        Text(provider.name).font(.system(size: 15, weight: .medium))
+                        Text(provider.endpoint.host ?? "来源接口").font(.system(size: 11, design: .monospaced)).foregroundStyle(CinemaStyle.secondary).textSelection(.enabled)
+                        Text(app.sourceHealth[provider.id] ?? "尚未检测 · 支持手动检查目录").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(2)
+                    }
                     Spacer()
+                    if app.checkingProviders.contains(provider.id) { ProgressView().controlSize(.small) }
+                    else { Button("检测") { app.checkProvider(provider) }.buttonStyle(.bordered).disabled(app.checkingProviders.count >= 3) }
                     Toggle("启用", isOn: Binding(get: {provider.enabled}, set: {app.updateProvider(provider.id, enabled: $0)})).toggleStyle(.switch).labelsHidden()
                     Button { app.removeProvider(provider.id) } label: { Image(systemName: "minus.circle") }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary).help("移除此来源")
                 }.padding(22).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 12))
@@ -50,7 +63,7 @@ struct SourcesView: View {
                 TextField("https://…/api.php/provide/vod", text: $endpoint).textFieldStyle(.roundedBorder)
                 HStack { Text("仅读取公开目录，不读取浏览器登录信息。").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary); Spacer(); Button("添加接口") { app.addProvider(name: name, endpoint: endpoint); if app.message == nil { name = ""; endpoint = "" } }.buttonStyle(.borderedProminent).disabled(endpoint.isEmpty) }
             }.padding(24).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 12))
-            Button { app.discover() } label: { Label("重新检索我的三部剧", systemImage: "arrow.clockwise") }.buttonStyle(.bordered)
+            Button { app.discover() } label: { Label("刷新发现页", systemImage: "arrow.clockwise") }.buttonStyle(.bordered)
         }
     }
 }

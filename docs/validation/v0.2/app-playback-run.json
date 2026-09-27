@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-27T05:04:29.556838+00:00",
+  "binary_sha256": "f40e1ace04c74ca5a7c783760ec33e3dc3413bedf9491d234f7263e3a4d0f7f5",
+  "status": "blocked_before_first_diagnostic_report",
+  "attempted_title": "流浪地球",
+  "attempted_provider": "wujin",
+  "observed_launch_seconds": 65,
+  "notes": "Mac locked; CUA could not acquire a window. Diagnostic SwiftUI scene did not produce its initial report during observation. Stopped only owned QA processes; no network or playback conclusion from this launch. Other two GUI cases not attempted."
+}

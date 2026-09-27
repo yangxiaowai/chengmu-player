@@ -1,0 +1,44 @@
+[
+  {
+    "catalogTitles" : 20,
+    "categories" : 39,
+    "category" : "国产剧",
+    "page2" : 2,
+    "page2Titles" : 20,
+    "provider" : "ruyi"
+  },
+  {
+    "catalogTitles" : 20,
+    "categories" : 42,
+    "category" : "国产剧",
+    "page2" : 2,
+    "page2Titles" : 20,
+    "provider" : "mdzy"
+  },
+  {
+    "catalogTitles" : 20,
+    "categories" : 63,
+    "category" : "国产剧",
+    "page2" : 2,
+    "page2Titles" : 20,
+    "provider" : "wujin"
+  },
+  {
+    "error" : "",
+    "provider" : "ruyi",
+    "searchPage" : 2,
+    "searchTitles" : 20
+  },
+  {
+    "error" : "",
+    "provider" : "mdzy",
+    "searchPage" : 2,
+    "searchTitles" : 20
+  },
+  {
+    "error" : "",
+    "provider" : "wujin",
+    "searchPage" : 2,
+    "searchTitles" : 20
+  }
+]

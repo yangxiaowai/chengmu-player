@@ -5,10 +5,11 @@ import CryptoKit
 struct BoundedHTTPClient {
     var timeout: TimeInterval = 15
     var maximumBytes: Int = 4 * 1024 * 1024
+    var configuration: URLSessionConfiguration = .ephemeral
     func get(_ url: URL) async throws -> (Data, URL) {
         guard networkURL(url.absoluteString) != nil else { throw SourceError.invalidURL }
         try Task.checkCancellation()
-        let configuration = URLSessionConfiguration.ephemeral
+        let configuration = configuration.copy() as! URLSessionConfiguration
         configuration.timeoutIntervalForRequest = timeout
         configuration.timeoutIntervalForResource = timeout
         let session = URLSession(configuration: configuration)
@@ -33,25 +34,34 @@ struct BoundedHTTPClient {
 }
 
 public struct SourceService {
-    public init() {}
-    public func search(query: String, providers: [SourceProvider] = SourceProvider.defaults) async -> SearchResponse {
+    private let client: BoundedHTTPClient
+    public init() { client = BoundedHTTPClient() }
+    init(client: BoundedHTTPClient) { self.client = client }
+    public func search(query: String, providers: [SourceProvider] = SourceProvider.defaults, page: Int = 1) async -> SearchResponse {
+        let pages = Dictionary(providers.map { ($0.id, page) }, uniquingKeysWith: { first, _ in first })
+        let results = await searchPages(query: query, providers: providers, pages: pages)
+        return SearchResponse(titles: results.flatMap { $0.page?.titles ?? [] }, failures: results.compactMap(\.error))
+    }
+    public func searchPages(query: String, providers: [SourceProvider] = SourceProvider.defaults, pages: [String: Int] = [:]) async -> [ProviderPageResult] {
         let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty, !Task.isCancelled else { return SearchResponse(titles: [], failures: []) }
-        let enabled = Array(providers.filter(\.enabled).prefix(24))
+        guard !query.isEmpty, !Task.isCancelled else { return [] }
+        var seen = Set<String>()
+        let enabled = Array(providers.filter { $0.enabled && seen.insert($0.id).inserted }.prefix(24))
         // Three simultaneous requests at most; indexed results retain provider order.
-        var results: [(Int, [MediaTitle], String?)] = []
-        await withTaskGroup(of: (Int, [MediaTitle], String?).self) { group in
+        var results: [(Int, ProviderPageResult)] = []
+        await withTaskGroup(of: (Int, ProviderPageResult).self) { group in
             var next = 0
             func enqueue(_ index: Int) {
                 let provider = enabled[index]
                 group.addTask {
                     do {
-                        let url = try Self.requestURL(provider: provider, action: provider.searchAction == "detail" ? "detail" : "list", parameters: ["wd": query])
-                        let (data, _) = try await BoundedHTTPClient().get(url)
-                        return (index, try Self.parseSearch(data: data, provider: provider), nil)
+                        let page = pages[provider.id] ?? 1
+                        let url = try Self.requestURL(provider: provider, action: provider.searchAction == "detail" ? "detail" : "list", parameters: ["wd": query, "pg": String(page)])
+                        let (data, _) = try await client.get(url)
+                        return (index, ProviderPageResult(providerID: provider.id, page: try Self.parsePage(data: data, provider: provider, requestedPage: page), error: nil))
                     } catch {
-                        if Task.isCancelled { return (index, [], nil) }
-                        return (index, [], "\(provider.name)：\(Self.safeDescription(error))")
+                        if Task.isCancelled { return (index, ProviderPageResult(providerID: provider.id, page: nil, error: nil)) }
+                        return (index, ProviderPageResult(providerID: provider.id, page: nil, error: "\(provider.name)：\(Self.safeDescription(error))"))
                     }
                 }
             }
@@ -62,17 +72,43 @@ public struct SourceService {
                 else if next < enabled.count { enqueue(next); next += 1 }
             }
         }
-        guard !Task.isCancelled else { return SearchResponse(titles: [], failures: []) }
-        let ordered = results.sorted { $0.0 < $1.0 }
-        return SearchResponse(titles: ordered.flatMap { $0.1 }, failures: ordered.compactMap { $0.2 })
+        guard !Task.isCancelled else { return [] }
+        return results.sorted { $0.0 < $1.0 }.map(\.1)
+    }
+    /// Catalog reachability only. A successful page is not a playback health guarantee.
+    public func browse(provider: SourceProvider, categoryID: String? = nil, page: Int = 1) async throws -> CatalogPage {
+        var parameters = ["pg": String(page)]
+        if let categoryID = categoryID?.trimmingCharacters(in: .whitespacesAndNewlines), !categoryID.isEmpty {
+            parameters["t"] = categoryID
+        }
+        let url = try Self.requestURL(provider: provider, action: "detail", parameters: parameters)
+        let (data, _) = try await client.get(url)
+        var catalog = try Self.parsePage(data: data, provider: provider, requestedPage: page)
+        // Several CMS implementations omit class on ac=detail. Fetch category metadata
+        // once with the first unfiltered page; subsequent pages preserve caller state.
+        if catalog.categories.isEmpty && categoryID == nil && page == 1 {
+            do {
+                let categoriesURL = try Self.requestURL(provider: provider, action: "list", parameters: ["pg": "1"])
+                let (metadata, _) = try await client.get(categoriesURL)
+                catalog.categories = try Self.parsePage(data: metadata, provider: provider).categories
+            } catch {
+                // Categories enrich an already valid directory page. Their failure must
+                // not discard titles, but cancellation still belongs to the caller.
+                if error is CancellationError || (error as? URLError)?.code == .cancelled { throw error }
+                try Task.checkCancellation()
+            }
+        }
+        try Task.checkCancellation()
+        return catalog
     }
     public func detail(title: MediaTitle, provider: SourceProvider) async throws -> MediaDetail {
         guard title.providerID == provider.id else { throw SourceError.invalidResponse }
         let url = try Self.requestURL(provider: provider, action: "detail", parameters: ["ids": title.id])
-        let (data, _) = try await BoundedHTTPClient().get(url)
+        let (data, _) = try await client.get(url)
         return try Self.parseDetail(data: data, title: title)
     }
     public static func requestURL(provider: SourceProvider, action: String, parameters: [String: String]) throws -> URL {
+        if let rawPage = parameters["pg"], Int(rawPage).map({ $0 >= 1 }) != true { throw SourceError.invalidPage }
         guard provider.endpoint.scheme?.lowercased() == "https", networkURL(provider.endpoint.absoluteString) != nil,
               var parts = URLComponents(url: provider.endpoint, resolvingAgainstBaseURL: false) else { throw SourceError.invalidURL }
         var items = parts.queryItems ?? []
@@ -85,10 +121,42 @@ public struct SourceService {
         return url
     }
     public static func parseSearch(data: Data, provider: SourceProvider) throws -> [MediaTitle] {
-        try rows(data).compactMap { row in
+        try parseTitles(rows(data), provider: provider)
+    }
+    public static func parsePage(data: Data, provider: SourceProvider, requestedPage: Int = 1) throws -> CatalogPage {
+        guard requestedPage >= 1 else { throw SourceError.invalidPage }
+        let root = try rootObject(data)
+        let entries = root["list"] as! [[String: Any]]
+        let titles = parseTitles(entries, provider: provider)
+        func integer(_ name: String) throws -> Int? {
+            guard let raw = root[name] else { return nil }
+            guard let value = Int(string(raw)), value >= 0 else { throw SourceError.invalidResponse }
+            return value
+        }
+        let page = try integer("page") ?? requestedPage
+        guard page == requestedPage else { throw SourceError.invalidPage }
+        let total = try integer("total") ?? entries.count
+        let reportedPageCount = try integer("pagecount")
+        let limit = try integer("limit")
+        let calculatedPageCount = limit.flatMap { $0 > 0 ? (total / $0 + (total % $0 == 0 ? 0 : 1)) : nil }
+        let pageCount = max(1, reportedPageCount ?? calculatedPageCount ?? page)
+        // An explicit zero-page result is a valid empty search, never an endless pager.
+        guard reportedPageCount != 0 || entries.isEmpty else { throw SourceError.invalidResponse }
+        var seen = Set<String>()
+        let categories: [SourceCategory] = (root["class"] as? [[String: Any]] ?? []).compactMap { row in
+            let id = string(row["type_id"]), name = plainText(string(row["type_name"]))
+            guard !id.isEmpty, !name.isEmpty, seen.insert(id).inserted else { return nil }
+            let parent = string(row["type_pid"])
+            return SourceCategory(providerID: provider.id, id: id, name: name, parentID: parent.isEmpty || parent == "0" ? nil : parent)
+        }
+        return CatalogPage(providerID: provider.id, titles: titles, categories: categories, page: page, pageCount: pageCount, total: total)
+    }
+    private static func parseTitles(_ rows: [[String: Any]], provider: SourceProvider) -> [MediaTitle] {
+        rows.compactMap { row in
             let id = string(row["vod_id"]), name = string(row["vod_name"])
             guard !id.isEmpty, !name.isEmpty else { return nil }
-            return MediaTitle(id: id, title: name, year: string(row["vod_year"]), posterURL: networkURL(string(row["vod_pic"])), summary: plainText(string(row["vod_content"])), providerID: provider.id, providerName: provider.name)
+            let category = plainText(string(row["type_name"]))
+            return MediaTitle(id: id, title: name, year: string(row["vod_year"]), posterURL: networkURL(string(row["vod_pic"])), summary: plainText(string(row["vod_content"])), providerID: provider.id, providerName: provider.name, category: category.isEmpty ? nil : category)
         }
     }
     public static func parseDetail(data: Data, title: MediaTitle) throws -> MediaDetail {
@@ -103,6 +171,8 @@ public struct SourceService {
         if !actualYear.isEmpty { confirmedTitle.year = actualYear }
         if let poster = networkURL(string(row["vod_pic"])) { confirmedTitle.posterURL = poster }
         if !actualSummary.isEmpty { confirmedTitle.summary = actualSummary }
+        let actualCategory = plainText(string(row["type_name"]))
+        if !actualCategory.isEmpty { confirmedTitle.category = actualCategory }
         let names = string(row["vod_play_from"]).components(separatedBy: "$$$")
         let blocks = string(row["vod_play_url"]).components(separatedBy: "$$$")
         var lines: [PlaybackLine] = []
@@ -138,9 +208,13 @@ public struct SourceService {
         SHA256.hash(data: Data(value.utf8)).prefix(12).map { String(format: "%02x", $0) }.joined()
     }
     private static func rows(_ data: Data) throws -> [[String: Any]] {
+        try rootObject(data)["list"] as! [[String: Any]]
+    }
+    private static func rootObject(_ data: Data) throws -> [String: Any] {
         guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any], let list = root["list"] as? [[String: Any]] else { throw SourceError.invalidResponse }
         if let code = root["code"], !["1", "200"].contains(string(code)) { throw SourceError.invalidResponse }
-        return list
+        _ = list
+        return root
     }
     private static func string(_ value: Any?) -> String {
         if let text = value as? String { return text.trimmingCharacters(in: .whitespacesAndNewlines) }

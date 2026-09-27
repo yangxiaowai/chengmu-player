@@ -4,10 +4,10 @@ import UniformTypeIdentifiers
 import CinemaCore
 
 enum AppSection: String, CaseIterable, Identifiable {
-    case discover = "探索", history = "继续观看", quality = "画质工作室", sources = "媒体来源"
+    case discover = "探索", watchlist = "我的待看", history = "继续观看", quality = "画质工作室", sources = "媒体来源"
     var id: String { rawValue }
     var icon: String {
-        switch self { case .discover: return "square.grid.2x2"; case .history: return "clock.arrow.circlepath"; case .quality: return "sparkles.tv"; case .sources: return "externaldrive.connected.to.line.below" }
+        switch self { case .discover: return "square.grid.2x2"; case .watchlist: return "bookmark"; case .history: return "clock.arrow.circlepath"; case .quality: return "sparkles.tv"; case .sources: return "externaldrive.connected.to.line.below" }
     }
 }
 
@@ -22,12 +22,33 @@ final class AppModel: ObservableObject {
     @Published var message: String?
     @Published var detail: MediaDetail?
     @Published var detailLoading = false
+    @Published var detailPresented = false
+    @Published var detailSources: [MediaTitle] = []
     @Published var selectedLineID = ""
     @Published var currentEpisodeID = ""
     @Published var showPlayer = false
     @Published var history: [WatchRecord] = []
     @Published var providers: [SourceProvider] = SourceProvider.defaults
-    @Published var autoNext = true
+    @Published var autoNext = true { didSet { if !isDiagnostic { UserDefaults.standard.set(autoNext, forKey: "autoNext") } } }
+    @Published var watchlist: [SavedTitle] = []
+    @Published var recentSearches: [String] = []
+    @Published var filterProviderID = ""
+    @Published var filterYear = ""
+    @Published var catalogSort = CatalogSort.relevance
+    @Published var loadingMore = false
+    @Published var moreProviderIDs: Set<String> = []
+    @Published var sourceHealth: [String: String] = [:]
+    @Published var checkingProviders: Set<String> = []
+    @Published var browseProviderID = ""
+    @Published var browseCategoryID = ""
+    @Published var browseCategories: [SourceCategory] = []
+    @Published var browsing = false
+    private var searchTerms: [String] = []
+    private var loadedPages: [String: Int] = [:]
+    private var browsePage = 0
+    private var watchlistReadable = true
+    private var providerErrors: [String: String] = [:]
+    var isDiagnostic: Bool { CommandLine.arguments.contains("--validate") || CommandLine.arguments.contains("--benchmark") }
     @Published var alternativeSources: [MediaTitle] = []
     @Published var alternativesLoading = false
     @Published var alternativeNotice: String?
@@ -44,12 +65,26 @@ final class AppModel: ObservableObject {
     private var historyReadable = true
 
     init() {
-        store = CommandLine.arguments.contains("--validate")
-            ? LibraryStore(directory: FileManager.default.temporaryDirectory.appendingPathComponent("YingChuan-QA-\(ProcessInfo.processInfo.processIdentifier)"))
-            : LibraryStore()
+        if let profile = ProcessInfo.processInfo.environment["YINGCHUAN_PROFILE_DIRECTORY"], profile.hasPrefix("/") {
+            store = LibraryStore(directory: URL(fileURLWithPath: profile, isDirectory: true))
+        } else {
+            store = CommandLine.arguments.contains("--validate")
+                ? LibraryStore(directory: FileManager.default.temporaryDirectory.appendingPathComponent("YingChuan-QA-\(ProcessInfo.processInfo.processIdentifier)"))
+                : LibraryStore()
+        }
         do { history = try store.load().sorted { $0.updatedAt > $1.updatedAt } }
         catch { historyReadable = false; message = "历史记录文件无法读取，已保留原文件。可在继续观看页明确清除后重新记录。" }
-        if let data = UserDefaults.standard.data(forKey: "sourceProviders"), let saved = try? JSONDecoder().decode([SourceProvider].self, from: data), !saved.isEmpty { providers = saved }
+        do { watchlist = try WatchlistStore(directory: store.directory).load().filter { !$0.sources.isEmpty } }
+        catch { watchlistReadable = false; message = "待看文件无法读取，已保留原文件。请在待看页明确重建后再收藏。" }
+        let saved = UserDefaults.standard.data(forKey: "sourceProviders").flatMap { try? JSONDecoder().decode([SourceProvider].self, from: $0) }
+        let known = UserDefaults.standard.stringArray(forKey: "knownBuiltinProviderIDs") ?? ["dytt", "ffzy"]
+        providers = ProviderCatalog.merge(saved: saved, knownBuiltinIDs: known, defaults: SourceProvider.defaults)
+        if !isDiagnostic {
+            recentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
+            if UserDefaults.standard.object(forKey: "autoNext") != nil { autoNext = UserDefaults.standard.bool(forKey: "autoNext") }
+            UserDefaults.standard.set(SourceProvider.defaults.map(\.id), forKey: "knownBuiltinProviderIDs")
+            saveProviders()
+        }
         playback.onProgress = { [weak self] position, duration in self?.saveProgress(position, duration: duration) }
         playback.onFinished = { [weak self] in if self?.autoNext == true { self?.nextEpisode() } }
     }
@@ -57,41 +92,110 @@ final class AppModel: ObservableObject {
     var enabledProviderCount: Int { providers.filter(\.enabled).count }
 
     func discover() {
-        section = .discover; query = ""; searchLabel = "你的观影起点"
-        runSearch(["怪奇物语", "绝命毒师", "火线第"])
+        section = .discover; query = ""; searchLabel = "从好故事开始"
+        browsing = false
+        runSearch(["星际穿越", "庆余年", "怪奇物语", "绝命毒师", "火线第"])
     }
+    func explore(_ term: String) { query = term; search() }
     func search() {
         let text = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { discover(); return }
-        section = .discover; searchLabel = "“\(text)” 的搜索结果"
-        // The bare title fills the first CMS page with unrelated films. The exact series
-        // shortcut uses one verified season-prefix query, without adding search requests.
+        section = .discover; browsing = false; searchLabel = "“\(text)” 的搜索结果"
+        recentSearches.removeAll { $0 == text }; recentSearches.insert(text, at: 0)
+        recentSearches = Array(recentSearches.prefix(8))
+        if !isDiagnostic { UserDefaults.standard.set(recentSearches, forKey: "recentSearches") }
         runSearch([text == "火线" ? "火线第" : text])
     }
     private func runSearch(_ terms: [String]) {
-        cancelAlternativeSources()
-        searchTask?.cancel(); searchID = UUID()
+        cancelAlternativeSources(); searchTask?.cancel(); searchID = UUID()
         let token = searchID, sources = providers
-        searching = true; failures = []; results = []
+        searchTerms = terms; loadedPages = [:]; moreProviderIDs = []; loadingMore = false
+        filterProviderID = ""; filterYear = ""; searching = true; failures = []; providerErrors = [:]; results = []
         searchTask = Task {
-            var titles: [MediaTitle] = [], errors: [String] = []
             for term in terms {
-                guard !Task.isCancelled else { return }
-                let result = await service.search(query: term, providers: sources)
+                let pages = await service.searchPages(query: term, providers: sources)
                 guard !Task.isCancelled, token == searchID else { return }
-                titles.append(contentsOf: result.titles); errors.append(contentsOf: result.failures)
-                var seen = Set<String>()
-                results = titles.filter { seen.insert($0.providerID + ":" + $0.id).inserted }
+                acceptPages(pages, paginated: terms.count == 1)
             }
-            failures = Array(Set(errors)).sorted(); searching = false
+            searching = false
         }
+    }
+    private func acceptPages(_ pages: [ProviderPageResult], paginated: Bool) {
+        for response in pages {
+            if let page = response.page {
+                results.append(contentsOf: page.titles)
+                sourceHealth[response.providerID] = "目录可达 · 本页 \(page.titles.count) 项"
+                providerErrors.removeValue(forKey: response.providerID)
+                if paginated {
+                    loadedPages[response.providerID] = page.page
+                    if page.page < page.pageCount { moreProviderIDs.insert(response.providerID) }
+                    else { moreProviderIDs.remove(response.providerID) }
+                }
+            } else if let error = response.error {
+                providerErrors[response.providerID] = error
+                sourceHealth[response.providerID] = error
+                if paginated { moreProviderIDs.insert(response.providerID) }
+            }
+        }
+        var seen = Set<String>()
+        results = results.filter { seen.insert($0.providerID + ":" + $0.id).inserted }
+        failures = providerErrors.keys.sorted().compactMap { providerErrors[$0] }
+    }
+    func loadMore() {
+        guard !searching, !loadingMore else { return }
+        if browsing { browseCatalog(reset: false); return }
+        guard let term = searchTerms.first, searchTerms.count == 1, !moreProviderIDs.isEmpty else { return }
+        let sources = providers.filter { $0.enabled && moreProviderIDs.contains($0.id) }
+        guard !sources.isEmpty else { return }
+        loadingMore = true
+        let token = searchID, pages = Dictionary(uniqueKeysWithValues: sources.map { ($0.id, (loadedPages[$0.id] ?? 0) + 1) })
+        searchTask = Task {
+            let result = await service.searchPages(query: term, providers: sources, pages: pages)
+            guard !Task.isCancelled, searchID == token else { return }
+            acceptPages(result, paginated: true); loadingMore = false
+        }
+    }
+    func openBrowse() {
+        browsing = true; section = .discover; query = ""; browseCategoryID = ""; browseCategories = []
+        if !providers.contains(where: { $0.id == browseProviderID && $0.enabled }) { browseProviderID = providers.first(where: \.enabled)?.id ?? "" }
+        browseCatalog(reset: true)
+    }
+    func browseCatalog(reset: Bool = true) {
+        guard let provider = providers.first(where: { $0.id == browseProviderID && $0.enabled }) else { return }
+        if reset { searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; filterYear = ""; filterProviderID = "" }
+        cancelAlternativeSources(); browsing = true; searchTerms = []; moreProviderIDs = []
+        searching = reset; loadingMore = !reset; failures = []
+        let token = searchID, page = browsePage + 1, category = browseCategoryID.isEmpty ? nil : browseCategoryID
+        searchLabel = provider.name + " · 目录浏览"
+        searchTask = Task {
+            do {
+                let result = try await service.browse(provider: provider, categoryID: category, page: page)
+                guard !Task.isCancelled, searchID == token else { return }
+                if !result.categories.isEmpty { browseCategories = result.categories }
+                acceptPages([ProviderPageResult(providerID: provider.id, page: result, error: nil)], paginated: true)
+                browsePage = result.page
+            } catch {
+                guard !Task.isCancelled, searchID == token else { return }
+                failures = ["\(provider.name)：\(error.localizedDescription)"]; moreProviderIDs.insert(provider.id)
+            }
+            searching = false; loadingMore = false
+        }
+    }
+    func selectGroup(_ group: MediaGroup) {
+        detailSources = group.sources
+        let available = group.sources.filter { item in providers.contains { $0.id == item.providerID && $0.enabled } }
+        guard let title = available.first(where: { $0.providerID == filterProviderID }) ?? available.first else {
+            message = "这部作品的来源均已停用或移除，请在媒体来源启用后重试。"; return
+        }
+        select(title)
     }
     func select(_ title: MediaTitle) {
         cancelAlternativeSources()
         detailTask?.cancel(); detailID = UUID()
         let token = detailID
-        detailLoading = true; detail = nil
-        guard let provider = providers.first(where: {$0.id == title.providerID}) else { detailLoading = false; message = "此来源已移除，请重新搜索。"; return }
+        if !detailSources.contains(where: { $0.providerID == title.providerID && $0.id == title.id }) { detailSources = [title] }
+        detailPresented = true; detailLoading = true; detail = nil
+        guard let provider = providers.first(where: {$0.id == title.providerID && $0.enabled}) else { detailLoading = false; detailPresented = false; message = "此来源已停用或移除，请先在媒体来源启用。"; return }
         detailTask = Task {
             do {
                 let loaded = try await service.detail(title: title, provider: provider)
@@ -103,7 +207,7 @@ final class AppModel: ObservableObject {
             }
         }
     }
-    func dismissDetail() { detailTask?.cancel(); detailID = UUID(); detail = nil; detailLoading = false }
+    func dismissDetail() { detailTask?.cancel(); detailID = UUID(); detail = nil; detailLoading = false; detailPresented = false; detailSources = [] }
     func play(_ episode: Episode) {
         cancelAlternativeSources()
         guard let detail, let line = selectedLine else { return }
@@ -117,7 +221,7 @@ final class AppModel: ObservableObject {
         playback.onProgress = nil
         playback.open(url: episode.url, title: detail.title.title, episode: episode.name, resume: resume)
         playback.onProgress = { [weak self] pos, dur in self?.saveProgress(pos, duration: dur) }
-        showPlayer = true
+        detailPresented = false; showPlayer = true
     }
     func resume(_ record: WatchRecord) {
         cancelAlternativeSources()
@@ -130,7 +234,7 @@ final class AppModel: ObservableObject {
         playback.onProgress = nil
         playback.open(url: record.url, title: record.title, episode: record.episode, resume: record.progress > 0.98 ? 0 : record.position)
         playback.onProgress = { [weak self] pos, dur in self?.saveProgress(pos, duration: dur) }
-        showPlayer = true
+        detailPresented = false; showPlayer = true
     }
     func switchLine(_ id: String) {
         guard let detail, let destination = detail.lines.first(where: { $0.id == id }) else { return }
@@ -155,7 +259,7 @@ final class AppModel: ObservableObject {
         if let a = current.number, let b = next.number, b != a + 1 { message = "下一集存在缺集，已停止自动续播。"; return }
         play(next)
     }
-    func closePlayer() { cancelAlternativeSources(); playback.pause(); showPlayer = false }
+    func closePlayer() { cancelAlternativeSources(); playback.pause(); playback.cancelSleepTimer(); detailPresented = false; showPlayer = false }
     func cancelAlternativeSources() {
         alternativeTask?.cancel(); alternativeTask = nil; alternativeID = UUID()
         alternativesLoading = false; alternativeSources = []; alternativeNotice = nil
@@ -240,19 +344,142 @@ final class AppModel: ObservableObject {
     func updateProvider(_ id: String, enabled: Bool) {
         cancelAlternativeSources()
         guard let index = providers.firstIndex(where: {$0.id == id}) else { return }
-        providers[index].enabled = enabled; saveProviders()
+        providers[index].enabled = enabled; invalidateCatalogRequests(); saveProviders()
     }
     func addProvider(name: String, endpoint: String) {
         guard let url = URL(string: endpoint.trimmingCharacters(in: .whitespacesAndNewlines)), url.scheme == "https", url.host != nil, url.user == nil, url.password == nil else { message = "来源接口需要有效的HTTPS地址。"; return }
         guard !providers.contains(where: {$0.endpoint == url}) else { message = "这个接口已经添加。"; return }
         providers.append(SourceProvider(id: UUID().uuidString, name: name.isEmpty ? (url.host ?? "自定义来源") : name, endpoint: url, enabled: true)); saveProviders()
     }
-    func removeProvider(_ id: String) { cancelAlternativeSources(); providers.removeAll {$0.id == id}; saveProviders() }
+    func removeProvider(_ id: String) { cancelAlternativeSources(); providers.removeAll {$0.id == id}; invalidateCatalogRequests(); saveProviders() }
     func clearHistory() {
         do { try store.save([]); history = []; historyReadable = true; currentRecord = nil }
         catch { message = "清除历史失败：\(error.localizedDescription)" }
     }
-    private func saveProviders() { if let data = try? JSONEncoder().encode(providers) { UserDefaults.standard.set(data, forKey: "sourceProviders") } }
+    private func saveProviders() { guard !isDiagnostic else { return }; if let data = try? JSONEncoder().encode(providers) { UserDefaults.standard.set(data, forKey: "sourceProviders") } }
+    private func invalidateCatalogRequests() {
+        searchTask?.cancel(); searchID = UUID(); searching = false; loadingMore = false; moreProviderIDs = []
+        let active = Set(providers.filter(\.enabled).map(\.id))
+        results.removeAll { !active.contains($0.providerID) }
+        if !active.contains(filterProviderID) { filterProviderID = "" }
+    }
+    var canPlayNext: Bool {
+        guard let context = currentRecord?.playbackContext, let detail,
+              context.detail.title.id == detail.title.id, context.detail.title.providerID == detail.title.providerID,
+              context.line.id == selectedLineID, context.episode.id == currentEpisodeID,
+              let episodes = selectedLine?.episodes, let index = episodes.firstIndex(where: { $0.id == currentEpisodeID }), episodes.indices.contains(index + 1) else { return false }
+        if let a = episodes[index].number, let b = episodes[index + 1].number { return b == a + 1 }
+        return true
+    }
+    var groups: [MediaGroup] { CatalogGrouping.groups(results) }
+    var filteredGroups: [MediaGroup] {
+        var values = groups.filter { group in
+            (filterProviderID.isEmpty || group.sources.contains { $0.providerID == filterProviderID }) &&
+            (filterYear.isEmpty || group.representative.year == filterYear)
+        }
+        switch catalogSort {
+        case .relevance: break
+        case .title: values.sort { $0.representative.title.localizedStandardCompare($1.representative.title) == .orderedAscending }
+        case .year: values.sort { $0.representative.year > $1.representative.year }
+        case .sources: values.sort { $0.sources.count > $1.sources.count }
+        }
+        return values
+    }
+    var availableYears: [String] { Array(Set(groups.map { $0.representative.year }.filter { !$0.isEmpty })).sorted(by: >) }
+    var canLoadMore: Bool { !moreProviderIDs.isEmpty }
+    var canResetWatchlist: Bool { !watchlistReadable }
+    var latestHistory: [WatchRecord] {
+        var seen = Set<String>()
+        return history.filter { record in
+            let context = record.mediaDetail?.title
+            let key = context.map { CatalogGrouping.normalizedTitle($0.title) + "|" + $0.year } ?? record.id
+            return seen.insert(key).inserted
+        }
+    }
+    func isSaved(_ group: MediaGroup) -> Bool { watchlist.contains { $0.matches(group) } }
+    func toggleSaved(_ group: MediaGroup) {
+        guard watchlistReadable else { message = "原待看文件损坏，已保留，请在待看页明确重建后重试。"; return }
+        var updated = watchlist
+        if updated.contains(where: {$0.matches(group)}) { updated.removeAll { $0.matches(group) } }
+        else { guard updated.count < 1000 else { message = "待看已达1000项，请先移除不需要的条目。"; return }; updated.insert(SavedTitle(group: group), at: 0) }
+        saveWatchlist(updated)
+    }
+    func removeSaved(_ id: String) { saveWatchlist(watchlist.filter { $0.id != id }) }
+    func resetWatchlist() {
+        do { try WatchlistStore(directory: store.directory).save([]); watchlist = []; watchlistReadable = true }
+        catch { message = "重建待看失败：\(error.localizedDescription)" }
+    }
+    private func saveWatchlist(_ values: [SavedTitle]) {
+        do { try WatchlistStore(directory: store.directory).save(values); watchlist = values }
+        catch { message = "保存待看失败：\(error.localizedDescription)" }
+    }
+    func removeHistory(_ id: String) {
+        let values = history.filter { $0.id != id }
+        do { try store.save(values); history = values; if currentRecord?.id == id { currentRecord = nil } } catch { message = "移除历史失败：\(error.localizedDescription)" }
+    }
+    func continueDetail() {
+        guard let detail else { return }
+        playback.saveProgress()
+        guard let record = history.first(where: { $0.mediaDetail?.title.providerID == detail.title.providerID && $0.mediaDetail?.title.id == detail.title.id }) else {
+            if let first = selectedLine?.episodes.first { play(first) }
+            return
+        }
+        let candidates = detail.lines.flatMap { line in
+            line.episodes.filter { record.canResume(episode: $0) }.map { (line: line, episode: $0) }
+        }
+        let sameLine = candidates.filter { $0.line.id == record.lineID }
+        let match: (line: PlaybackLine, episode: Episode)
+        if let exact = candidates.first(where: { $0.line.id == record.lineID && $0.episode.id == record.episodeID }) {
+            match = exact
+        } else if sameLine.count == 1 {
+            match = sameLine[0]
+        } else if candidates.count == 1 {
+            match = candidates[0]
+        } else {
+            message = candidates.isEmpty ? "历史中的影片资源已变化，请手动选择集数。" : "多条线路匹配历史影片，请手动选择线路与集数。"
+            return
+        }
+        let resumePosition = record.progress > 0.98 || !record.position.isFinite ? 0 : max(0, record.position)
+        selectedLineID = match.line.id
+        play(match.episode)
+        // Regenerated line/episode IDs produce a new history key, but the verified
+        // media URL and episode name still permit resuming the original position.
+        currentRecord?.position = resumePosition
+        currentRecord?.duration = record.duration.isFinite ? max(0, record.duration) : 0
+        playback.resumeWhenReady(resumePosition)
+    }
+    var detailHasHistory: Bool { guard let detail else { return false }; return history.contains { $0.mediaDetail?.title.providerID == detail.title.providerID && $0.mediaDetail?.title.id == detail.title.id } }
+    func checkProvider(_ provider: SourceProvider) {
+        guard !checkingProviders.contains(provider.id), checkingProviders.count < 3 else { return }
+        checkingProviders.insert(provider.id)
+        Task {
+            let started = Date()
+            do {
+                let result = try await service.browse(provider: provider, page: 1)
+                guard providers.contains(where: {$0.id == provider.id}) else { checkingProviders.remove(provider.id); return }
+                sourceHealth[provider.id] = "目录可达 · \(result.total) 项 · \(Int(Date().timeIntervalSince(started) * 1000)) ms（未验证全部影片）"
+            } catch { sourceHealth[provider.id] = "检测失败：\(error.localizedDescription)" }
+            checkingProviders.remove(provider.id)
+        }
+    }
+    func checkAllProviders() {
+        // Keep provider health checks bounded just like searches.
+        Task {
+            for provider in providers {
+                guard !checkingProviders.contains(provider.id) else { continue }
+                checkingProviders.insert(provider.id)
+                do {
+                    let result = try await service.browse(provider: provider, page: 1)
+                    if providers.contains(where: {$0.id == provider.id}) { sourceHealth[provider.id] = "目录可达 · \(result.total) 项（未验证全部影片）" }
+                } catch { sourceHealth[provider.id] = "检测失败：\(error.localizedDescription)" }
+                checkingProviders.remove(provider.id)
+            }
+        }
+    }
+    func restoreBuiltinProviders() {
+        for builtin in SourceProvider.defaults where !providers.contains(where: { $0.id == builtin.id || $0.endpoint == builtin.endpoint }) { providers.append(builtin) }
+        saveProviders()
+    }
     private func saveProgress(_ position: Double, duration: Double) {
         guard historyReadable, position > 0.5, duration.isFinite, var record = currentRecord else { return }
         record.position = position; record.duration = duration; record.updatedAt = Date(); currentRecord = record
@@ -260,4 +487,9 @@ final class AppModel: ObservableObject {
         if history.count > 200 { history = Array(history.prefix(200)) }
         do { try store.save(history) } catch { message = "观看进度保存失败：\(error.localizedDescription)" }
     }
+}
+
+ enum CatalogSort: String, CaseIterable, Identifiable {
+    case relevance = "默认顺序", title = "按片名", year = "年份优先", sources = "来源数量"
+    var id: String { rawValue }
 }

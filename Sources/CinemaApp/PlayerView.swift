@@ -15,6 +15,7 @@ struct PlayerView: View {
                 Button { app.closePlayer() } label: { Image(systemName: "chevron.left").frame(width: 30, height: 30) }.buttonStyle(.plain).help("返回片库")
                 VStack(alignment: .leading, spacing: 4) { Text(playback.title).font(.system(size: 14, weight: .medium)); Text(playback.episodeName).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
                 Spacer()
+                sleepMenu
                 Button { showStats.toggle() } label: { Label("播放信息", systemImage: "waveform.path") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                 Button { showEpisodes.toggle() } label: { Label("选集", systemImage: "list.bullet.rectangle") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
             }.padding(.horizontal, 20).padding(.vertical, 15)
@@ -23,15 +24,25 @@ struct PlayerView: View {
                     ZStack {
                         Color.black
                         VideoSurface(player: playback.player, mode: playback.enhancementMode, generation: playback.generation) { metrics in playback.metrics = metrics }
+                        PlaybackKeyboardSurface(playback: playback)
                         if !playback.subtitleText.isEmpty {
                             VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, 32).padding(.horizontal, 30) }
+                                .allowsHitTesting(false)
                         }
-                        if playback.isLoading { ProgressView("正在缓冲…").padding(20).background(.black.opacity(0.65), in: RoundedRectangle(cornerRadius: 10)) }
+                        if playback.isLoading { ProgressView("正在缓冲…").padding(20).background(.black.opacity(0.65), in: RoundedRectangle(cornerRadius: 10)).allowsHitTesting(false) }
                         if let error = playback.error {
-                            VStack(spacing: 17) { Image(systemName: "exclamationmark.circle").font(.largeTitle); Text(error).font(.system(size: 13)).multilineTextAlignment(.center).frame(maxWidth: 430); HStack { Button("重试当前集") { playback.retry() }.buttonStyle(.borderedProminent); Button("关闭提示") { playback.error = nil } } }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
+                            VStack(spacing: 17) {
+                                Image(systemName: "exclamationmark.circle").font(.largeTitle)
+                                Text(error).font(.system(size: 13)).multilineTextAlignment(.center).frame(maxWidth: 430)
+                                HStack {
+                                    Button("重试当前集") { playback.retry() }.buttonStyle(.borderedProminent)
+                                    Button("查找其他片源") { showEpisodes = true; app.findAlternativeSources() }.disabled(app.alternativesLoading)
+                                    Button("关闭提示") { playback.error = nil }
+                                }
+                            }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
                         }
-                        if showStats { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() } }
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity).onTapGesture(count: 2) { NSApp.keyWindow?.toggleFullScreen(nil) }
+                        if showStats { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
                     controls
                 }
                 if showEpisodes {
@@ -41,13 +52,22 @@ struct PlayerView: View {
             }
         }
         .background(CinemaStyle.background)
-        .onKeyPress(.space) { playback.togglePlayback(); return .handled }
-        .onKeyPress(.leftArrow) { playback.skip(-10); return .handled }
-        .onKeyPress(.rightArrow) { playback.skip(10); return .handled }
-        .onKeyPress("f") { NSApp.keyWindow?.toggleFullScreen(nil); return .handled }
-        .onKeyPress("m") { playback.volume = playback.volume > 0 ? 0 : 0.8; return .handled }
-        .focusable().focusEffectDisabled()
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
+    }
+    private var sleepMenu: some View {
+        Menu {
+            ForEach(PlaybackSleepTimer.minuteOptions, id: \.self) { minutes in
+                Button("\(minutes) 分钟后暂停") { playback.scheduleSleepTimer(minutes: minutes) }
+            }
+            if playback.sleepRemainingSeconds != nil {
+                Divider()
+                Button("取消睡眠定时") { playback.cancelSleepTimer() }
+            }
+        } label: {
+            Label(playback.sleepRemainingSeconds.map { "\(timeString(Double($0))) 后暂停" } ?? "睡眠定时", systemImage: "moon.zzz")
+                .font(.system(size: 11)).monospacedDigit()
+                .foregroundStyle(playback.sleepRemainingSeconds == nil ? CinemaStyle.secondary : CinemaStyle.accent)
+        }.menuStyle(.borderlessButton).fixedSize().help("到时暂停播放；返回片库时取消")
     }
     private var controls: some View {
         VStack(spacing: 15) {
@@ -56,18 +76,28 @@ struct PlayerView: View {
                 Button { playback.togglePlayback() } label: { Image(systemName: playback.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 19)).frame(width: 24) }.help("播放/暂停 · 空格")
                 Button { playback.skip(-10) } label: { Image(systemName: "gobackward.10").font(.system(size: 19)) }
                 Button { playback.skip(10) } label: { Image(systemName: "goforward.10").font(.system(size: 19)) }
-                Button { app.nextEpisode() } label: { Image(systemName: "forward.end").font(.system(size: 17)) }.disabled(app.selectedLine == nil)
+                Button { app.nextEpisode() } label: { Image(systemName: "forward.end").font(.system(size: 17)) }.disabled(!app.canPlayNext).help("下一集")
                 Text("\(timeString(playback.position)) / \(timeString(playback.duration))").font(.system(size: 10, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
                 Spacer(minLength: 5)
-                Menu { ForEach([0.5, 1, 1.25, 1.5, 2], id: \.self) { speed in Button("\(speed, specifier: "%g")×") { playback.setRate(Float(speed)) } } } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)) }.menuStyle(.borderlessButton).fixedSize()
+                Menu { ForEach([0.5, 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in Button("\(speed, specifier: "%g")×") { playback.setRate(Float(speed)) } } } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)) }.menuStyle(.borderlessButton).fixedSize()
                 Menu {
                     Button("导入 SRT / VTT / ASS…") { app.importSubtitle() }
                     Button("关闭字幕") { playback.selectSubtitle(-1) }
                     ForEach(playback.subtitleTracks) { track in Button(track.name) { playback.selectSubtitle(track.id) } }
-                    if playback.externalSubtitleName != nil { Divider(); Button("字幕提前 0.5 秒") { playback.subtitleOffset -= 0.5 }; Button("字幕延后 0.5 秒") { playback.subtitleOffset += 0.5 } }
+                    if let name = playback.externalSubtitleName {
+                        Divider()
+                        Text(name)
+                        Text("字幕偏移：\(playback.subtitleOffset, specifier: "%+.1f") 秒")
+                        Button("字幕提前 0.5 秒") { playback.subtitleOffset -= 0.5 }
+                        Button("字幕延后 0.5 秒") { playback.subtitleOffset += 0.5 }
+                        Button("重置字幕偏移") { playback.subtitleOffset = 0 }
+                    }
                     if !playback.audioTracks.isEmpty { Divider(); ForEach(playback.audioTracks) { track in Button("音轨 · \(track.name)") { playback.selectAudio(track.id) } } }
                 } label: { Image(systemName: "captions.bubble").font(.system(size: 16)) }.menuStyle(.borderlessButton).fixedSize().help("字幕与音轨")
-                HStack(spacing: 6) { Image(systemName: playback.volume == 0 ? "speaker.slash" : "speaker.wave.2").font(.system(size: 12)); Slider(value: $playback.volume, in: 0...1).frame(width: 68) }
+                HStack(spacing: 6) {
+                    Button { playback.toggleMute() } label: { Image(systemName: playback.volume == 0 ? "speaker.slash" : "speaker.wave.2").font(.system(size: 12)) }.help("静音 / 恢复音量 · M")
+                    Slider(value: $playback.volume, in: 0...1).frame(width: 68).accessibilityLabel("播放音量")
+                }
                 Button { NSApp.keyWindow?.toggleFullScreen(nil) } label: { Image(systemName: "arrow.up.left.and.arrow.down.right").font(.system(size: 14)) }.help("全屏 · F")
             }.buttonStyle(.plain)
             HStack(spacing: 8) {
@@ -77,6 +107,13 @@ struct PlayerView: View {
                 Menu { ForEach(EnhancementMode.allCases) { mode in Button(mode.title) { playback.enhancementMode = mode } } } label: { HStack(spacing: 5) { Image(systemName: "sparkles"); Text("画质增强") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize()
             }
             if let reason = playback.metrics?.fallbackReason { Text(reason).font(.system(size: 10)).foregroundStyle(CinemaStyle.accent).frame(maxWidth: .infinity, alignment: .leading) }
+            if let notice = playback.subtitleNotice {
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "captions.bubble")
+                    Text(notice).frame(maxWidth: .infinity, alignment: .leading)
+                    Button { playback.subtitleNotice = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).help("关闭字幕提示")
+                }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
+            }
         }.padding(.horizontal, 22).padding(.vertical, 17).background(CinemaStyle.panel)
     }
     private var episodePanel: some View {
@@ -136,5 +173,58 @@ struct PlayerView: View {
             }
             if let info = playback.sourceInfo { Text("HLS \(info.segmentCount) 分片 · \(timeString(info.duration))") }
         }.font(.system(size: 10, design: .monospaced)).padding(14).background(.black.opacity(0.75), in: RoundedRectangle(cornerRadius: 8))
+    }
+}
+
+/// Keyboard input belongs to the video canvas. Text fields, sliders and menus keep
+/// their normal first-responder behavior instead of being intercepted globally.
+private struct PlaybackKeyboardSurface: NSViewRepresentable {
+    let playback: PlaybackController
+    func makeNSView(context: Context) -> KeyboardView {
+        let view = KeyboardView()
+        view.playback = playback
+        view.setAccessibilityElement(true)
+        view.setAccessibilityRole(.group)
+        view.setAccessibilityLabel("影片画面")
+        view.setAccessibilityHelp("点击画面启用快捷键：空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音。双击画面切换全屏。")
+        return view
+    }
+    func updateNSView(_ view: KeyboardView, context: Context) { view.playback = playback }
+
+    final class KeyboardView: NSView {
+        weak var playback: PlaybackController?
+        override var acceptsFirstResponder: Bool { true }
+        override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            guard window != nil else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self, let window = self.window, window.attachedSheet == nil,
+                      !(window.firstResponder is NSTextView), !(window.firstResponder is NSControl) else { return }
+                window.makeFirstResponder(self)
+            }
+        }
+        override func mouseDown(with event: NSEvent) {
+            window?.makeFirstResponder(self)
+            if event.clickCount == 2 { window?.toggleFullScreen(nil) }
+        }
+        override func keyDown(with event: NSEvent) {
+            guard let playback, event.modifierFlags.intersection([.command, .control, .option]).isEmpty else {
+                super.keyDown(with: event); return
+            }
+            switch event.keyCode {
+            case 49: if !event.isARepeat { playback.togglePlayback() }
+            case 123: playback.skip(-10)
+            case 124: playback.skip(10)
+            case 125: playback.adjustVolume(-0.05)
+            case 126: playback.adjustVolume(0.05)
+            default:
+                switch event.charactersIgnoringModifiers?.lowercased() {
+                case "f": if !event.isARepeat { window?.toggleFullScreen(nil) }
+                case "m": if !event.isARepeat { playback.toggleMute() }
+                default: super.keyDown(with: event)
+                }
+            }
+        }
     }
 }
