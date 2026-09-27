@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-27",
+  "scope": "Read-only VideoToolbox capability query; no processing session or frame processing",
+  "machine": {
+    "chip": "Apple M4",
+    "unified_memory_gb": 16,
+    "macos": "27.0"
+  },
+  "api": "VTLowLatencySuperResolutionScalerConfiguration",
+  "sdk_header": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/VideoToolbox.framework/Headers/VTFrameProcessor_LowLatencySuperResolutionScaler.h",
+  "command": "swift -e 'import Foundation; import VideoToolbox; print(\"low_latency_sr_supported=\\(VTLowLatencySuperResolutionScalerConfiguration.isSupported)\"); print(\"dimensions_min=\\(String(describing: VTLowLatencySuperResolutionScalerConfiguration.minimumDimensions)) max=\\(String(describing: VTLowLatencySuperResolutionScalerConfiguration.maximumDimensions))\"); for (w,h) in [(1920,1080),(1916,1080),(1280,720)] { print(\"scale_factors_\\(w)x\\(h)=\\(VTLowLatencySuperResolutionScalerConfiguration.supportedScaleFactors(frameWidth:w,frameHeight:h))\") }'",
+  "exit_code": 0,
+  "stdout": "low_latency_sr_supported=true\ndimensions_min=Optional(__C.CMVideoDimensions(width: 96, height: 96)) max=Optional(__C.CMVideoDimensions(width: 1280, height: 1280))\nscale_factors_1920x1080=[]\nscale_factors_1916x1080=[]\nscale_factors_1280x720=[1.5]\n",
+  "is_supported": true,
+  "minimum_input_dimensions": [96, 96],
+  "maximum_input_dimensions": [1280, 1280],
+  "supported_scale_factor_queries": [
+    {"input_width": 1920, "input_height": 1080, "factors": []},
+    {"input_width": 1916, "input_height": 1080, "factors": []},
+    {"input_width": 1280, "input_height": 720, "factors": [1.5]}
+  ],
+  "limitations": [
+    "No session was created and no model was downloaded by this probe.",
+    "No frame was enhanced; throughput, latency, memory and visual quality remain unmeasured.",
+    "This result does not establish 1080p-to-4K support or generalize to other devices and OS versions."
+  ]
+}

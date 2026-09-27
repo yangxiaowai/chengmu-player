@@ -1,0 +1,76 @@
+Building for debugging...
+[3 / 16] CinemaCore
+[5 / 17] CinemaCore
+Build complete! (0.53 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite LibraryTests started.
+◇ Suite SourceTests started.
+◇ Suite HistoryContextTests started.
+◇ Suite SourceMatchingTests started.
+◇ Suite QualityTests started.
+◇ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() started.
+◇ Test testBadSubtitleTimesAreRejected() started.
+◇ Test testHLSRelativeSegmentsAndEncryptionAndDuration() started.
+◇ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() started.
+◇ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() started.
+◇ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() started.
+◇ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() started.
+◇ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() started.
+◇ Test testHTMLSharePagesAreNotPlayableEpisodeLines() started.
+◇ Test testHLSRejectsHTMLAndMetadataOnly() started.
+◇ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() started.
+◇ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() started.
+◇ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() started.
+◇ Test detailUsesActualCatalogTitleToRejectChangedSeasonAndFallsBackOnEmptyFields() started.
+◇ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() started.
+◇ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() started.
+◇ Test namedEpisodeMustMatchExactlyWithoutNumberGuessing() started.
+◇ Test legacyHistoryWithoutContextStillLoads() started.
+◇ Test exactSeasonTitleAcceptsNotationButRejectsDifferentSeasonAndUnknownSeason() started.
+◇ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() started.
+◇ Test episodeRequiresSameNumberAndEquivalentNameAndRejectsAmbiguity() started.
+◇ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() started.
+◇ Test candidatesRetainDifferentProvidersAndRemoveDuplicatesAndCurrentVersion() started.
+◇ Test historyRestoresExactSeriesLineAndEpisode() started.
+◇ Test unnumberedEpisodeSwitchRequiresExactLabel() started.
+◇ Test testPlaybackRateTightensBudget() started.
+◇ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() started.
+◇ Test testPortraitAndExisting4KPreservePixels() started.
+◇ Test testWideFrameFills4KWithoutStretching() started.
+✔ Test testBadSubtitleTimesAreRejected() passed after 0.002 seconds.
+✔ Test testHLSRejectsHTMLAndMetadataOnly() passed after 0.002 seconds.
+✔ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() passed after 0.002 seconds.
+✔ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() passed after 0.002 seconds.
+✔ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() passed after 0.002 seconds.
+✔ Test testHLSRelativeSegmentsAndEncryptionAndDuration() passed after 0.002 seconds.
+✔ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() passed after 0.002 seconds.
+✔ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() passed after 0.002 seconds.
+✔ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() passed after 0.002 seconds.
+✔ Test legacyHistoryWithoutContextStillLoads() passed after 0.002 seconds.
+✔ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() passed after 0.002 seconds.
+✔ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() passed after 0.002 seconds.
+✔ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() passed after 0.002 seconds.
+✔ Test testHTMLSharePagesAreNotPlayableEpisodeLines() passed after 0.002 seconds.
+✔ Test unnumberedEpisodeSwitchRequiresExactLabel() passed after 0.002 seconds.
+✔ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() passed after 0.002 seconds.
+✔ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() passed after 0.001 seconds.
+✔ Test testPlaybackRateTightensBudget() passed after 0.002 seconds.
+✔ Test namedEpisodeMustMatchExactlyWithoutNumberGuessing() passed after 0.002 seconds.
+✔ Test candidatesRetainDifferentProvidersAndRemoveDuplicatesAndCurrentVersion() passed after 0.002 seconds.
+✔ Test testPortraitAndExisting4KPreservePixels() passed after 0.001 seconds.
+✔ Test testWideFrameFills4KWithoutStretching() passed after 0.001 seconds.
+✔ Test episodeRequiresSameNumberAndEquivalentNameAndRejectsAmbiguity() passed after 0.002 seconds.
+✔ Suite QualityTests passed after 0.002 seconds.
+✔ Test exactSeasonTitleAcceptsNotationButRejectsDifferentSeasonAndUnknownSeason() passed after 0.002 seconds.
+✔ Test detailUsesActualCatalogTitleToRejectChangedSeasonAndFallsBackOnEmptyFields() passed after 0.002 seconds.
+✔ Suite SourceMatchingTests passed after 0.002 seconds.
+✔ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() passed after 0.002 seconds.
+✔ Suite SourceTests passed after 0.002 seconds.
+✔ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() passed after 0.002 seconds.
+✔ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() passed after 0.002 seconds.
+✔ Test historyRestoresExactSeriesLineAndEpisode() passed after 0.002 seconds.
+✔ Suite LibraryTests passed after 0.002 seconds.
+✔ Suite HistoryContextTests passed after 0.002 seconds.
+✔ Test run with 29 tests in 5 suites passed after 0.003 seconds.

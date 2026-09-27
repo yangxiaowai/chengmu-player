@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-27T04:19:41.654428+00:00",
+  "app": "PlaybackQA.app with exact Release Cinema executable",
+  "method": "Native application UI via CUA; observed accessibility state and screenshots",
+  "passed": [
+    {
+      "case": "Cross-provider search",
+      "observed": "Found 非凡目录 / 绝命毒师第一季 while playing dyttm3u8 S01E01"
+    },
+    {
+      "case": "Cross-provider switch",
+      "observed": "ffm3u8 S01E01, progressed from about205.4 to211.4seconds, duration58:43, actual1916x1080 ->3832x2160 and GPUframes rendering"
+    },
+    {
+      "case": "Seek +10 seconds",
+      "observed": "Progress advanced to229.2seconds, GPU resumed"
+    },
+    {
+      "case": "Speed and pause",
+      "observed": "1.5x menu applied; pause at241.945seconds"
+    },
+    {
+      "case": "History restore",
+      "observed": "ffm3u8 S01E01 restored241.945seconds and all7episodechoices"
+    },
+    {
+      "case": "Next episode after history restore",
+      "observed": "S01E02 started0.2seconds, duration48:49, actual1916x1080 ->3832x2160"
+    },
+    {
+      "case": "Apple AI real streaming",
+      "observed": "火线第二季 第01集, dyttm3u8, 1280x720 ->1920x1080 Apple AIx1.5, realvideo visible"
+    },
+    {
+      "case": "Final delivery app discovery/search",
+      "observed": "dist/映川.app launched normally with34results; 火线 shortcut returns10seasonentries,5perproviderincludingsecondseason."
+    }
+  ],
+  "limitations": [
+    "This is a record of manual tool-mediated observations, not an automated UI test suite",
+    "No full episode identity or subjective audio-sync evaluation",
+    "Source-switch diagnostic JSON includes intentional pause, seek, return, resume, next-episode and speed changes; not a continuous-play benchmark"
+  ]
+}

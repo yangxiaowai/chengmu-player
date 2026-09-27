@@ -1,0 +1,2890 @@
+{
+  "began_at": "2026-09-27T03:54:15.629857+00:00",
+  "status": "finished",
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "scope": "First/middle/last episode per each of 15 catalog seasons; short decode near 60 seconds",
+  "maximum_parallel_samples": 2,
+  "network_read_timeout_microseconds": 8000000,
+  "subprocess_watchdog_seconds": 40,
+  "catalog_response_limit_bytes": 4194304,
+  "requested_decode_seconds_per_sample": 2,
+  "full_episode_watch_verified": false,
+  "content_identity_verified": false,
+  "in_app_playback_verified": false,
+  "media_files_saved": false,
+  "metadata": "Stream dimensions/codecs are FFprobe stream metadata, not master playlist declarations; FFmpeg separately performs actual 2-second decoding",
+  "limitations": [
+    "Short samples do not prove complete or correctly labelled episodes",
+    "Output is decoded to null and not visually reviewed",
+    "Seeking includes demux/decode preroll internally; requested sample position is 60s",
+    "Transport bytes are not recorded and remote availability can change",
+    "3 Stranger Things S5 fast-input-seek attempts produced zero frames; actual after-input-seek fallback passed, both attempts preserved",
+    "Audio/video sync, native AVPlayer seeking and sustained in-app playback are outside this FFmpeg null-output validation"
+  ],
+  "catalog_failures": [],
+  "samples": [
+    {
+      "catalog_id": "7942",
+      "catalog_title": "怪奇物语第一季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "c16d0413e4d35e44a1ef2a4a306f073bdeb63275994c7c8afd4905583b7cc7bd",
+      "checked_at": "2026-09-27T03:54:24.802634+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.519,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 7.839,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7942",
+      "catalog_title": "怪奇物语第一季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第04集",
+      "episode_number": 4,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "d534aafa9898489949b9fc9c320264e76139c89a3ba71d4c993107d44a810e88",
+      "checked_at": "2026-09-27T03:54:24.802785+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.201,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.831,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7942",
+      "catalog_title": "怪奇物语第一季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第08集",
+      "episode_number": 8,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "fd3a90c415437f46aa35456be29cef5b23106a378084dcf6785b21e39084f336",
+      "checked_at": "2026-09-27T03:54:35.835938+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.896,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.07,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7943",
+      "catalog_title": "怪奇物语第二季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "f7004de43baf735f5630e3030cd8ddffb39fe8d7f810d57fc64c27edb79190a3",
+      "checked_at": "2026-09-27T03:54:37.160522+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.031,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 7.093,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7943",
+      "catalog_title": "怪奇物语第二季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第05集",
+      "episode_number": 5,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "8e98e83d46f004be6a519edac5eeca1c9b7e6756cc6e8d0f77db5c9b3662ec23",
+      "checked_at": "2026-09-27T03:54:45.801625+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.606,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.277,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7943",
+      "catalog_title": "怪奇物语第二季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第09集",
+      "episode_number": 9,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "31e9f4925811745e0325b7f63ff109815819e0d02710eb7d1b16fe0f17c28315",
+      "checked_at": "2026-09-27T03:54:48.285449+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.142,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.285,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7944",
+      "catalog_title": "怪奇物语第三季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "032df8c0eefcbe8c5590ca1b8084684fae1896d614c9e7c8a3d0f0412924c6e4",
+      "checked_at": "2026-09-27T03:54:55.685355+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.66,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.774,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7944",
+      "catalog_title": "怪奇物语第三季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第04集",
+      "episode_number": 4,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "8aa27594f032256ddd66da3d71e697e3b68055f4010b82df60cbe44abb2de756",
+      "checked_at": "2026-09-27T03:54:58.712728+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.549,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 7.118,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7944",
+      "catalog_title": "怪奇物语第三季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第08集",
+      "episode_number": 8,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "bc2d3b0af86e9323cced53c0f7c8a84673adc57c635cee6f6b49e9a10447f58b",
+      "checked_at": "2026-09-27T03:55:06.120404+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.533,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.648,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7945",
+      "catalog_title": "怪奇物语第四季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "ebef4a7635f934ec8cbab85d0ae9ddf91e753c8ef00dcfcc5787ab17310d3926",
+      "checked_at": "2026-09-27T03:55:09.380489+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.82,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.332,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7945",
+      "catalog_title": "怪奇物语第四季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第05集",
+      "episode_number": 5,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "d53517453da60156d976c7f7ee9ba65e08110a850868a5d1eaf6626515d57abf",
+      "checked_at": "2026-09-27T03:55:16.301810+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.672,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 7.516,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "7945",
+      "catalog_title": "怪奇物语第四季",
+      "episodes": 9,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第09集",
+      "episode_number": 9,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "29bc3bd3c97febf5a5ac8c4753cbc91274c69cdf7fd63a0a987f822dcc4c4c1c",
+      "checked_at": "2026-09-27T03:55:19.532471+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.082,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 8.136,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "72633",
+      "catalog_title": "怪奇物语第五季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-cine.com",
+      "media_url_sha256": "72e74df7aab65a9eafd82d40ac2aa973695b59175fb2fd6608b8775650988cfd",
+      "checked_at": "2026-09-27T03:55:27.490090+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.928,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.142,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 0,
+        "output_seconds": null,
+        "progress_end": true
+      },
+      "status": "decoded_with_seek_fallback",
+      "fast_seek_status": "failed",
+      "effective_decode_method": "seek_after_input",
+      "seek_after_input_fallback": {
+        "exit_code": 0,
+        "wall_seconds": 8.086,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      }
+    },
+    {
+      "catalog_id": "72633",
+      "catalog_title": "怪奇物语第五季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第04集",
+      "episode_number": 4,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-cinema.com",
+      "media_url_sha256": "de3af3f0000f727d174512d9cd1dc61c890d737be337e2658a75b882927c4a5e",
+      "checked_at": "2026-09-27T03:55:31.750461+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.102,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 9.634,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 0,
+        "output_seconds": null,
+        "progress_end": true
+      },
+      "status": "decoded_with_seek_fallback",
+      "fast_seek_status": "failed",
+      "effective_decode_method": "seek_after_input",
+      "seek_after_input_fallback": {
+        "exit_code": 0,
+        "wall_seconds": 20.185,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      }
+    },
+    {
+      "catalog_id": "72633",
+      "catalog_title": "怪奇物语第五季",
+      "episodes": 8,
+      "line": "dyttm3u8",
+      "series": "怪奇物语",
+      "episode": "第08集",
+      "episode_number": 8,
+      "sample_position": "last",
+      "media_host": "vip.dytt-cine.com",
+      "media_url_sha256": "c7b73916b39732f4cfc6708fb1c9ec9fb97f6a3acb9d269cef5bf130a79d462d",
+      "checked_at": "2026-09-27T03:55:34.560692+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.688,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.809,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 0,
+        "output_seconds": null,
+        "progress_end": true
+      },
+      "status": "decoded_with_seek_fallback",
+      "fast_seek_status": "failed",
+      "effective_decode_method": "seek_after_input",
+      "seek_after_input_fallback": {
+        "exit_code": 0,
+        "wall_seconds": 11.078,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      }
+    },
+    {
+      "catalog_id": "13747",
+      "catalog_title": "绝命毒师第一季",
+      "episodes": 7,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "afb31e5d38b40234c9856fc82559e1ab78493b7c366e9a4826062bb1c8bc9891",
+      "checked_at": "2026-09-27T03:55:44.058496+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 4.024,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.985,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13747",
+      "catalog_title": "绝命毒师第一季",
+      "episodes": 7,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第04集",
+      "episode_number": 4,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "65b0650adee4be83e3cb5e7efc02ebcbb5334d51e16dbe1cb8a786a5ba08a872",
+      "checked_at": "2026-09-27T03:55:45.487094+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.6,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.527,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13747",
+      "catalog_title": "绝命毒师第一季",
+      "episodes": 7,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "c44d7e2b1e6970a601f0fe09670a4eb9e413bb4ec920ee65e222583dbfce9c53",
+      "checked_at": "2026-09-27T03:55:55.067411+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.498,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.273,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13748",
+      "catalog_title": "绝命毒师第二季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "02a1d7e97e3d3811f800fef504ec6eecb72ab0687ccf2e80af5513568ef1d1c9",
+      "checked_at": "2026-09-27T03:55:55.614635+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.463,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 5.771,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13748",
+      "catalog_title": "绝命毒师第二季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "b45743857b857405872078ccb740215030e30b5589c34b9bbb4b6ed014141e37",
+      "checked_at": "2026-09-27T03:56:04.838792+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.599,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.447,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13748",
+      "catalog_title": "绝命毒师第二季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第13集",
+      "episode_number": 13,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "8465da67d297106b4074b664aefb4923827c186e9d5bf715f461ecdd8eefa473",
+      "checked_at": "2026-09-27T03:56:04.848679+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.568,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.564,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13749",
+      "catalog_title": "绝命毒师第三季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "ad6286aed36a862de71d37c87a5dba3501b958c5e0db43728646da0fdee2b6d7",
+      "checked_at": "2026-09-27T03:56:14.885246+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.499,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.164,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13749",
+      "catalog_title": "绝命毒师第三季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "da9ec2d94689cc028f0f493f366c2629183dc38b345ef854942ffdd72a1e9740",
+      "checked_at": "2026-09-27T03:56:14.981223+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.509,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 5.693,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13749",
+      "catalog_title": "绝命毒师第三季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第13集",
+      "episode_number": 13,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "b2b794d0ec2938bce370fe13dd07bef2911794ef736561199a96caccd92f2a46",
+      "checked_at": "2026-09-27T03:56:24.184310+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.416,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.04,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13750",
+      "catalog_title": "绝命毒师第四季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "afa1c1dcf042d32d81224a847f2d47305fb231c8729a23265ada358bcf817af6",
+      "checked_at": "2026-09-27T03:56:24.548464+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.472,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.251,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13750",
+      "catalog_title": "绝命毒师第四季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "76bbf60e5b24dedec2338b643ab1b46ec426ac19434e4dc8db9bc3d0895d878e",
+      "checked_at": "2026-09-27T03:56:33.640220+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.56,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.405,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13750",
+      "catalog_title": "绝命毒师第四季",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第13集",
+      "episode_number": 13,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "44cfbf415092f7a711c8795698b0f2a69fc7949ed46f38855cd1b21f97b6683a",
+      "checked_at": "2026-09-27T03:56:34.271038+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.537,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.517,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13751",
+      "catalog_title": "绝命毒师第五季",
+      "episodes": 16,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "d96f00bb4ae9ae5c3a0a7be47bdd7460ab69719dddb1a3cc47cc31fb4feee27f",
+      "checked_at": "2026-09-27T03:56:43.605464+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.45,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.485,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13751",
+      "catalog_title": "绝命毒师第五季",
+      "episodes": 16,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第08集",
+      "episode_number": 8,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "748482a3a00ec4389e1d532ee0cf4786e77433a1bdde51c3141040e929ebc530",
+      "checked_at": "2026-09-27T03:56:44.324504+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.502,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.193,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "13751",
+      "catalog_title": "绝命毒师第五季",
+      "episodes": 16,
+      "line": "dyttm3u8",
+      "series": "绝命毒师",
+      "episode": "第16集",
+      "episode_number": 16,
+      "sample_position": "last",
+      "media_host": "vip.dytt-music.com",
+      "media_url_sha256": "7a23371a5401bde794302b2af2348655871f1c7479b83d35fcb597b98eaca57e",
+      "checked_at": "2026-09-27T03:56:53.541341+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 3.732,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 8.397,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12980",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "c3628cb639340da703205b4a468bb35d85ec316ec42a0e893f70a0fd7413a9f0",
+      "checked_at": "2026-09-27T03:56:54.019794+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.489,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.266,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12980",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "2c758796d8b2791ee58edca628e9eb143c5729bf8e4d96cb8455fa80faca6a5c",
+      "checked_at": "2026-09-27T03:56:59.774448+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.4,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.864,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12980",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第13集",
+      "episode_number": 13,
+      "sample_position": "last",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "d8c948bfb87254637ba45c290750fbc18dfc7d5acd26da09c61a17a6e19d8ba8",
+      "checked_at": "2026-09-27T03:57:05.670615+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.561,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24000/1001",
+          "avg_frame_rate": "24000/1001"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.3,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 47,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12982",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "45cac8f3c0816fdac4a5d16d6dc3f1b91be2a64d63d74c87ed501e2f1e0923b8",
+      "checked_at": "2026-09-27T03:57:06.039222+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.497,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 5.565,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12982",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第06集",
+      "episode_number": 6,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "091d1a406cd1587c77330a997b409d4e7dd8b63c2751dd40403dd81d76930232",
+      "checked_at": "2026-09-27T03:57:12.532443+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.474,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.834,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12982",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第12集",
+      "episode_number": 12,
+      "sample_position": "last",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "b9d512041a8e07db2281bd1bd3aaca4dea5c56415944defd8665308aa3d94695",
+      "checked_at": "2026-09-27T03:57:14.101435+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.413,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.459,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12984",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "d0f9c63eadcc0c824b6d8db0ee161dc61b533252fdc4903c35de722604860d61",
+      "checked_at": "2026-09-27T03:57:18.841133+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.17,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.075,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12984",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第06集",
+      "episode_number": 6,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "d1325107115379663b13ae4ff536f1321cbf812fe614b6cb6babdfe28350feb8",
+      "checked_at": "2026-09-27T03:57:20.973786+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.474,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.139,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12984",
+      "catalog_title": "火线",
+      "episodes": 12,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第12集",
+      "episode_number": 12,
+      "sample_position": "last",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "c041d3ba037b17d520f8aad30e093e1346de030bb61e6d7fabeb301c413c1581",
+      "checked_at": "2026-09-27T03:57:25.086201+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.51,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 6.043,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12988",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "fb31f16c7fedd12f07e97260ab3c4f1fcb96257674c2578d0f23b8c67a90d4b7",
+      "checked_at": "2026-09-27T03:57:27.587595+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.509,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.767,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12988",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第07集",
+      "episode_number": 7,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "01fc811291ad388926017e32f198d3dd8aa539bfe7ca3c41d2d784bdb52ab85e",
+      "checked_at": "2026-09-27T03:57:33.638895+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.713,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.081,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12988",
+      "catalog_title": "火线",
+      "episodes": 13,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第13集",
+      "episode_number": 13,
+      "sample_position": "last",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "bdaeeb62a6542c329926b839740f936eda51511f91dbf1f95606c40e1441ab20",
+      "checked_at": "2026-09-27T03:57:34.863406+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.657,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 4.59,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12990",
+      "catalog_title": "火线",
+      "episodes": 10,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第01集",
+      "episode_number": 1,
+      "sample_position": "first",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "c3bb93b00b1feb4dbf612d2dc322cf9bb424989410cdf0aa0fa00bf2b2f0aa57",
+      "checked_at": "2026-09-27T03:57:40.433467+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.548,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.618,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12990",
+      "catalog_title": "火线",
+      "episodes": 10,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第05集",
+      "episode_number": 5,
+      "sample_position": "middle",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "138e5bed2235f43d7a1770a83fe0a8bf39420e2a8376afcb7b0f515901959c5e",
+      "checked_at": "2026-09-27T03:57:42.110057+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.521,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.829,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    },
+    {
+      "catalog_id": "12990",
+      "catalog_title": "火线",
+      "episodes": 10,
+      "line": "dyttm3u8",
+      "series": "火线",
+      "episode": "第10集",
+      "episode_number": 10,
+      "sample_position": "last",
+      "media_host": "vip.dytt-movies.com",
+      "media_url_sha256": "6cbcf4dec26f1d71a16eeb109f3f14a33adc8ded25a3deb8d8f1da298f6b46f9",
+      "checked_at": "2026-09-27T03:57:46.600457+00:00",
+      "seek_seconds": 60,
+      "requested_decode_seconds": 2,
+      "probe": {
+        "exit_code": 0,
+        "wall_seconds": 2.374,
+        "stderr": "",
+        "timed_out": false
+      },
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "decode": {
+        "exit_code": 0,
+        "wall_seconds": 3.823,
+        "stderr": "",
+        "timed_out": false,
+        "frames": 49,
+        "output_seconds": 2.0,
+        "progress_end": true
+      },
+      "status": "decoded_sample",
+      "fast_seek_status": "decoded_sample",
+      "effective_decode_method": "seek_before_input"
+    }
+  ],
+  "expected_samples": 45,
+  "scheduled_samples": 45,
+  "samples_checked": 45,
+  "samples_decoded": 45,
+  "ended_at": "2026-09-27T03:57:52.799360+00:00",
+  "failed_seek_diagnosis": {
+    "began_at": "2026-09-27T03:59:25.868384+00:00",
+    "scope": "Stranger Things S5 first and last representative failed-seek diagnosis",
+    "network_read_timeout_seconds": 8,
+    "subprocess_watchdog_seconds": 40,
+    "maximum_parallel_samples": 2,
+    "media_files_saved": false,
+    "identity_visually_verified": false,
+    "results": [
+      {
+        "catalog_id": "72633",
+        "catalog_title": "怪奇物语第五季",
+        "episodes": 8,
+        "line": "dyttm3u8",
+        "series": "怪奇物语",
+        "episode": "第01集",
+        "episode_number": 1,
+        "sample_position": "first",
+        "checked_at": "2026-09-27T03:59:25.870836+00:00",
+        "playlist": {
+          "declared_duration_seconds": 4341.9729999999845,
+          "segment_count": 1086,
+          "discontinuity_count": 190,
+          "endlist": true
+        },
+        "selected_segment": {
+          "start_seconds": 58.434,
+          "duration_seconds": 4.171,
+          "preceding_discontinuities": 3,
+          "media_host": "vip.dytt-cine.com"
+        },
+        "first_segment": {
+          "probe": {
+            "exit_code": 0,
+            "wall_seconds": 3.469,
+            "stderr": "",
+            "timed_out": false
+          },
+          "metadata": {
+            "programs": [
+              {
+                "streams": [
+                  {
+                    "codec_name": "h264",
+                    "codec_type": "video",
+                    "width": 1920,
+                    "height": 1080,
+                    "avg_frame_rate": "24000/1001",
+                    "start_time": "1.483422"
+                  },
+                  {
+                    "codec_name": "aac",
+                    "codec_type": "audio",
+                    "sample_rate": "48000",
+                    "channels": 2,
+                    "avg_frame_rate": "0/0",
+                    "start_time": "1.462089"
+                  }
+                ]
+              }
+            ],
+            "stream_groups": [],
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "avg_frame_rate": "24000/1001",
+                "start_time": "1.483422"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "48000",
+                "channels": 2,
+                "avg_frame_rate": "0/0",
+                "start_time": "1.462089"
+              }
+            ],
+            "format": {
+              "start_time": "1.462089",
+              "duration": "7.361989"
+            }
+          },
+          "decode": {
+            "exit_code": 0,
+            "wall_seconds": 3.842,
+            "stderr": "",
+            "timed_out": false,
+            "frames": 47,
+            "output_seconds": 2.0,
+            "progress_end": true
+          }
+        },
+        "segment_covering_60s": {
+          "probe": {
+            "exit_code": 0,
+            "wall_seconds": 3.067,
+            "stderr": "",
+            "timed_out": false
+          },
+          "metadata": {
+            "programs": [
+              {
+                "streams": [
+                  {
+                    "codec_name": "h264",
+                    "codec_type": "video",
+                    "width": 1920,
+                    "height": 1080,
+                    "avg_frame_rate": "24000/1001",
+                    "start_time": "59.916800"
+                  },
+                  {
+                    "codec_name": "aac",
+                    "codec_type": "audio",
+                    "sample_rate": "48000",
+                    "channels": 2,
+                    "avg_frame_rate": "0/0",
+                    "start_time": "59.851422"
+                  }
+                ]
+              }
+            ],
+            "stream_groups": [],
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "avg_frame_rate": "24000/1001",
+                "start_time": "59.916800"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "48000",
+                "channels": 2,
+                "avg_frame_rate": "0/0",
+                "start_time": "59.851422"
+              }
+            ],
+            "format": {
+              "start_time": "59.851422",
+              "duration": "4.236200"
+            }
+          },
+          "decode": {
+            "exit_code": 0,
+            "wall_seconds": 3.539,
+            "stderr": "",
+            "timed_out": false,
+            "frames": 46,
+            "output_seconds": 2.0,
+            "progress_end": true
+          }
+        },
+        "hls_seek_after_input": {
+          "exit_code": 0,
+          "wall_seconds": 8.086,
+          "stderr": "",
+          "timed_out": false,
+          "frames": 47,
+          "output_seconds": 2.0,
+          "progress_end": true
+        },
+        "hls_start_sample": {
+          "exit_code": 0,
+          "wall_seconds": 3.411,
+          "stderr": "",
+          "timed_out": false,
+          "frames": 47,
+          "output_seconds": 2.0,
+          "progress_end": true
+        }
+      },
+      {
+        "catalog_id": "72633",
+        "catalog_title": "怪奇物语第五季",
+        "episodes": 8,
+        "line": "dyttm3u8",
+        "series": "怪奇物语",
+        "episode": "第08集",
+        "episode_number": 8,
+        "sample_position": "last",
+        "checked_at": "2026-09-27T03:59:25.871054+00:00",
+        "playlist": {
+          "declared_duration_seconds": 7767.068000000061,
+          "segment_count": 1942,
+          "discontinuity_count": 307,
+          "endlist": true
+        },
+        "selected_segment": {
+          "start_seconds": 59.268,
+          "duration_seconds": 3.587,
+          "preceding_discontinuities": 3,
+          "media_host": "vip.dytt-cine.com"
+        },
+        "first_segment": {
+          "probe": {
+            "exit_code": 0,
+            "wall_seconds": 1.937,
+            "stderr": "",
+            "timed_out": false
+          },
+          "metadata": {
+            "programs": [
+              {
+                "streams": [
+                  {
+                    "codec_name": "h264",
+                    "codec_type": "video",
+                    "width": 1920,
+                    "height": 1080,
+                    "avg_frame_rate": "24000/1001",
+                    "start_time": "1.483422"
+                  },
+                  {
+                    "codec_name": "aac",
+                    "codec_type": "audio",
+                    "sample_rate": "48000",
+                    "channels": 2,
+                    "avg_frame_rate": "0/0",
+                    "start_time": "1.462089"
+                  }
+                ]
+              }
+            ],
+            "stream_groups": [],
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "avg_frame_rate": "24000/1001",
+                "start_time": "1.483422"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "48000",
+                "channels": 2,
+                "avg_frame_rate": "0/0",
+                "start_time": "1.462089"
+              }
+            ],
+            "format": {
+              "start_time": "1.462089",
+              "duration": "7.779077"
+            }
+          },
+          "decode": {
+            "exit_code": 0,
+            "wall_seconds": 3.985,
+            "stderr": "",
+            "timed_out": false,
+            "frames": 47,
+            "output_seconds": 2.0,
+            "progress_end": true
+          }
+        },
+        "segment_covering_60s": {
+          "probe": {
+            "exit_code": 0,
+            "wall_seconds": 3.164,
+            "stderr": "",
+            "timed_out": false
+          },
+          "metadata": {
+            "programs": [
+              {
+                "streams": [
+                  {
+                    "codec_name": "h264",
+                    "codec_type": "video",
+                    "width": 1920,
+                    "height": 1080,
+                    "avg_frame_rate": "24000/1001",
+                    "start_time": "60.750967"
+                  },
+                  {
+                    "codec_name": "aac",
+                    "codec_type": "audio",
+                    "sample_rate": "48000",
+                    "channels": 2,
+                    "avg_frame_rate": "0/0",
+                    "start_time": "60.683422"
+                  }
+                ]
+              }
+            ],
+            "stream_groups": [],
+            "streams": [
+              {
+                "codec_name": "h264",
+                "codec_type": "video",
+                "width": 1920,
+                "height": 1080,
+                "avg_frame_rate": "24000/1001",
+                "start_time": "60.750967"
+              },
+              {
+                "codec_name": "aac",
+                "codec_type": "audio",
+                "sample_rate": "48000",
+                "channels": 2,
+                "avg_frame_rate": "0/0",
+                "start_time": "60.683422"
+              }
+            ],
+            "format": {
+              "start_time": "60.683422",
+              "duration": "3.654456"
+            }
+          },
+          "decode": {
+            "exit_code": 0,
+            "wall_seconds": 4.258,
+            "stderr": "",
+            "timed_out": false,
+            "frames": 46,
+            "output_seconds": 2.0,
+            "progress_end": true
+          }
+        },
+        "hls_seek_after_input": {
+          "exit_code": 0,
+          "wall_seconds": 11.078,
+          "stderr": "",
+          "timed_out": false,
+          "frames": 47,
+          "output_seconds": 2.0,
+          "progress_end": true
+        },
+        "hls_start_sample": {
+          "exit_code": 0,
+          "wall_seconds": 2.973,
+          "stderr": "",
+          "timed_out": false,
+          "frames": 47,
+          "output_seconds": 2.0,
+          "progress_end": true
+        }
+      }
+    ],
+    "ended_at": "2026-09-27T03:59:55.008239+00:00",
+    "limits": [
+      "Direct segment sample covers a declared HLS timeline near 60s but does not establish exact content position",
+      "Full episodes not watched",
+      "Original representative failures remain unchanged"
+    ]
+  },
+  "fast_seek_samples_decoded": 42,
+  "seek_fallback_samples_decoded": 3,
+  "fallback_checked_at": "2026-09-27T04:01:55.896054+00:00",
+  "summary": {
+    "seasons_sampled": 15,
+    "representatives_per_season": 3,
+    "samples_with_2_second_decode": 45,
+    "fast_input_seek_successes": 42,
+    "accurate_seek_fallback_successes": 3,
+    "decoded_output_saved": "null output only",
+    "decoder_errors_in_successful_attempts": 0,
+    "observed_video_profiles": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "frame_rate": "24000/1001",
+        "samples": 27
+      },
+      {
+        "width": 1916,
+        "height": 1080,
+        "frame_rate": "24000/1001",
+        "samples": 6
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "frame_rate": "25/1",
+        "samples": 12
+      }
+    ],
+    "observed_audio_profiles": [
+      {
+        "codec": "aac",
+        "sample_rate": 48000,
+        "channels": 2,
+        "samples": 33
+      },
+      {
+        "codec": "aac",
+        "sample_rate": 44100,
+        "channels": 2,
+        "samples": 12
+      }
+    ]
+  }
+}

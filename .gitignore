@@ -1,0 +1,9 @@
+.build/
+dist/
+.DS_Store
+.swiftpm/
+docs/validation/*.png
+docs/validation/*.mov
+docs/validation/*.mp4
+__pycache__/
+*.pyc

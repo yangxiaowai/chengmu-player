@@ -1,0 +1,125 @@
+{
+  "scope": "Late portion of continuous baseline run only; not whole-run peak memory",
+  "samples": [
+    {
+      "unixTime": 1790482307.136123,
+      "rssKiB": 101728,
+      "cpuPercent": 21.8,
+      "processElapsed": "20:27"
+    },
+    {
+      "unixTime": 1790482337.1423628,
+      "rssKiB": 104064,
+      "cpuPercent": 26.9,
+      "processElapsed": "20:57"
+    },
+    {
+      "unixTime": 1790482367.151498,
+      "rssKiB": 105136,
+      "cpuPercent": 24.3,
+      "processElapsed": "21:27"
+    },
+    {
+      "unixTime": 1790482397.160527,
+      "rssKiB": 106064,
+      "cpuPercent": 25.1,
+      "processElapsed": "21:57"
+    },
+    {
+      "unixTime": 1790482427.170579,
+      "rssKiB": 108576,
+      "cpuPercent": 31.2,
+      "processElapsed": "22:27"
+    },
+    {
+      "unixTime": 1790482457.180174,
+      "rssKiB": 104512,
+      "cpuPercent": 19.5,
+      "processElapsed": "22:57"
+    },
+    {
+      "unixTime": 1790482487.188156,
+      "rssKiB": 105680,
+      "cpuPercent": 20.9,
+      "processElapsed": "23:27"
+    },
+    {
+      "unixTime": 1790482517.197979,
+      "rssKiB": 104176,
+      "cpuPercent": 32.5,
+      "processElapsed": "23:57"
+    },
+    {
+      "unixTime": 1790482547.202254,
+      "rssKiB": 103152,
+      "cpuPercent": 24.5,
+      "processElapsed": "24:27"
+    },
+    {
+      "unixTime": 1790482577.212492,
+      "rssKiB": 105392,
+      "cpuPercent": 26.6,
+      "processElapsed": "24:57"
+    },
+    {
+      "unixTime": 1790482607.222024,
+      "rssKiB": 106832,
+      "cpuPercent": 34.3,
+      "processElapsed": "25:27"
+    },
+    {
+      "unixTime": 1790482637.238407,
+      "rssKiB": 107552,
+      "cpuPercent": 29.3,
+      "processElapsed": "25:57"
+    },
+    {
+      "unixTime": 1790482667.247118,
+      "rssKiB": 106320,
+      "cpuPercent": 27.1,
+      "processElapsed": "26:27"
+    },
+    {
+      "unixTime": 1790482697.253869,
+      "rssKiB": 106992,
+      "cpuPercent": 27.6,
+      "processElapsed": "26:57"
+    },
+    {
+      "unixTime": 1790482727.26608,
+      "rssKiB": 105856,
+      "cpuPercent": 28.2,
+      "processElapsed": "27:27"
+    },
+    {
+      "unixTime": 1790482757.27186,
+      "rssKiB": 96400,
+      "cpuPercent": 26.0,
+      "processElapsed": "27:57"
+    },
+    {
+      "unixTime": 1790482787.2818172,
+      "rssKiB": 98624,
+      "cpuPercent": 21.5,
+      "processElapsed": "28:27"
+    },
+    {
+      "unixTime": 1790482817.2894342,
+      "rssKiB": 98912,
+      "cpuPercent": 22.9,
+      "processElapsed": "28:57"
+    },
+    {
+      "unixTime": 1790482847.301537,
+      "rssKiB": 99248,
+      "cpuPercent": 29.2,
+      "processElapsed": "29:27"
+    },
+    {
+      "unixTime": 1790482877.311863,
+      "rssKiB": 99424,
+      "cpuPercent": 26.1,
+      "processElapsed": "29:57"
+    }
+  ]
+}

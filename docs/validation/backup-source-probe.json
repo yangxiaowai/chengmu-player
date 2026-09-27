@@ -1,0 +1,415 @@
+{
+  "checked_at": "2026-09-27T04:01:24.693303+00:00",
+  "endpoint": "https://ffzy5.tv/api.php/provide/vod",
+  "config_references": [
+    "https://raw.githubusercontent.com/dreamjackson/LibreTV/main/js/config.js",
+    "https://raw.githubusercontent.com/zlinoliver/moontv/main/config.json"
+  ],
+  "configured_original_scheme": "http",
+  "https_upgrade_verified": true,
+  "media_files_saved": false,
+  "segment_limit_bytes": 2097152,
+  "maximum_parallel_requests": 3,
+  "native_4k_verified": false,
+  "visual_identity_verified": false,
+  "full_episode_playback_verified": false,
+  "in_app_playback_verified": false,
+  "infrastructure_independence_verified": false,
+  "seasons": [
+    {
+      "series": "怪奇物语",
+      "season": 1,
+      "catalog_id": "24151",
+      "title": "怪奇物语第一季",
+      "year": "2016",
+      "line": "ffm3u8",
+      "episodes": 8,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "first_episode_url": "https://vip.ffzy-play10.com/20221220/3857_0a7bf8a2/index.m3u8"
+    },
+    {
+      "series": "怪奇物语",
+      "season": 2,
+      "catalog_id": "24152",
+      "title": "怪奇物语第二季",
+      "year": "2017",
+      "line": "ffm3u8",
+      "episodes": 9,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "first_episode_url": "https://vip.ffzy-play10.com/20221220/3831_1f4a42a6/index.m3u8"
+    },
+    {
+      "series": "怪奇物语",
+      "season": 3,
+      "catalog_id": "24153",
+      "title": "怪奇物语第三季",
+      "year": "2019",
+      "line": "ffm3u8",
+      "episodes": 8,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "first_episode_url": "https://vip.ffzy-play10.com/20221220/3838_32c88cd0/index.m3u8"
+    },
+    {
+      "series": "怪奇物语",
+      "season": 4,
+      "catalog_id": "24154",
+      "title": "怪奇物语第四季",
+      "year": "2022",
+      "line": "ffm3u8",
+      "episodes": 9,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "first_episode_url": "https://vip.ffzy-online2.com/20230618/39610_10ad41f5/index.m3u8"
+    },
+    {
+      "series": "怪奇物语",
+      "season": 5,
+      "catalog_id": "89681",
+      "title": "怪奇物语第五季",
+      "year": "2025",
+      "line": "ffm3u8",
+      "episodes": 8,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "first_episode_url": "https://svip.feifei-play.com/20251127/32060_abeef011/index.m3u8"
+    },
+    {
+      "series": "火线",
+      "season": 1,
+      "catalog_id": "39350",
+      "title": "火线第一季",
+      "year": "2002",
+      "line": "ffm3u8",
+      "episodes": 13,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E4%B8%80%E5%AD%A3",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230224/16629_f2ac5d3e/index.m3u8"
+    },
+    {
+      "series": "火线",
+      "season": 2,
+      "catalog_id": "39351",
+      "title": "火线第二季",
+      "year": "2003",
+      "line": "ffm3u8",
+      "episodes": 12,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E4%BA%8C%E5%AD%A3",
+      "first_episode_url": "https://vip.ffzy-play6.com/20250320/34976_ac5a08fd/index.m3u8"
+    },
+    {
+      "series": "火线",
+      "season": 3,
+      "catalog_id": "39352",
+      "title": "火线第三季",
+      "year": "2004",
+      "line": "ffm3u8",
+      "episodes": 12,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E4%B8%89%E5%AD%A3",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230224/16625_0c599c55/index.m3u8"
+    },
+    {
+      "series": "火线",
+      "season": 4,
+      "catalog_id": "48031",
+      "title": "火线第四季",
+      "year": "2006",
+      "line": "ffm3u8",
+      "episodes": 13,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E5%9B%9B%E5%AD%A3",
+      "first_episode_url": "https://vip.ffzy-online2.com/20230408/31848_a9886191/index.m3u8"
+    },
+    {
+      "series": "火线",
+      "season": 5,
+      "catalog_id": "48109",
+      "title": "火线第五季",
+      "year": "2008",
+      "line": "ffm3u8",
+      "episodes": 10,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E4%BA%94%E5%AD%A3",
+      "first_episode_url": "https://vip.ffzy-online2.com/20230409/31864_ed160dea/index.m3u8"
+    },
+    {
+      "series": "绝命毒师",
+      "season": 1,
+      "catalog_id": "35495",
+      "title": "绝命毒师第一季",
+      "year": "2008",
+      "line": "ffm3u8",
+      "episodes": 7,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230207/12246_1746a5f4/index.m3u8"
+    },
+    {
+      "series": "绝命毒师",
+      "season": 2,
+      "catalog_id": "35496",
+      "title": "绝命毒师第二季",
+      "year": "2009",
+      "line": "ffm3u8",
+      "episodes": 13,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "first_episode_url": "https://vip.ffzy-play10.com/20230207/24742_3dc14c47/index.m3u8"
+    },
+    {
+      "series": "绝命毒师",
+      "season": 3,
+      "catalog_id": "35497",
+      "title": "绝命毒师第三季",
+      "year": "2010",
+      "line": "ffm3u8",
+      "episodes": 13,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230207/12204_f21185e4/index.m3u8"
+    },
+    {
+      "series": "绝命毒师",
+      "season": 4,
+      "catalog_id": "35498",
+      "title": "绝命毒师第四季",
+      "year": "2011",
+      "line": "ffm3u8",
+      "episodes": 13,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230207/12217_7c488998/index.m3u8"
+    },
+    {
+      "series": "绝命毒师",
+      "season": 5,
+      "catalog_id": "35499",
+      "title": "绝命毒师第五季",
+      "year": "2012",
+      "line": "ffm3u8",
+      "episodes": 16,
+      "search_url": "https://ffzy5.tv/api.php/provide/vod?ac=videolist&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "first_episode_url": "https://vip.ffzy-online3.com/20230207/12230_c9d1d104/index.m3u8"
+    }
+  ],
+  "https_detail_checks": [
+    {
+      "series": "怪奇物语",
+      "detail_url": "https://ffzy5.tv/api.php/provide/vod?ac=detail&ids=24151",
+      "status": "json",
+      "first_episode_url_matches_prior_sample": true,
+      "standard_fields": [
+        "vod_id",
+        "vod_name",
+        "vod_year",
+        "vod_pic",
+        "vod_play_from",
+        "vod_play_url"
+      ]
+    },
+    {
+      "series": "绝命毒师",
+      "detail_url": "https://ffzy5.tv/api.php/provide/vod?ac=detail&ids=35495",
+      "status": "json",
+      "first_episode_url_matches_prior_sample": true,
+      "standard_fields": [
+        "vod_id",
+        "vod_name",
+        "vod_year",
+        "vod_pic",
+        "vod_play_from",
+        "vod_play_url"
+      ]
+    },
+    {
+      "series": "火线",
+      "detail_url": "https://ffzy5.tv/api.php/provide/vod?ac=detail&ids=39350",
+      "status": "json",
+      "first_episode_url_matches_prior_sample": true,
+      "standard_fields": [
+        "vod_id",
+        "vod_name",
+        "vod_year",
+        "vod_pic",
+        "vod_play_from",
+        "vod_play_url"
+      ]
+    }
+  ],
+  "sampled_episodes": [
+    {
+      "provider": "ffzy",
+      "endpoint": "http://ffzy5.tv/api.php/provide/vod",
+      "title": "怪奇物语第五季",
+      "id": 89681,
+      "detail_url": "http://ffzy5.tv/api.php/provide/vod?ac=detail&ids=89681",
+      "year": "2025",
+      "line": "ffm3u8",
+      "catalog_episode_count": 8,
+      "episode": "第01集",
+      "hls_url": "https://svip.feifei-play.com/20251127/32060_abeef011/index.m3u8",
+      "master_variants": [
+        "PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1920x1080"
+      ],
+      "media_playlist_url": "https://svip.feifei-play.com/20251127/32060_abeef011/2000k/hls/mixed.m3u8",
+      "media_playlist_sha256": "4f6479cebf10cd1b919f5ba5d249e5dd27a36f0ac3d6999f5d6bdac44d8cefc5",
+      "duration_seconds": 4344.660476,
+      "segment_url": "https://svip.feifei-play.com/20251127/32060_abeef011/2000k/hls/48736a4193c14ed7657bd48d5d47cab2.ts",
+      "segment_http_status": 206,
+      "segment_final_url": "https://svip.feifei-play.com/20251127/32060_abeef011/2000k/hls/48736a4193c14ed7657bd48d5d47cab2.ts",
+      "segment_bytes": 1632216,
+      "segment_sha256": "43bd01c1e1468c41c48dbbe9924ffc6b613544e68ba70f244400f736361c7587",
+      "ffprobe_exit": 0,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "pix_fmt": "yuv420p"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "status": "probed",
+      "stderr": ""
+    },
+    {
+      "provider": "ffzy",
+      "endpoint": "http://ffzy5.tv/api.php/provide/vod",
+      "title": "怪奇物语第一季",
+      "id": 24151,
+      "detail_url": "http://ffzy5.tv/api.php/provide/vod?ac=detail&ids=24151",
+      "year": "2016",
+      "line": "ffm3u8",
+      "catalog_episode_count": 8,
+      "episode": "第01集",
+      "hls_url": "https://vip.ffzy-play10.com/20221220/3857_0a7bf8a2/index.m3u8",
+      "master_variants": [
+        "PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+      ],
+      "media_playlist_url": "https://vip.ffzy-play10.com/20221220/3857_0a7bf8a2/2000k/hls/mixed.m3u8",
+      "media_playlist_sha256": "42bb7cfdbada1c4cf1189b7a4beb306e28d586f5863fc3450b74c60258c0bf81",
+      "duration_seconds": 2889.842501,
+      "segment_url": "https://vip.ffzy-play10.com/20221220/3857_0a7bf8a2/2000k/hls/37f6dc6245171133cfec0676b278c06a.ts",
+      "segment_http_status": 206,
+      "segment_final_url": "https://vip.ffzy-play10.com/20221220/3857_0a7bf8a2/2000k/hls/37f6dc6245171133cfec0676b278c06a.ts",
+      "segment_bytes": 503464,
+      "segment_sha256": "1a2ffdd8692f110a613ec5460b1a84a82afc63d578edbe192734f27dcf6b245d",
+      "ffprobe_exit": 0,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 960,
+          "pix_fmt": "yuv420p"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "status": "probed",
+      "stderr": ""
+    },
+    {
+      "provider": "ffzy",
+      "endpoint": "http://ffzy5.tv/api.php/provide/vod",
+      "title": "绝命毒师第一季",
+      "id": 35495,
+      "detail_url": "http://ffzy5.tv/api.php/provide/vod?ac=detail&ids=35495",
+      "year": "2008",
+      "line": "ffm3u8",
+      "catalog_episode_count": 7,
+      "episode": "第01集",
+      "hls_url": "https://vip.ffzy-online3.com/20230207/12246_1746a5f4/index.m3u8",
+      "master_variants": [
+        "PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+      ],
+      "media_playlist_url": "https://vip.ffzy-online3.com/20230207/12246_1746a5f4/2000k/hls/mixed.m3u8",
+      "media_playlist_sha256": "58b795acf23fc49a1b1315302bc0248383ca940a59a33eeb76563f2d7c46ad14",
+      "duration_seconds": 3523.475746,
+      "segment_url": "https://vip.ffzy-online3.com/20230207/12246_1746a5f4/2000k/hls/1761ebc5a7ccb0d40bd9beb2d2efb7dd.ts",
+      "segment_http_status": 206,
+      "segment_final_url": "https://vip.ffzy-online3.com/20230207/12246_1746a5f4/2000k/hls/1761ebc5a7ccb0d40bd9beb2d2efb7dd.ts",
+      "segment_bytes": 823816,
+      "segment_sha256": "e3d0183a2da4a69b00b49eaa4badea473ca554a81b14595d4110a794f2443197",
+      "ffprobe_exit": 0,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1916,
+          "height": 1080,
+          "pix_fmt": "yuv420p"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "status": "probed",
+      "stderr": ""
+    },
+    {
+      "provider": "ffzy",
+      "endpoint": "http://ffzy5.tv/api.php/provide/vod",
+      "title": "火线第一季",
+      "id": 39350,
+      "detail_url": "http://ffzy5.tv/api.php/provide/vod?ac=detail&ids=39350",
+      "year": "2002",
+      "line": "ffm3u8",
+      "catalog_episode_count": 13,
+      "episode": "第01集",
+      "hls_url": "https://vip.ffzy-online3.com/20230224/16629_f2ac5d3e/index.m3u8",
+      "master_variants": [
+        "PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608"
+      ],
+      "media_playlist_url": "https://vip.ffzy-online3.com/20230224/16629_f2ac5d3e/2000k/hls/mixed.m3u8",
+      "media_playlist_sha256": "7f8ed5d74aa6135d252570d3aef61fcbf7415cafbc71c0798739e326373d9d98",
+      "duration_seconds": 3783.598412,
+      "segment_url": "https://vip.ffzy-online3.com/20230224/16629_f2ac5d3e/2000k/hls/8af898d7fbfbd52707b313e081f61752.ts",
+      "segment_http_status": 206,
+      "segment_final_url": "https://vip.ffzy-online3.com/20230224/16629_f2ac5d3e/2000k/hls/8af898d7fbfbd52707b313e081f61752.ts",
+      "segment_bytes": 859160,
+      "segment_sha256": "e9fbd77651db05672d3bece353b424817da01ab436cb7d4eb8abff7961824a98",
+      "ffprobe_exit": 0,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio"
+        }
+      ],
+      "status": "probed",
+      "stderr": ""
+    }
+  ],
+  "https_search_checks": [
+    {
+      "query": "怪奇物语",
+      "request_url": "https://ffzy5.tv/api.php/provide/vod?ac=list&wd=%E6%80%AA%E5%A5%87%E7%89%A9%E8%AF%AD",
+      "http_status": 200,
+      "content_type": "text/html;charset=utf-8",
+      "body_json_parse": "passed",
+      "list_is_array": true
+    },
+    {
+      "query": "绝命毒师",
+      "request_url": "https://ffzy5.tv/api.php/provide/vod?ac=list&wd=%E7%BB%9D%E5%91%BD%E6%AF%92%E5%B8%88",
+      "http_status": 200,
+      "content_type": "text/html;charset=utf-8",
+      "body_json_parse": "passed",
+      "list_is_array": true
+    },
+    {
+      "query": "火线第一季",
+      "request_url": "https://ffzy5.tv/api.php/provide/vod?ac=list&wd=%E7%81%AB%E7%BA%BF%E7%AC%AC%E4%B8%80%E5%AD%A3",
+      "http_status": 200,
+      "content_type": "text/html;charset=utf-8",
+      "body_json_parse": "passed",
+      "list_is_array": true
+    }
+  ],
+  "catalog_entries_total": 164,
+  "catalog_count_matches_primary": true
+}

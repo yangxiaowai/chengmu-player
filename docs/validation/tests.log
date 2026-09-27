@@ -1,0 +1,81 @@
+Building for debugging...
+[2 / 13] CinemaCore
+[4 / 23]
+[5 / 23]
+[12 / 23] CinemaCore
+[17 / 28] CinemaCore
+[27 / 38] Cinema-product
+[28 / 38] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[31 / 38] CinemaCore-product
+[31 / 38] Cinema-product
+[36 / 43] CinemaCoreTests-product
+[40 / 45] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[42 / 45] CinemaCoreTests-product
+[45 / 47] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[47 / 49] Cinema-product
+Build complete! (3.96 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite HistoryContextTests started.
+◇ Suite QualityTests started.
+◇ Suite LibraryTests started.
+◇ Suite SourceTests started.
+◇ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() started.
+◇ Test testBadSubtitleTimesAreRejected() started.
+◇ Test testPlaybackRateTightensBudget() started.
+◇ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() started.
+◇ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() started.
+◇ Test testWideFrameFills4KWithoutStretching() started.
+◇ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() started.
+◇ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() started.
+◇ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() started.
+◇ Test testPortraitAndExisting4KPreservePixels() started.
+◇ Test testHTMLSharePagesAreNotPlayableEpisodeLines() started.
+◇ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() started.
+◇ Test testHLSRelativeSegmentsAndEncryptionAndDuration() started.
+◇ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() started.
+◇ Test testHLSRejectsHTMLAndMetadataOnly() started.
+◇ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() started.
+◇ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() started.
+◇ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() started.
+◇ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() started.
+◇ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() started.
+◇ Test unnumberedEpisodeSwitchRequiresExactLabel() started.
+◇ Test legacyHistoryWithoutContextStillLoads() started.
+◇ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() started.
+◇ Test historyRestoresExactSeriesLineAndEpisode() started.
+✔ Test testPlaybackRateTightensBudget() passed after 0.001 seconds.
+✔ Test testBadSubtitleTimesAreRejected() passed after 0.001 seconds.
+✔ Test testWideFrameFills4KWithoutStretching() passed after 0.001 seconds.
+✔ Test testPortraitAndExisting4KPreservePixels() passed after 0.001 seconds.
+✔ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() passed after 0.001 seconds.
+✔ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() passed after 0.001 seconds.
+✔ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() passed after 0.001 seconds.
+✔ Test testHLSRejectsHTMLAndMetadataOnly() passed after 0.001 seconds.
+✔ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() passed after 0.001 seconds.
+✔ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() passed after 0.001 seconds.
+✔ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() passed after 0.001 seconds.
+✔ Test unnumberedEpisodeSwitchRequiresExactLabel() passed after 0.001 seconds.
+✔ Test testHTMLSharePagesAreNotPlayableEpisodeLines() passed after 0.001 seconds.
+✔ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() passed after 0.001 seconds.
+✔ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() passed after 0.001 seconds.
+✔ Test testHLSRelativeSegmentsAndEncryptionAndDuration() passed after 0.001 seconds.
+✔ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() passed after 0.001 seconds.
+✔ Suite QualityTests passed after 0.001 seconds.
+✔ Test legacyHistoryWithoutContextStillLoads() passed after 0.001 seconds.
+✔ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() passed after 0.001 seconds.
+✔ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() passed after 0.001 seconds.
+✔ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() passed after 0.001 seconds.
+✔ Suite SourceTests passed after 0.001 seconds.
+✔ Test historyRestoresExactSeriesLineAndEpisode() passed after 0.001 seconds.
+✔ Suite HistoryContextTests passed after 0.002 seconds.
+✔ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() passed after 0.002 seconds.
+✔ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() passed after 0.002 seconds.
+✔ Suite LibraryTests passed after 0.002 seconds.
+✔ Test run with 24 tests in 4 suites passed after 0.002 seconds.

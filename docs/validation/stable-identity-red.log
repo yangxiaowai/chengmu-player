@@ -1,0 +1,42 @@
+Building for debugging...
+[2 / 13] CinemaCore
+[9 / 20] CinemaCore
+[13 / 24] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[27 / 34] Cinema-product
+[28 / 39] CinemaCoreTests-product
+[30 / 39] CinemaCoreTests-product
+[31 / 39] CinemaCoreTests-product
+[36 / 41] Cinema-product
+[36 / 41] CinemaCoreTests-product
+[38 / 41] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[40 / 43] CinemaCoreTests-product
+[41 / 43] Cinema-product
+[43 / 45] Cinema-product/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+
+Build complete! (3.29 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SourceTests started.
+◇ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() started.
+✘ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() recorded an issue at SourceTests.swift:14:9: Expectation failed: a.id == b.id
+↳ a.id == b.id → false
+↳   a.id → "fixture:42:0"
+↳   b.id → "fixture:42:1"
+✘ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() recorded an issue at SourceTests.swift:15:9: Expectation failed: a.episodes[0].id == b.episodes[0].id
+↳ a.episodes[0].id == b.episodes[0].id → false
+↳   a.episodes[0].id → "fixture:42:0:1"
+↳   b.episodes[0].id → "fixture:42:1:0"
+✘ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() recorded an issue at SourceTests.swift:16:9: Expectation failed: a.episodes[1].id == b.episodes[1].id
+↳ a.episodes[1].id == b.episodes[1].id → false
+↳   a.episodes[1].id → "fixture:42:0:0"
+↳   b.episodes[1].id → "fixture:42:1:1"
+✘ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() failed after 0.001 seconds with 3 issues.
+✘ Suite SourceTests failed after 0.001 seconds with 3 issues.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

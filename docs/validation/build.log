@@ -1,0 +1,47 @@
+Building for debugging...
+[Planning deferred tasks]
+[5 / 17] CinemaCore
+[12 / 24] CinemaCore
+[17 / 25] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[30 / 35] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlaybackValidation.swift:42:90: warning: 'weak' ownership of capture 'self' differs from implicitly-captured strong reference in outer scope [#ImplicitStrongCapture]
+28 |         model.playback.enhancementMode = EnhancementMode(rawValue: option("--mode") ?? "upscale4K") ?? .upscale4K
+29 |         model.playback.volume = 0
+30 |         Task {
+   |              |- note: 'self' implicitly strongly captured here
+   |              `- note: add 'self' as a capture list item to silence
+31 |             let response = await model.service.search(query: name, providers: model.providers)
+32 |             let catalogIDs = ["怪奇物语": "7942", "绝命毒师": "13747", "火线": "12980"]
+   :
+40 |                 model.playback.resumeWhenReady(0)
+41 |                 startTime = Date()
+42 |                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self, weak model] _ in
+   |                                                                                          |- warning: 'weak' ownership of capture 'self' differs from implicitly-captured strong reference in outer scope [#ImplicitStrongCapture]
+   |                                                                                          `- note: explicitly assign the capture list item to silence
+43 |                     Task { @MainActor in guard let self, let model else { return }; self.sample(model) }
+44 |                 }
+
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlaybackValidation.swift:42:101: warning: 'weak' ownership of capture 'model' differs from implicitly-captured strong reference in outer scope [#ImplicitStrongCapture]
+28 |         model.playback.enhancementMode = EnhancementMode(rawValue: option("--mode") ?? "upscale4K") ?? .upscale4K
+29 |         model.playback.volume = 0
+30 |         Task {
+   |              |- note: 'model' implicitly strongly captured here
+   |              `- note: add 'model' as a capture list item to silence
+31 |             let response = await model.service.search(query: name, providers: model.providers)
+32 |             let catalogIDs = ["怪奇物语": "7942", "绝命毒师": "13747", "火线": "12980"]
+   :
+40 |                 model.playback.resumeWhenReady(0)
+41 |                 startTime = Date()
+42 |                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self, weak model] _ in
+   |                                                                                                     |- warning: 'weak' ownership of capture 'model' differs from implicitly-captured strong reference in outer scope [#ImplicitStrongCapture]
+   |                                                                                                     `- note: explicitly assign the capture list item to silence
+43 |                     Task { @MainActor in guard let self, let model else { return }; self.sample(model) }
+44 |                 }
+
+[#ImplicitStrongCapture]: <https://docs.swift.org/compiler/documentation/diagnostics/implicit-strong-capture>
+[31 / 35] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[33 / 35] Cinema-product
+Build complete! (2.62 sec)

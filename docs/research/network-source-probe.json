@@ -1,0 +1,123 @@
+{
+  "checked_date": "2026-09-27",
+  "purpose": "Read-only source feasibility sampling before requirements and architecture approval",
+  "discovery_reference": "https://github.com/Youzisu/Moon-TV",
+  "catalog_host": "caiji.dyttzyapi.com",
+  "access": "Public HTTPS requests without account credentials",
+  "content_permission_status": "Not verified; transport availability is not evidence of content licensing",
+  "playback_test": "First media segment of S01E01 only; ffprobe metadata then 2 seconds decoded with ffmpeg to null output",
+  "persistent_media_files": false,
+  "app_playback_tested": false,
+  "full_episodes_tested": false,
+  "full_catalog_media_tested": false,
+  "drm_circumvention": false,
+  "series": [
+    {
+      "title": "怪奇物语",
+      "catalog_seasons": [
+        {"season": 1, "catalog_id": 7942, "episodes": 8},
+        {"season": 2, "catalog_id": 7943, "episodes": 9},
+        {"season": 3, "catalog_id": 7944, "episodes": 8},
+        {"season": 4, "catalog_id": 7945, "episodes": 9},
+        {"season": 5, "catalog_id": 72633, "episodes": 8}
+      ],
+      "first_episode": {
+        "manifest_resolution": "1080x608",
+        "master_sha256": "22549f794f9034899a60895c9821c9e07389b9b172174903b9689238f2f93ed9",
+        "media_manifest_sha256": "6784144da5b59b1f2b0a0169e154d32e13540bb2b4dd41976c7d2b6119674be3",
+        "manifest_declared_seconds": 2885.81,
+        "manifest_segments": 722,
+        "manifest_endlist": true,
+        "manifest_key_methods": [],
+        "sample_bytes": 348740,
+        "video_codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pixel_format": "yuv420p",
+        "frame_rate": "24000/1001",
+        "audio_codec": "aac",
+        "audio_channels": 2,
+        "audio_sample_rate": 48000,
+        "probe_exit": 0,
+        "decode_exit": 0,
+        "decoded_frames": 47,
+        "decode_output_seconds": 2,
+        "decode_stderr": ""
+      }
+    },
+    {
+      "title": "绝命毒师",
+      "catalog_seasons": [
+        {"season": 1, "catalog_id": 13747, "episodes": 7},
+        {"season": 2, "catalog_id": 13748, "episodes": 13},
+        {"season": 3, "catalog_id": 13749, "episodes": 13},
+        {"season": 4, "catalog_id": 13750, "episodes": 13},
+        {"season": 5, "catalog_id": 13751, "episodes": 16}
+      ],
+      "first_episode": {
+        "manifest_resolution": "1080x608",
+        "master_sha256": "22549f794f9034899a60895c9821c9e07389b9b172174903b9689238f2f93ed9",
+        "media_manifest_sha256": "79e0da137b81e5a5b206c3957dd0d0e45c9dcb1aebbf91a64eb688393c009884",
+        "manifest_declared_seconds": 3521.32,
+        "manifest_segments": 880,
+        "manifest_endlist": true,
+        "manifest_key_methods": [],
+        "sample_bytes": 835472,
+        "video_codec": "h264",
+        "width": 1916,
+        "height": 1080,
+        "pixel_format": "yuv420p",
+        "frame_rate": "24000/1001",
+        "audio_codec": "aac",
+        "audio_channels": 2,
+        "audio_sample_rate": 48000,
+        "probe_exit": 0,
+        "decode_exit": 0,
+        "decoded_frames": 47,
+        "decode_output_seconds": 2,
+        "decode_stderr": ""
+      }
+    },
+    {
+      "title": "火线",
+      "catalog_seasons": [
+        {"season": 1, "catalog_id": 12980, "episodes": 13},
+        {"season": 2, "catalog_id": 12982, "episodes": 12},
+        {"season": 3, "catalog_id": 12984, "episodes": 12},
+        {"season": 4, "catalog_id": 12988, "episodes": 13},
+        {"season": 5, "catalog_id": 12990, "episodes": 10}
+      ],
+      "first_episode": {
+        "manifest_resolution": "1080x608",
+        "master_sha256": "22549f794f9034899a60895c9821c9e07389b9b172174903b9689238f2f93ed9",
+        "media_manifest_sha256": "c9ce058c3bf22a6e6e86eafc8dec50e87ff3ff192a4c9e41764be9af0c25f322",
+        "manifest_declared_seconds": 3780.84,
+        "manifest_segments": 945,
+        "manifest_endlist": true,
+        "manifest_key_methods": [],
+        "sample_bytes": 1594804,
+        "video_codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pixel_format": "yuv420p",
+        "frame_rate": "24000/1001",
+        "audio_codec": "aac",
+        "audio_channels": 2,
+        "audio_sample_rate": 48000,
+        "probe_exit": 0,
+        "decode_exit": 0,
+        "decoded_frames": 47,
+        "decode_output_seconds": 2,
+        "decode_stderr": ""
+      }
+    }
+  ],
+  "limitations": [
+    "The catalog labels were not confirmed by visual review of full episodes.",
+    "Matching listed episode counts is not proof that all entries contain complete, distinct, correctly ordered episodes.",
+    "No in-app player, subtitles, seeking, continuous playback or end-to-end HDR was tested.",
+    "No native 4K source or AI enhancement result was verified.",
+    "No availability guarantee across dates or networks was established.",
+    "Manifest absence of EXT-X-KEY describes only the sampled playlists; it is not a rights conclusion."
+  ]
+}
