@@ -66,18 +66,15 @@ struct ContentView: View {
             }.padding(.top, 33).padding(.bottom, 48).padding(.horizontal, 24)
             Text("你的放映室").font(.system(size: 10, weight: .medium)).foregroundStyle(CinemaStyle.secondary).padding(.horizontal, 26).padding(.bottom, 13)
             ForEach(AppSection.allCases) { section in
-                Button { if section == .discover { app.discover() } else { app.section = section } } label: {
-                    HStack(spacing: 13) { Image(systemName: section.icon).frame(width: 18); Text(section.rawValue).font(.system(size: 13, weight: app.section == section ? .semibold : .regular)); Spacer(); if app.section == section { RoundedRectangle(cornerRadius: 1).fill(CinemaStyle.accent).frame(width: 3, height: 16) } }
-                        .padding(.horizontal, 14).padding(.vertical, 13)
-                        .background(app.section == section ? Color.white.opacity(0.06) : .clear, in: RoundedRectangle(cornerRadius: 8))
-                        .foregroundStyle(app.section == section ? .white : CinemaStyle.secondary)
-                }.buttonStyle(.plain).padding(.horizontal, 12).padding(.bottom, 4)
+                SidebarButton(title: section.rawValue, icon: section.icon, selected: app.section == section) {
+                    app.section = section
+                }.padding(.horizontal, 12).padding(.bottom, 4)
             }
             Spacer()
-            VStack(alignment: .leading, spacing: 13) {
-                Button { app.importFile() } label: { Label("打开本地影片", systemImage: "folder.badge.plus") }
-                Button { showLink = true } label: { Label("打开网络链接", systemImage: "link") }
-            }.font(.system(size: 12)).buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary).padding(26)
+            VStack(alignment: .leading, spacing: 4) {
+                SidebarButton(title: "打开本地影片", icon: "folder.badge.plus", isNavigation: false) { app.importFile() }
+                SidebarButton(title: "打开网络链接", icon: "link", isNavigation: false) { showLink = true }
+            }.padding(.horizontal, 12).padding(.vertical, 16)
             Rectangle().fill(CinemaStyle.border).frame(height: 1).padding(.horizontal, 24)
             HStack(spacing: 7) { Circle().fill(CinemaStyle.accent).frame(width: 5, height: 5); Text("\(app.enabledProviderCount) 个检索来源已启用").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }.padding(24)
         }.frame(width: 204).background(Color.black.opacity(0.16))

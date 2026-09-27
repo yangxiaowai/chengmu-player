@@ -1,0 +1,99 @@
+{
+  "version": "0.2.5",
+  "build": "7",
+  "tool": "CUA native accessibility and screenshots",
+  "window_pixels": [
+    2500,
+    1640
+  ],
+  "before": {
+    "version": "0.2.4",
+    "watchlist_blank_click": [
+      330,
+      484
+    ],
+    "blank_click_count": 2,
+    "blank_click_changed_page": false,
+    "text_click": [
+      160,
+      484
+    ],
+    "text_click_changed_page": true
+  },
+  "after": {
+    "navigation_blank_area_clicks": [
+      {
+        "section": "我的待看",
+        "coordinate": [
+          330,
+          490
+        ],
+        "changed_page": true,
+        "selected_accessibility_trait": true
+      },
+      {
+        "section": "继续观看",
+        "coordinate": [
+          330,
+          586
+        ],
+        "changed_page": true,
+        "selected_accessibility_trait": true
+      },
+      {
+        "section": "画质工作室",
+        "coordinate": [
+          330,
+          682
+        ],
+        "changed_page": true,
+        "selected_accessibility_trait": true
+      },
+      {
+        "section": "媒体来源",
+        "coordinate": [
+          330,
+          778
+        ],
+        "changed_page": true,
+        "selected_accessibility_trait": true
+      },
+      {
+        "section": "探索",
+        "coordinate": [
+          330,
+          394
+        ],
+        "changed_page": true,
+        "selected_accessibility_trait": true
+      }
+    ],
+    "open_link_blank_click": [
+      330,
+      1440
+    ],
+    "open_link_sheet_shown": true,
+    "open_file_blank_click": [
+      330,
+      1344
+    ],
+    "file_picker_shown": true,
+    "both_dialogs_cancelled": true,
+    "search_roundtrip": {
+      "query": "怪奇物语",
+      "titles_before": 14,
+      "titles_after": 14,
+      "versions_before": 39,
+      "versions_after": 39,
+      "destination": "我的待看",
+      "returned_to": "探索",
+      "new_loading_indicator_observed": false,
+      "query_preserved": true
+    }
+  },
+  "scope_limits": [
+    "Hover/pressed colors reviewed in code only; no standalone mouse-move or held-button screenshot support.",
+    "Source search results only demonstrate navigation state preservation, not media availability.",
+    "No separate multi-page or filter UI regression."
+  ]
+}
