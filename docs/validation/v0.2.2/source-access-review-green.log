@@ -1,0 +1,42 @@
+Building for debugging...
+[2 / 11] CinemaCore
+[13 / 22] CinemaCore
+[17 / 26] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[21 / 26] CinemaCoreTests-product
+[27 / 30] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[29 / 30] CinemaCoreTests-product
+Build complete! (1.57 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SourceAccessTests started.
+◇ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() started.
+◇ Test htmlErrorPageIsNotAReadableVideoSegment() started.
+◇ Test cancelledChecksPropagateCancellation() started.
+◇ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() started.
+◇ Test longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test apiSuccessDoesNotMaskAnUnavailableVideo() started.
+◇ Test missingRepresentativeFilmIsNotAConnectivityCertification() started.
+◇ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() started.
+◇ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "json-array-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "json-object-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "html-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-angle" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-bracket" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-readable-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+✔ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() passed after 0.003 seconds.
+✔ Test cancelledChecksPropagateCancellation() passed after 0.005 seconds.
+✔ Test missingRepresentativeFilmIsNotAConnectivityCertification() passed after 0.008 seconds.
+✔ Test apiSuccessDoesNotMaskAnUnavailableVideo() passed after 0.010 seconds.
+✔ Test longTextErrorDocumentsAreNotReadableSegments(mode:) with 3 test cases passed after 0.010 seconds.
+✔ Test htmlErrorPageIsNotAReadableVideoSegment() passed after 0.010 seconds.
+✔ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) with 4 test cases passed after 0.011 seconds.
+✔ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() passed after 0.011 seconds.
+✔ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() passed after 0.015 seconds.
+✔ Suite SourceAccessTests passed after 0.015 seconds.
+✔ Test run with 9 tests in 1 suite passed after 0.015 seconds.

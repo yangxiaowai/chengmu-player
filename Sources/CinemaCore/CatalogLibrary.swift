@@ -76,6 +76,13 @@ public struct WatchlistStore {
 }
 
 public enum ProviderCatalog {
+    /// Preference selects an already grouped version; it never broadens work identity.
+    public static func preferredTitle(in titles: [MediaTitle], providers: [SourceProvider], explicitID: String = "", preferredID: String) -> MediaTitle? {
+        let enabled = Set(providers.filter(\.enabled).map(\.id))
+        let available = titles.filter { enabled.contains($0.providerID) }
+        return available.first { $0.providerID == explicitID }
+            ?? available.first { $0.providerID == preferredID } ?? available.first
+    }
     /// Known builtins absent from the user's saved list were deliberately removed.
     public static func merge(saved: [SourceProvider]?, knownBuiltinIDs: [String], defaults: [SourceProvider]) -> [SourceProvider] {
         guard var saved else { return defaults }

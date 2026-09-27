@@ -25,7 +25,9 @@ public struct HLSVariant: Hashable {
 }
 
 public struct HLSProbe {
-    public init() {}
+    private let client: BoundedHTTPClient
+    public init(routing: SourceRequestRouting = .system) { client = BoundedHTTPClient(timeout: 12, maximumBytes: 2 * 1024 * 1024, configuration: routing.configuration()) }
+    init(client: BoundedHTTPClient) { self.client = client }
     /// Basic playlist inspection only. Does not fetch media segments or certify playback.
     public func inspect(url: URL) async throws -> HLSInfo {
         var next = url
@@ -34,7 +36,7 @@ public struct HLSProbe {
         for _ in 0..<5 {
             try Task.checkCancellation()
             guard seen.insert(next).inserted else { throw SourceError.playlistLoop }
-            let (data, finalURL) = try await BoundedHTTPClient(timeout: 12, maximumBytes: 2 * 1024 * 1024).get(next)
+            let (data, finalURL) = try await client.get(next)
             guard let text = String(data: data, encoding: .utf8) else { throw SourceError.invalidPlaylist }
             let choices = try Self.variants(text: text, url: finalURL)
             if let best = choices.first {

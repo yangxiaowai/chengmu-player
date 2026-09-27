@@ -1,0 +1,30 @@
+{
+  "reports" : [
+    {
+      "catalogReachable" : true,
+      "checkedAt" : "2026-09-27T05:40:50Z",
+      "elapsedMS" : 5640,
+      "encrypted" : false,
+      "mediaHost" : "vip.dytt-music.com",
+      "playlistReachable" : true,
+      "providerID" : "dytt",
+      "sampleBytes" : 65536,
+      "sampleTitle" : "怪奇物语第一季",
+      "segmentReachable" : true
+    },
+    {
+      "catalogReachable" : true,
+      "checkedAt" : "2026-09-27T05:40:56Z",
+      "elapsedMS" : 4222,
+      "encrypted" : false,
+      "mediaHost" : "play.modujx12.com",
+      "playlistReachable" : true,
+      "providerID" : "mdzy",
+      "sampleBytes" : 65536,
+      "sampleTitle" : "怪奇物语第一季",
+      "segmentReachable" : true
+    }
+  ],
+  "routing" : "HTTP proxies excluded; VPN routing and DNS still follow system settings. This is not a mainland-direct test.",
+  "scope" : "Live check of the app's shared Core probe, not UI, decoding, or sustained playback."
+}

@@ -39,6 +39,10 @@ final class AppModel: ObservableObject {
     @Published var moreProviderIDs: Set<String> = []
     @Published var sourceHealth: [String: String] = [:]
     @Published var checkingProviders: Set<String> = []
+    @Published var preferredProviderID = "mdzy" {
+        didSet { if !isDiagnostic { UserDefaults.standard.set(preferredProviderID, forKey: "preferredProviderID") } }
+    }
+    let sourceAccess = SourceAccessController()
     @Published var browseProviderID = ""
     @Published var browseCategoryID = ""
     @Published var browseCategories: [SourceCategory] = []
@@ -80,6 +84,8 @@ final class AppModel: ObservableObject {
         let known = UserDefaults.standard.stringArray(forKey: "knownBuiltinProviderIDs") ?? ["dytt", "ffzy"]
         providers = ProviderCatalog.merge(saved: saved, knownBuiltinIDs: known, defaults: SourceProvider.defaults)
         if !isDiagnostic {
+            preferredProviderID = UserDefaults.standard.string(forKey: "preferredProviderID") ?? "mdzy"
+            if !providers.contains(where: { $0.id == preferredProviderID }) { preferredProviderID = "" }
             recentSearches = UserDefaults.standard.stringArray(forKey: "recentSearches") ?? []
             if UserDefaults.standard.object(forKey: "autoNext") != nil { autoNext = UserDefaults.standard.bool(forKey: "autoNext") }
             UserDefaults.standard.set(SourceProvider.defaults.map(\.id), forKey: "knownBuiltinProviderIDs")
@@ -183,8 +189,7 @@ final class AppModel: ObservableObject {
     }
     func selectGroup(_ group: MediaGroup) {
         detailSources = group.sources
-        let available = group.sources.filter { item in providers.contains { $0.id == item.providerID && $0.enabled } }
-        guard let title = available.first(where: { $0.providerID == filterProviderID }) ?? available.first else {
+        guard let title = ProviderCatalog.preferredTitle(in: group.sources, providers: providers, explicitID: filterProviderID, preferredID: preferredProviderID) else {
             message = "这部作品的来源均已停用或移除，请在媒体来源启用后重试。"; return
         }
         select(title)
@@ -351,7 +356,12 @@ final class AppModel: ObservableObject {
         guard !providers.contains(where: {$0.endpoint == url}) else { message = "这个接口已经添加。"; return }
         providers.append(SourceProvider(id: UUID().uuidString, name: name.isEmpty ? (url.host ?? "自定义来源") : name, endpoint: url, enabled: true)); saveProviders()
     }
-    func removeProvider(_ id: String) { cancelAlternativeSources(); providers.removeAll {$0.id == id}; invalidateCatalogRequests(); saveProviders() }
+    func removeProvider(_ id: String) {
+        cancelAlternativeSources(); sourceAccess.remove(id)
+        providers.removeAll {$0.id == id}
+        if preferredProviderID == id { preferredProviderID = "" }
+        invalidateCatalogRequests(); saveProviders()
+    }
     func clearHistory() {
         do { try store.save([]); history = []; historyReadable = true; currentRecord = nil }
         catch { message = "清除历史失败：\(error.localizedDescription)" }

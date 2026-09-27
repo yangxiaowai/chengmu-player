@@ -6,7 +6,7 @@ struct BoundedHTTPClient {
     var timeout: TimeInterval = 15
     var maximumBytes: Int = 4 * 1024 * 1024
     var configuration: URLSessionConfiguration = .ephemeral
-    func get(_ url: URL) async throws -> (Data, URL) {
+    func get(_ url: URL, prefixBytes: Int? = nil) async throws -> (Data, URL) {
         guard networkURL(url.absoluteString) != nil else { throw SourceError.invalidURL }
         try Task.checkCancellation()
         let configuration = configuration.copy() as! URLSessionConfiguration
@@ -16,17 +16,22 @@ struct BoundedHTTPClient {
         defer { session.invalidateAndCancel() }
         var request = URLRequest(url: url, timeoutInterval: timeout)
         request.setValue("Cinema/1.0", forHTTPHeaderField: "User-Agent")
+        if let prefixBytes {
+            guard prefixBytes > 0, prefixBytes <= maximumBytes else { throw SourceError.responseTooLarge }
+            request.setValue("bytes=0-\(prefixBytes - 1)", forHTTPHeaderField: "Range")
+        }
         let (bytes, response) = try await session.bytes(for: request)
         guard let http = response as? HTTPURLResponse else { throw SourceError.invalidResponse }
         guard (200...299).contains(http.statusCode) else { throw SourceError.httpStatus(http.statusCode) }
-        guard response.expectedContentLength <= maximumBytes else { throw SourceError.responseTooLarge }
+        if prefixBytes == nil, response.expectedContentLength > maximumBytes { throw SourceError.responseTooLarge }
         guard let finalURL = response.url, networkURL(finalURL.absoluteString) != nil else { throw SourceError.invalidURL }
         var data = Data()
-        data.reserveCapacity(min(maximumBytes, max(0, Int(response.expectedContentLength))))
+        data.reserveCapacity(min(prefixBytes ?? maximumBytes, max(0, Int(response.expectedContentLength))))
         for try await byte in bytes {
             if data.count % 16384 == 0 { try Task.checkCancellation() }
             guard data.count < maximumBytes else { throw SourceError.responseTooLarge }
             data.append(byte)
+            if let prefixBytes, data.count >= prefixBytes { break }
         }
         try Task.checkCancellation()
         return (data, finalURL)
@@ -35,7 +40,7 @@ struct BoundedHTTPClient {
 
 public struct SourceService {
     private let client: BoundedHTTPClient
-    public init() { client = BoundedHTTPClient() }
+    public init(routing: SourceRequestRouting = .system) { client = BoundedHTTPClient(configuration: routing.configuration()) }
     init(client: BoundedHTTPClient) { self.client = client }
     public func search(query: String, providers: [SourceProvider] = SourceProvider.defaults, page: Int = 1) async -> SearchResponse {
         let pages = Dictionary(providers.map { ($0.id, page) }, uniquingKeysWith: { first, _ in first })

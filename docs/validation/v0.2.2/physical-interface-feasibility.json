@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-27",
+  "curl_version": "8.7.1",
+  "interface": "en0",
+  "http_proxy_disabled": true,
+  "curlrc_ignored": true,
+  "ipv4_only": true,
+  "dns_endpoint": "https://dns.alidns.com/resolve",
+  "dns_bootstrap": "223.5.5.5",
+  "dns_query": {
+    "name": "www.mdzyapi.com",
+    "type": "A"
+  },
+  "dns_status": 0,
+  "dns_answers": [
+    "104.21.61.161",
+    "172.67.212.38"
+  ],
+  "dns_answer_ttl_seconds": 1,
+  "dns_certificate_verification": true,
+  "catalog_url": "https://www.mdzyapi.com/api.php/provide/vod?ac=list&pg=1",
+  "catalog_http_status": 200,
+  "catalog_remote_ip": "104.21.61.161",
+  "catalog_bytes": 6346,
+  "catalog_seconds": 1.733598,
+  "catalog_json_valid": true,
+  "catalog_titles": 20,
+  "catalog_certificate_verification": true,
+  "network_settings_changed": false,
+  "mainland_location_certified": false,
+  "evidence_excerpt": {
+    "alidns-en0": [
+      "*   Trying 223.5.5.5:443...",
+      "* socket successfully bound to interface 'en0'",
+      "* Connected to dns.alidns.com (223.5.5.5) port 443",
+      "*  SSL certificate verify ok.",
+      "< HTTP/2 200 "
+    ],
+    "mdzy-en0": [
+      "*   Trying 104.21.61.161:443...",
+      "* socket successfully bound to interface 'en0'",
+      "* Connected to www.mdzyapi.com (104.21.61.161) port 443",
+      "*  SSL certificate verify ok.",
+      "< HTTP/2 200 "
+    ]
+  },
+  "scope": "A bounded physical-interface feasibility probe; not geographical certification or media playback proof."
+}

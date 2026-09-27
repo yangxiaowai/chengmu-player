@@ -1,0 +1,40 @@
+{
+  "checkedAt" : "2026-09-27T05:40:51Z",
+  "checks" : [
+    {
+      "detail" : "Five unique providers completed; duplicate submissions were ignored and peak active probes was three.",
+      "name" : "queue_limit_and_deduplication",
+      "passed" : true
+    },
+    {
+      "detail" : "Cancel cleared three running and two queued checks; three non-cooperative late completions were ignored.",
+      "name" : "cancel_all_ignores_late_results",
+      "passed" : true
+    },
+    {
+      "detail" : "Removed queued, running, and completed providers stayed absent; removal advanced the remaining queue.",
+      "name" : "remove_running_queued_and_completed_providers",
+      "passed" : true
+    },
+    {
+      "detail" : "An old same-ID completion could not remove a newer pending/running check.",
+      "name" : "old_completion_cannot_clear_new_pending_check",
+      "passed" : true
+    },
+    {
+      "detail" : "A newer same-ID report survived a subsequently delivered old canceled result.",
+      "name" : "old_completion_cannot_overwrite_new_report",
+      "passed" : true
+    },
+    {
+      "detail" : "A thrown probe released its slot and the remaining providers completed.",
+      "name" : "thrown_probe_releases_queue_slot",
+      "passed" : true
+    }
+  ],
+  "mediaRequestsMade" : false,
+  "mode" : "headless SourceAccessController with deterministic suspended probes",
+  "nativeUIVerified" : false,
+  "passed" : true,
+  "sourceAvailabilityVerified" : false
+}

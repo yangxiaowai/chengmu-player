@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-27T05:42:53.902172+00:00",
+  "version": "0.2.2",
+  "build": "4",
+  "signature": "codesign --verify --deep --strict passed; local ad-hoc signature, not notarized",
+  "files": [
+    {
+      "path": "dist/映川.app/Contents/MacOS/Cinema",
+      "bytes": 3795952,
+      "sha256": "ae507465c82438d4c4e196f2e9df2ede4bc46682ae701fd4e7cec877b6034025"
+    },
+    {
+      "path": "dist/映川-v0.2.2.zip",
+      "bytes": 1249220,
+      "sha256": "83bde4b5f482be89ae3cab4d24a921180519ce8096e950274419584d0b872596"
+    }
+  ],
+  "archive_validation": "ZIP CRC passed; archived executable SHA256 matches app executable",
+  "native_ui_validation": "Pending: Mac locked; CUA cannot acquire player window",
+  "core_tests": "71 tests in 10 suites passed",
+  "source_controller_smoke": "6 deterministic scenarios passed; no network or UI",
+  "live_core_source_probe": "dytt and mdzy: catalog, playlist, segment prefix passed; VPN/system DNS not excluded"
+}

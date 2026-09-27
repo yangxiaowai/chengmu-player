@@ -1,0 +1,45 @@
+Building for debugging...
+[Planning deferred tasks]
+[4 / 30]
+[5 / 31] CinemaCore
+[16 / 42] CinemaCore
+[22 / 40] CinemaCore
+[31 / 51] CinemaCore
+[33 / 51] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[35 / 51] CinemaCore
+[38 / 51] Cinema-product
+[43 / 62] CinemaCoreTests-product
+[44 / 62] CinemaCoreTests-product
+[46 / 62] CinemaCoreTests-product
+[47 / 62] CinemaCoreTests-product
+[50 / 61] CinemaCoreTests-product
+[54 / 62] CinemaCoreTests-product
+[54 / 62] Cinema-product
+[54 / 62] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[56 / 62] CinemaCoreTests-product
+[58 / 60] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[60 / 62] Cinema-product
+Build complete! (4.09 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SourceAccessTests started.
+◇ Test htmlErrorPageIsNotAReadableVideoSegment() started.
+◇ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() started.
+◇ Test apiSuccessDoesNotMaskAnUnavailableVideo() started.
+◇ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() started.
+◇ Test cancelledChecksPropagateCancellation() started.
+◇ Test missingRepresentativeFilmIsNotAConnectivityCertification() started.
+✔ Test cancelledChecksPropagateCancellation() passed after 0.003 seconds.
+✔ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() passed after 0.003 seconds.
+✔ Test missingRepresentativeFilmIsNotAConnectivityCertification() passed after 0.008 seconds.
+✔ Test apiSuccessDoesNotMaskAnUnavailableVideo() passed after 0.009 seconds.
+✔ Test htmlErrorPageIsNotAReadableVideoSegment() passed after 0.009 seconds.
+✔ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() passed after 0.012 seconds.
+✔ Suite SourceAccessTests passed after 0.012 seconds.
+✔ Test run with 6 tests in 1 suite passed after 0.013 seconds.

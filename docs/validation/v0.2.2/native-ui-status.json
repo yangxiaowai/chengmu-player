@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-27T05:42:10.116531+00:00",
+  "app": "dist/映川.app",
+  "version": "0.2.2",
+  "status": "pending",
+  "first_attempt": "CUA getApp returned cgWindowNotFound",
+  "inventory_check": "CUA getState returned native apps empty and Mac locked; automatic unlock could not unlock it.",
+  "scope": "No native window visual or click acceptance claimed. Previous fullscreen acceptance remains pending. No lock bypass attempted."
+}

@@ -1,0 +1,232 @@
+{
+  "recorded_at": "2026-09-27T05:28:43Z",
+  "method": "GET",
+  "service": "ITDOG public web HTTP probe",
+  "service_url": "https://www.itdog.cn/http/",
+  "selection": [
+    "中国电信",
+    "中国联通",
+    "中国移动"
+  ],
+  "excluded": [
+    "港澳台、海外"
+  ],
+  "dns": "ISP default",
+  "http_version": "auto",
+  "authentication_used": false,
+  "vpn_settings_changed": false,
+  "node_location_independently_audited": false,
+  "response_body_validated": false,
+  "media_decoded_from_these_nodes": false,
+  "result_basis": "Current rendered table after submitting each URL through CUA. Page bootstrap example data excluded. -- classified as no_result, never success.",
+  "catalog_probes": [
+    {
+      "provider": "ruyi",
+      "url": "https://cj.rycjapi.com/api.php/provide/vod?ac=list&pg=1",
+      "by_isp": [
+        {
+          "isp": "电信",
+          "nodes": 88,
+          "http_200": 0,
+          "http_503": 0,
+          "failed": 88,
+          "no_result": 0
+        },
+        {
+          "isp": "联通",
+          "nodes": 87,
+          "http_200": 0,
+          "http_503": 0,
+          "failed": 84,
+          "no_result": 3
+        },
+        {
+          "isp": "移动",
+          "nodes": 96,
+          "http_200": 1,
+          "http_503": 0,
+          "failed": 95,
+          "no_result": 0
+        }
+      ],
+      "totals": {
+        "nodes": 271,
+        "http_200": 1,
+        "http_503": 0,
+        "failed": 267,
+        "no_result": 3
+      }
+    },
+    {
+      "provider": "mdzy",
+      "url": "https://www.mdzyapi.com/api.php/provide/vod?ac=list&pg=1",
+      "by_isp": [
+        {
+          "isp": "电信",
+          "nodes": 69,
+          "http_200": 35,
+          "http_503": 0,
+          "failed": 4,
+          "no_result": 30
+        },
+        {
+          "isp": "联通",
+          "nodes": 87,
+          "http_200": 65,
+          "http_503": 15,
+          "failed": 7,
+          "no_result": 0
+        },
+        {
+          "isp": "移动",
+          "nodes": 96,
+          "http_200": 77,
+          "http_503": 6,
+          "failed": 11,
+          "no_result": 2
+        }
+      ],
+      "totals": {
+        "nodes": 252,
+        "http_200": 177,
+        "http_503": 21,
+        "failed": 22,
+        "no_result": 32
+      }
+    },
+    {
+      "provider": "wujin",
+      "url": "https://api.wujinapi.com/api.php/provide/vod?ac=list&pg=1",
+      "by_isp": [
+        {
+          "isp": "电信",
+          "nodes": 87,
+          "http_200": 86,
+          "http_503": 0,
+          "failed": 1,
+          "no_result": 0
+        },
+        {
+          "isp": "联通",
+          "nodes": 87,
+          "http_200": 85,
+          "http_503": 0,
+          "failed": 2,
+          "no_result": 0
+        },
+        {
+          "isp": "移动",
+          "nodes": 96,
+          "http_200": 93,
+          "http_503": 0,
+          "failed": 3,
+          "no_result": 0
+        }
+      ],
+      "totals": {
+        "nodes": 270,
+        "http_200": 264,
+        "http_503": 0,
+        "failed": 6,
+        "no_result": 0
+      }
+    }
+  ],
+  "media_probes": [
+    {
+      "provider": "mdzy",
+      "title": "怪奇物语第一季",
+      "catalog_id": "10734",
+      "stage": "media_playlist",
+      "url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/index.m3u8",
+      "url_sha256": "3d2c246ff69e35f51f9e595a7f51430c573c322a1a569cf562caf4503e848c21",
+      "method": "GET",
+      "request_range_header": "not exposed by public UI",
+      "by_isp": [
+        {
+          "isp": "电信",
+          "nodes": 87,
+          "http_200": 83,
+          "http_206": 0,
+          "failed": 4
+        },
+        {
+          "isp": "联通",
+          "nodes": 87,
+          "http_200": 85,
+          "http_206": 0,
+          "failed": 2
+        },
+        {
+          "isp": "移动",
+          "nodes": 96,
+          "http_200": 90,
+          "http_206": 0,
+          "failed": 6
+        }
+      ],
+      "totals": {
+        "nodes": 270,
+        "http_200": 258,
+        "http_206": 0,
+        "failed": 12,
+        "no_result": 0
+      }
+    },
+    {
+      "provider": "mdzy",
+      "title": "怪奇物语第一季",
+      "catalog_id": "10734",
+      "stage": "first_segment",
+      "url": "https://play.modujx12.com/20240701/gLgDbkaF/2000kb/hls/fBtI279J.ts",
+      "url_sha256": "d4f6578a8a124fdcda38b7ef14408b19a0f7f38398c5ba740008655690019788",
+      "method": "GET",
+      "request_range_header": "not exposed by public UI",
+      "by_isp": [
+        {
+          "isp": "电信",
+          "nodes": 87,
+          "http_200": 71,
+          "http_206": 14,
+          "failed": 2
+        },
+        {
+          "isp": "联通",
+          "nodes": 87,
+          "http_200": 78,
+          "http_206": 7,
+          "failed": 2
+        },
+        {
+          "isp": "移动",
+          "nodes": 96,
+          "http_200": 81,
+          "http_206": 10,
+          "failed": 5
+        }
+      ],
+      "totals": {
+        "nodes": 270,
+        "http_200": 230,
+        "http_206": 31,
+        "failed": 9,
+        "no_result": 0
+      }
+    }
+  ],
+  "sample_segment_response_header": {
+    "node": "电信 吉林四平 家庭",
+    "status": 206,
+    "content_range": "bytes 0-119003/119004",
+    "content_length": 119004,
+    "content_type": "application/octet-stream",
+    "x_cache": "HIT, policy, disk",
+    "note": "Rendered response header only; response bytes not retrieved from this third-party node for format validation or decoding."
+  },
+  "scope_notes": [
+    "Current submitted URLs, not the initial sample table.",
+    "Media playlist and first segment only; entry master playlist not separately tested on remote nodes.",
+    "HTTP 206 retained separately from 200. No returned response bodies or decoded frames from these nodes.",
+    "Failed or no_result never counted as success. Regional/operator identifiers supplied by ITDOG."
+  ]
+}

@@ -3,6 +3,17 @@ import Testing
 @testable import CinemaCore
 
 struct CatalogLibraryTests {
+    @Test func manualSourceChoiceWinsAndDisabledPreferredSourceIsSkipped() {
+        let a = SourceProvider(id: "a", name: "A", endpoint: URL(string: "https://a.test")!)
+        var b = SourceProvider(id: "b", name: "B", endpoint: URL(string: "https://b.test")!)
+        let rows = [title("1", provider: "a"), title("2", provider: "b")]
+        #expect(ProviderCatalog.preferredTitle(in: rows, providers: [a, b], preferredID: "b")?.providerID == "b")
+        #expect(ProviderCatalog.preferredTitle(in: rows, providers: [a, b], explicitID: "a", preferredID: "b")?.providerID == "a")
+        b.enabled = false
+        #expect(ProviderCatalog.preferredTitle(in: rows, providers: [a, b], explicitID: "b", preferredID: "b")?.providerID == "a")
+        #expect(ProviderCatalog.preferredTitle(in: rows, providers: [a], preferredID: "missing")?.providerID == "a")
+        #expect(ProviderCatalog.preferredTitle(in: rows, providers: [b], preferredID: "b") == nil)
+    }
     private func title(_ id: String, _ name: String = "火线第一季", year: String = "2002", provider: String = "a", poster: String? = nil) -> MediaTitle {
         MediaTitle(id: id, title: name, year: year, posterURL: poster.flatMap(URL.init(string:)), summary: "", providerID: provider, providerName: provider)
     }

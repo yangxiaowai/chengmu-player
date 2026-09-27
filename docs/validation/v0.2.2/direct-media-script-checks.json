@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-09-27T05:34:43.459607+00:00",
+  "passed": true,
+  "external_network_used": false,
+  "checks": [
+    "JSON response bytes",
+    "redirect and relative HLS URLs",
+    "segment cap when server ignores Range",
+    "MPEG-TS signature detection",
+    "oversized catalog rejected",
+    "HTML segment rejected",
+    "physical redirects resolve every host independently",
+    "DoH TTL cache reuse"
+  ]
+}

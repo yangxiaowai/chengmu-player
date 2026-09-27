@@ -1,0 +1,120 @@
+Building for debugging...
+[Planning deferred tasks]
+[1 / 10]
+[2 / 11] CinemaCore
+[13 / 80]
+[21 / 80]
+[23 / 80]
+[28 / 80]
+[32 / 80]
+[36 / 80]
+[38 / 80]
+[39 / 80]
+[40 / 80]
+[47 / 80]
+[48 / 80]
+[53 / 80]
+[54 / 80]
+[56 / 80]
+[58 / 80]
+[60 / 80]
+[71 / 80] CinemaCore
+[74 / 83] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[78 / 84] CinemaCoreTests-product
+[79 / 89]
+[83 / 89] CinemaCoreTests-product
+[87 / 91] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-source-access-review-e4edvw3r/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[89 / 91] CinemaCoreTests-product
+Build complete! (17.71 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SourceAccessTests started.
+◇ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test missingRepresentativeFilmIsNotAConnectivityCertification() started.
+◇ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() started.
+◇ Test cancelledChecksPropagateCancellation() started.
+◇ Test htmlErrorPageIsNotAReadableVideoSegment() started.
+◇ Test apiSuccessDoesNotMaskAnUnavailableVideo() started.
+◇ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() started.
+◇ Test case passing 1 argument mode → "encrypted-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-angle" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-bracket" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() started.
+◇ Test case passing 1 argument mode → "encrypted-readable-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "html-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "json-object-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "json-array-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+✔ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() passed after 0.003 seconds.
+✔ Test cancelledChecksPropagateCancellation() passed after 0.005 seconds.
+✔ Test missingRepresentativeFilmIsNotAConnectivityCertification() passed after 0.008 seconds.
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "json-object-bom" at SourceAccessTests.swift:40:9: Expectation failed: result.playlistReachable && !result.segmentReachable && !result.passed
+↳ result.playlistReachable && !result.segmentReachable && !result.passed → false
+↳   result.playlistReachable && !result.segmentReachable → false
+↳   !result.passed → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-angle" at SourceAccessTests.swift:46:9: Expectation failed: result.encrypted && result.segmentReachable && result.passed
+↳ result.encrypted && result.segmentReachable && result.passed → false
+↳   result.encrypted && result.segmentReachable → false
+↳   result.passed → <not evaluated>
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "json-object-bom" at SourceAccessTests.swift:41:9: Expectation failed: result.failure?.contains("网页或接口消息") == true
+↳ result.failure?.contains("网页或接口消息") == true → false
+↳   result.failure?.contains("网页或接口消息") → nil
+↳     some → true
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-angle" at SourceAccessTests.swift:47:9: Expectation failed: result.sampleBytes == 4096 && result.failure == nil
+↳ result.sampleBytes == 4096 && result.failure == nil → false
+↳   result.sampleBytes == 4096 → false
+↳   result.failure == nil → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-brace" at SourceAccessTests.swift:46:9: Expectation failed: result.encrypted && result.segmentReachable && result.passed
+↳ result.encrypted && result.segmentReachable && result.passed → false
+↳   result.encrypted && result.segmentReachable → false
+↳   result.passed → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-brace" at SourceAccessTests.swift:47:9: Expectation failed: result.sampleBytes == 4096 && result.failure == nil
+↳ result.sampleBytes == 4096 && result.failure == nil → false
+↳   result.sampleBytes == 4096 → false
+↳   result.failure == nil → <not evaluated>
+✔ Test htmlErrorPageIsNotAReadableVideoSegment() passed after 0.011 seconds.
+✔ Test apiSuccessDoesNotMaskAnUnavailableVideo() passed after 0.011 seconds.
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "html-bom" at SourceAccessTests.swift:40:9: Expectation failed: result.playlistReachable && !result.segmentReachable && !result.passed
+↳ result.playlistReachable && !result.segmentReachable && !result.passed → false
+↳   result.playlistReachable && !result.segmentReachable → false
+↳   !result.passed → <not evaluated>
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "json-array-bom" at SourceAccessTests.swift:40:9: Expectation failed: result.playlistReachable && !result.segmentReachable && !result.passed
+↳ result.playlistReachable && !result.segmentReachable && !result.passed → false
+↳   result.playlistReachable && !result.segmentReachable → false
+↳   !result.passed → <not evaluated>
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "html-bom" at SourceAccessTests.swift:41:9: Expectation failed: result.failure?.contains("网页或接口消息") == true
+↳ result.failure?.contains("网页或接口消息") == true → false
+↳   result.failure?.contains("网页或接口消息") → nil
+↳     some → true
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) recorded an issue with 1 argument mode → "json-array-bom" at SourceAccessTests.swift:41:9: Expectation failed: result.failure?.contains("网页或接口消息") == true
+↳ result.failure?.contains("网页或接口消息") == true → false
+↳   result.failure?.contains("网页或接口消息") → nil
+↳     some → true
+✘ Test longTextErrorDocumentsAreNotReadableSegments(mode:) with 3 test cases failed after 0.011 seconds with 6 issues.
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-bracket" at SourceAccessTests.swift:46:9: Expectation failed: result.encrypted && result.segmentReachable && result.passed
+↳ result.encrypted && result.segmentReachable && result.passed → false
+↳   result.encrypted && result.segmentReachable → false
+↳   result.passed → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-bracket" at SourceAccessTests.swift:47:9: Expectation failed: result.sampleBytes == 4096 && result.failure == nil
+↳ result.sampleBytes == 4096 && result.failure == nil → false
+↳   result.sampleBytes == 4096 → false
+↳   result.failure == nil → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-readable-brace" at SourceAccessTests.swift:46:9: Expectation failed: result.encrypted && result.segmentReachable && result.passed
+↳ result.encrypted && result.segmentReachable && result.passed → false
+↳   result.encrypted && result.segmentReachable → false
+↳   result.passed → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) recorded an issue with 1 argument mode → "encrypted-readable-brace" at SourceAccessTests.swift:47:9: Expectation failed: result.sampleBytes == 4096 && result.failure == nil
+↳ result.sampleBytes == 4096 && result.failure == nil → false
+↳   result.sampleBytes == 4096 → false
+↳   result.failure == nil → <not evaluated>
+✘ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) with 4 test cases failed after 0.011 seconds with 8 issues.
+✔ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() passed after 0.012 seconds.
+✔ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() passed after 0.013 seconds.
+✘ Suite SourceAccessTests failed after 0.013 seconds with 14 issues.
+✘ Test run with 9 tests in 1 suite failed after 0.013 seconds with 14 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

@@ -90,7 +90,7 @@ python3 scripts/probe-source-expansion.py
 应用实际服务接口集成复现：
 
 ```bash
-swiftc Sources/CinemaCore/MediaModels.swift Sources/CinemaCore/SourceService.swift scripts/probe-catalog-service.swift -o /tmp/cinema-catalog-integration
+swiftc Sources/CinemaCore/*.swift scripts/probe-catalog-service.swift -o /tmp/cinema-catalog-integration
 /tmp/cinema-catalog-integration
 ```
 
