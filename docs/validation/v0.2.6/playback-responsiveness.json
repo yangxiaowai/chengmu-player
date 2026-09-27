@@ -1,0 +1,49 @@
+{
+  "checkedAt" : "2026-09-27T14:34:22Z",
+  "checks" : [
+    {
+      "detail" : "Two immediate presses from playing pause and then resume without depending on KVO latency.",
+      "name" : "rapid_pause_play_preserves_both_button_intents",
+      "passed" : true
+    },
+    {
+      "detail" : "Three synchronous +10-second presses from 20 seconds reach 50 seconds.",
+      "name" : "synchronous_skip_burst_accumulates_each_press",
+      "passed" : true
+    },
+    {
+      "detail" : "32 real-media bursts with task yields and 1\/5\/20 ms intervals each preserved all three +10-second requests.",
+      "name" : "yielding_skip_bursts_do_not_lose_a_press_to_old_positions",
+      "passed" : true
+    },
+    {
+      "detail" : "Both play and pause notify SwiftUI synchronously, independently of the observed physical playback state.",
+      "name" : "intent_changes_publish_without_waiting_for_KVO",
+      "passed" : true
+    },
+    {
+      "detail" : "Forward seek, backward skip, absolute seek and another backward skip commit only the final 15-second destination.",
+      "name" : "rapid_seek_direction_changes_keep_latest_target",
+      "passed" : true
+    },
+    {
+      "detail" : "Cancel reconciles with actual media time and the next skip does not reuse a discarded target.",
+      "name" : "cancelled_seek_does_not_seed_the_next_skip",
+      "passed" : true
+    },
+    {
+      "detail" : "An interrupted latest AVPlayer seek clears its pending destination and remains responsive to the next backward skip.",
+      "name" : "interrupted_latest_seek_recovers_actual_position",
+      "passed" : true
+    },
+    {
+      "detail" : "Opening a replacement item resets pending seek state; its own seven-second resume plus one skip reaches 17 seconds.",
+      "name" : "new_item_discards_previous_seek_state",
+      "passed" : true
+    }
+  ],
+  "mode" : "headless real controller and generated silent local WAV",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : true
+}

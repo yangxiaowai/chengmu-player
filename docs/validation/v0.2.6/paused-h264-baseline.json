@@ -1,0 +1,22 @@
+[
+  {
+    "actual" : 3,
+    "error" : "",
+    "loading" : false,
+    "name" : "open_and_immediately_pause_3s",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : "Optional(__C.AVPlayerItemStatus)"
+  },
+  {
+    "actual" : 6.0001997920000001,
+    "error" : "",
+    "loading" : false,
+    "name" : "after_probe_3s",
+    "position" : 6.000151292,
+    "rate" : 1,
+    "requested" : true,
+    "status" : "Optional(__C.AVPlayerItemStatus)"
+  }
+]

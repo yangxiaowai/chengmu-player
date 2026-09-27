@@ -1,0 +1,2 @@
+Independent Swift typecheck of actual PlayerEpisodePanel + AppModel/controller dependencies; no UI or full build.
+Exit code: 0

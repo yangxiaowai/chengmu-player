@@ -1,0 +1,57 @@
+[
+  {
+    "detail" : "Injected stalled notification on real paused local media; no network stall is claimed.",
+    "name" : "paused_stall_has_no_spinner",
+    "passed" : true
+  },
+  {
+    "detail" : "Injected failed-to-end notification; both physical playback and intent stop.",
+    "name" : "fatal_notification_pauses_without_next",
+    "passed" : true
+  },
+  {
+    "detail" : "Explicit Play reopens the failed item and recovers on real local media.",
+    "name" : "play_on_error_explicitly_retries",
+    "passed" : true
+  },
+  {
+    "detail" : "Real EOF observer seeks to 20 before delayed handler; no EOF notice was injected.",
+    "name" : "real_eof_seek_back_rejects_old_end",
+    "passed" : true
+  },
+  {
+    "detail" : "Real terminal EOF completes once and leaves a stopped, ready controller.",
+    "name" : "ordinary_eof_advances_once",
+    "passed" : true
+  },
+  {
+    "detail" : "Play after normal EOF seeks to zero and physically resumes.",
+    "name" : "manual_replay_after_eof",
+    "passed" : true
+  },
+  {
+    "detail" : "Explicit paused terminal notice does not call next; this notice is injected.",
+    "name" : "paused_terminal_notice_does_not_next",
+    "passed" : true
+  },
+  {
+    "detail" : "Injected failure before loopback media is ready; explicit retry must apply original 52-second resume target.",
+    "name" : "failure_during_preparation_preserves_resume",
+    "passed" : false
+  },
+  {
+    "detail" : "Loopback server accepts requests and withholds response bytes; AVPlayer remains preparing.",
+    "name" : "preparation_survives_paused_transport",
+    "passed" : true
+  },
+  {
+    "detail" : "Real pending loopback load exceeds 15 seconds; only suggestion, no automatic retry.",
+    "name" : "continuous_wait_suggests_manual_recovery",
+    "passed" : true
+  },
+  {
+    "detail" : "Replacement ready paused item clears the old preparation timer and recovery suggestion.",
+    "name" : "replacement_clears_wait_suggestion",
+    "passed" : true
+  }
+]

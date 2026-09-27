@@ -55,7 +55,9 @@ final class AppModel: ObservableObject {
     var isDiagnostic: Bool { CommandLine.arguments.contains("--validate") || CommandLine.arguments.contains("--benchmark") }
     @Published var alternativeSources: [MediaTitle] = []
     @Published var alternativesLoading = false
+    @Published private(set) var alternativeStage: AlternativeSourceStage?
     @Published var alternativeNotice: String?
+    private let alternativeRequests: AlternativeSourceRequests
     private var alternativeTask: Task<Void, Never>?
     private var alternativeID = UUID()
     let playback = PlaybackController()
@@ -68,7 +70,8 @@ final class AppModel: ObservableObject {
     private var currentRecord: WatchRecord?
     private var historyReadable = true
 
-    init() {
+    init(alternativeRequests: AlternativeSourceRequests = .init()) {
+        self.alternativeRequests = alternativeRequests
         if let profile = ProcessInfo.processInfo.environment["YINGCHUAN_PROFILE_DIRECTORY"], profile.hasPrefix("/") {
             store = LibraryStore(directory: URL(fileURLWithPath: profile, isDirectory: true))
         } else {
@@ -253,21 +256,48 @@ final class AppModel: ObservableObject {
         }
         let position = playback.position
         selectedLineID = id
-        play(match); playback.resumeWhenReady(position)
+        playPreservingIntent(match, at: position)
     }
-    func nextEpisode() {
+    private func adjacentEpisode(by offset: Int, requireConsecutive: Bool = true) -> Episode? {
         guard let context = currentRecord?.playbackContext, let detail,
               context.detail.title.id == detail.title.id, context.detail.title.providerID == detail.title.providerID,
               context.line.id == selectedLineID, context.episode.id == currentEpisodeID,
-              let episodes = selectedLine?.episodes, let index = episodes.firstIndex(where: {$0.id == currentEpisodeID}), episodes.indices.contains(index + 1) else { return }
-        let current = episodes[index], next = episodes[index + 1]
-        if let a = current.number, let b = next.number, b != a + 1 { message = "下一集存在缺集，已停止自动续播。"; return }
-        play(next)
+              let episodes = selectedLine?.episodes, let index = episodes.firstIndex(where: {$0.id == currentEpisodeID}),
+              episodes.indices.contains(index + offset) else { return nil }
+        let current = episodes[index], destination = episodes[index + offset]
+        if requireConsecutive, let a = current.number, let b = destination.number, b != a + offset { return nil }
+        return destination
+    }
+    func nextEpisode() { moveEpisode(by: 1) }
+    func previousEpisode() { moveEpisode(by: -1) }
+    private func moveEpisode(by offset: Int) {
+        guard let destination = adjacentEpisode(by: offset, requireConsecutive: false) else { return }
+        guard adjacentEpisode(by: offset) != nil else {
+            message = offset > 0 ? "下一集存在缺集，已停止自动续播。" : "上一集存在缺集，已保留当前播放。"; return
+        }
+        play(destination)
+    }
+    private func playPreservingIntent(_ episode: Episode, at position: Double) {
+        // Read at the synchronous commit, after any async checks: the user's latest
+        // pause/play choice wins, including a pause made while checking a source.
+        let shouldPlay = playback.playbackRequested
+        play(episode)
+        if !shouldPlay { playback.pause() }
+        playback.resumeWhenReady(position)
     }
     func closePlayer() { cancelAlternativeSources(); playback.cancelPendingSeek(); playback.pause(); playback.cancelSleepTimer(); detailPresented = false; showPlayer = false }
     func cancelAlternativeSources() {
+        stopAlternativeRequest()
+        alternativeSources = []; alternativeNotice = nil
+    }
+    func cancelAlternativeSelection() {
+        guard alternativesLoading else { return }
+        stopAlternativeRequest()
+        alternativeNotice = "已取消查找或核对，当前播放保持不变。"
+    }
+    private func stopAlternativeRequest() {
         alternativeTask?.cancel(); alternativeTask = nil; alternativeID = UUID()
-        alternativesLoading = false; alternativeSources = []; alternativeNotice = nil
+        alternativesLoading = false; alternativeStage = nil
     }
     func findAlternativeSources() {
         cancelAlternativeSources()
@@ -279,38 +309,40 @@ final class AppModel: ObservableObject {
         }
         let token = alternativeID, recordID = record.id
         let sources = providers.filter(\.enabled)
-        alternativesLoading = true
+        alternativesLoading = true; alternativeStage = .searching
         alternativeTask = Task {
-            let found = await service.search(query: context.detail.title.title, providers: sources)
+            let found = await alternativeRequests.search(context.detail.title.title, sources)
             guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
             alternativeSources = SourceMatching.candidates(current: context.detail.title, results: found.titles)
-            alternativesLoading = false
+            alternativesLoading = false; alternativeStage = nil
             let errors = found.failures.joined(separator: "；")
             alternativeNotice = alternativeSources.isEmpty ? "未找到标题、季数匹配的其他版本。" : "候选画质未知，选择后检查当前集与媒体清单。"
             if !errors.isEmpty { alternativeNotice = (alternativeNotice ?? "") + " " + errors }
         }
     }
     func switchAlternativeSource(_ title: MediaTitle) {
-        alternativeTask?.cancel(); alternativeID = UUID()
+        stopAlternativeRequest()
         guard showPlayer, let record = currentRecord, let context = record.playbackContext,
               SourceMatching.sameSeasonTitle(context.detail.title, title),
               let provider = providers.first(where: { $0.id == title.providerID && $0.enabled }) else {
             alternativesLoading = false; alternativeNotice = "季集或来源已变化，已保留当前播放。"; return
         }
         let token = alternativeID, recordID = record.id
-        alternativesLoading = true; alternativeNotice = "正在核对同一集…"
+        alternativesLoading = true; alternativeStage = .loadingDetail(provider: provider.name)
+        alternativeNotice = "核对完成前，继续保留当前影片与进度。"
         alternativeTask = Task {
             do {
-                let loaded = try await service.detail(title: title, provider: provider)
+                let loaded = try await alternativeRequests.detail(title, provider)
                 guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
                 guard SourceMatching.sameSeasonTitle(context.detail.title, loaded.title) else {
-                    alternativesLoading = false; alternativeNotice = "返回作品不属于当前季，已保留当前播放。"; return
+                    alternativesLoading = false; alternativeStage = nil; alternativeNotice = "返回作品不属于当前季，已保留当前播放。"; return
                 }
                 var destination: (PlaybackLine, Episode)?
                 for line in loaded.lines {
                     guard let episode = SourceMatching.matchEpisode(context.episode, in: line) else { continue }
                     do {
-                        _ = try await HLSProbe().inspect(url: episode.url)
+                        alternativeStage = .checkingPlaylist(provider: provider.name, line: line.name)
+                        try await alternativeRequests.inspect(episode.url)
                         guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
                         destination = (line, episode); break
                     } catch {
@@ -318,16 +350,16 @@ final class AppModel: ObservableObject {
                     }
                 }
                 guard let (line, episode) = destination else {
-                    alternativesLoading = false; alternativeNotice = "未找到名称、编号一致且清单可达的当前集，已保留当前播放。"; return
+                    alternativesLoading = false; alternativeStage = nil; alternativeNotice = "未找到名称、编号一致且清单可达的当前集，已保留当前播放。"; return
                 }
                 let position = playback.position
                 detailTask?.cancel(); detailID = UUID(); detailLoading = false
                 detail = loaded; selectedLineID = line.id
-                play(episode); playback.resumeWhenReady(position)
+                playPreservingIntent(episode, at: position)
                 alternativeNotice = "已切换来源并恢复进度。版本时长或剪辑可能不同，进度按新时长限制，请核对画面并按需拖动。画质以实际播放信息为准。"
             } catch {
                 guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
-                alternativesLoading = false; alternativeNotice = "来源读取失败，已保留当前播放：\(error.localizedDescription)"
+                alternativesLoading = false; alternativeStage = nil; alternativeNotice = "来源读取失败，已保留当前播放：\(error.localizedDescription)"
             }
         }
     }
@@ -373,14 +405,8 @@ final class AppModel: ObservableObject {
         results.removeAll { !active.contains($0.providerID) }
         if !active.contains(filterProviderID) { filterProviderID = "" }
     }
-    var canPlayNext: Bool {
-        guard let context = currentRecord?.playbackContext, let detail,
-              context.detail.title.id == detail.title.id, context.detail.title.providerID == detail.title.providerID,
-              context.line.id == selectedLineID, context.episode.id == currentEpisodeID,
-              let episodes = selectedLine?.episodes, let index = episodes.firstIndex(where: { $0.id == currentEpisodeID }), episodes.indices.contains(index + 1) else { return false }
-        if let a = episodes[index].number, let b = episodes[index + 1].number { return b == a + 1 }
-        return true
-    }
+    var canPlayNext: Bool { adjacentEpisode(by: 1) != nil }
+    var canPlayPrevious: Bool { adjacentEpisode(by: -1) != nil }
     var groups: [MediaGroup] { CatalogGrouping.groups(results) }
     var filteredGroups: [MediaGroup] {
         var values = groups.filter { group in
@@ -496,6 +522,34 @@ final class AppModel: ObservableObject {
         history.removeAll {$0.id == record.id}; history.insert(record, at: 0)
         if history.count > 200 { history = Array(history.prefix(200)) }
         do { try store.save(history) } catch { message = "观看进度保存失败：\(error.localizedDescription)" }
+    }
+}
+
+enum AlternativeSourceStage: Equatable {
+    case searching
+    case loadingDetail(provider: String)
+    case checkingPlaylist(provider: String, line: String)
+
+    var label: String {
+        switch self {
+        case .searching: return "正在查找同季片源…"
+        case .loadingDetail(let provider): return "\(provider) · 正在读取集目…"
+        case .checkingPlaylist(let provider, let line): return "\(provider) · 正在核对 \(line) 当前集…"
+        }
+    }
+}
+
+/// Keeps source I/O separate from selection state; deterministic fixtures can
+/// finish after cancellation to verify that stale responses never switch media.
+struct AlternativeSourceRequests {
+    var search: (String, [SourceProvider]) async -> SearchResponse = { query, providers in
+        await SourceService().search(query: query, providers: providers)
+    }
+    var detail: (MediaTitle, SourceProvider) async throws -> MediaDetail = { title, provider in
+        try await SourceService().detail(title: title, provider: provider)
+    }
+    var inspect: (URL) async throws -> Void = { url in
+        _ = try await HLSProbe().inspect(url: url)
     }
 }
 

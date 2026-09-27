@@ -1,0 +1,14 @@
+{
+  "checkedAt" : "2026-09-27T14:16:49Z",
+  "checks" : [
+    {
+      "detail" : "Switching a line unexpectedly requested playback from paused state",
+      "name" : "paused_line_switch_preserves_intent_and_position",
+      "passed" : false
+    }
+  ],
+  "mode" : "Headless AppModel + real AVPlayer with generated local WAV; injected async source fixtures",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : false
+}

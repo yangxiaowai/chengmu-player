@@ -1,0 +1,30 @@
+[
+  {
+    "actual_rate" : 0,
+    "case" : "paused_stall_notice",
+    "loading" : true,
+    "notification_injected" : true,
+    "requested_play" : false,
+    "time_control" : "0"
+  },
+  {
+    "actual_rate" : 1,
+    "case" : "failed_to_end_notice",
+    "error" : "媒体传输中断。可以重试当前集，或在右侧选择其他线路。",
+    "notification_injected" : true,
+    "playing" : true,
+    "requested_play" : true
+  },
+  {
+    "actual_time" : 20,
+    "case" : "real_end_notice_seek_back_before_delayed_handler",
+    "finish_count" : 1,
+    "notification_injected" : false,
+    "position" : 20,
+    "requested_play" : false,
+    "sequence" : [
+      "seekback_on_real_end_notice",
+      "onFinished"
+    ]
+  }
+]

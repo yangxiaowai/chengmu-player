@@ -1,0 +1,110 @@
+Building for debugging...
+[Planning deferred tasks]
+[2 / 4] CinemaCore
+[3 / 5] CinemaCore
+[6 / 8] Cinema-product
+[17 / 19] Cinema-product
+[28 / 30] CinemaCore
+[35 / 46] CinemaCoreTests-product
+[46 / 57] CinemaCoreTests-product
+error: SwiftCompile normal arm64 /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift failed with a nonzero exit code. Command line:     cd /Users/yangjun/Downloads
+    builtin-SwiftPerFileCompile PlaybackTimecodeTests.swift
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:6:21: error: cannot find 'PlaybackTimecode' in scope
+ 4 | struct PlaybackTimecodeTests {
+ 5 |     @Test func acceptsSupportedFormats() throws {
+ 6 |         #expect(try PlaybackTimecode.seconds(from: " 90.5 ", duration: 7200) == 90.5)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+ 7 |         #expect(try PlaybackTimecode.seconds(from: "24:04", duration: 7200) == 1444)
+ 8 |         #expect(try PlaybackTimecode.seconds(from: "1:02:03.25", duration: 7200) == 3723.25)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:7:21: error: cannot find 'PlaybackTimecode' in scope
+ 5 |     @Test func acceptsSupportedFormats() throws {
+ 6 |         #expect(try PlaybackTimecode.seconds(from: " 90.5 ", duration: 7200) == 90.5)
+ 7 |         #expect(try PlaybackTimecode.seconds(from: "24:04", duration: 7200) == 1444)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+ 8 |         #expect(try PlaybackTimecode.seconds(from: "1:02:03.25", duration: 7200) == 3723.25)
+ 9 |         #expect(try PlaybackTimecode.seconds(from: "90:00", duration: 7200) == 5400)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:8:21: error: cannot find 'PlaybackTimecode' in scope
+ 6 |         #expect(try PlaybackTimecode.seconds(from: " 90.5 ", duration: 7200) == 90.5)
+ 7 |         #expect(try PlaybackTimecode.seconds(from: "24:04", duration: 7200) == 1444)
+ 8 |         #expect(try PlaybackTimecode.seconds(from: "1:02:03.25", duration: 7200) == 3723.25)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+ 9 |         #expect(try PlaybackTimecode.seconds(from: "90:00", duration: 7200) == 5400)
+10 |         #expect(try PlaybackTimecode.seconds(from: "0", duration: 90) == 0)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:9:21: error: cannot find 'PlaybackTimecode' in scope
+ 7 |         #expect(try PlaybackTimecode.seconds(from: "24:04", duration: 7200) == 1444)
+ 8 |         #expect(try PlaybackTimecode.seconds(from: "1:02:03.25", duration: 7200) == 3723.25)
+ 9 |         #expect(try PlaybackTimecode.seconds(from: "90:00", duration: 7200) == 5400)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+10 |         #expect(try PlaybackTimecode.seconds(from: "0", duration: 90) == 0)
+11 |         #expect(try PlaybackTimecode.seconds(from: "1:30", duration: 90) == 90)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:10:21: error: cannot find 'PlaybackTimecode' in scope
+ 8 |         #expect(try PlaybackTimecode.seconds(from: "1:02:03.25", duration: 7200) == 3723.25)
+ 9 |         #expect(try PlaybackTimecode.seconds(from: "90:00", duration: 7200) == 5400)
+10 |         #expect(try PlaybackTimecode.seconds(from: "0", duration: 90) == 0)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+11 |         #expect(try PlaybackTimecode.seconds(from: "1:30", duration: 90) == 90)
+12 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:11:21: error: cannot find 'PlaybackTimecode' in scope
+ 9 |         #expect(try PlaybackTimecode.seconds(from: "90:00", duration: 7200) == 5400)
+10 |         #expect(try PlaybackTimecode.seconds(from: "0", duration: 90) == 0)
+11 |         #expect(try PlaybackTimecode.seconds(from: "1:30", duration: 90) == 90)
+   |                     `- error: cannot find 'PlaybackTimecode' in scope
+12 |     }
+13 |     @Test(arguments: ["", "-1", "+1", "NaN", "inf", "1e3", "1::2", ":20", "1:60", "1:60:00", "1:2:60", "1.5:02", "1:02:03:04", "１:２０", "1 :02", "1.", "9999999999999999999999999999999999999999"])
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:15:25: error: cannot find 'PlaybackTimecode' in scope
+13 |     @Test(arguments: ["", "-1", "+1", "NaN", "inf", "1e3", "1::2", ":20", "1:60", "1:60:00", "1:2:60", "1.5:02", "1:02:03:04", "１:２０", "1 :02", "1.", "9999999999999999999999999999999999999999"])
+14 |     func rejectsMalformedTime(input: String) {
+15 |         #expect(throws: PlaybackTimecode.Failure.invalidFormat) { try PlaybackTimecode.seconds(from: input, duration: 7200) }
+   |                         `- error: cannot find 'PlaybackTimecode' in scope
+16 |     }
+17 |     @Test func rejectsBeyondDurationAndUnavailableTimeline() {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:15:71: error: cannot find 'PlaybackTimecode' in scope
+13 |     @Test(arguments: ["", "-1", "+1", "NaN", "inf", "1e3", "1::2", ":20", "1:60", "1:60:00", "1:2:60", "1.5:02", "1:02:03:04", "１:２０", "1 :02", "1.", "9999999999999999999999999999999999999999"])
+14 |     func rejectsMalformedTime(input: String) {
+15 |         #expect(throws: PlaybackTimecode.Failure.invalidFormat) { try PlaybackTimecode.seconds(from: input, duration: 7200) }
+   |                                                                       `- error: cannot find 'PlaybackTimecode' in scope
+16 |     }
+17 |     @Test func rejectsBeyondDurationAndUnavailableTimeline() {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:18:25: error: cannot find 'PlaybackTimecode' in scope
+16 |     }
+17 |     @Test func rejectsBeyondDurationAndUnavailableTimeline() {
+18 |         #expect(throws: PlaybackTimecode.Failure.outOfRange) { try PlaybackTimecode.seconds(from: "91", duration: 90) }
+   |                         `- error: cannot find 'PlaybackTimecode' in scope
+19 |         for duration in [0, -1, Double.nan, Double.infinity] {
+20 |             #expect(throws: PlaybackTimecode.Failure.unavailable) { try PlaybackTimecode.seconds(from: "10", duration: duration) }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:18:68: error: cannot find 'PlaybackTimecode' in scope
+16 |     }
+17 |     @Test func rejectsBeyondDurationAndUnavailableTimeline() {
+18 |         #expect(throws: PlaybackTimecode.Failure.outOfRange) { try PlaybackTimecode.seconds(from: "91", duration: 90) }
+   |                                                                    `- error: cannot find 'PlaybackTimecode' in scope
+19 |         for duration in [0, -1, Double.nan, Double.infinity] {
+20 |             #expect(throws: PlaybackTimecode.Failure.unavailable) { try PlaybackTimecode.seconds(from: "10", duration: duration) }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:20:29: error: cannot find 'PlaybackTimecode' in scope
+18 |         #expect(throws: PlaybackTimecode.Failure.outOfRange) { try PlaybackTimecode.seconds(from: "91", duration: 90) }
+19 |         for duration in [0, -1, Double.nan, Double.infinity] {
+20 |             #expect(throws: PlaybackTimecode.Failure.unavailable) { try PlaybackTimecode.seconds(from: "10", duration: duration) }
+   |                             `- error: cannot find 'PlaybackTimecode' in scope
+21 |         }
+22 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift:20:73: error: cannot find 'PlaybackTimecode' in scope
+18 |         #expect(throws: PlaybackTimecode.Failure.outOfRange) { try PlaybackTimecode.seconds(from: "91", duration: 90) }
+19 |         for duration in [0, -1, Double.nan, Double.infinity] {
+20 |             #expect(throws: PlaybackTimecode.Failure.unavailable) { try PlaybackTimecode.seconds(from: "10", duration: duration) }
+   |                                                                         `- error: cannot find 'PlaybackTimecode' in scope
+21 |         }
+22 |     }
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/AdCleanupTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogLibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogPageTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/FullscreenControlsPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/LibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackCanvasClickPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/QualityTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceAccessTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceMatchingTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/VideoSelectionTests.swift -emit-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.d -emit-const-values-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.swiftconstvalues -emit-reference-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.swiftdeps -serialize-diagnostics-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.dia -emit-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.d -emit-const-values-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.swiftconstvalues -emit-reference-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.swiftdeps -serialize-diagnostics-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.dia -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/PackageFrameworks -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 5 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/yangjun/Downloads/视频播放器/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/yangjun/Downloads -enable-anonymous-context-mangled-names -file-compilation-dir /Users/yangjun/Downloads -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/yangjun/Downloads/视频播放器/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-1aa54e4a50e311dbd51de5aafe7eca3dffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/include -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name CinemaCoreTests -package-name 视频播放器 -const-gather-protocols-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.o -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.o -debug-module-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests.swiftmodule -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackTimecodeTests.o -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/QualityTests.o -index-store-path /Users/yangjun/Downloads/视频播放器/.build/out -index-system-modules
+error: Build failed
+error: fatalError

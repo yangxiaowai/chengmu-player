@@ -21,6 +21,10 @@ final class PlayerPresentationController: ObservableObject {
     private var buffering = false
     private var hasError = false
 
+    var canPerformPlayerCommand: Bool {
+        window?.isKeyWindow == true && window?.attachedSheet == nil
+    }
+
     func attach(to next: NSWindow?) {
         guard next !== window else { return }
         detach()

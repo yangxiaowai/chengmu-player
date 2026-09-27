@@ -1,0 +1,14 @@
+{
+  "version": "0.2.6",
+  "build": "8",
+  "checked_at": "2026-09-27T14:41:19.502309+00:00",
+  "app": "dist/映川.app",
+  "archive": "dist/映川-v0.2.6.zip",
+  "executable_sha256": "23b10acf3cb58b49f1f3da39d8bbedb20229b2e0088662fa4e1982e50a2d3db7",
+  "archive_sha256": "4fcb98108c7438f42d1e033cb0d6d078734de8ca69a189fa5cd77cf098c9ef44",
+  "archive_bytes": 1496073,
+  "zip_crc_passed": true,
+  "archived_executable_matches_app": true,
+  "codesign_strict_passed": true,
+  "signature_type": "local ad hoc; not notarized"
+}

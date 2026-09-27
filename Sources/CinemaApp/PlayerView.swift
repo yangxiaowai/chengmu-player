@@ -9,6 +9,8 @@ struct PlayerView: View {
     @LegacyState private var dragging = false
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
+    @LegacyState private var showJump = false
+    @LegacyState private var showShortcuts = false
     @LegacyState private var editingAds = false
     @LegacyState private var adDraft = AdCleanupSettings()
     @LegacyState private var originalCleanup = AdCleanupSettings()
@@ -31,7 +33,20 @@ struct PlayerView: View {
                             VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
                                 .allowsHitTesting(false)
                         }
-                        if playback.isLoading { ProgressView("正在缓冲…").padding(20).background(.black.opacity(0.65), in: RoundedRectangle(cornerRadius: 10)).allowsHitTesting(false) }
+                        if playback.isLoading {
+                            VStack(spacing: 14) {
+                                ProgressView(playback.loadingMessage ?? "正在缓冲…")
+                                if playback.recoverySuggested {
+                                    Text("等待时间较长，可以重试当前集或查找其他片源。")
+                                        .font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
+                                    HStack {
+                                        Button("重试当前集") { playback.retry() }
+                                        Button("查找其他片源") { presentation.leaveFullscreen(); showEpisodes = true; app.findAlternativeSources() }.disabled(app.alternativesLoading)
+                                    }
+                                }
+                            }.padding(20).background(.black.opacity(0.75), in: RoundedRectangle(cornerRadius: 10))
+                                .allowsHitTesting(playback.recoverySuggested)
+                        }
                         if let error = playback.error {
                             VStack(spacing: 17) {
                                 Image(systemName: "exclamationmark.circle").font(.largeTitle)
@@ -68,7 +83,7 @@ struct PlayerView: View {
                 }
                 if showEpisodes && !presentation.isFullscreen {
                     Divider().overlay(CinemaStyle.border)
-                    episodePanel.frame(width: 258).disabled(editingAds)
+                    PlayerEpisodePanel(app: app).frame(width: 278).disabled(editingAds)
                 }
             }
         }
@@ -80,9 +95,34 @@ struct PlayerView: View {
         .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
+        .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts ? nil : commandContext)
+        .sheet(isPresented: $showJump) {
+            JumpToTimeDialog(current: playback.position, duration: playback.duration) { target in playback.seek(to: target) }
+        }
+        .sheet(isPresented: $showShortcuts) { PlaybackShortcutsDialog() }
         .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
-        .onChange(of: playback.itemID) { _, _ in abandonAdEditing() }
+        .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
+    }
+    private var canSeek: Bool { playback.duration.isFinite && playback.duration > 0 && !playback.hasPlaybackFailure && playback.error == nil }
+    private func performCommand(_ action: () -> Void) {
+        guard !editingAds, !showJump, !showShortcuts, presentation.canPerformPlayerCommand else { return }
+        presentation.activity(); action()
+    }
+    private var commandContext: PlayerCommandContext {
+        PlayerCommandContext(playing: playback.playbackRequested, canSeek: canSeek,
+            canPrevious: app.canPlayPrevious, canNext: app.canPlayNext,
+            fullscreen: presentation.isFullscreen, episodesShown: showEpisodes && !presentation.isFullscreen,
+            togglePlayback: { performCommand { playback.togglePlayback() } },
+            skip: { amount in performCommand { if canSeek { playback.skip(amount) } } },
+            jumpToTime: { performCommand { if canSeek { showJump = true } } },
+            previous: { performCommand { app.previousEpisode() } }, next: { performCommand { app.nextEpisode() } },
+            toggleFullscreen: { performCommand { presentation.toggleFullscreen() } },
+            toggleEpisodes: { performCommand {
+                if presentation.isFullscreen { presentation.leaveFullscreen(); showEpisodes = true }
+                else { showEpisodes.toggle() }
+            } },
+            showShortcuts: { performCommand { showShortcuts = true } })
     }
     private func updatePresentation() {
         presentation.updatePlayback(isPlaying: playback.isPlaying, isBuffering: playback.isLoading, hasError: playback.error != nil)
@@ -178,22 +218,37 @@ struct PlayerView: View {
                 Button { playback.skip(-10) } label: { transportIcon("gobackward.10") }.help("快退 10 秒 · ←").accessibilityLabel("快退 10 秒")
                 Button { playback.skip(10) } label: { transportIcon("goforward.10") }.help("快进 10 秒 · →").accessibilityLabel("快进 10 秒")
                 Button { app.nextEpisode() } label: { transportIcon("forward.end", size: 17) }.disabled(!app.canPlayNext).help("下一集")
-                Text("\(timeString(playback.position)) / \(timeString(playback.duration))").font(.system(size: 10, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
+                Button { showJump = true } label: {
+                    Text("\(timeString(playback.position)) / \(timeString(playback.duration))")
+                        .font(.system(size: 11, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
+                        .padding(.vertical, 9).contentShape(Rectangle())
+                }.disabled(!canSeek).help("跳转到时间 · ⌘J").accessibilityLabel("跳转到时间")
                 Spacer(minLength: 5)
-                Menu { ForEach([0.5, 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in Button("\(speed, specifier: "%g")×") { playback.setRate(Float(speed)) } } } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)) }.menuStyle(.borderlessButton).fixedSize()
+                Menu {
+                    Picker("播放速度", selection: $playback.rate) {
+                        ForEach([Float(0.5), 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in Text("\(speed, specifier: "%g")×").tag(speed) }
+                    }.pickerStyle(.inline)
+                } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)).padding(.vertical, 8).contentShape(Rectangle()) }.menuStyle(.borderlessButton).fixedSize().help("播放速度")
                 Menu {
                     Button("导入 SRT / VTT / ASS…") { app.importSubtitle() }
-                    Button("关闭字幕") { playback.selectSubtitle(-1) }
-                    ForEach(playback.subtitleTracks) { track in Button(track.name) { playback.selectSubtitle(track.id) } }
+                    Toggle("关闭字幕", isOn: Binding(get: { playback.selectedSubtitle == -1 && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(-1) } }))
+                    ForEach(playback.subtitleTracks) { track in
+                        Toggle(track.name, isOn: Binding(get: { playback.selectedSubtitle == track.id && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(track.id) } }))
+                    }
                     if let name = playback.externalSubtitleName {
                         Divider()
-                        Text(name)
+                        Label("外部字幕 · \(name)", systemImage: "checkmark")
                         Text("字幕偏移：\(playback.subtitleOffset, specifier: "%+.1f") 秒")
                         Button("字幕提前 0.5 秒") { playback.subtitleOffset -= 0.5 }
                         Button("字幕延后 0.5 秒") { playback.subtitleOffset += 0.5 }
                         Button("重置字幕偏移") { playback.subtitleOffset = 0 }
                     }
-                    if !playback.audioTracks.isEmpty { Divider(); ForEach(playback.audioTracks) { track in Button("音轨 · \(track.name)") { playback.selectAudio(track.id) } } }
+                    if !playback.audioTracks.isEmpty {
+                        Divider()
+                        ForEach(playback.audioTracks) { track in
+                            Toggle("音轨 · \(track.name)", isOn: Binding(get: { playback.selectedAudio == track.id }, set: { if $0 { playback.selectAudio(track.id) } }))
+                        }
+                    }
                 } label: { Image(systemName: "captions.bubble").font(.system(size: 16)) }.menuStyle(.borderlessButton).fixedSize().help("字幕与音轨")
                 HStack(spacing: 6) {
                     Button { playback.toggleMute() } label: { Image(systemName: playback.volume == 0 ? "speaker.slash" : "speaker.wave.2").font(.system(size: 12)) }.help("静音 / 恢复音量 · M")
@@ -233,52 +288,6 @@ struct PlayerView: View {
                     LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .top, endPoint: .bottom)
                 } else { CinemaStyle.panel }
             }
-    }
-    private var episodePanel: some View {
-        VStack(alignment: .leading, spacing: 21) {
-            Text("正在放映").font(.system(size: 11, weight: .semibold)).tracking(1).foregroundStyle(CinemaStyle.accent)
-            Text(playback.title).font(.system(size: 21, weight: .medium, design: .serif)).lineLimit(3)
-            if let detail = app.detail {
-                Picker("线路", selection: Binding(get: {app.selectedLineID}, set: {app.switchLine($0)})) { ForEach(detail.lines) { Text($0.name).tag($0.id) } }.labelsHidden()
-                ScrollView { LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
-                    ForEach(app.selectedLine?.episodes ?? []) { episode in
-                        Button { app.play(episode) } label: { Text(episode.name).font(.system(size: 11)).lineLimit(1).frame(maxWidth: .infinity).padding(.vertical, 11).foregroundStyle(episode.id == app.currentEpisodeID ? CinemaStyle.accent : .white.opacity(0.75)).background(episode.id == app.currentEpisodeID ? CinemaStyle.accent.opacity(0.1) : Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 6)) }.buttonStyle(.plain)
-                    }
-                } }
-                Toggle("自动播放下一集", isOn: $app.autoNext).font(.system(size: 11)).toggleStyle(.switch)
-            } else { Text("通过搜索打开剧集，可以在这里选择其他集数与线路。").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary); Spacer() }
-            alternativeSourcePanel
-        }.padding(22)
-    }
-    private var alternativeSourcePanel: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Divider().overlay(CinemaStyle.border)
-            Button { app.findAlternativeSources() } label: {
-                HStack(spacing: 7) {
-                    if app.alternativesLoading { ProgressView().controlSize(.small) }
-                    else { Image(systemName: "arrow.triangle.swap") }
-                    Text(app.alternativesLoading ? "正在查找与核对…" : "查找其他片源")
-                }.font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
-            }.buttonStyle(.plain).disabled(app.alternativesLoading)
-            if !app.alternativeSources.isEmpty {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 7) {
-                        ForEach(app.alternativeSources, id: \.self) { title in
-                            Button { app.switchAlternativeSource(title) } label: {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(title.providerName).font(.system(size: 10, weight: .semibold)).foregroundStyle(CinemaStyle.accent)
-                                    Text(title.title).font(.system(size: 11)).foregroundStyle(.white.opacity(0.85)).lineLimit(2)
-                                    Text("画质未知 · 核对同季同集后切换").font(.system(size: 9)).foregroundStyle(CinemaStyle.secondary)
-                                }.frame(maxWidth: .infinity, alignment: .leading).padding(9).background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 6))
-                            }.buttonStyle(.plain).disabled(app.alternativesLoading)
-                        }
-                    }
-                }.frame(maxHeight: 150)
-            }
-            if let notice = app.alternativeNotice {
-                Text(notice).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).fixedSize(horizontal: false, vertical: true)
-            }
-        }
     }
     private var statistics: some View {
         VStack(alignment: .leading, spacing: 7) {

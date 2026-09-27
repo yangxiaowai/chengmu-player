@@ -15,7 +15,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published var episodeName = ""
     @Published var isPlaying = false
     @Published var isLoading = false
+    @Published private(set) var loadingMessage: String?
+    @Published private(set) var recoverySuggested = false
     @Published var error: String?
+    @Published private(set) var hasPlaybackFailure = false
     @Published var position = 0.0
     @Published var duration = 0.0
     @Published var rate: Float = 1 {
@@ -75,6 +78,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var probeTask: Task<Void, Never>?
     private var prepareTask: Task<Void, Never>?
     private var preparedItemID: UUID?
+    private var loadingWatchdog: Task<Void, Never>?
+    private var waitingID: UUID?
+    private var failureResumeTarget: Double?
     private let preferencesStore: PlaybackPreferencesStore
     private var preferences: PlaybackPreferences
     private var sleepState = PlaybackSleepTimer()
@@ -91,8 +97,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         player.automaticallyWaitsToMinimizeStalling = true
         controlObservation = player.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             Task { @MainActor in
-                self?.isPlaying = player.timeControlStatus == .playing
-                self?.isLoading = player.timeControlStatus == .waitingToPlayAtSpecifiedRate
+                self?.refreshPlaybackState()
             }
         }
     }
@@ -102,12 +107,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         cancelPendingSeek()
         probeTask?.cancel(); prepareTask?.cancel()
         clearItemObservers()
+        clearWaitingState()
         player.pause()
         self.url = url; self.title = title; episodeName = episode
         itemID = UUID(); generation = UUID(); preparedItemID = nil
+        hasPlaybackFailure = false; failureResumeTarget = nil
         let token = itemID
         desiredResume = max(0, resume); wantsPlay = true
-        position = 0; duration = 0; error = nil; isLoading = true
+        position = 0; duration = 0; error = nil; isPlaying = false; isLoading = true; loadingMessage = "正在准备媒体"
         cues = []; subtitleText = ""; subtitleNotice = nil; externalSubtitleName = nil; subtitleOffset = 0
         audioTracks = []; subtitleTracks = []; audioGroup = nil; subtitleGroup = nil
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
@@ -133,29 +140,40 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 case .readyToPlay:
                     self.prepareReady(item, token: token)
                 case .failed:
-                    self.isLoading = false; self.wantsPlay = false
-                    self.error = self.describe(item.error)
+                    self.failCurrentItem(self.describe(item.error))
                 default: break
                 }
             }
         }
         finishedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: item, queue: .main) { [weak self] _ in
+            // Capture the seek generation at event delivery before the asynchronous actor hop.
+            let deliveredSeek = MainActor.assumeIsolated { self?.seekRequestID }
             Task { @MainActor in
-                guard let self, self.itemID == token else { return }
+                guard let self, self.itemID == token, self.player.currentItem === item else { return }
+                let actual = self.player.currentTime().seconds
+                let itemDuration = item.duration.seconds
+                let terminalDuration = itemDuration.isFinite && itemDuration > 0 ? itemDuration : self.duration
+                guard PlaybackStabilityPolicy.acceptsEnd(actualTime: actual, duration: terminalDuration, seeking: self.pendingSeekTarget != nil, seekMatches: deliveredSeek == self.seekRequestID) else {
+                    self.refreshPlaybackState(); return
+                }
                 let shouldAdvance = self.wantsPlay
-                self.saveProgress(); self.wantsPlay = false; self.isPlaying = false
+                self.tick(); self.saveProgress(); self.wantsPlay = false; self.player.pause()
+                self.refreshPlaybackState()
                 if self.sleepState.consumeExpiration() { self.cancelSleepTimer(); return }
                 if shouldAdvance { self.onFinished?() }
             }
         }
         failedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in
-                guard let self, self.itemID == token else { return }
-                self.error = "媒体传输中断。可以重试当前集，或在右侧选择其他线路。"; self.isLoading = false
+                guard let self, self.itemID == token, self.player.currentItem === item else { return }
+                self.failCurrentItem("媒体传输中断。可以重试当前集，或在右侧选择其他线路。")
             }
         }
         stalledObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemPlaybackStalled, object: item, queue: .main) { [weak self] _ in
-            Task { @MainActor in if self?.itemID == token { self?.isLoading = true } }
+            Task { @MainActor in
+                guard let self, self.itemID == token else { return }
+                self.refreshPlaybackState()
+            }
         }
         if !url.isFileURL {
             probeTask = Task { [weak self] in
@@ -167,12 +185,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             }
         }
         player.playImmediately(atRate: rate)
+        refreshPlaybackState()
     }
 
     private func prepareReady(_ item: AVPlayerItem, token: UUID) {
         guard itemID == token, player.currentItem === item, preparedItemID != token else { return }
         preparedItemID = token
-        isLoading = false
         let value = item.duration.seconds
         if value.isFinite && value > 0 { duration = value }
         if desiredResume > 0 || pendingSeekTarget != nil {
@@ -180,6 +198,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             seek(to: duration > 0 ? min(target, max(0, duration - 1)) : target)
         }
         if wantsPlay { player.playImmediately(atRate: rate) }
+        refreshPlaybackState()
         prepareTask = Task { [weak self, weak item] in
             guard let self, let item else { return }
             do {
@@ -205,6 +224,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
 
     func togglePlayback() {
+        // Pressing Play on a failed item is an explicit user retry, not a false play intent.
+        if hasPlaybackFailure || error != nil { retry(); return }
         if wantsPlay {
             wantsPlay = false; player.pause(); saveProgress()
         } else {
@@ -212,15 +233,17 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
             player.playImmediately(atRate: rate)
         }
+        refreshPlaybackState()
     }
-    func pause() { wantsPlay = false; player.pause(); saveProgress() }
+    func pause() { wantsPlay = false; player.pause(); saveProgress(); refreshPlaybackState() }
     func resumeAfterEditing(ifUnchanged intent: UUID) {
-        guard playbackIntentID == intent, !wantsPlay, error == nil else { return }
+        guard playbackIntentID == intent, !wantsPlay, !hasPlaybackFailure, error == nil else { return }
         // KVO isPlaying can still describe the frame before pause(). This is
         // an explicit resume, not a toggle based on a delayed observation.
         wantsPlay = true
         if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
         player.playImmediately(atRate: rate)
+        refreshPlaybackState()
     }
     func retry() {
         guard let url else { return }
@@ -228,13 +251,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         let savedCleanup = adCleanup
         // A failed item clears wantsPlay; retrying that failure still requests play.
         // Normal paused retries retain their pause, including during preparation.
-        let shouldPlay = wantsPlay || error != nil
-        let resumePosition = desiredResume > 0 ? desiredResume : position
+        let shouldPlay = wantsPlay || hasPlaybackFailure || error != nil
+        let resumePosition = failureResumeTarget ?? (desiredResume > 0 ? desiredResume : position)
         open(url: url, title: title, episode: episodeName, resume: resumePosition)
         cues = savedCues; externalSubtitleName = savedName; subtitleOffset = savedOffset
         adCleanup = savedCleanup
         wantsPlay = shouldPlay
         if !shouldPlay { player.pause() }
+        refreshPlaybackState()
     }
     func seek(to value: Double) {
         guard value.isFinite, let item = player.currentItem else { return }
@@ -244,7 +268,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         generation = UUID(); subtitleText = ""; position = safe
         // A user request made during preparation replaces the original resume
         // position; prepareReady will issue the seek when the item can accept it.
-        guard item.status == .readyToPlay else { desiredResume = safe; return }
+        guard item.status == .readyToPlay else { desiredResume = safe; refreshPlaybackState(); return }
         desiredResume = 0
         player.seek(to: CMTime(seconds: safe, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: CMTime(seconds: 0.1, preferredTimescale: 600)) { [weak self] finished in
             Task { @MainActor in
@@ -252,18 +276,24 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 self.pendingSeekTarget = nil
                 // A canceled latest request reconciles with the actual player;
                 // it must not commit its requested target or flush a newer frame.
-                guard finished else { self.tick(); return }
+                guard finished else { self.tick(); self.refreshPlaybackState(); return }
                 self.generation = UUID()
+                if self.wantsPlay, !self.hasPlaybackFailure, self.error == nil, self.player.timeControlStatus != .playing {
+                    self.player.playImmediately(atRate: self.rate)
+                }
                 self.tick()
                 self.saveProgress()
+                self.refreshPlaybackState()
             }
         }
+        refreshPlaybackState()
     }
     func cancelPendingSeek() {
         seekRequestID = UUID(); pendingSeekTarget = nil; desiredResume = 0
         player.currentItem?.cancelPendingSeeks()
         let actual = player.currentTime().seconds
         if actual.isFinite, actual >= 0 { position = actual }
+        refreshPlaybackState()
     }
     func resumeWhenReady(_ position: Double) {
         if player.currentItem?.status == .readyToPlay { seek(to: position) }
@@ -335,6 +365,39 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         if !cues.isEmpty { subtitleText = SubtitleParser.text(at: position - subtitleOffset, in: cues) }
         let now = Date.timeIntervalSinceReferenceDate
         if now - lastSave >= 5 { saveProgress(); lastSave = now }
+    }
+    private func failCurrentItem(_ message: String) {
+        // Cancel the operation, but retain its intended position for explicit retry.
+        let retryTarget = failureResumeTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
+        cancelPendingSeek()
+        failureResumeTarget = retryTarget.isFinite ? max(0, retryTarget) : nil
+        hasPlaybackFailure = true
+        wantsPlay = false; player.pause(); error = message
+        refreshPlaybackState(); saveProgress()
+    }
+    private func refreshPlaybackState() {
+        let preparation: PlaybackPreparationState
+        if let item = player.currentItem {
+            switch item.status { case .readyToPlay: preparation = .ready; case .failed: preparation = .failed; default: preparation = .preparing }
+        } else { preparation = .absent }
+        let transport: PlaybackTransportState
+        switch player.timeControlStatus { case .playing: transport = .playing; case .waitingToPlayAtSpecifiedRate: transport = .waiting; default: transport = .paused }
+        let loading = PlaybackStabilityPolicy.loadingState(item: preparation, transport: transport, playbackRequested: wantsPlay, seeking: pendingSeekTarget != nil, hasError: hasPlaybackFailure || error != nil)
+        isPlaying = !hasPlaybackFailure && error == nil && transport == .playing
+        isLoading = loading.isLoading; loadingMessage = loading.message
+        if !loading.isLoading { clearWaitingState(); return }
+        guard waitingID == nil else { return }
+        let wait = UUID(), token = itemID
+        waitingID = wait; recoverySuggested = false
+        loadingWatchdog = Task { @MainActor [weak self] in
+            do { try await Task.sleep(nanoseconds: 15_000_000_000) } catch { return }
+            guard let self, self.itemID == token, self.waitingID == wait else { return }
+            self.refreshPlaybackState()
+            self.recoverySuggested = PlaybackStabilityPolicy.shouldSuggestRecovery(isLoading: self.isLoading, elapsed: 15)
+        }
+    }
+    private func clearWaitingState() {
+        loadingWatchdog?.cancel(); loadingWatchdog = nil; waitingID = nil; recoverySuggested = false
     }
     private func clearItemObservers() {
         statusObservation = nil

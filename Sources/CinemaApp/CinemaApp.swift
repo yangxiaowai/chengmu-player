@@ -34,6 +34,7 @@ struct CinemaApp: App {
         .defaultSize(width: 1250, height: 820)
         .windowStyle(.hiddenTitleBar)
         .commands {
+            PlaybackCommands()
             CommandGroup(replacing: .newItem) {
                 Button("打开影片…") { model.importFile() }.keyboardShortcut("o")
             }

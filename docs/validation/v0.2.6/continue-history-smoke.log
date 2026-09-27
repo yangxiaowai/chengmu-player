@@ -1,0 +1,2 @@
+CONTINUE_HISTORY_SMOKE_PASS: exact identity, safe fallback seek, ambiguous and changed-media rejection, active history removal persistence
+Exit code: 0

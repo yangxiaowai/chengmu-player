@@ -1,0 +1,162 @@
+[
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 0
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 0
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 1
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 1
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 2
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 2
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 3
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 3
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 4
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 4
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 5
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 5
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 6
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 6
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "resume_immediate_pause",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 7
+  },
+  {
+    "actual" : 3,
+    "loading" : false,
+    "phase" : "paused_switch_line",
+    "position" : 3,
+    "rate" : 0,
+    "requested" : false,
+    "status" : 1,
+    "trial" : 7
+  }
+]

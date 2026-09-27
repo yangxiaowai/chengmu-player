@@ -1,0 +1,99 @@
+{
+  "version": "0.2.6",
+  "checked_at": "2026-09-27T14:43:21.857286+00:00",
+  "method": "CUA native accessibility trees and screenshots; no shell-based UI control",
+  "release_app": "dist/映川.app",
+  "fixture_app": ".build/native-player-validation/映川验收.app",
+  "checks": [
+    {
+      "name": "library_menu_disabled",
+      "passed": true,
+      "observation": "Release app: all playback commands disabled in the library."
+    },
+    {
+      "name": "exact_time_entry",
+      "passed": true,
+      "observation": "Release app: Cmd+J opens focused field; 1:60 rejected, 100 rejected for 90-second media, 20.5 seeks exactly while paused."
+    },
+    {
+      "name": "dialog_isolation_and_cancel",
+      "passed": true,
+      "observation": "Release app: Cmd+P in time dialog did not start background playback; Cancel preserved 20.5 seconds. Harness: Esc closed dialog and restored video focus."
+    },
+    {
+      "name": "playback_menu_shortcuts",
+      "passed": true,
+      "observation": "Release app: Cmd+P toggled play/pause; Option+Cmd+Right changed paused 20.5 to 30.5, reverse returned to 20.5 before playback."
+    },
+    {
+      "name": "rate_checkmark",
+      "passed": true,
+      "observation": "Release app screenshot: 1x marked, selected 1.5x then saw its mark; restored 1x."
+    },
+    {
+      "name": "shortcut_help",
+      "passed": true,
+      "observation": "Release app menu opened readable shortcut help; Done dismissed it."
+    },
+    {
+      "name": "fullscreen_layout",
+      "passed": true,
+      "observation": "Release app: F hides episode panel; Escape restores window layout and paused position."
+    },
+    {
+      "name": "initial_episode_scroll",
+      "passed": true,
+      "observation": "Isolated native harness with 80 episodes: first visible viewport included highlighted episode 75; no manual scrolling needed."
+    },
+    {
+      "name": "cancel_source_search",
+      "passed": true,
+      "observation": "Harness: searching stage and Cancel visible; cancel restored search entry and cancellation notice."
+    },
+    {
+      "name": "cancel_source_detail",
+      "passed": true,
+      "observation": "Harness: detail-reading stage disables candidate; cancellation retains candidate and paused position 13.78427825, and late completion did not switch it."
+    },
+    {
+      "name": "source_switch_keeps_latest_position",
+      "passed": true,
+      "observation": "Harness: reselecting candidate entered detail and playlist stages; Cmd+J sought 31 during check. Completed source switch kept episode 75, actual timeline 31 and paused Play icon."
+    },
+    {
+      "name": "episode_bounds_and_shortcut",
+      "passed": true,
+      "observation": "Harness: episode 80 disables Next; Cmd+Left selects 79; selecting episode 1 disables Previous."
+    },
+    {
+      "name": "paused_line_switch",
+      "passed": true,
+      "observation": "Harness: switched line 1 to line 2 on episode 1; settled at 0.088333 seconds with Play icon, ready video and no loading."
+    },
+    {
+      "name": "recovery_ui",
+      "passed": true,
+      "observation": "Harness first startup stayed preparing; after 15 seconds recovery text and buttons appeared; Retry restarted waiting. This is a harness startup observation, not a real provider outage."
+    },
+    {
+      "name": "final_release_relaunch",
+      "passed": true,
+      "observation": "Final rebuilt and archived app relaunched: local history played, Cmd+P paused, Cmd+J sought 45.55, 1x/volume0.8/GPU4K retained; returned to Explore."
+    }
+  ],
+  "limitations": [
+    "The isolated UI harness cold startup stayed preparing until explicit Play; see paused-h264-investigation.md. Later native paused source/line changes and 16 independent H264 AppModel checks passed.",
+    "Embedded subtitle/audio menu marks reviewed in code; no multi-track native media fixture was exercised this round.",
+    "No new provider-wide, mainland-network or full-episode playback certification; source UI used delayed local injected requests.",
+    "System modal file picker menu guarding reviewed in code; time/help dialogs exercised natively."
+  ],
+  "preserved": {
+    "real_episode_history": "No real series was played in this round; prior visible records retained their progress.",
+    "local_fixture_position": 45.55,
+    "rate": 1,
+    "volume": 0.8,
+    "enhancement": "upscale4K",
+    "final_page": "Explore",
+    "validation_app_closed": true
+  }
+}
