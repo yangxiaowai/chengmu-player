@@ -9,24 +9,18 @@ struct PlayerView: View {
     @LegacyState private var dragging = false
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
+    @StateObject private var presentation = PlayerPresentationController()
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 17) {
-                Button { app.closePlayer() } label: { Image(systemName: "chevron.left").frame(width: 30, height: 30) }.buttonStyle(.plain).help("返回片库")
-                VStack(alignment: .leading, spacing: 4) { Text(playback.title).font(.system(size: 14, weight: .medium)); Text(playback.episodeName).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
-                Spacer()
-                sleepMenu
-                Button { showStats.toggle() } label: { Label("播放信息", systemImage: "waveform.path") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                Button { showEpisodes.toggle() } label: { Label("选集", systemImage: "list.bullet.rectangle") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
-            }.padding(.horizontal, 20).padding(.vertical, 15)
+            if !presentation.isFullscreen { header }
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
                     ZStack {
                         Color.black
                         VideoSurface(player: playback.player, mode: playback.enhancementMode, generation: playback.generation) { metrics in playback.metrics = metrics }
-                        PlaybackKeyboardSurface(playback: playback)
+                        PlaybackKeyboardSurface(playback: playback, presentation: presentation)
                         if !playback.subtitleText.isEmpty {
-                            VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, 32).padding(.horizontal, 30) }
+                            VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
                                 .allowsHitTesting(false)
                         }
                         if playback.isLoading { ProgressView("正在缓冲…").padding(20).background(.black.opacity(0.65), in: RoundedRectangle(cornerRadius: 10)).allowsHitTesting(false) }
@@ -36,23 +30,65 @@ struct PlayerView: View {
                                 Text(error).font(.system(size: 13)).multilineTextAlignment(.center).frame(maxWidth: 430)
                                 HStack {
                                     Button("重试当前集") { playback.retry() }.buttonStyle(.borderedProminent)
-                                    Button("查找其他片源") { showEpisodes = true; app.findAlternativeSources() }.disabled(app.alternativesLoading)
+                                    Button("查找其他片源") { presentation.leaveFullscreen(); showEpisodes = true; app.findAlternativeSources() }.disabled(app.alternativesLoading)
                                     Button("关闭提示") { playback.error = nil }
                                 }
                             }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
                         }
-                        if showStats { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
+                        if showStats && !presentation.isFullscreen { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
+                        if presentation.isFullscreen {
+                            VStack(spacing: 0) {
+                                header
+                                    .background(LinearGradient(colors: [.black.opacity(0.75), .clear], startPoint: .top, endPoint: .bottom))
+                                    .onHover { presentation.interact("header", active: $0) }
+                                Spacer(minLength: 0)
+                                controls
+                                    .onHover { presentation.interact("controls", active: $0) }
+                            }
+                            .opacity(presentation.controlsVisible ? 1 : 0)
+                            .allowsHitTesting(presentation.controlsVisible)
+                            .accessibilityHidden(!presentation.controlsVisible)
+                            .animation(.easeInOut(duration: 0.2), value: presentation.controlsVisible)
+                        }
                     }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                    controls
+                    if !presentation.isFullscreen { controls }
                 }
-                if showEpisodes {
+                if showEpisodes && !presentation.isFullscreen {
                     Divider().overlay(CinemaStyle.border)
                     episodePanel.frame(width: 258)
                 }
             }
         }
         .background(CinemaStyle.background)
+        .background(PlayerWindowAttachment(presentation: presentation).frame(width: 0, height: 0))
+        .ignoresSafeArea(.container, edges: presentation.isFullscreen ? .all : [])
+        .onAppear { updatePresentation() }
+        .onDisappear { presentation.detach() }
+        .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
+        .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
+        .onChange(of: playback.error) { _, _ in updatePresentation() }
+        .onExitCommand { if presentation.isFullscreen { presentation.leaveFullscreen() } }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
+    }
+    private func updatePresentation() {
+        presentation.updatePlayback(isPlaying: playback.isPlaying, isBuffering: playback.isLoading, hasError: playback.error != nil)
+    }
+    private var subtitleBottomPadding: CGFloat {
+        presentation.isFullscreen ? (presentation.controlsVisible ? 190 : 42) : 32
+    }
+    private var header: some View {
+        HStack(spacing: 17) {
+            Button { presentation.leaveFullscreen(); app.closePlayer() } label: { Image(systemName: "chevron.left").frame(width: 30, height: 30) }.buttonStyle(.plain).help("返回片库")
+            VStack(alignment: .leading, spacing: 4) { Text(playback.title).font(.system(size: 14, weight: .medium)); Text(playback.episodeName).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
+            Spacer()
+            sleepMenu
+            if !presentation.isFullscreen {
+                Button { showStats.toggle() } label: { Label("播放信息", systemImage: "waveform.path") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                Button { showEpisodes.toggle() } label: { Label("选集", systemImage: "list.bullet.rectangle") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
+            } else {
+                Button { presentation.leaveFullscreen() } label: { Label("退出全屏", systemImage: "arrow.down.right.and.arrow.up.left") }.buttonStyle(.plain).font(.system(size: 11)).help("退出全屏 · Esc / F")
+            }
+        }.padding(.horizontal, 20).padding(.vertical, 15)
     }
     private var sleepMenu: some View {
         Menu {
@@ -71,7 +107,7 @@ struct PlayerView: View {
     }
     private var controls: some View {
         VStack(spacing: 15) {
-            Slider(value: $slider, in: 0...max(1, playback.duration), onEditingChanged: { editing in dragging = editing; if !editing { playback.seek(to: slider) } }).tint(CinemaStyle.accent).disabled(playback.duration <= 0).accessibilityLabel("播放进度")
+            Slider(value: $slider, in: 0...max(1, playback.duration), onEditingChanged: { editing in dragging = editing; presentation.interact("seek", active: editing); if !editing { playback.seek(to: slider) } }).tint(CinemaStyle.accent).disabled(playback.duration <= 0).accessibilityLabel("播放进度")
             HStack(spacing: 19) {
                 Button { playback.togglePlayback() } label: { Image(systemName: playback.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 19)).frame(width: 24) }.help("播放/暂停 · 空格")
                 Button { playback.skip(-10) } label: { Image(systemName: "gobackward.10").font(.system(size: 19)) }
@@ -96,9 +132,9 @@ struct PlayerView: View {
                 } label: { Image(systemName: "captions.bubble").font(.system(size: 16)) }.menuStyle(.borderlessButton).fixedSize().help("字幕与音轨")
                 HStack(spacing: 6) {
                     Button { playback.toggleMute() } label: { Image(systemName: playback.volume == 0 ? "speaker.slash" : "speaker.wave.2").font(.system(size: 12)) }.help("静音 / 恢复音量 · M")
-                    Slider(value: $playback.volume, in: 0...1).frame(width: 68).accessibilityLabel("播放音量")
+                    Slider(value: $playback.volume, in: 0...1, onEditingChanged: { presentation.interact("volume", active: $0) }).frame(width: 68).accessibilityLabel("播放音量")
                 }
-                Button { NSApp.keyWindow?.toggleFullScreen(nil) } label: { Image(systemName: "arrow.up.left.and.arrow.down.right").font(.system(size: 14)) }.help("全屏 · F")
+                Button { presentation.toggleFullscreen() } label: { Image(systemName: presentation.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right").font(.system(size: 14)) }.help(presentation.isFullscreen ? "退出全屏 · Esc / F" : "全屏 · F")
             }.buttonStyle(.plain)
             HStack(spacing: 8) {
                 Circle().fill((playback.metrics?.fallbackReason == nil) ? CinemaStyle.accent : .gray).frame(width: 5, height: 5)
@@ -114,7 +150,12 @@ struct PlayerView: View {
                     Button { playback.subtitleNotice = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).help("关闭字幕提示")
                 }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
             }
-        }.padding(.horizontal, 22).padding(.vertical, 17).background(CinemaStyle.panel)
+        }.padding(.horizontal, presentation.isFullscreen ? 36 : 22).padding(.vertical, presentation.isFullscreen ? 25 : 17)
+            .background {
+                if presentation.isFullscreen {
+                    LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .top, endPoint: .bottom)
+                } else { CinemaStyle.panel }
+            }
     }
     private var episodePanel: some View {
         VStack(alignment: .leading, spacing: 21) {
@@ -180,19 +221,22 @@ struct PlayerView: View {
 /// their normal first-responder behavior instead of being intercepted globally.
 private struct PlaybackKeyboardSurface: NSViewRepresentable {
     let playback: PlaybackController
+    let presentation: PlayerPresentationController
     func makeNSView(context: Context) -> KeyboardView {
         let view = KeyboardView()
         view.playback = playback
+        view.presentation = presentation
         view.setAccessibilityElement(true)
         view.setAccessibilityRole(.group)
         view.setAccessibilityLabel("影片画面")
-        view.setAccessibilityHelp("点击画面启用快捷键：空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音。双击画面切换全屏。")
+        view.setAccessibilityHelp("点击画面启用快捷键：空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音。双击画面切换全屏，Esc 退出全屏。")
         return view
     }
-    func updateNSView(_ view: KeyboardView, context: Context) { view.playback = playback }
+    func updateNSView(_ view: KeyboardView, context: Context) { view.playback = playback; view.presentation = presentation }
 
     final class KeyboardView: NSView {
         weak var playback: PlaybackController?
+        weak var presentation: PlayerPresentationController?
         override var acceptsFirstResponder: Bool { true }
         override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
         override func viewDidMoveToWindow() {
@@ -206,7 +250,8 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
         }
         override func mouseDown(with event: NSEvent) {
             window?.makeFirstResponder(self)
-            if event.clickCount == 2 { window?.toggleFullScreen(nil) }
+            presentation?.activity()
+            if event.clickCount == 2 { presentation?.toggleFullscreen() }
         }
         override func keyDown(with event: NSEvent) {
             guard let playback, event.modifierFlags.intersection([.command, .control, .option]).isEmpty else {
@@ -214,13 +259,14 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
             }
             switch event.keyCode {
             case 49: if !event.isARepeat { playback.togglePlayback() }
+            case 53: if presentation?.isFullscreen == true { presentation?.leaveFullscreen() } else { super.keyDown(with: event) }
             case 123: playback.skip(-10)
             case 124: playback.skip(10)
             case 125: playback.adjustVolume(-0.05)
             case 126: playback.adjustVolume(0.05)
             default:
                 switch event.charactersIgnoringModifiers?.lowercased() {
-                case "f": if !event.isARepeat { window?.toggleFullScreen(nil) }
+                case "f": if !event.isARepeat { presentation?.toggleFullscreen() }
                 case "m": if !event.isARepeat { playback.toggleMute() }
                 default: super.keyDown(with: event)
                 }

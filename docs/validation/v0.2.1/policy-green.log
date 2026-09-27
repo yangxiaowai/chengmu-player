@@ -1,0 +1,29 @@
+Building for debugging...
+[Planning deferred tasks]
+[4 / 28]
+[5 / 29] CinemaCore
+/Users/yangjun/Downloads/视频播放器/.build/fullscreen-policy-harness/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[17 / 28] CinemaCoreTests-product
+[21 / 27] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/.build/fullscreen-policy-harness/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/.build/fullscreen-policy-harness/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[23 / 27] CinemaCoreTests-product
+Build complete! (1.09 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite FullscreenControlsPolicyTests started.
+◇ Test windowedPlaybackAlwaysKeepsControlsVisible() started.
+◇ Test invalidOrReversedClockValuesFailVisible() started.
+◇ Test playingFullscreenKeepsControlsUntilThreeSecondsOfInactivity() started.
+◇ Test bufferingOrPlaybackErrorKeepsRecoveryControlsVisible() started.
+◇ Test interactingOrSwitchingAwayPreventsHidingControls() started.
+◇ Test pausingBringsControlsBackEvenAfterLongInactivity() started.
+✔ Test pausingBringsControlsBackEvenAfterLongInactivity() passed after 0.001 seconds.
+✔ Test bufferingOrPlaybackErrorKeepsRecoveryControlsVisible() passed after 0.001 seconds.
+✔ Test windowedPlaybackAlwaysKeepsControlsVisible() passed after 0.001 seconds.
+✔ Test playingFullscreenKeepsControlsUntilThreeSecondsOfInactivity() passed after 0.001 seconds.
+✔ Test interactingOrSwitchingAwayPreventsHidingControls() passed after 0.001 seconds.
+✔ Test invalidOrReversedClockValuesFailVisible() passed after 0.001 seconds.
+✔ Suite FullscreenControlsPolicyTests passed after 0.001 seconds.
+✔ Test run with 6 tests in 1 suite passed after 0.001 seconds.

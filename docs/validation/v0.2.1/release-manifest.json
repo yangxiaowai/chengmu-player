@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-27T05:20:58.108941+00:00",
+  "version": "0.2.1",
+  "build": "3",
+  "signature": "codesign --verify --deep --strict passed; local ad-hoc signature, not notarized",
+  "files": [
+    {
+      "path": "dist/映川.app/Contents/MacOS/Cinema",
+      "bytes": 3549152,
+      "sha256": "48a47f8076c2ce632b7923acfc072400874a1924d1ded95ddeb03487f7ec7649"
+    },
+    {
+      "path": "dist/映川-v0.2.1.zip",
+      "bytes": 1196378,
+      "sha256": "13f81de192138bfe6997da5b89b2955ad793b88ed670276f4aaaf08e6a30377d"
+    }
+  ],
+  "native_ui_validation": "Pending: Mac locked; CUA cannot acquire player window"
+}
