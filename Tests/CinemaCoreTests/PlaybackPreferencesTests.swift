@@ -3,6 +3,15 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() throws {
+        let old = try JSONDecoder().decode(PlaybackPreferences.self, from: Data(#"{"volume":0.4}"#.utf8))
+        let oldJSON = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(old)) as? [String: Any])
+        #expect(oldJSON["automaticAdSkipping"] as? Bool == true)
+        let disabled = try JSONDecoder().decode(PlaybackPreferences.self, from: Data(#"{"automaticAdSkipping":false}"#.utf8))
+        let disabledJSON = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(disabled)) as? [String: Any])
+        #expect(disabledJSON["automaticAdSkipping"] as? Bool == false)
+    }
+
     @Test func invalidValuesCannotReachPlayback() {
         let clamped = PlaybackPreferences(volume: 4, rate: -10, enhancement: "unknown", lastAudibleVolume: -1)
         #expect(clamped.volume == 1)

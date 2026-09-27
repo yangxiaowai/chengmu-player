@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-09-27T16:05:34.598967+00:00",
+  "suites": [
+    {
+      "report": "playback-stability-headless.json",
+      "passed": true,
+      "check_count": 13,
+      "passed_count": 13,
+      "failed_checks": []
+    },
+    {
+      "report": "episode-source-green.json",
+      "passed": true,
+      "check_count": 11,
+      "passed_count": 11,
+      "failed_checks": []
+    },
+    {
+      "report": "control-visibility-green.json",
+      "passed": true,
+      "check_count": 12,
+      "passed_count": 12,
+      "failed_checks": []
+    },
+    {
+      "report": "responsiveness-green.json",
+      "passed": true,
+      "check_count": 8,
+      "passed_count": 8,
+      "failed_checks": []
+    }
+  ],
+  "passed": true,
+  "test_checks": 44,
+  "userUIControlled": false,
+  "realUserPlaybackControlled": false,
+  "preferencesPersistenceDisabledBy": "--validate",
+  "historyProfile": "temporary test-specific AppModel profile directories",
+  "buildMethod": "Independent swiftc; no SwiftPM invocation for these four regressions",
+  "initialFailure": {
+    "stage": "stability compile",
+    "reason": "PlaybackController.swift changed during build while another agent edited it",
+    "evidence": "playback-stability-build-race.log",
+    "resolution": "Unchanged script rerun against immutable current source snapshot; no assertion changes",
+    "snapshot": "playback-stability-source-snapshot.json"
+  },
+  "policyTDDLogs": {
+    "ad-policy-red.log": "ac8786e1e1282dc66a47334bd8b7f663be2e4c4a3eab62914e35afaa002d48e7",
+    "ad-policy-initial-green.log": "7f45872f854ff1d6f44d723346d0c92d593af6b0c1279a763e905b08e509563e",
+    "ad-policy-ocr-offer-red.log": "607aa422bd97a72cfc301795eae7cea9daa670deb22c93472552e72b7af9ff70",
+    "ad-policy-all-core-green.log": "7f24386bb68a8f9a063a7fa56af7ad6b35968f168f4e050f631e248af93e2d0a"
+  },
+  "limits": [
+    "Control visibility exercises real timer and observable controller in offscreen AppKit; no native UI interaction.",
+    "Playback smoke media are silent generated local WAV; stability also uses deliberately stalled local HTTP server.",
+    "Source choice tests inject async provider fixtures and do not validate public network sources.",
+    "These regressions do not measure real ad detection accuracy or audiovisual synchronization."
+  ]
+}

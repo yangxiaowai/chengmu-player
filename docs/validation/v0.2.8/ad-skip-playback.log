@@ -1,0 +1,60 @@
+{
+  "checkedAt" : "2026-09-27T16:05:32Z",
+  "checks" : [
+    {
+      "detail" : "Detected 16.0–26.0s inside actual 16–28s test insert; pause remained at 1.800261708s.",
+      "name" : "real_ocr_closes_bounded_ad_interval_without_moving_paused_player",
+      "passed" : true
+    },
+    {
+      "detail" : "Actual AVPlayer moved from 16.000180502s to >=26.0s, preserving requested play.",
+      "name" : "main_player_automatically_skips_confirmed_insert",
+      "passed" : true
+    },
+    {
+      "detail" : "At 28.200139046s the original post-28s subtitle cue is visible; no subtitle retiming or media cutting.",
+      "name" : "external_subtitles_keep_original_media_timeline",
+      "passed" : true
+    },
+    {
+      "detail" : "Returned to 16.000180502s; after explicit resume remained inside the ad without another jump.",
+      "name" : "undo_restores_position_pauses_and_prevents_repeat_skip",
+      "passed" : true
+    },
+    {
+      "detail" : "Explicit scrub into the interval could play without automatic re-skipping.",
+      "name" : "manual_seek_into_identified_ad_is_respected",
+      "passed" : true
+    },
+    {
+      "detail" : "Crossed the known start with automatic skipping off and remained in the content.",
+      "name" : "disabled_mode_does_not_skip",
+      "passed" : true
+    },
+    {
+      "detail" : "Queued intervention at automatic target publication; no stale undo callback or overridden latest intent.",
+      "name" : "inflight_automatic_seek_respects_pause",
+      "passed" : true
+    },
+    {
+      "detail" : "Queued intervention at automatic target publication; no stale undo callback or overridden latest intent.",
+      "name" : "inflight_automatic_seek_respects_disable",
+      "passed" : true
+    },
+    {
+      "detail" : "Queued intervention at automatic target publication; no stale undo callback or overridden latest intent.",
+      "name" : "inflight_automatic_seek_respects_manual_seek",
+      "passed" : true
+    },
+    {
+      "detail" : "New item, even using the same URL, clears intervals and stays paused after callbacks settle.",
+      "name" : "replacement_discards_detection_and_late_results",
+      "passed" : true
+    }
+  ],
+  "mode" : "real Vision OCR and real AVPlayer on isolated synthetic MP4 with audio and external subtitles",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : true,
+  "realWorldAdAccuracyVerified" : false
+}

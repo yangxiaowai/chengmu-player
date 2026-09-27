@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-09-27T16:04:43.972759+00:00",
+  "purpose": "Immutable current working-tree snapshot to avoid concurrent source writes during swiftc",
+  "sha256": {
+    "scripts/validate-playback-stability.sh": "70d9459507754a9960848309c4e287f6508f34145d2ba139e47db56141fbaa5f",
+    "Tests/AppModelSmoke/PlaybackStabilitySmoke.swift": "ddc37d1b5a8fb4e428b0ea190bd3f878f9ad5ce3e73e25b96e2ceae088ac3299",
+    "Sources/CinemaCore/AdCleanupPolicy.swift": "bd1432d7f3c3a66d3c1d015138632c0f6b8856af881c0157449863aa9bdf652a",
+    "Sources/CinemaCore/AdSkipPolicy.swift": "5bb880090ec6286779cf0b359ee7cbfbcdb4d917ea0225418d8abeb055871844",
+    "Sources/CinemaCore/CatalogLibrary.swift": "a98109453890c4cb58c8aa657e39157ffa3b06166e291d3814087aeaf381e452",
+    "Sources/CinemaCore/HLSProbe.swift": "97a3d70054361a190b650e69b08dbb48abe152b0509c6a9b5ced5f13b2141d16",
+    "Sources/CinemaCore/LibraryStore.swift": "7086eb4e8dde378a9cb329aa9bcbe561775a0cc3d9dd9f90d5db5abf6ddaa073",
+    "Sources/CinemaCore/MediaModels.swift": "5a3482aaa92ab0df96a70978473bb28dcd2d96aaca5a61adf4420219d0fe6565",
+    "Sources/CinemaCore/PlaybackCanvasClickPolicy.swift": "65706b916d0a2d06c12070c1ed097956ae047aefa52b0a45cb72230df2671bce",
+    "Sources/CinemaCore/PlaybackControlsPolicy.swift": "58f4d27502cfc6bdc63ce07c792f42aa2967efc4702452d95a8f36e110fe81d9",
+    "Sources/CinemaCore/PlaybackPreferences.swift": "a4576ded8b7bd8c14a5effb30cb83a53b3a11aa8201441918425a5e0e448fb4e",
+    "Sources/CinemaCore/PlaybackStabilityPolicy.swift": "bbd7471fa8c3d0e91b639629c972631e6ae70f1e424f621bff8958d1933e1ac6",
+    "Sources/CinemaCore/PlaybackTimecode.swift": "a5f3c444de28ddf3695e9d9dcfdac4cc5e3016cd32fc5b0b8c71aef0b5d54cd7",
+    "Sources/CinemaCore/QualityPolicy.swift": "c1e009d07f3cdc0d62420bc367dd0550e7c125bc32c1afa91aeaee0bfd088334",
+    "Sources/CinemaCore/SeekTimelineGeometry.swift": "c11418358bae0533bab1646824cc9a5776b2db9872d2ced62600b1840b281080",
+    "Sources/CinemaCore/SourceAccessProbe.swift": "fa5f097374f1bb6b9393e4b2d503ddc1f97ab6ddfe4e1bc1426a552ee7d50028",
+    "Sources/CinemaCore/SourceMatching.swift": "8afc218993f4311478a2eb0ec06065ab306939b8ba1c73b98da2a1e81db5bd1a",
+    "Sources/CinemaCore/SourceService.swift": "6d4137f3077af9b2d7346e1361793db3c65bd478d96b42f6439a3a8dd5af0e15",
+    "Sources/CinemaCore/Subtitles.swift": "ba0dc80a565472ad80b6354221c240fa0cb0aa3835b51e02056c5c085364eca3",
+    "Sources/CinemaCore/VideoSelectionGeometry.swift": "3d18ef18ca951dac56143bafe496e7b47b373c52fc6ee2a7746738b02fde1afe",
+    "Sources/CinemaApp/PlaybackController.swift": "95feda5710071dc339a3391b8f718469d8479d942132d95023245c995f42e220",
+    "Sources/CinemaApp/EnhancementPipeline.swift": "894a5f73af5c834d530f821b84e7ef361b40b0da6ac762e65cff84546056b8c6",
+    "Sources/CinemaApp/AdSkipController.swift": "4777837db6e31521c304f492bcfef6aaa2fbcf5a83ad523d1d35525ce48264d1",
+    "Sources/CinemaApp/AdFrameAnalyzer.swift": "65dd81f2cac90deef4a6832ddbff789576f75b4701cb4985875418973e30c0fb"
+  }
+}

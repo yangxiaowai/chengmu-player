@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-27T16:09:52.329968+00:00",
+  "scope": [
+    "AdSkipPolicy.swift",
+    "AdFrameAnalyzer.swift",
+    "AdSkipController.swift",
+    "PlaybackController.swift",
+    "PlayerView.swift"
+  ],
+  "blockingFindings": [],
+  "earlyFindingsResolved": [
+    "Pause/disable invalidate in-flight automatic seek without canceling ordinary manual seek",
+    "New skip notice explicitly reveals the controls",
+    "Reuse the independent decoder after completing a look-ahead window"
+  ],
+  "method": "Independent read-only static review and integration test code inspection; reviewer did not rerun tests",
+  "limits": [
+    "No real source ad accuracy guarantee",
+    "No long-duration CPU, network or playback resource measurement"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-09-27T16:13:39.543440+00:00",
+  "version": "0.2.8",
+  "method": "CUA native AX and screenshots using separately compiled production PlayerView and controllers, synthetic 40s local MP4 and external SRT",
+  "application": ".build/AdSkipUINativeQA.app",
+  "bundleID": "local.yingchuan.adskipnativeqa",
+  "profile": ".build/ad-skip-ui-profile",
+  "productionSourcesModifiedForUIHarness": false,
+  "preferencesIsolation": "distinct bundle ID; local diagnostic profile; no cloud or automatic discovery",
+  "passed": true,
+  "checks": [
+    {
+      "name": "window_menu_and_initial_pause",
+      "passed": true,
+      "detail": "Native production PlayerView shows automatic skip enabled, 0/40s, Play button and original pre-ad SRT; test shell is muted."
+    },
+    {
+      "name": "local_scan_status",
+      "passed": true,
+      "detail": "Opened automatic skip menu: warming locally, no video upload. Later showed 1 interval and 17 analyzed frames."
+    },
+    {
+      "name": "fullscreen_automatic_skip_and_subtitle",
+      "passed": true,
+      "detail": "After natural 0.5x playback, fullscreen AX tree showed 已跳过插播主段 00:16–00:26 and 撤销并暂停; at 32.20s post-ad original SRT was visible."
+    },
+    {
+      "name": "native_undo_pauses",
+      "passed": true,
+      "detail": "Clicked 撤销并暂停: slider returned to 16.0s, button changed to Play, skip notice disappeared; actual screenshot showed the ad card and its correct original-time SRT."
+    },
+    {
+      "name": "resume_after_undo_does_not_loop",
+      "passed": true,
+      "detail": "Pressed Space to resume; at 20.20s and 23.00s playback remained within the ignored interval, with no repeated skip notice."
+    },
+    {
+      "name": "menu_can_disable",
+      "passed": true,
+      "detail": "Selected 自动识别并跳过（实验） and activated with Return; menu closed and label became 自动跳广告 · 关."
+    }
+  ],
+  "limits": [
+    "Not the release bundle UI process; release itself built and signed separately",
+    "No real provider advertisement accuracy validation",
+    "Native single-click and independent idle auto-hide were not claimed from this session; container AX click did not activate; 12 offscreen visibility and 8 responsiveness regressions passed separately"
+  ],
+  "harnessSetupIssue": "Initial shell wrapper app caused CUA binding timeout; rebuilt a single Mach-O bundle with matching CFBundleExecutable, then native connection succeeded. No production change needed."
+}

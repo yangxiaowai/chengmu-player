@@ -1,0 +1,60 @@
+Building for debugging...
+[1 / 13]
+[2 / 14] CinemaCore
+[13 / 25] CinemaCore
+[17 / 29] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[29 / 40] Cinema-product
+[29 / 40] CinemaCore
+[31 / 40] Cinema-product
+[33 / 41] CinemaCoreTests-product
+[36 / 51] Cinema-product
+[38 / 51] CinemaCoreTests-product
+[40 / 51] CinemaCoreTests-product
+[41 / 51] CinemaCoreTests-product
+[42 / 51] CinemaCoreTests-product
+[46 / 53] CinemaCoreTests-product
+[48 / 53] CinemaCoreTests-product
+[49 / 54] CinemaCoreTests-product
+[49 / 54] Cinema-product
+[49 / 54] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[51 / 57] CinemaCoreTests-product
+[53 / 55] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[55 / 57] Cinema-product
+Build complete! (4.96 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() started.
+◇ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() started.
+◇ Test preferencesSurviveReloadIncludingMutedVolume() started.
+◇ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() started.
+◇ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() started.
+◇ Test decodingValidatesOutOfRangeStoredValues() started.
+◇ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() started.
+◇ Test invalidValuesCannotReachPlayback() started.
+✔ Test invalidValuesCannotReachPlayback() passed after 0.001 seconds.
+✔ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() passed after 0.001 seconds.
+✔ Test decodingValidatesOutOfRangeStoredValues() passed after 0.001 seconds.
+✔ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() passed after 0.001 seconds.
+✔ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() passed after 0.001 seconds.
+✘ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() recorded an issue at PlaybackPreferencesTests.swift:9:9: Expectation failed: oldJSON["automaticAdSkipping"] as? Bool == true
+↳ oldJSON["automaticAdSkipping"] as? Bool == true → false
+↳   oldJSON["automaticAdSkipping"] as? Bool → nil
+↳     some → true
+✘ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() recorded an issue at PlaybackPreferencesTests.swift:12:9: Expectation failed: disabledJSON["automaticAdSkipping"] as? Bool == false
+↳ disabledJSON["automaticAdSkipping"] as? Bool == false → false
+↳   disabledJSON["automaticAdSkipping"] as? Bool → nil
+↳     some → false
+✘ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() failed after 0.001 seconds with 2 issues.
+✔ Test preferencesSurviveReloadIncludingMutedVolume() passed after 0.003 seconds.
+✔ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() passed after 0.003 seconds.
+✘ Suite PlaybackPreferencesTests failed after 0.003 seconds with 2 issues.
+✘ Test run with 8 tests in 1 suite failed after 0.003 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

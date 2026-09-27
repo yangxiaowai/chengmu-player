@@ -8,9 +8,25 @@ struct MediaTrack: Identifiable {
     let name: String
 }
 
+struct AdSkipEvent: Identifiable {
+    let id = UUID()
+    let segment: AdSkipSegment
+    let returnPosition: Double
+}
+
 @MainActor
 final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleOutputPushDelegate {
     let player = AVPlayer()
+    let adSkip = AdSkipController()
+    @Published var automaticAdSkipping = true {
+        didSet {
+            preferences.setAutomaticAdSkipping(automaticAdSkipping)
+            preferencesStore.save(preferences)
+            if !automaticAdSkipping { cancelAutomaticAdSeek() }
+            updateAdSkipping()
+        }
+    }
+    @Published private(set) var adSkipNotice: AdSkipEvent?
     @Published var title = ""
     @Published var episodeName = ""
     @Published var isPlaying = false
@@ -44,7 +60,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     @Published private(set) var sleepRemainingSeconds: Int?
     @Published var metrics: EnhancementMetrics?
-    @Published var adCleanup = AdCleanupSettings()
+    @Published var adCleanup = AdCleanupSettings() {
+        didSet {
+            if oldValue.protectedRegions != adCleanup.protectedRegions {
+                adSkip.configure(url: url, itemID: itemID, protectedRegions: adCleanup.protectedRegions)
+                adSkipNotice = nil
+            }
+        }
+    }
     @Published var subtitleText = ""
     @Published var subtitleNotice: String?
     @Published var subtitleOffset = 0.0
@@ -73,6 +96,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var desiredResume = 0.0
     private var seekRequestID = UUID()
     private var pendingSeekTarget: Double?
+    private var automaticSeekRequestID: UUID?
     @Published private var wantsPlay = false { didSet { playbackIntentID = UUID() } }
     private var lastSave = 0.0
     private var probeTask: Task<Void, Never>?
@@ -85,6 +109,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var preferences: PlaybackPreferences
     private var sleepState = PlaybackSleepTimer()
     private var sleepTimer: Timer?
+    private var adSkipSubscription: AnyCancellable?
+    private var ignoredAdSegments: [AdSkipSegment] = []
+    private var adSkipInteractions = Set<String>()
 
     override init() {
         let store = PlaybackPreferencesStore()
@@ -92,7 +119,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         preferencesStore = store; preferences = saved
         rate = Float(saved.rate); volume = Float(saved.volume)
         enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .upscale4K
+        automaticAdSkipping = saved.automaticAdSkipping
         super.init()
+        adSkipSubscription = adSkip.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         player.volume = volume
         player.automaticallyWaitsToMinimizeStalling = true
         controlObservation = player.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
@@ -104,6 +133,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
 
     func open(url: URL, title: String, episode: String, resume: Double = 0) {
         saveProgress()
+        wantsPlay = false; player.pause(); adSkip.stop()
         cancelPendingSeek()
         probeTask?.cancel(); prepareTask?.cancel()
         clearItemObservers()
@@ -119,6 +149,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         audioTracks = []; subtitleTracks = []; audioGroup = nil; subtitleGroup = nil
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
         adCleanup = AdCleanupSettings()
+        ignoredAdSegments = []; adSkipNotice = nil; adSkipInteractions = []
+        adSkip.configure(url: url, itemID: token, protectedRegions: adCleanup.protectedRegions)
         let item = AVPlayerItem(url: url)
         item.preferredForwardBufferDuration = 12
         let output = AVPlayerItemLegibleOutput()
@@ -227,7 +259,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         // Pressing Play on a failed item is an explicit user retry, not a false play intent.
         if hasPlaybackFailure || error != nil { retry(); return }
         if wantsPlay {
-            wantsPlay = false; player.pause(); saveProgress()
+            wantsPlay = false; player.pause(); cancelAutomaticAdSeek(); saveProgress()
         } else {
             wantsPlay = true
             if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
@@ -235,7 +267,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
         refreshPlaybackState()
     }
-    func pause() { wantsPlay = false; player.pause(); saveProgress(); refreshPlaybackState() }
+    func pause() { wantsPlay = false; player.pause(); cancelAutomaticAdSeek(); saveProgress(); refreshPlaybackState() }
     func resumeAfterEditing(ifUnchanged intent: UUID) {
         guard playbackIntentID == intent, !wantsPlay, !hasPlaybackFailure, error == nil else { return }
         // KVO isPlaying can still describe the frame before pause(). This is
@@ -261,10 +293,18 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         refreshPlaybackState()
     }
     func seek(to value: Double) {
+        guard value.isFinite else { return }
+        // Scrubbing into an identified segment is an explicit request to watch it.
+        for segment in adSkip.segments where value >= segment.start && value < segment.end { ignoreAdSegment(segment) }
+        adSkipNotice = nil
+        performSeek(to: value)
+    }
+    private func performSeek(to value: Double, automaticEvent: AdSkipEvent? = nil) {
         guard value.isFinite, let item = player.currentItem else { return }
         let safe = max(0, duration > 0 ? min(value, duration) : value)
         let request = UUID(), token = itemID
         seekRequestID = request; pendingSeekTarget = safe
+        automaticSeekRequestID = automaticEvent == nil ? nil : request
         generation = UUID(); subtitleText = ""; position = safe
         // A user request made during preparation replaces the original resume
         // position; prepareReady will issue the seek when the item can accept it.
@@ -273,10 +313,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         player.seek(to: CMTime(seconds: safe, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: CMTime(seconds: 0.1, preferredTimescale: 600)) { [weak self] finished in
             Task { @MainActor in
                 guard let self, self.itemID == token, self.seekRequestID == request else { return }
+                self.automaticSeekRequestID = nil
                 self.pendingSeekTarget = nil
                 // A canceled latest request reconciles with the actual player;
                 // it must not commit its requested target or flush a newer frame.
                 guard finished else { self.tick(); self.refreshPlaybackState(); return }
+                if let automaticEvent { self.adSkipNotice = automaticEvent }
                 self.generation = UUID()
                 if self.wantsPlay, !self.hasPlaybackFailure, self.error == nil, self.player.timeControlStatus != .playing {
                     self.player.playImmediately(atRate: self.rate)
@@ -288,12 +330,49 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
         refreshPlaybackState()
     }
+
+    func setAdSkipInteraction(_ reason: String, active: Bool) {
+        let changed = active ? adSkipInteractions.insert(reason).inserted : adSkipInteractions.remove(reason) != nil
+        if changed { updateAdSkipping() }
+    }
+    func undoAdSkip() {
+        guard let event = adSkipNotice else { return }
+        ignoreAdSegment(event.segment)
+        pause()
+        adSkipNotice = nil
+        performSeek(to: event.returnPosition)
+    }
+    func dismissAdSkipNotice() { adSkipNotice = nil }
+    private func ignoreAdSegment(_ segment: AdSkipSegment) {
+        if !ignoredAdSegments.contains(segment) { ignoredAdSegments.append(segment) }
+        if ignoredAdSegments.count > 128 { ignoredAdSegments.removeFirst(ignoredAdSegments.count - 128) }
+    }
+    private func updateAdSkipping() {
+        let available = automaticAdSkipping && wantsPlay && isPlaying && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && adSkipInteractions.isEmpty
+        adSkip.update(position: position, duration: duration, shouldScan: available)
+    }
+    private func automaticallySkipAdIfNeeded() -> Bool {
+        guard automaticAdSkipping, duration.isFinite, duration > 0,
+              let segment = AdSegmentPolicy.target(at: position, in: adSkip.segments, ignored: ignoredAdSegments,
+                  isPlaying: wantsPlay && isPlaying,
+                  isBusy: isLoading || hasPlaybackFailure || error != nil || pendingSeekTarget != nil || !adSkipInteractions.isEmpty),
+              segment.end < duration - 0.5 else { return false }
+        let event = AdSkipEvent(segment: segment, returnPosition: position)
+        // Consume before the asynchronous seek to avoid loops on seek failure or repeated ticks.
+        ignoreAdSegment(segment)
+        performSeek(to: min(segment.end, duration), automaticEvent: event)
+        return true
+    }
     func cancelPendingSeek() {
-        seekRequestID = UUID(); pendingSeekTarget = nil; desiredResume = 0
+        seekRequestID = UUID(); pendingSeekTarget = nil; automaticSeekRequestID = nil; desiredResume = 0
         player.currentItem?.cancelPendingSeeks()
         let actual = player.currentTime().seconds
         if actual.isFinite, actual >= 0 { position = actual }
         refreshPlaybackState()
+    }
+    private func cancelAutomaticAdSeek() {
+        guard automaticSeekRequestID == seekRequestID else { return }
+        cancelPendingSeek()
     }
     func resumeWhenReady(_ position: Double) {
         if player.currentItem?.status == .readyToPlay { seek(to: position) }
@@ -363,6 +442,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         position = actual
         if let current = player.currentItem?.duration.seconds, current.isFinite, current > 0 { duration = current }
         if !cues.isEmpty { subtitleText = SubtitleParser.text(at: position - subtitleOffset, in: cues) }
+        updateAdSkipping()
+        if automaticallySkipAdIfNeeded() { return }
         let now = Date.timeIntervalSinceReferenceDate
         if now - lastSave >= 5 { saveProgress(); lastSave = now }
     }
@@ -385,6 +466,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         let loading = PlaybackStabilityPolicy.loadingState(item: preparation, transport: transport, playbackRequested: wantsPlay, seeking: pendingSeekTarget != nil, hasError: hasPlaybackFailure || error != nil)
         isPlaying = !hasPlaybackFailure && error == nil && transport == .playing
         isLoading = loading.isLoading; loadingMessage = loading.message
+        updateAdSkipping()
         if !loading.isLoading { clearWaitingState(); return }
         guard waitingID == nil else { return }
         let wait = UUID(), token = itemID

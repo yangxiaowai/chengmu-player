@@ -1,0 +1,198 @@
+Building for debugging...
+[Planning deferred tasks]
+[27 / 50]
+[28 / 51] CinemaCore
+[39 / 108]
+[46 / 108]
+[48 / 108]
+[53 / 108]
+[57 / 108]
+[60 / 108]
+[63 / 108]
+[64 / 108]
+[71 / 108]
+[72 / 108]
+[76 / 108]
+[77 / 108]
+[79 / 108]
+[81 / 108]
+[82 / 108]
+[93 / 108] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[98 / 109] CinemaCoreTests-product
+[99 / 114]
+[103 / 114] CinemaCoreTests-product
+[108 / 114] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[110 / 114] CinemaCoreTests-product
+Build complete! (18.05 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AdSkipPolicyTests started.
+◇ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() started.
+◇ Test traditionalCharactersWhitespaceAndPunctuationNormalize() started.
+◇ Test mainBrandWithIndependentPromotionIsAnAdvertisement() started.
+◇ Test twoFramesOrInsufficientSpanAreNotEnough() started.
+◇ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() started.
+◇ Test emptySuccessfulOCRIsOrdinary() started.
+◇ Test additionalProtectionExcludesEitherEvidenceBox() started.
+◇ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() started.
+◇ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() started.
+◇ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() started.
+◇ Test ordinaryFrameSplitsTwoIndependentAdRuns() started.
+◇ Test invalidTextOrProtectionGeometryIsUnknown() started.
+◇ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() started.
+◇ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() started.
+◇ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() started.
+◇ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() started.
+◇ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() started.
+◇ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() started.
+◇ Test segmentOverNinetySecondsIsRejectedAsAWhole() started.
+◇ Test malformedSeekInputsNeverProduceATarget() started.
+◇ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() started.
+◇ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() started.
+◇ Test partialSubtitleOverlapRejectsTheWholeTextBox() started.
+◇ Test pausedOrBusyPlaybackNeverSkips() started.
+◇ Test smallWatermarksAndCornerBrandsDoNotQualify() started.
+✘ Test traditionalCharactersWhitespaceAndPunctuationNormalize() recorded an issue at AdSkipPolicyTests.swift:25:9: Expectation failed: AdTextClassifier.classify([text(" 澳 門・新 葡 京！ "), promotion("註冊送彩金")]) == .advertisement
+↳ AdTextClassifier.classify([text(" 澳 門・新 葡 京！ "), promotion("註冊送彩金")]) == .advertisement → false
+↳   AdTextClassifier.classify([text(" 澳 門・新 葡 京！ "), promotion("註冊送彩金")]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:96:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) → .ordinary
+✘ Test mainBrandWithIndependentPromotionIsAnAdvertisement() recorded an issue at AdSkipPolicyTests.swift:20:9: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()]) == .advertisement
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()]) == .advertisement → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()]) → .ordinary
+✘ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() recorded an issue at AdSkipPolicyTests.swift:31:13: Expectation failed: AdTextClassifier.classify([text(value), promotion()]) == .advertisement
+↳ AdTextClassifier.classify([text(value), promotion()]) == .advertisement → false
+↳   AdTextClassifier.classify([text(value), promotion()]) → .ordinary
+✘ Test traditionalCharactersWhitespaceAndPunctuationNormalize() recorded an issue at AdSkipPolicyTests.swift:26:9: Expectation failed: AdTextClassifier.classify([text("澳門新葡京"), promotion("真 人 視 訊")]) == .advertisement
+↳ AdTextClassifier.classify([text("澳門新葡京"), promotion("真 人 視 訊")]) == .advertisement → false
+↳   AdTextClassifier.classify([text("澳門新葡京"), promotion("真 人 視 訊")]) → .ordinary
+✘ Test mainBrandWithIndependentPromotionIsAnAdvertisement() recorded an issue at AdSkipPolicyTests.swift:21:9: Expectation failed: AdTextClassifier.classify([text("新葡京", confidence: 0.3), promotion("真人视讯")]) == .advertisement
+↳ AdTextClassifier.classify([text("新葡京", confidence: 0.3), promotion("真人视讯")]) == .advertisement → false
+↳   AdTextClassifier.classify([text("新葡京", confidence: 0.3), promotion("真人视讯")]) → .ordinary
+✘ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() recorded an issue at AdSkipPolicyTests.swift:31:13: Expectation failed: AdTextClassifier.classify([text(value), promotion()]) == .advertisement
+↳ AdTextClassifier.classify([text(value), promotion()]) == .advertisement → false
+↳   AdTextClassifier.classify([text(value), promotion()]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:97:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) → .ordinary
+✘ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() recorded an issue at AdSkipPolicyTests.swift:31:13: Expectation failed: AdTextClassifier.classify([text(value), promotion()]) == .advertisement
+↳ AdTextClassifier.classify([text(value), promotion()]) == .advertisement → false
+↳   AdTextClassifier.classify([text(value), promotion()]) → .ordinary
+✘ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() recorded an issue at AdSkipPolicyTests.swift:177:9: Expectation failed: AdSegmentPolicy.target(at: 10, in: [segment], ignored: [AdSkipSegment(start: 6, end: 10), AdSkipSegment(start: 14, end: 18)], isPlaying: true, isBusy: false) == segment
+↳ AdSegmentPolicy.target(at: 10, in: [segment], ignored: [AdSkipSegment(start: 6, end: 10), AdSkipSegment(start: 14, end: 18)], isPlaying: true, isBusy: false) == segment → false
+↳   AdSegmentPolicy.target(at: 10, in: [segment], ignored: [AdSkipSegment(start: 6, end: 10), AdSkipSegment(start: 14, end: 18)], isPlaying: true, isBusy: false) → nil
+↳   segment → AdSkipSegment(start: 10.0, end: 14.0)
+↳     start → 10.0
+↳     end → 14.0
+✘ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() recorded an issue at AdSkipPolicyTests.swift:133:9: Expectation failed: AdSegmentPolicy.segments(from: [frame(10), frame(12.5), frame(15), frame(17.5, .ordinary)]) == [AdSkipSegment(start: 10, end: 15)]
+↳ AdSegmentPolicy.segments(from: [frame(10), frame(12.5), frame(15), frame(17.5, .ordinary)]) == [AdSkipSegment(start: 10, end: 15)] → false
+↳   AdSegmentPolicy.segments(from: [frame(10), frame(12.5), frame(15), frame(17.5, .ordinary)]) → []
+↳   [AdSkipSegment(start: 10, end: 15)] → [CinemaCore.AdSkipSegment(start: 10.0, end: 15.0)]
+✘ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() recorded an issue at AdSkipPolicyTests.swift:107:9: Expectation failed: result == [AdSkipSegment(start: 10, end: 14)]
+↳ result == [AdSkipSegment(start: 10, end: 14)] → false
+↳   result → []
+↳   [AdSkipSegment(start: 10, end: 14)] → [CinemaCore.AdSkipSegment(start: 10.0, end: 14.0)]
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:96:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) → .ordinary
+✘ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() recorded an issue at AdSkipPolicyTests.swift:123:9: Expectation failed: AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(14, .unknown), frame(16), frame(18), frame(20), frame(22, .ordinary)]) == [AdSkipSegment(start: 16, end: 20)]
+↳ AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(14, .unknown), frame(16), frame(18), frame(20), frame(22, .ordinary)]) == [AdSkipSegment(start: 16, end: 20)] → false
+↳   AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(14, .unknown), frame(16), frame(18), frame(20), frame(22, .ordinary)]) → []
+↳   [AdSkipSegment(start: 16, end: 20)] → [CinemaCore.AdSkipSegment(start: 16.0, end: 20.0)]
+✘ Test segmentOverNinetySecondsIsRejectedAsAWhole() recorded an issue at AdSkipPolicyTests.swift:144:9: Expectation failed: AdSegmentPolicy.segments(from: accepted) == [AdSkipSegment(start: 0, end: 90)]
+↳ AdSegmentPolicy.segments(from: accepted) == [AdSkipSegment(start: 0, end: 90)] → false
+↳   AdSegmentPolicy.segments(from: accepted) → []
+↳   [AdSkipSegment(start: 0, end: 90)] → [CinemaCore.AdSkipSegment(start: 0.0, end: 90.0)]
+✘ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() recorded an issue at AdSkipPolicyTests.swift:160:9: Expectation failed: AdSegmentPolicy.target(at: 10, in: [segment], isPlaying: true, isBusy: false) == segment
+↳ AdSegmentPolicy.target(at: 10, in: [segment], isPlaying: true, isBusy: false) == segment → false
+↳   AdSegmentPolicy.target(at: 10, in: [segment], isPlaying: true, isBusy: false) → nil
+↳   segment → AdSkipSegment(start: 10.0, end: 14.0)
+↳     start → 10.0
+↳     end → 14.0
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() recorded an issue at AdSkipPolicyTests.swift:84:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) → .ordinary
+✘ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() recorded an issue at AdSkipPolicyTests.swift:129:9: Expectation failed: AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(15), frame(17), frame(19), frame(21, .ordinary)]) == [AdSkipSegment(start: 15, end: 19)]
+↳ AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(15), frame(17), frame(19), frame(21, .ordinary)]) == [AdSkipSegment(start: 15, end: 19)] → false
+↳   AdSegmentPolicy.segments(from: [frame(10), frame(12), frame(15), frame(17), frame(19), frame(21, .ordinary)]) → []
+↳   [AdSkipSegment(start: 15, end: 19)] → [CinemaCore.AdSkipSegment(start: 15.0, end: 19.0)]
+✔ Test emptySuccessfulOCRIsOrdinary() passed after 0.001 seconds.
+✘ Test ordinaryFrameSplitsTwoIndependentAdRuns() recorded an issue at AdSkipPolicyTests.swift:138:9: Expectation failed: result == [AdSkipSegment(start: 2, end: 6), AdSkipSegment(start: 10, end: 14)]
+↳ result == [AdSkipSegment(start: 2, end: 6), AdSkipSegment(start: 10, end: 14)] → false
+↳   result → []
+↳   [AdSkipSegment(start: 2, end: 6), AdSkipSegment(start: 10, end: 14)] → [CinemaCore.AdSkipSegment(start: 2.0, end: 6.0), CinemaCore.AdSkipSegment(start: 10.0, end: 14.0)]
+✔ Test additionalProtectionExcludesEitherEvidenceBox() passed after 0.001 seconds.
+✔ Test twoFramesOrInsufficientSpanAreNotEnough() passed after 0.001 seconds.
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() recorded an issue at AdSkipPolicyTests.swift:84:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) → .ordinary
+✘ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() recorded an issue at AdSkipPolicyTests.swift:161:9: Expectation failed: AdSegmentPolicy.target(at: 13, in: [segment], isPlaying: true, isBusy: false) == segment
+↳ AdSegmentPolicy.target(at: 13, in: [segment], isPlaying: true, isBusy: false) == segment → false
+↳   AdSegmentPolicy.target(at: 13, in: [segment], isPlaying: true, isBusy: false) → nil
+↳   segment → AdSkipSegment(start: 10.0, end: 14.0)
+↳     start → 10.0
+↳     end → 14.0
+✔ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() passed after 0.001 seconds.
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() recorded an issue at AdSkipPolicyTests.swift:84:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) → .ordinary
+✔ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() passed after 0.001 seconds.
+✘ Test traditionalCharactersWhitespaceAndPunctuationNormalize() failed after 0.001 seconds with 2 issues.
+✘ Test mainBrandWithIndependentPromotionIsAnAdvertisement() failed after 0.001 seconds with 2 issues.
+✔ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() passed after 0.001 seconds.
+✘ Test smallWatermarksAndCornerBrandsDoNotQualify() recorded an issue at AdSkipPolicyTests.swift:78:9: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: .init(x: 0.4, y: 0.2, width: 0.15, height: 0.04)), promotion()]) == .advertisement
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: .init(x: 0.4, y: 0.2, width: 0.15, height: 0.04)), promotion()]) == .advertisement → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: .init(x: 0.4, y: 0.2, width: 0.15, height: 0.04)), promotion()]) → .ordinary
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() recorded an issue at AdSkipPolicyTests.swift:84:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) → .ordinary
+✔ Test malformedSeekInputsNeverProduceATarget() passed after 0.001 seconds.
+✘ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() failed after 0.001 seconds with 1 issue.
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:97:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) → .ordinary
+✘ Test segmentOverNinetySecondsIsRejectedAsAWhole() failed after 0.001 seconds with 1 issue.
+✔ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() passed after 0.001 seconds.
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() recorded an issue at AdSkipPolicyTests.swift:84:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", confidence: confidence), promotion()]) → .ordinary
+✔ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() passed after 0.001 seconds.
+✘ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() failed after 0.001 seconds with 1 issue.
+✘ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() failed after 0.001 seconds with 1 issue.
+✘ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() failed after 0.001 seconds with 3 issues.
+✔ Test partialSubtitleOverlapRejectsTheWholeTextBox() passed after 0.001 seconds.
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:96:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) → .ordinary
+✘ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() failed after 0.001 seconds with 1 issue.
+✘ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() failed after 0.001 seconds with 2 issues.
+✘ Test smallWatermarksAndCornerBrandsDoNotQualify() failed after 0.001 seconds with 1 issue.
+✘ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() failed after 0.001 seconds with 1 issue.
+✘ Test ordinaryFrameSplitsTwoIndependentAdRuns() failed after 0.001 seconds with 1 issue.
+✔ Test pausedOrBusyPlaybackNeverSkips() passed after 0.001 seconds.
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:97:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) → .ordinary
+✘ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() failed after 0.001 seconds with 5 issues.
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:96:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:97:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:96:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京", rect: rect), promotion()]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() recorded an issue at AdSkipPolicyTests.swift:97:13: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) == .unknown → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion()], protectedRegions: [rect]) → .ordinary
+✘ Test invalidTextOrProtectionGeometryIsUnknown() failed after 0.001 seconds with 10 issues.
+✘ Suite AdSkipPolicyTests failed after 0.002 seconds with 32 issues.
+✘ Test run with 25 tests in 1 suite failed after 0.002 seconds with 32 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

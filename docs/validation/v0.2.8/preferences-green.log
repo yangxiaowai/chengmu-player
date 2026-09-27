@@ -1,0 +1,38 @@
+Building for debugging...
+[2 / 10] CinemaCore
+[4 / 12] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[13 / 20] CinemaCoreTests-product
+[15 / 22] Cinema-product
+[22 / 29] Cinema-product
+[24 / 30] Cinema-product
+[27 / 33] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[29 / 31] Cinema-product
+[31 / 33] Cinema-product/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+
+Build complete! (2.67 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() started.
+◇ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() started.
+◇ Test decodingValidatesOutOfRangeStoredValues() started.
+◇ Test invalidValuesCannotReachPlayback() started.
+◇ Test preferencesSurviveReloadIncludingMutedVolume() started.
+◇ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() started.
+◇ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() started.
+◇ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() started.
+✔ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() passed after 0.001 seconds.
+✔ Test invalidValuesCannotReachPlayback() passed after 0.001 seconds.
+✔ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() passed after 0.001 seconds.
+✔ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() passed after 0.001 seconds.
+✔ Test decodingValidatesOutOfRangeStoredValues() passed after 0.001 seconds.
+✔ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() passed after 0.001 seconds.
+✔ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() passed after 0.003 seconds.
+✔ Test preferencesSurviveReloadIncludingMutedVolume() passed after 0.003 seconds.
+✔ Suite PlaybackPreferencesTests passed after 0.003 seconds.
+✔ Test run with 8 tests in 1 suite passed after 0.003 seconds.

@@ -1,0 +1,21 @@
+Building for debugging...
+[2 / 7] CinemaCoreTests-product
+[4 / 9] CinemaCoreTests-product
+[8 / 11] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[10 / 14] CinemaCoreTests-product
+Build complete! (1.69 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AdSkipPolicyTests started.
+◇ Test registrationOfferRecognizedByActualOCRIsSupported() started.
+✘ Test registrationOfferRecognizedByActualOCRIsSupported() recorded an issue at AdSkipPolicyTests.swift:25:9: Expectation failed: AdTextClassifier.classify([text("澳门新葡京"), promotion("线上娱乐 注册即送")]) == .advertisement
+↳ AdTextClassifier.classify([text("澳门新葡京"), promotion("线上娱乐 注册即送")]) == .advertisement → false
+↳   AdTextClassifier.classify([text("澳门新葡京"), promotion("线上娱乐 注册即送")]) → .ordinary
+✘ Test registrationOfferRecognizedByActualOCRIsSupported() failed after 0.001 seconds with 1 issue.
+✘ Suite AdSkipPolicyTests failed after 0.001 seconds with 1 issue.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

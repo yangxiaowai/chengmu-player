@@ -28,6 +28,7 @@ binary = root / ".build/headless-network-playback-smoke"
 command = ["swiftc", "-parse-as-library", "-target", f"{platform.machine()}-apple-macos15.0",
            "-I", str(library), "-L", str(library), "-lCinemaCore",
            "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/EnhancementPipeline.swift",
+           "Sources/CinemaApp/AdSkipController.swift", "Sources/CinemaApp/AdFrameAnalyzer.swift",
            "Tests/AppModelSmoke/NetworkPlaybackSmoke.swift", "-o", str(binary)]
 subprocess.run(command, cwd=root, check=True, timeout=60)
 log = report.with_suffix(".log")

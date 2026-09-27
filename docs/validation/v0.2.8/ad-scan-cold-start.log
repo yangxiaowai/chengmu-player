@@ -1,0 +1,21 @@
+PASS real_ocr_advertisement actual=advertisement, PTS=1.0, seconds=18.01334798336029, error=none
+PASS real_ocr_ordinary actual=ordinary, PTS=1.0, seconds=0.07701408863067627, error=none
+PASS real_ocr_subtitle actual=ordinary, PTS=1.0, seconds=0.0974879264831543, error=none
+PASS real_ocr_corner actual=ordinary, PTS=1.0, seconds=0.09108889102935791, error=none
+PASS real_ocr_brand actual=ordinary, PTS=1.0, seconds=0.07620394229888916, error=none
+PASS local_sequence_detects_inserted_advertisement segments=["16.5-26.5"], samples=["0.5:ordinary", "2.5:ordinary", "4.5:ordinary", "6.5:ordinary", "8.5:ordinary", "10.5:ordinary", "12.5:ordinary", "14.5:ordinary", "16.5:advertisement", "18.5:advertisement", "20.5:advertisement", "22.5:advertisement", "24.5:advertisement", "26.5:advertisement", "28.5:ordinary", "30.5:ordinary", "32.5:ordinary", "34.5:ordinary", "36.5:ordinary", "38.5:ordinary"]
+PASS ordinary_hls_detects_inserted_advertisement segments=["16.5-26.5"], samples=["0.5:ordinary", "2.5:ordinary", "4.5:ordinary", "6.5:ordinary", "8.5:ordinary", "10.5:ordinary", "12.5:ordinary", "14.5:ordinary", "16.5:advertisement", "18.5:advertisement", "20.5:advertisement", "22.5:advertisement", "24.5:advertisement", "26.5:advertisement", "28.5:ordinary", "30.5:ordinary", "32.5:ordinary", "34.5:ordinary", "36.5:ordinary", "38.5:ordinary"]
+PASS controller_confirms_advertisement 已识别 1 段 · 正在分析前方画面
+PASS pause_retains_confirmed_segments_and_stops_work
+PASS item_change_clears_old_results
+PASS stop_rejects_late_results
+PASS failed_frame_is_unknown
+scripts/validate-ad-scan.sh: line 9: 49913 Terminated: 15          python3 - "$fixture_dir/hls" "$fixture_dir/port" > "$fixture_dir/http.log" 2>&1  <<'PY'
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from functools import partial
+from pathlib import Path
+import sys
+server = ThreadingHTTPServer(('127.0.0.1', 0), partial(SimpleHTTPRequestHandler, directory=sys.argv[1]))
+Path(sys.argv[2]).write_text(str(server.server_port))
+server.serve_forever()
+PY

@@ -1,0 +1,67 @@
+Building for debugging...
+[2 / 6] CinemaCore
+[3 / 7] CinemaCore
+[8 / 12] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[11 / 13] CinemaCoreTests-product
+[13 / 15] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/cinema-ad-policy-q2xyv3t2/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[17 / 18] CinemaCoreTests-product
+Build complete! (1.60 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AdSkipPolicyTests started.
+◇ Test partialSubtitleOverlapRejectsTheWholeTextBox() started.
+◇ Test smallWatermarksAndCornerBrandsDoNotQualify() started.
+◇ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() started.
+◇ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() started.
+◇ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() started.
+◇ Test invalidTextOrProtectionGeometryIsUnknown() started.
+◇ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() started.
+◇ Test additionalProtectionExcludesEitherEvidenceBox() started.
+◇ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() started.
+◇ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() started.
+◇ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() started.
+◇ Test mainBrandWithIndependentPromotionIsAnAdvertisement() started.
+◇ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() started.
+◇ Test malformedSeekInputsNeverProduceATarget() started.
+◇ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() started.
+◇ Test pausedOrBusyPlaybackNeverSkips() started.
+◇ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() started.
+◇ Test segmentOverNinetySecondsIsRejectedAsAWhole() started.
+◇ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() started.
+◇ Test ordinaryFrameSplitsTwoIndependentAdRuns() started.
+◇ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() started.
+◇ Test traditionalCharactersWhitespaceAndPunctuationNormalize() started.
+◇ Test emptySuccessfulOCRIsOrdinary() started.
+◇ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() started.
+◇ Test twoFramesOrInsufficientSpanAreNotEnough() started.
+✔ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() passed after 0.001 seconds.
+✔ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() passed after 0.001 seconds.
+✔ Test invalidTextOrProtectionGeometryIsUnknown() passed after 0.001 seconds.
+✔ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() passed after 0.001 seconds.
+✔ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() passed after 0.001 seconds.
+✔ Test malformedSeekInputsNeverProduceATarget() passed after 0.001 seconds.
+✔ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() passed after 0.001 seconds.
+✔ Test pausedOrBusyPlaybackNeverSkips() passed after 0.001 seconds.
+✔ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() passed after 0.001 seconds.
+✔ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() passed after 0.001 seconds.
+✔ Test ordinaryFrameSplitsTwoIndependentAdRuns() passed after 0.001 seconds.
+✔ Test emptySuccessfulOCRIsOrdinary() passed after 0.001 seconds.
+✔ Test segmentOverNinetySecondsIsRejectedAsAWhole() passed after 0.001 seconds.
+✔ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() passed after 0.001 seconds.
+✔ Test partialSubtitleOverlapRejectsTheWholeTextBox() passed after 0.001 seconds.
+✔ Test twoFramesOrInsufficientSpanAreNotEnough() passed after 0.001 seconds.
+✔ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() passed after 0.001 seconds.
+✔ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() passed after 0.001 seconds.
+✔ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() passed after 0.001 seconds.
+✔ Test additionalProtectionExcludesEitherEvidenceBox() passed after 0.001 seconds.
+✔ Test smallWatermarksAndCornerBrandsDoNotQualify() passed after 0.001 seconds.
+✔ Test mainBrandWithIndependentPromotionIsAnAdvertisement() passed after 0.001 seconds.
+✔ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() passed after 0.001 seconds.
+✔ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() passed after 0.001 seconds.
+✔ Test traditionalCharactersWhitespaceAndPunctuationNormalize() passed after 0.001 seconds.
+✔ Suite AdSkipPolicyTests passed after 0.001 seconds.
+✔ Test run with 25 tests in 1 suite passed after 0.001 seconds.

@@ -6,12 +6,14 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public private(set) var rate: Double
     public private(set) var enhancement: String
     public private(set) var lastAudibleVolume: Double
+    public private(set) var automaticAdSkipping: Bool
 
-    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "upscale4K", lastAudibleVolume: Double = 0.8) {
+    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "upscale4K", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true) {
         self.volume = Self.validVolume(volume)
         self.rate = Self.validRate(rate)
         self.enhancement = Self.validEnhancement(enhancement)
         self.lastAudibleVolume = self.volume > 0 ? self.volume : (lastAudibleVolume.isFinite && lastAudibleVolume > 0 ? min(1, lastAudibleVolume) : 0.8)
+        self.automaticAdSkipping = automaticAdSkipping
     }
 
     public mutating func setVolume(_ value: Double) {
@@ -21,19 +23,21 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public mutating func toggleMute() { setVolume(volume > 0 ? 0 : lastAudibleVolume) }
     public mutating func setRate(_ value: Double) { rate = Self.validRate(value) }
     public mutating func setEnhancement(_ value: String) { enhancement = Self.validEnhancement(value) }
+    public mutating func setAutomaticAdSkipping(_ value: Bool) { automaticAdSkipping = value }
 
     private static func validVolume(_ value: Double) -> Double { value.isFinite ? min(1, max(0, value)) : 0.8 }
     private static func validRate(_ value: Double) -> Double { value.isFinite ? min(2, max(0.5, value)) : 1 }
     private static func validEnhancement(_ value: String) -> String {
         ["original", "clarity", "upscale4K", "appleAI"].contains(value) ? value : "upscale4K"
     }
-    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume }
+    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume, automaticAdSkipping }
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(volume: try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.8,
                   rate: try container.decodeIfPresent(Double.self, forKey: .rate) ?? 1,
                   enhancement: try container.decodeIfPresent(String.self, forKey: .enhancement) ?? "upscale4K",
-                  lastAudibleVolume: try container.decodeIfPresent(Double.self, forKey: .lastAudibleVolume) ?? 0.8)
+                  lastAudibleVolume: try container.decodeIfPresent(Double.self, forKey: .lastAudibleVolume) ?? 0.8,
+                  automaticAdSkipping: try container.decodeIfPresent(Bool.self, forKey: .automaticAdSkipping) ?? true)
     }
 }
 

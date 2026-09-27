@@ -15,6 +15,7 @@ xcrun swiftc -parse-as-library -swift-version 5 -target "$(uname -m)-apple-macos
   -I "$core_directory" -L "$core_directory" -lCinemaCore \
   Sources/CinemaApp/AppModel.swift Sources/CinemaApp/SourceAccessController.swift \
   Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift \
+  Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift \
   Tests/AppModelSmoke/EpisodeSourceInteractionSmoke.swift -o "$validation_directory/check"
 validation_status=0
 "$validation_directory/check" --validate > "$report" || validation_status=$?

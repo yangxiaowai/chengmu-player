@@ -1,0 +1,16 @@
+{
+  "checks" : [
+    {
+      "detail" : "No scanner exists in the baseline application",
+      "name" : "real_ocr_detects_inserted_advertisement",
+      "passed" : false
+    },
+    {
+      "detail" : "No scanner exists in the baseline application",
+      "name" : "ordinary_hls_detects_inserted_advertisement",
+      "passed" : false
+    }
+  ],
+  "passed" : false,
+  "scope" : "Synthetic Chinese cards, local MP4 and ordinary loopback HTTP HLS; no real provider advertisement accuracy claim"
+}

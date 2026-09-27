@@ -103,11 +103,14 @@ struct PlayerView: View {
         .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
+        .onChange(of: playback.adSkipNotice?.id) { _, value in if value != nil { presentation.activity() } }
         .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts ? nil : commandContext)
         .sheet(isPresented: $showJump) {
             JumpToTimeDialog(current: playback.position, duration: playback.duration) { target in playback.seek(to: target) }
         }
         .sheet(isPresented: $showShortcuts) { PlaybackShortcutsDialog() }
+        .onChange(of: showJump) { _, value in playback.setAdSkipInteraction("jump-dialog", active: value) }
+        .onChange(of: showShortcuts) { _, value in playback.setAdSkipInteraction("shortcuts", active: value) }
         .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
         .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
@@ -221,9 +224,9 @@ struct PlayerView: View {
         VStack(spacing: 15) {
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
                     visible: presentation.controlsVisible,
-                    onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing) },
+                    onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing); playback.setAdSkipInteraction("seek", active: editing) },
                     onSeek: { playback.seek(to: $0) },
-                    onHover: { presentation.interact("seek-preview", active: $0) })
+                    onHover: { presentation.interact("seek-preview", active: $0); playback.setAdSkipInteraction("seek-preview", active: $0) })
             HStack(spacing: 12) {
                 Button { playback.togglePlayback() } label: { transportIcon(playback.playbackRequested ? "pause.fill" : "play.fill") }.help("播放/暂停 · 空格").accessibilityLabel(playback.playbackRequested ? "暂停" : "播放")
                 Button { playback.skip(-10) } label: { transportIcon("gobackward.10") }.help("快退 10 秒 · ←").accessibilityLabel("快退 10 秒")
@@ -272,6 +275,18 @@ struct PlayerView: View {
                 Text(playback.metrics.map { "\($0.sourceWidth)×\($0.sourceHeight) → \($0.outputWidth)×\($0.outputHeight) · \($0.mode)" } ?? "正在读取实际画面信息…").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
                 Spacer()
                 Menu {
+                    Toggle("自动识别并跳过（实验）", isOn: $playback.automaticAdSkipping)
+                    Text("本机识别新葡京类文字插播；不上传视频")
+                    Text("字幕、角标或边界不明时保留播放")
+                    Divider()
+                    Text(playback.automaticAdSkipping ? playback.adSkip.status : "自动跳过已关闭")
+                    Text("已识别 \(playback.adSkip.segments.count) 段 · 已分析 \(playback.adSkip.analyzedFrames) 帧")
+                    Button("撤销上次跳过并暂停") { playback.undoAdSkip() }.disabled(playback.adSkipNotice == nil)
+                } label: {
+                    Label(playback.automaticAdSkipping ? "自动跳广告 · 开" : "自动跳广告 · 关", systemImage: "forward.frame")
+                        .font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
+                }.menuStyle(.borderlessButton).fixedSize().help("本地分析视频帧，跳过确认的插播主段；可关闭或撤销")
+                Menu {
                     Button("框选广告与字幕保护区…") { beginAdEditing() }.disabled(videoDisplaySize.width <= 0)
                     if !playback.adCleanup.regions.isEmpty {
                         Button(playback.adCleanup.enabled ? "关闭柔化，显示原画面" : "启用已确认的选区") { playback.adCleanup.enabled.toggle() }
@@ -280,6 +295,15 @@ struct PlayerView: View {
                 } label: { Label(playback.adCleanup.isActive ? "广告柔化 · 开" : "广告柔化", systemImage: "rectangle.dashed").font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }
                     .menuStyle(.borderlessButton).fixedSize().help("手动框选，字幕保护优先；换集或换源时清空")
                 Menu { ForEach(EnhancementMode.allCases) { mode in Button(mode.title) { playback.enhancementMode = mode } } } label: { HStack(spacing: 5) { Image(systemName: "sparkles"); Text("画质增强") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize()
+            }
+            if let event = playback.adSkipNotice {
+                HStack(spacing: 8) {
+                    Image(systemName: "forward.end")
+                    Text("已跳过插播主段 \(timeString(event.returnPosition))–\(timeString(event.segment.end))")
+                    Spacer()
+                    Button("撤销并暂停") { playback.undoAdSkip() }
+                    Button { playback.dismissAdSkipNotice() } label: { Image(systemName: "xmark") }.help("关闭跳过提示")
+                }.font(.system(size: 11)).foregroundStyle(CinemaStyle.accent).buttonStyle(.plain)
             }
             if playback.adCleanup.isActive, let metrics = playback.metrics {
                 Text(metrics.cleanupReason ?? (metrics.cleanupAppliedRegions > 0 ? "已柔化 \(metrics.cleanupAppliedRegions) 个区域 · 字幕保护区保持原画面" : "正在准备广告柔化…"))

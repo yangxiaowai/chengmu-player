@@ -1,0 +1,64 @@
+{
+  "checkedAt" : "2026-09-27T16:03:37Z",
+  "checks" : [
+    {
+      "detail" : "Paused line switch remains paused and seeks to 20 seconds.",
+      "name" : "paused_line_switch_preserves_intent_and_position",
+      "passed" : true
+    },
+    {
+      "detail" : "1 ← 2 → 3 selects actual adjacent records; both ends remain no-ops.",
+      "name" : "adjacent_episodes_follow_context_and_stop_at_boundaries",
+      "passed" : true
+    },
+    {
+      "detail" : "Both numbered gaps and mismatched record\/detail identities refuse navigation.",
+      "name" : "gaps_and_unrelated_detail_cannot_select_adjacent_episodes",
+      "passed" : true
+    },
+    {
+      "detail" : "A search continuation deliberately completes after cancellation; results and loading stay cleared.",
+      "name" : "cancel_search_rejects_noncooperative_late_results",
+      "passed" : true
+    },
+    {
+      "detail" : "Cancel retains the candidate list and current item\/context even after a late successful detail.",
+      "name" : "cancel_detail_preserves_candidates_and_rejects_late_switch",
+      "passed" : true
+    },
+    {
+      "detail" : "Late successful playlist completion cannot commit a canceled source choice.",
+      "name" : "cancel_playlist_preserves_item_after_late_success",
+      "passed" : true
+    },
+    {
+      "detail" : "The second source choice commits once; delayed first-source detail cannot overwrite it.",
+      "name" : "new_choice_supersedes_old_detail_without_late_overwrite",
+      "passed" : true
+    },
+    {
+      "detail" : "Pause and seek to 31 seconds during verification survive replacement of the real AVPlayer item.",
+      "name" : "pause_during_source_check_wins_and_latest_position_is_retained",
+      "passed" : true
+    },
+    {
+      "detail" : "A play request made during verification wins over the paused state at verification start.",
+      "name" : "play_during_source_check_is_not_replaced_by_old_pause_intent",
+      "passed" : true
+    },
+    {
+      "detail" : "Wrong season, absent current episode, and failed media inspection all preserve the real item and reusable candidates.",
+      "name" : "wrong_season_missing_episode_and_probe_failure_preserve_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "Closing the player invalidates a pending playlist check and refuses its eventual success.",
+      "name" : "leaving_player_cancels_pending_source_commit",
+      "passed" : true
+    }
+  ],
+  "mode" : "Headless AppModel + real AVPlayer with generated local WAV; injected async source fixtures",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : true
+}

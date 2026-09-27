@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-27T16:09:21.723337+00:00",
+  "version": "0.2.8",
+  "build": "10",
+  "application": "dist/映川.app",
+  "archive": "dist/映川-v0.2.8.zip",
+  "signature": "local ad hoc; codesign --verify --strict --deep passed; not notarized",
+  "zipCRCPassed": true,
+  "zipFilenameDecoding": "UTF-8 for ditto legacy metadata",
+  "packagedBinaryMatchesApp": true,
+  "binarySHA256": "e9a82d2f342be42774b1b09067be3a30beef54e705ebc61850693cdf11729dd1",
+  "archiveSHA256": "85366261b62387143bd4a5bc72c7654f65305f4afd9dc9cbd46748882c79b5b7",
+  "archiveBytes": 1582297,
+  "realWorldAdAccuracyVerified": false,
+  "existingUserPlaybackRestarted": false
+}

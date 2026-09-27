@@ -1,0 +1,14 @@
+PASS real_ocr_advertisement actual=advertisement, PTS=1.0, seconds=0.27126598358154297, error=none
+PASS real_ocr_ordinary actual=ordinary, PTS=1.0, seconds=0.0663830041885376, error=none
+PASS real_ocr_subtitle actual=ordinary, PTS=1.0, seconds=0.07290589809417725, error=none
+PASS real_ocr_corner actual=ordinary, PTS=1.0, seconds=0.06933999061584473, error=none
+PASS real_ocr_brand actual=ordinary, PTS=1.0, seconds=0.05971205234527588, error=none
+PASS custom_subtitle_protection_excludes_main_title
+PASS local_sequence_detects_inserted_advertisement segments=["16.5-26.5"], samples=["0.5:ordinary", "2.5:ordinary", "4.5:ordinary", "6.5:ordinary", "8.5:ordinary", "10.5:ordinary", "12.5:ordinary", "14.5:ordinary", "16.5:advertisement", "18.5:advertisement", "20.5:advertisement", "22.5:advertisement", "24.5:advertisement", "26.5:advertisement", "28.5:ordinary", "30.5:ordinary", "32.5:ordinary", "34.5:ordinary", "36.5:ordinary", "38.5:ordinary"]
+PASS ordinary_hls_detects_inserted_advertisement segments=["16.5-26.5"], samples=["0.5:ordinary", "2.5:ordinary", "4.5:ordinary", "6.5:ordinary", "8.5:ordinary", "10.5:ordinary", "12.5:ordinary", "14.5:ordinary", "16.5:advertisement", "18.5:advertisement", "20.5:advertisement", "22.5:advertisement", "24.5:advertisement", "26.5:advertisement", "28.5:ordinary", "30.5:ordinary", "32.5:ordinary", "34.5:ordinary", "36.5:ordinary", "38.5:ordinary"]
+PASS cancelled_frame_is_unknown
+PASS controller_confirms_advertisement 已识别 1 段 · 正在分析前方画面
+PASS pause_retains_confirmed_segments_and_stops_work
+PASS item_change_clears_old_results
+PASS stop_rejects_late_results
+PASS failed_frame_is_unknown
