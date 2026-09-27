@@ -1,0 +1,75 @@
+import Foundation
+import AVFoundation
+import CoreImage
+import CinemaCore
+
+let pipeline = try EnhancementPipeline()
+var buffer: CVPixelBuffer?
+let width = 320, height = 180
+CVPixelBufferCreate(nil, width, height, kCVPixelFormatType_32BGRA, [kCVPixelBufferMetalCompatibilityKey as String: true, kCVPixelBufferIOSurfacePropertiesKey as String: [:]] as CFDictionary, &buffer)
+let extent = CGRect(x: 0, y: 0, width: width, height: height)
+let checker = CIFilter(name: "CICheckerboardGenerator", parameters: ["inputWidth": 4.0, "inputColor0": CIColor(red: 0.05, green: 0.08, blue: 0.12), "inputColor1": CIColor(red: 0.9, green: 0.85, blue: 0.7)])!.outputImage!.cropped(to: extent)
+let caption = CIImage(color: CIColor(red: 1, green: 1, blue: 1)).cropped(to: CGRect(x: 55, y: 10, width: 210, height: 12))
+let source = caption.composited(over: checker)
+pipeline.context.render(source, to: buffer!, bounds: extent, colorSpace: pipeline.colorSpace)
+let region = NormalizedVideoRect(x: 0.1, y: 0.1, width: 0.3, height: 0.3)
+let settings = AdCleanupSettings(enabled: true, regions: [region])
+func bytes(_ frame: EnhancedFrame) -> [UInt8] {
+    var output = [UInt8](repeating: 0, count: frame.width * frame.height * 4)
+    let image = CIImage(mtlTexture: frame.texture, options: [.colorSpace: pipeline.colorSpace])!.oriented(.downMirrored)
+    pipeline.context.render(image, toBitmap: &output, rowBytes: frame.width * 4, bounds: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), format: .RGBA8, colorSpace: pipeline.colorSpace)
+    return output
+}
+var cases: [[String: Any]] = []
+for (mode, transform) in [(EnhancementMode.original, CGAffineTransform.identity), (.clarity, .identity), (.upscale4K, .identity), (.original, CGAffineTransform(a: 0, b: 1, c: -1, d: 0, tx: CGFloat(height), ty: 0))] {
+    let baseline = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform)
+    let cleaned = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: settings)
+    let original = bytes(baseline), changed = bytes(cleaned)
+    let rectangle = AdCleanupPolicy.pixelRect(region, width: baseline.width, height: baseline.height)!
+    var insideChanges = 0, outsideChanges = 0, protectedChanges = 0
+    let protected = AdCleanupPolicy.pixelRect(AdCleanupSettings.defaultProtection, width: baseline.width, height: baseline.height)!
+    for y in 0..<baseline.height {
+        for x in 0..<baseline.width {
+            let index = (y * baseline.width + x) * 4
+            guard original[index..<index+4] != changed[index..<index+4] else { continue }
+            let point = CGPoint(x: Double(x) + 0.5, y: Double(y) + 0.5)
+            if rectangle.contains(point) { insideChanges += 1 } else { outsideChanges += 1 }
+            if protected.contains(point) { protectedChanges += 1 }
+        }
+    }
+    assert(insideChanges > 0, "No real blur inside selected region")
+    assert(outsideChanges == 0, "Cleanup changed pixels outside selection: \(outsideChanges)")
+    assert(protectedChanges == 0, "Cleanup changed subtitle pixels")
+    assert(cleaned.cleanupAppliedRegions == 1)
+    let disabled = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: AdCleanupSettings(regions: [region]))
+    assert(bytes(disabled) == original, "Disabled cleanup differs from baseline")
+    let conflict = AdCleanupSettings(enabled: true, regions: [NormalizedVideoRect(x: 0.1, y: 0.65, width: 0.3, height: 0.25)])
+    let rejected = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: conflict)
+    assert(bytes(rejected) == original && rejected.cleanupAppliedRegions == 0 && rejected.cleanupRejectedRegions == 1, "Conflicting region must be rejected completely")
+    let invalid = AdCleanupSettings(enabled: true, regions: [region], protectedRegions: [NormalizedVideoRect(x: 0, y: .nan, width: 1, height: 0.1)])
+    let closed = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: invalid)
+    assert(bytes(closed) == original && closed.cleanupAppliedRegions == 0, "Invalid protection must fail closed")
+    cases.append(["mode": mode.rawValue, "rotated": !transform.isIdentity, "output": [baseline.width, baseline.height], "inside_changed_pixels": insideChanges, "outside_changed_pixels": outsideChanges, "protected_changed_pixels": protectedChanges, "disabled_equals_baseline": true, "whole_conflict_rejected": true, "invalid_protection_fail_closed": true, "processing_ms": cleaned.milliseconds])
+}
+// Hold selected pixels fixed and change every surrounding pixel: the blur must not sample outside its crop.
+let sampleRect = AdCleanupPolicy.pixelRect(region, width: width, height: height)!
+func samplingFixture(_ color: CIColor) throws -> [UInt8] {
+    let outside = CIImage(color: color).cropped(to: extent)
+    let fixedPatch = checker.cropped(to: sampleRect)
+    pipeline.context.render(fixedPatch.composited(over: outside), to: buffer!, bounds: extent, colorSpace: pipeline.colorSpace)
+    return bytes(try pipeline.process(buffer!, mode: .original, time: .zero, cleanup: settings))
+}
+let redOutside = try samplingFixture(CIColor(red: 1, green: 0, blue: 0))
+let blueOutside = try samplingFixture(CIColor(red: 0, green: 0, blue: 1))
+var samplingDifferences = 0
+for y in Int(sampleRect.minY)..<Int(sampleRect.maxY) {
+    for x in Int(sampleRect.minX)..<Int(sampleRect.maxX) {
+        let offset = (y * width + x) * 4
+        if redOutside[offset..<offset+4] != blueOutside[offset..<offset+4] { samplingDifferences += 1 }
+    }
+}
+assert(samplingDifferences == 0, "Blur sampled pixels outside selected rectangle")
+var samples: [Double] = []
+for index in 0..<60 { samples.append(try pipeline.process(buffer!, mode: .original, time: CMTime(value: Int64(index), timescale: 30), cleanup: settings).milliseconds) }
+let report: [String: Any] = ["version": "0.2.3", "device": pipeline.device.name, "scope": "Synthetic SDR checkerboard and caption blocks, exact RGBA8 GPU output comparisons; not OCR, background reconstruction, or network playback validation", "display_geometry_policy": "Full clean aperture, square pixels, and transformed/presentation aspect agreement required; otherwise cleanup falls back", "core_tests_passed": 6, "sampling_isolation_changed_pixels": samplingDifferences, "texture_readback_coordinates": "MTL texture readback is downMirrored into Core Image bottom-left coordinates before comparison", "cases": cases, "original_cleanup_60_frames_mean_ms": samples.reduce(0,+) / Double(samples.count), "passed": true]
+print(String(decoding: try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]), as: UTF8.self))

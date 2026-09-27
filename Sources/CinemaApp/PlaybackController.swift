@@ -41,6 +41,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     @Published private(set) var sleepRemainingSeconds: Int?
     @Published var metrics: EnhancementMetrics?
+    @Published var adCleanup = AdCleanupSettings()
     @Published var subtitleText = ""
     @Published var subtitleNotice: String?
     @Published var subtitleOffset = 0.0
@@ -62,10 +63,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var audioGroup: AVMediaSelectionGroup?
     private var subtitleGroup: AVMediaSelectionGroup?
     private var cues: [SubtitleCue] = []
-    private var itemID = UUID()
+    @Published private(set) var itemID = UUID()
+    var playbackRequested: Bool { wantsPlay }
+    private(set) var playbackIntentID = UUID()
     private var url: URL?
     private var desiredResume = 0.0
-    private var wantsPlay = false
+    private var wantsPlay = false { didSet { playbackIntentID = UUID() } }
     private var lastSave = 0.0
     private var probeTask: Task<Void, Never>?
     private var prepareTask: Task<Void, Never>?
@@ -105,6 +108,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         cues = []; subtitleText = ""; subtitleNotice = nil; externalSubtitleName = nil; subtitleOffset = 0
         audioTracks = []; subtitleTracks = []; audioGroup = nil; subtitleGroup = nil
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
+        adCleanup = AdCleanupSettings()
         let item = AVPlayerItem(url: url)
         item.preferredForwardBufferDuration = 12
         let output = AVPlayerItemLegibleOutput()
@@ -207,15 +211,25 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
     func pause() { wantsPlay = false; player.pause(); saveProgress() }
+    func resumeAfterEditing(ifUnchanged intent: UUID) {
+        guard playbackIntentID == intent, !wantsPlay, error == nil else { return }
+        // KVO isPlaying can still describe the frame before pause(). This is
+        // an explicit resume, not a toggle based on a delayed observation.
+        wantsPlay = true
+        if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
+        player.playImmediately(atRate: rate)
+    }
     func retry() {
         guard let url else { return }
         let savedCues = cues, savedName = externalSubtitleName, savedOffset = subtitleOffset
+        let savedCleanup = adCleanup
         // A failed item clears wantsPlay; retrying that failure still requests play.
         // Normal paused retries retain their pause, including during preparation.
         let shouldPlay = wantsPlay || error != nil
         let resumePosition = desiredResume > 0 ? desiredResume : position
         open(url: url, title: title, episode: episodeName, resume: resumePosition)
         cues = savedCues; externalSubtitleName = savedName; subtitleOffset = savedOffset
+        adCleanup = savedCleanup
         wantsPlay = shouldPlay
         if !shouldPlay { player.pause() }
     }

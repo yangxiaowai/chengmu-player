@@ -9,16 +9,24 @@ struct PlayerView: View {
     @LegacyState private var dragging = false
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
+    @LegacyState private var editingAds = false
+    @LegacyState private var adDraft = AdCleanupSettings()
+    @LegacyState private var originalCleanup = AdCleanupSettings()
+    @LegacyState private var adTool = AdSelectionTool.advertisement
+    @LegacyState private var adNotice: String?
+    @LegacyState private var adEditingItemID: UUID?
+    @LegacyState private var adEditingIntentID: UUID?
+    @LegacyState private var resumeAfterAdEditing = false
     @StateObject private var presentation = PlayerPresentationController()
     var body: some View {
         VStack(spacing: 0) {
-            if !presentation.isFullscreen { header }
+            if !presentation.isFullscreen { header.disabled(editingAds) }
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
                     ZStack {
                         Color.black
-                        VideoSurface(player: playback.player, mode: playback.enhancementMode, generation: playback.generation) { metrics in playback.metrics = metrics }
-                        PlaybackKeyboardSurface(playback: playback, presentation: presentation)
+                        VideoSurface(player: playback.player, mode: playback.enhancementMode, generation: playback.generation, cleanup: playback.adCleanup) { metrics in playback.metrics = metrics }
+                        if !editingAds { PlaybackKeyboardSurface(playback: playback, presentation: presentation) }
                         if !playback.subtitleText.isEmpty {
                             VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
                                 .allowsHitTesting(false)
@@ -36,7 +44,7 @@ struct PlayerView: View {
                             }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
                         }
                         if showStats && !presentation.isFullscreen { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
-                        if presentation.isFullscreen {
+                        if presentation.isFullscreen && !editingAds {
                             VStack(spacing: 0) {
                                 header
                                     .background(LinearGradient(colors: [.black.opacity(0.75), .clear], startPoint: .top, endPoint: .bottom))
@@ -50,12 +58,17 @@ struct PlayerView: View {
                             .accessibilityHidden(!presentation.controlsVisible)
                             .animation(.easeInOut(duration: 0.2), value: presentation.controlsVisible)
                         }
+                        if editingAds {
+                            AdCleanupCanvas(draft: $adDraft, tool: adTool, videoSize: videoDisplaySize, notice: $adNotice)
+                        }
                     }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                    if !presentation.isFullscreen { controls }
+                    if editingAds {
+                        AdCleanupControls(draft: $adDraft, tool: $adTool, videoSize: videoDisplaySize, notice: $adNotice, onCancel: { finishAdEditing(apply: false) }, onApply: { finishAdEditing(apply: true) })
+                    } else if !presentation.isFullscreen { controls }
                 }
                 if showEpisodes && !presentation.isFullscreen {
                     Divider().overlay(CinemaStyle.border)
-                    episodePanel.frame(width: 258)
+                    episodePanel.frame(width: 258).disabled(editingAds)
                 }
             }
         }
@@ -63,15 +76,59 @@ struct PlayerView: View {
         .background(PlayerWindowAttachment(presentation: presentation).frame(width: 0, height: 0))
         .ignoresSafeArea(.container, edges: presentation.isFullscreen ? .all : [])
         .onAppear { updatePresentation() }
-        .onDisappear { presentation.detach() }
+        .onDisappear { abandonAdEditing(); presentation.detach() }
         .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
-        .onExitCommand { if presentation.isFullscreen { presentation.leaveFullscreen() } }
+        .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
+        .onChange(of: playback.itemID) { _, _ in abandonAdEditing() }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
     }
     private func updatePresentation() {
         presentation.updatePlayback(isPlaying: playback.isPlaying, isBuffering: playback.isLoading, hasError: playback.error != nil)
+    }
+    private var videoDisplaySize: CGSize {
+        // Match the geometry of the surface currently shown, not the encoded buffer.
+        let size: CGSize
+        if let metrics = playback.metrics, metrics.outputWidth > 0, metrics.outputHeight > 0 {
+            size = CGSize(width: metrics.outputWidth, height: metrics.outputHeight)
+        } else { size = playback.player.currentItem?.presentationSize ?? .zero }
+        guard size.width.isFinite, size.height.isFinite, size.width > 0, size.height > 0 else { return .zero }
+        return size
+    }
+    private func beginAdEditing() {
+        guard videoDisplaySize.width > 0, videoDisplaySize.height > 0 else { return }
+        adEditingItemID = playback.itemID; resumeAfterAdEditing = playback.playbackRequested
+        originalCleanup = playback.adCleanup; adDraft = playback.adCleanup
+        adTool = .advertisement; adNotice = "拖动框选广告，或切换到“保护字幕”添加保护区。"
+        playback.pause()
+        adEditingIntentID = playback.playbackIntentID
+        playback.adCleanup.enabled = false
+        presentation.interact("ad-editor", active: true); editingAds = true
+    }
+    private func finishAdEditing(apply: Bool) {
+        guard editingAds, adEditingItemID == playback.itemID else { abandonAdEditing(); return }
+        if apply {
+            let size = videoDisplaySize
+            guard !adDraft.regions.isEmpty, adDraft.regions.allSatisfy({ AdCleanupPolicy.rejectionReason(for: $0, protectedRegions: adDraft.protectedRegions, width: Int(size.width), height: Int(size.height)) == nil }) else {
+                adNotice = "选区与字幕保护区冲突或尺寸尚未就绪，请检查后再应用。"; return
+            }
+            adDraft.enabled = true; playback.adCleanup = adDraft
+        } else { playback.adCleanup = originalCleanup }
+        let shouldResume = resumeAfterAdEditing
+        let intent = adEditingIntentID
+        editingAds = false; adEditingItemID = nil; resumeAfterAdEditing = false
+        adEditingIntentID = nil
+        presentation.interact("ad-editor", active: false)
+        if shouldResume, let intent { playback.resumeAfterEditing(ifUnchanged: intent) }
+    }
+    private func abandonAdEditing() {
+        guard editingAds else { return }
+        // Leaving or switching episodes must never apply a draft or restart playback.
+        if adEditingItemID == playback.itemID { playback.adCleanup = originalCleanup }
+        editingAds = false; adEditingItemID = nil; resumeAfterAdEditing = false
+        adEditingIntentID = nil
+        presentation.interact("ad-editor", active: false)
     }
     private var subtitleBottomPadding: CGFloat {
         presentation.isFullscreen ? (presentation.controlsVisible ? 190 : 42) : 32
@@ -140,7 +197,19 @@ struct PlayerView: View {
                 Circle().fill((playback.metrics?.fallbackReason == nil) ? CinemaStyle.accent : .gray).frame(width: 5, height: 5)
                 Text(playback.metrics.map { "\($0.sourceWidth)×\($0.sourceHeight) → \($0.outputWidth)×\($0.outputHeight) · \($0.mode)" } ?? "正在读取实际画面信息…").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
                 Spacer()
+                Menu {
+                    Button("框选广告与字幕保护区…") { beginAdEditing() }.disabled(videoDisplaySize.width <= 0)
+                    if !playback.adCleanup.regions.isEmpty {
+                        Button(playback.adCleanup.enabled ? "关闭柔化，显示原画面" : "启用已确认的选区") { playback.adCleanup.enabled.toggle() }
+                        Button("清除当前影片的所有选区") { playback.adCleanup = AdCleanupSettings() }
+                    }
+                } label: { Label(playback.adCleanup.isActive ? "广告柔化 · 开" : "广告柔化", systemImage: "rectangle.dashed").font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }
+                    .menuStyle(.borderlessButton).fixedSize().help("手动框选，字幕保护优先；换集或换源时清空")
                 Menu { ForEach(EnhancementMode.allCases) { mode in Button(mode.title) { playback.enhancementMode = mode } } } label: { HStack(spacing: 5) { Image(systemName: "sparkles"); Text("画质增强") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize()
+            }
+            if playback.adCleanup.isActive, let metrics = playback.metrics {
+                Text(metrics.cleanupReason ?? (metrics.cleanupAppliedRegions > 0 ? "已柔化 \(metrics.cleanupAppliedRegions) 个区域 · 字幕保护区保持原画面" : "正在准备广告柔化…"))
+                    .font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).frame(maxWidth: .infinity, alignment: .leading)
             }
             if let reason = playback.metrics?.fallbackReason { Text(reason).font(.system(size: 10)).foregroundStyle(CinemaStyle.accent).frame(maxWidth: .infinity, alignment: .leading) }
             if let notice = playback.subtitleNotice {
@@ -224,36 +293,154 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
     let presentation: PlayerPresentationController
     func makeNSView(context: Context) -> KeyboardView {
         let view = KeyboardView()
-        view.playback = playback
-        view.presentation = presentation
+        view.bind(playback: playback, presentation: presentation)
         view.setAccessibilityElement(true)
         view.setAccessibilityRole(.group)
         view.setAccessibilityLabel("影片画面")
-        view.setAccessibilityHelp("点击画面启用快捷键：空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音。双击画面切换全屏，Esc 退出全屏。")
+        view.setAccessibilityHelp("单击画面播放或暂停，双击切换全屏。空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音，Esc 退出全屏。")
         return view
     }
-    func updateNSView(_ view: KeyboardView, context: Context) { view.playback = playback; view.presentation = presentation }
+    func updateNSView(_ view: KeyboardView, context: Context) { view.bind(playback: playback, presentation: presentation) }
+    static func dismantleNSView(_ view: KeyboardView, coordinator: ()) { view.detachInput() }
 
     final class KeyboardView: NSView {
         weak var playback: PlaybackController?
         weak var presentation: PlayerPresentationController?
+        private var generation: UUID?
+        private var clicks = PlaybackCanvasClickPolicy()
+        private var clickTimer: Timer?
+        private var tracking: NSTrackingArea?
+        private var observations: [NSObjectProtocol] = []
+        private var inputMonitor: Any?
+
         override var acceptsFirstResponder: Bool { true }
         override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+
+        func bind(playback: PlaybackController, presentation: PlayerPresentationController) {
+            if self.playback !== playback || generation != playback.generation { cancelClick() }
+            self.playback = playback; self.presentation = presentation; generation = playback.generation
+        }
+
+        override func viewWillMove(toWindow newWindow: NSWindow?) {
+            if newWindow !== window { detachInput() }
+            super.viewWillMove(toWindow: newWindow)
+        }
+
         override func viewDidMoveToWindow() {
             super.viewDidMoveToWindow()
-            guard window != nil else { return }
-            DispatchQueue.main.async { [weak self] in
-                guard let self, let window = self.window, window.attachedSheet == nil,
+            detachInput()
+            guard let window else { return }
+            // Observe input without consuming it. A click on an overlaid control
+            // or a shortcut must not be followed by an old delayed canvas click.
+            inputMonitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown, .keyDown]) { [weak self] event in
+                guard let self, event.window === self.window else { return event }
+                if event.type == .keyDown || !self.isCanvasPoint(event.locationInWindow) { self.cancelClick() }
+                return event
+            }
+            for name in [NSWindow.didResignKeyNotification, NSWindow.willCloseNotification,
+                         NSWindow.willBeginSheetNotification, NSWindow.willEnterFullScreenNotification,
+                         NSWindow.willExitFullScreenNotification] {
+                observations.append(NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { [weak self] _ in
+                    MainActor.assumeIsolated { self?.cancelClick() }
+                })
+            }
+            observations.append(NotificationCenter.default.addObserver(forName: NSApplication.didResignActiveNotification, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.cancelClick() }
+            })
+            DispatchQueue.main.async { [weak self, weak window] in
+                guard let self, let window, self.window === window, window.attachedSheet == nil,
                       !(window.firstResponder is NSTextView), !(window.firstResponder is NSControl) else { return }
                 window.makeFirstResponder(self)
             }
         }
-        override func mouseDown(with event: NSEvent) {
-            window?.makeFirstResponder(self)
-            presentation?.activity()
-            if event.clickCount == 2 { presentation?.toggleFullscreen() }
+
+        override func updateTrackingAreas() {
+            super.updateTrackingAreas()
+            if let tracking { removeTrackingArea(tracking) }
+            let area = NSTrackingArea(rect: .zero, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil)
+            addTrackingArea(area); tracking = area
         }
+
+        override func mouseExited(with event: NSEvent) { cancelClick() }
+        override func resignFirstResponder() -> Bool { cancelClick(); return super.resignFirstResponder() }
+
+        override func mouseDown(with event: NSEvent) {
+            guard event.modifierFlags.intersection([.command, .control, .option]).isEmpty else {
+                cancelClick(); super.mouseDown(with: event); return
+            }
+            clickTimer?.invalidate(); clickTimer = nil
+            if window?.firstResponder !== self { window?.makeFirstResponder(self) }
+            presentation?.activity()
+            clicks.pointerDown(button: event.buttonNumber, clickCount: event.clickCount, at: convert(event.locationInWindow, from: nil))
+        }
+
+        override func mouseDragged(with event: NSEvent) {
+            clicks.pointerDragged(to: convert(event.locationInWindow, from: nil))
+        }
+
+        override func mouseUp(with event: NSEvent) {
+            guard canAct else { cancelClick(); return }
+            // Controls may become visible after mouseDown in fullscreen. Keep
+            // the gesture owned by the canvas that received its first press.
+            let point = convert(event.locationInWindow, from: nil)
+            let action = clicks.pointerUp(button: event.buttonNumber, at: point,
+                                          insideCanvas: bounds.contains(point),
+                                          now: ProcessInfo.processInfo.systemUptime, doubleClickInterval: NSEvent.doubleClickInterval)
+            perform(action)
+            scheduleSingleClick()
+        }
+
+        override func rightMouseDown(with event: NSEvent) { cancelClick(); super.rightMouseDown(with: event) }
+        override func otherMouseDown(with event: NSEvent) { cancelClick(); super.otherMouseDown(with: event) }
+
+        private var canAct: Bool {
+            guard let window else { return false }
+            return NSApp.isActive && window.isKeyWindow && window.attachedSheet == nil
+                && window.firstResponder === self && !isHiddenOrHasHiddenAncestor
+        }
+
+        private func isCanvasPoint(_ locationInWindow: NSPoint) -> Bool {
+            guard let content = window?.contentView, !isHiddenOrHasHiddenAncestor else { return false }
+            // NSView.hitTest expects the point in its superview's coordinates.
+            let point = content.superview?.convert(locationInWindow, from: nil) ?? locationInWindow
+            return content.hitTest(point) === self
+        }
+
+        private func scheduleSingleClick() {
+            clickTimer?.invalidate(); clickTimer = nil
+            guard let pending = clicks.pendingSingleClick else { return }
+            let timer = Timer(timeInterval: max(0.001, pending.deadline - ProcessInfo.processInfo.systemUptime), repeats: false) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    guard let self else { return }
+                    guard self.canAct else { self.cancelClick(); return }
+                    let action = self.clicks.fireSingleClick(pending.id, now: ProcessInfo.processInfo.systemUptime)
+                    self.perform(action)
+                    if self.clicks.pendingSingleClick != nil { self.scheduleSingleClick() }
+                }
+            }
+            clickTimer = timer
+            RunLoop.main.add(timer, forMode: .common)
+        }
+
+        private func perform(_ action: PlaybackCanvasClickPolicy.Action?) {
+            switch action {
+            case .togglePlayback: presentation?.activity(); playback?.togglePlayback()
+            case .toggleFullscreen: presentation?.toggleFullscreen()
+            case nil: break
+            }
+        }
+
+        private func cancelClick() { clickTimer?.invalidate(); clickTimer = nil; clicks.cancel() }
+
+        func detachInput() {
+            cancelClick()
+            if let inputMonitor { NSEvent.removeMonitor(inputMonitor) }
+            inputMonitor = nil
+            observations.forEach { NotificationCenter.default.removeObserver($0) }; observations = []
+        }
+
         override func keyDown(with event: NSEvent) {
+            cancelClick()
             guard let playback, event.modifierFlags.intersection([.command, .control, .option]).isEmpty else {
                 super.keyDown(with: event); return
             }

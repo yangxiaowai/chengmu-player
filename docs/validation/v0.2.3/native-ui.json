@@ -1,0 +1,83 @@
+{
+  "version": "0.2.3",
+  "build": "5",
+  "checked_at": "2026-09-27T12:34:48.799175+00:00",
+  "method": "Native macOS UI actions, AX readback and screenshots through cua_repl",
+  "fixture": "Generated local 30-second 960x540 24fps H264 test card, top-right ad text and bottom burned-in caption, no audio",
+  "cases": [
+    {
+      "name": "windowed_single_click_pause_resume",
+      "passed": true,
+      "observation": "Canvas single click changed Pause to Play and held 5.5616s; second single click restored Pause and progress advanced to 12.8s."
+    },
+    {
+      "name": "double_click_fullscreen_preserves_play",
+      "passed": true,
+      "observation": "Double click entered fullscreen, sidebar absent, Pause remained and progress reached 20s."
+    },
+    {
+      "name": "fullscreen_idle_and_hidden_canvas_pause",
+      "passed": true,
+      "observation": "After restarting the test card and 3.5s idle, AX showed only video canvas. Single click revealed controls and paused at 18.040247125s."
+    },
+    {
+      "name": "manual_ad_blur_and_burned_caption",
+      "passed": true,
+      "observation": "Right-top AD example.test rectangle visibly blurred; lower SUBTITLES - KEEP THIS TEXT remained clear; paused position unchanged."
+    },
+    {
+      "name": "ad_over_default_protection_rejected",
+      "passed": true,
+      "observation": "Dragging an ad rectangle over lower caption showed 与字幕保护区重叠，整框不应用 and retained one existing ad region."
+    },
+    {
+      "name": "new_protection_conflicts_existing_ad",
+      "passed": true,
+      "observation": "Additional protection over existing ad disabled Apply and displayed conflict guidance."
+    },
+    {
+      "name": "disable_restores_original",
+      "passed": true,
+      "observation": "Disable showed sharp original AD example.test and caption, still paused."
+    },
+    {
+      "name": "cancel_preserves_paused_state",
+      "passed": true,
+      "observation": "Cancel conflicting draft preserved paused original state at 18.040247125s."
+    },
+    {
+      "name": "cancel_restores_playing_state",
+      "passed": true,
+      "observation": "Final binary: entered editor while playing, canceled, Pause button and advancing position confirmed resumed playback with previous cleanup."
+    },
+    {
+      "name": "paused_first_frame_status_regression",
+      "passed": true,
+      "observation": "Final binary after restart: Apply while paused immediately showed 960×540 → 3,840×2,160 · GPU 增强至 4K + 局部柔化（1框） and 已柔化 1 个区域; Play button and 22.330700833s remained."
+    }
+  ],
+  "final_executable_sha256": "ce5d7d5246954c21ed9d9ffd68c74e93ed8311b2d9bd017e2e61c484fb4aa3bc",
+  "binary_scope": "First eight cases observed in release candidate before status-publication-only fix; last two and paused apply rerun on final binary after restart. No interaction or filter pixel code changed between candidates.",
+  "discovered_and_fixed": "Paused first-frame metrics initially stayed 0x0/preparing due 0.5s publication throttle. First displayed or paused processed frames now publish immediately; native regression passed.",
+  "restored_user_playback": {
+    "title": "怪奇物语第一季",
+    "episode": "第07集",
+    "source": "非凡目录",
+    "paused": true,
+    "fullscreen": true,
+    "position_seconds": 1444.673258847,
+    "prior_position_seconds": 1449.639,
+    "volume": 0.8,
+    "mode": "upscale4K"
+  },
+  "not_verified": [
+    "Full real film ad cleanup",
+    "All soft subtitle styles",
+    "Real sleep deadline expiration",
+    "HDR cleanup",
+    "Apple AI cleanup combination",
+    "All displays and aspect ratios in native UI",
+    "Whole-episode audiovisual synchronization"
+  ],
+  "passed": true
+}

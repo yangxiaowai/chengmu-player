@@ -1,0 +1,107 @@
+Building for debugging...
+[Planning deferred tasks]
+[27 / 50]
+[28 / 51] CinemaCore
+[37 / 105]
+[41 / 105]
+[46 / 105]
+[48 / 105]
+[52 / 105]
+[55 / 105]
+[60 / 105]
+[62 / 105]
+[63 / 105]
+[70 / 105]
+[71 / 105]
+[75 / 105]
+[76 / 105]
+[78 / 105]
+[80 / 105]
+[90 / 105] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[95 / 106] CinemaCoreTests-product
+[96 / 111]
+[100 / 111] CinemaCoreTests-product
+[105 / 111] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[107 / 111] CinemaCoreTests-product
+Build complete! (19.68 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackCanvasClickPolicyTests started.
+◇ Test draggingAwayAndBackIsNotAClick() started.
+◇ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() started.
+◇ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test releaseMovementIsCheckedEvenWithoutDragEvents() started.
+◇ Test draggingTheSecondClickDoesNotToggleFullscreen() started.
+◇ Test doubleClickSwitchesFullscreenWithoutPausing() started.
+◇ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() started.
+◇ Test aStaleTimerCannotTogglePlaybackForANewerClick() started.
+◇ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() started.
+◇ Test smallPointerJitterStillCountsAsASingleClick() started.
+◇ Test releaseOutsideCanvasCannotTogglePlayback() started.
+◇ Test case passing 1 argument button → 1 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test case passing 1 argument button → 2 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() started.
+✔ Test releaseMovementIsCheckedEvenWithoutDragEvents() passed after 0.001 seconds.
+✔ Test draggingAwayAndBackIsNotAClick() passed after 0.001 seconds.
+✔ Test releaseOutsideCanvasCannotTogglePlayback() passed after 0.001 seconds.
+✔ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() passed after 0.001 seconds.
+✘ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) recorded an issue with 1 argument button → 2 at PlaybackCanvasClickPolicyTests.swift:39:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test doubleClickSwitchesFullscreenWithoutPausing() recorded an issue at PlaybackCanvasClickPolicyTests.swift:20:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() recorded an issue at PlaybackCanvasClickPolicyTests.swift:88:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test smallPointerJitterStillCountsAsASingleClick() recorded an issue at PlaybackCanvasClickPolicyTests.swift:82:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() recorded an issue at PlaybackCanvasClickPolicyTests.swift:12:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) recorded an issue with 1 argument button → 1 at PlaybackCanvasClickPolicyTests.swift:39:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test draggingTheSecondClickDoesNotToggleFullscreen() recorded an issue at PlaybackCanvasClickPolicyTests.swift:56:27: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() recorded an issue at PlaybackCanvasClickPolicyTests.swift:31:9: Expectation failed: policy.pointerUp(button: 0, at: point, insideCanvas: true, now: 10.2, doubleClickInterval: 0.5) == .toggleFullscreen
+↳ policy.pointerUp(button: 0, at: point, insideCanvas: true, now: 10.2, doubleClickInterval: 0.5) == .toggleFullscreen → false
+↳   policy.pointerUp(button: 0, at: point, insideCanvas: true, now: 10.2, doubleClickInterval: 0.5) → nil
+↳     some → .toggleFullscreen
+✘ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() failed after 0.001 seconds with 1 issue.
+✘ Test aStaleTimerCannotTogglePlaybackForANewerClick() recorded an issue at PlaybackCanvasClickPolicyTests.swift:99:23: Expectation failed: policy.pendingSingleClick
+↳ policy.pendingSingleClick → nil
+↳   policy → PlaybackCanvasClickPolicy(pendingSingleClick: nil)
+↳     pendingSingleClick → nil
+↳   pendingSingleClick → nil
+✘ Test smallPointerJitterStillCountsAsASingleClick() failed after 0.001 seconds with 1 issue.
+✘ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() failed after 0.001 seconds with 1 issue.
+✘ Test draggingTheSecondClickDoesNotToggleFullscreen() failed after 0.001 seconds with 1 issue.
+✘ Test doubleClickSwitchesFullscreenWithoutPausing() failed after 0.001 seconds with 1 issue.
+✘ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() failed after 0.001 seconds with 1 issue.
+✘ Test aStaleTimerCannotTogglePlaybackForANewerClick() failed after 0.001 seconds with 1 issue.
+✘ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) with 2 test cases failed after 0.001 seconds with 2 issues.
+✘ Suite PlaybackCanvasClickPolicyTests failed after 0.001 seconds with 9 issues.
+✘ Test run with 12 tests in 1 suite failed after 0.001 seconds with 9 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

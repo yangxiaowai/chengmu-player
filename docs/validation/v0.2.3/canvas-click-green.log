@@ -1,0 +1,43 @@
+Building for debugging...
+[2 / 6] CinemaCore
+[3 / 7] CinemaCore
+[9 / 13] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[12 / 14] CinemaCoreTests-product
+[14 / 16] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/yingchuan-canvas-click-fq2004ar/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[18 / 19] CinemaCoreTests-product
+Build complete! (1.40 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackCanvasClickPolicyTests started.
+◇ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() started.
+◇ Test draggingTheSecondClickDoesNotToggleFullscreen() started.
+◇ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() started.
+◇ Test doubleClickSwitchesFullscreenWithoutPausing() started.
+◇ Test aStaleTimerCannotTogglePlaybackForANewerClick() started.
+◇ Test smallPointerJitterStillCountsAsASingleClick() started.
+◇ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() started.
+◇ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test releaseMovementIsCheckedEvenWithoutDragEvents() started.
+◇ Test releaseOutsideCanvasCannotTogglePlayback() started.
+◇ Test draggingAwayAndBackIsNotAClick() started.
+◇ Test case passing 1 argument button → 1 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test case passing 1 argument button → 2 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+✔ Test draggingTheSecondClickDoesNotToggleFullscreen() passed after 0.001 seconds.
+✔ Test smallPointerJitterStillCountsAsASingleClick() passed after 0.001 seconds.
+✔ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) with 2 test cases passed after 0.001 seconds.
+✔ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() passed after 0.001 seconds.
+✔ Test aStaleTimerCannotTogglePlaybackForANewerClick() passed after 0.001 seconds.
+✔ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() passed after 0.001 seconds.
+✔ Test releaseMovementIsCheckedEvenWithoutDragEvents() passed after 0.001 seconds.
+✔ Test doubleClickSwitchesFullscreenWithoutPausing() passed after 0.001 seconds.
+◇ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() started.
+✔ Test draggingAwayAndBackIsNotAClick() passed after 0.001 seconds.
+✔ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() passed after 0.001 seconds.
+✔ Test releaseOutsideCanvasCannotTogglePlayback() passed after 0.001 seconds.
+✔ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() passed after 0.001 seconds.
+✔ Suite PlaybackCanvasClickPolicyTests passed after 0.001 seconds.
+✔ Test run with 12 tests in 1 suite passed after 0.001 seconds.

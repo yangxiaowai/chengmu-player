@@ -1,0 +1,8 @@
+Isolated native input typecheck
+Scope: extracted PlaybackKeyboardSurface from PlayerView.swift, plus the real PlaybackCanvasClickPolicy.swift.
+PlaybackController and PlayerPresentationController supplied as signature-only stubs.
+Command: xcrun swiftc -swift-version 5 -typecheck -module-cache-path <temporary cache> PlaybackCanvasClickPolicy.swift NativeCanvasInput.swift
+Exit: 0
+Compiler diagnostics: none
+This is a compile-time API/actor check, not a full App build or runtime UI validation.
+Final recheck after preserving gesture ownership when fullscreen controls appear: exit 0

@@ -9,10 +9,11 @@ struct VideoSurface: NSViewRepresentable {
     let player: AVPlayer
     let mode: EnhancementMode
     var generation: UUID = UUID()
+    var cleanup: AdCleanupSettings = .init()
     let onMetrics: (EnhancementMetrics) -> Void
     func makeNSView(context: Context) -> CinemaVideoView { CinemaVideoView() }
     func updateNSView(_ view: CinemaVideoView, context: Context) {
-        view.configure(player: player, mode: mode, generation: generation, onMetrics: onMetrics)
+        view.configure(player: player, mode: mode, generation: generation, cleanup: cleanup, onMetrics: onMetrics)
     }
     static func dismantleNSView(_ view: CinemaVideoView, coordinator: ()) { view.stop() }
 }
@@ -27,6 +28,7 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
     private var timer: Timer?
     private let worker = DispatchQueue(label: "Cinema.enhancement", qos: .userInitiated)
     private var mode = EnhancementMode.original
+    private var cleanup: AdCleanupSettings = .init()
     private var generation = UUID()
     private var revision = UUID()
     private var busy = false
@@ -73,12 +75,12 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         metalView?.frame = bounds
         if currentFrame != nil { metalView?.draw() }
     }
-    func configure(player: AVPlayer, mode: EnhancementMode, generation: UUID, onMetrics: @escaping (EnhancementMetrics) -> Void) {
+    func configure(player: AVPlayer, mode: EnhancementMode, generation: UUID, cleanup: AdCleanupSettings = .init(), onMetrics: @escaping (EnhancementMetrics) -> Void) {
         self.onMetrics = onMetrics
         let playerChanged = self.player !== player
-        let changed = playerChanged || self.mode != mode || self.generation != generation || self.item !== player.currentItem
+        let changed = playerChanged || self.mode != mode || self.generation != generation || self.cleanup != cleanup || self.item !== player.currentItem
         self.player = player; original.player = player
-        self.mode = mode; self.generation = generation
+        self.mode = mode; self.generation = generation; self.cleanup = cleanup
         if changed { reset() }
         if item !== player.currentItem { attachItem(player.currentItem) }
     }
@@ -144,7 +146,7 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         guard let player else { return }
         if item !== player.currentItem { reset(); attachItem(player.currentItem) }
         guard let output, let item else { return }
-        if mode == .original || fallback != nil {
+        if (mode == .original && !cleanup.isActive) || fallback != nil {
             if let size = item.presentationSize.nonzeroSize {
                 metrics.sourceWidth = Int(size.width); metrics.sourceHeight = Int(size.height)
                 metrics.outputWidth = metrics.sourceWidth; metrics.outputHeight = metrics.sourceHeight
@@ -154,13 +156,34 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         }
         guard let pipeline else { setFallback("当前设备没有可用 Metal GPU"); return }
         guard geometryReady else { return }
+        if cleanup.isActive, item.presentationSize.nonzeroSize == nil {
+            metrics.mode = EnhancementMode.original.title
+            metrics.cleanupAppliedRegions = 0
+            metrics.cleanupReason = "等待显示尺寸确认，局部柔化暂未应用"
+            publish(); return
+        }
         let targetTime = forceFrame ? player.currentTime() : output.itemTime(forHostTime: CACurrentMediaTime())
         guard forceFrame || output.hasNewPixelBuffer(forItemTime: targetTime) else { return }
         if busy { metrics.droppedFrames += 1; return }
         var displayed = CMTime.invalid
         guard let buffer = output.copyPixelBuffer(forItemTime: targetTime, itemTimeForDisplay: &displayed) else { return }
+        if cleanup.isActive {
+            let bufferWidth = CVPixelBufferGetWidth(buffer), bufferHeight = CVPixelBufferGetHeight(buffer)
+            let displayBounds = CGRect(x: 0, y: 0, width: bufferWidth, height: bufferHeight).applying(displayTransform)
+            var pixelRatio = 1.0
+            if let attachment = CVBufferCopyAttachment(buffer, kCVImageBufferPixelAspectRatioKey, nil) {
+                if let values = attachment as? [String: Any],
+                   let horizontal = values[kCVImageBufferPixelAspectRatioHorizontalSpacingKey as String] as? NSNumber,
+                   let vertical = values[kCVImageBufferPixelAspectRatioVerticalSpacingKey as String] as? NSNumber,
+                   vertical.doubleValue > 0 { pixelRatio = horizontal.doubleValue / vertical.doubleValue }
+                else { pixelRatio = .nan }
+            }
+            if let reason = AdCleanupPolicy.geometryRejectionReason(bufferWidth: bufferWidth, bufferHeight: bufferHeight, displayBounds: displayBounds, presentationSize: item.presentationSize, cleanAperture: CVImageBufferGetCleanRect(buffer), pixelAspectRatio: pixelRatio) {
+                setFallback(reason); return
+            }
+        }
         forceFrame = false; busy = true
-        let token = revision, requestedMode = mode, transform = displayTransform
+        let token = revision, requestedMode = mode, transform = displayTransform, requestedCleanup = cleanup
         let pts = displayed.isNumeric ? displayed : targetTime
         if let previous = lastPTS {
             let delta = pts.seconds - previous
@@ -169,7 +192,7 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         lastPTS = pts.seconds
         metrics.sourceWidth = CVPixelBufferGetWidth(buffer); metrics.sourceHeight = CVPixelBufferGetHeight(buffer)
         worker.async { [weak self] in
-            let result: Result<EnhancedFrame, Error> = autoreleasepool { Result { try pipeline.process(buffer, mode: requestedMode, time: pts, displayTransform: transform) } }
+            let result: Result<EnhancedFrame, Error> = autoreleasepool { Result { try pipeline.process(buffer, mode: requestedMode, time: pts, displayTransform: transform, cleanup: requestedCleanup) } }
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.busy = false
@@ -187,20 +210,31 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
                     if player.rate != 0 && player.currentTime().seconds - pts.seconds > max(0.08, 2 / fps) {
                         self.metrics.droppedFrames += 1; self.publish(); return
                     }
+                    let firstDisplayedFrame = self.currentFrame == nil
                     self.currentFrame = frame
                     self.metrics.outputWidth = frame.width; self.metrics.outputHeight = frame.height
+                    self.metrics.cleanupAppliedRegions = frame.cleanupAppliedRegions
+                    self.metrics.cleanupRejectedRegions = frame.cleanupRejectedRegions
+                    self.metrics.cleanupReason = frame.cleanupReason
                     self.metrics.mode = frame.mode; self.metrics.presentationTime = pts.seconds
                     self.metrics.fallbackReason = nil
                     self.metalView?.isHidden = false; self.original.isHidden = true
-                    self.metalView?.draw(); self.publish()
+                    self.metalView?.draw()
+                    // Reset publishes empty metrics immediately; a paused frame may be the only result.
+                    // Publish its completed state now while regular playback retains the 0.5 s throttle.
+                    self.publish(force: firstDisplayedFrame || player.rate == 0)
                 }
             }
         }
     }
     private func setFallback(_ reason: String) {
-        fallback = reason; currentFrame = nil
+        let reported = cleanup.isActive ? reason + "；局部柔化已停用，广告区恢复原画面" : reason
+        fallback = reported; currentFrame = nil
+        metrics.cleanupAppliedRegions = 0
+        metrics.cleanupRejectedRegions = cleanup.isActive ? cleanup.regions.count : 0
+        metrics.cleanupReason = cleanup.isActive ? "柔化停用，广告区恢复原画面" : nil
         original.isHidden = false; metalView?.isHidden = true
-        metrics.mode = EnhancementMode.original.title; metrics.fallbackReason = reason
+        metrics.mode = EnhancementMode.original.title; metrics.fallbackReason = reported
         metrics.outputWidth = metrics.sourceWidth; metrics.outputHeight = metrics.sourceHeight
         publish(force: true)
     }

@@ -1,0 +1,2 @@
+Standalone swiftc compile against existing Debug CinemaCore. No SwiftPM or full App build.
+Exit: 0

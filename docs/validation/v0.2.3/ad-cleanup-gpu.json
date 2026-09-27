@@ -1,0 +1,73 @@
+{
+  "cases" : [
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "original",
+      "output" : [
+        320,
+        180
+      ],
+      "outside_changed_pixels" : 0,
+      "processing_ms" : 13.112708344124258,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "clarity",
+      "output" : [
+        320,
+        180
+      ],
+      "outside_changed_pixels" : 0,
+      "processing_ms" : 1.948749995790422,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 746461,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "upscale4K",
+      "output" : [
+        3840,
+        2160
+      ],
+      "outside_changed_pixels" : 0,
+      "processing_ms" : 23.599624983035028,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "original",
+      "output" : [
+        180,
+        320
+      ],
+      "outside_changed_pixels" : 0,
+      "processing_ms" : 1.1252916883677244,
+      "protected_changed_pixels" : 0,
+      "rotated" : true,
+      "whole_conflict_rejected" : true
+    }
+  ],
+  "core_tests_passed" : 6,
+  "device" : "Apple M4",
+  "display_geometry_policy" : "Full clean aperture, square pixels, and transformed\/presentation aspect agreement required; otherwise cleanup falls back",
+  "original_cleanup_60_frames_mean_ms" : 0.53724513854831457,
+  "passed" : true,
+  "sampling_isolation_changed_pixels" : 0,
+  "scope" : "Synthetic SDR checkerboard and caption blocks, exact RGBA8 GPU output comparisons; not OCR, background reconstruction, or network playback validation",
+  "texture_readback_coordinates" : "MTL texture readback is downMirrored into Core Image bottom-left coordinates before comparison",
+  "version" : "0.2.3"
+}

@@ -33,6 +33,9 @@ struct EnhancementMetrics {
     var droppedFrames = 0
     var renderedFrames = 0
     var presentationTime: Double = 0
+    var cleanupAppliedRegions = 0
+    var cleanupRejectedRegions = 0
+    var cleanupReason: String?
 }
 
 struct EnhancedFrame {
@@ -41,6 +44,9 @@ struct EnhancedFrame {
     let height: Int
     let milliseconds: Double
     let mode: String
+    var cleanupAppliedRegions = 0
+    var cleanupRejectedRegions = 0
+    var cleanupReason: String?
 }
 
 enum EnhancementError: LocalizedError {
@@ -64,7 +70,7 @@ final class EnhancementPipeline {
         context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .workingColorSpace: CGColorSpace(name: CGColorSpace.extendedLinearSRGB)!])
     }
 
-    func process(_ buffer: CVPixelBuffer, mode: EnhancementMode, time: CMTime, displayTransform: CGAffineTransform = .identity) throws -> EnhancedFrame {
+    func process(_ buffer: CVPixelBuffer, mode: EnhancementMode, time: CMTime, displayTransform: CGAffineTransform = .identity, cleanup: AdCleanupSettings = .init()) throws -> EnhancedFrame {
         let start = CACurrentMediaTime()
         if let transfer = CVBufferCopyAttachment(buffer, kCVImageBufferTransferFunctionKey, nil) as? String,
            transfer == kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ as String || transfer == kCVImageBufferTransferFunction_ITU_R_2100_HLG as String {
@@ -98,13 +104,24 @@ final class EnhancementPipeline {
             }
             image = image.applyingFilter("CISharpenLuminance", parameters: ["inputSharpness": 0.35])
         }
+        // Apply after denoise/resize/AI: cleanup cannot propagate through another enhancement filter
+        // into the protected subtitle pixels. Every blur samples only its own cropped region.
+        let decision = AdCleanupPolicy.evaluate(cleanup, width: output.width, height: output.height)
+        let enhanced = image
+        for rectangle in decision.acceptedRects {
+            let patch = enhanced.cropped(to: rectangle).clampedToExtent()
+                .applyingFilter("CIGaussianBlur", parameters: ["inputRadius": max(4.0, min(24.0, Double(min(rectangle.width, rectangle.height)) * 0.12))])
+                .cropped(to: rectangle)
+            image = patch.composited(over: image)
+        }
+        if !decision.acceptedRects.isEmpty { label += " + 局部柔化（\(decision.acceptedRects.count)框）" }
         let description = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: output.width, height: output.height, mipmapped: false)
         description.usage = [.shaderRead, .shaderWrite, .renderTarget]
         guard let texture = device.makeTexture(descriptor: description), let command = queue.makeCommandBuffer() else { throw EnhancementError.unavailable("GPU 画面缓冲分配失败") }
         context.render(image, to: texture, commandBuffer: command, bounds: CGRect(x: 0, y: 0, width: output.width, height: output.height), colorSpace: colorSpace)
         command.commit(); command.waitUntilCompleted()
         guard command.status == .completed else { throw EnhancementError.unavailable(command.error?.localizedDescription ?? "GPU 帧处理失败") }
-        return EnhancedFrame(texture: texture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label)
+        return EnhancedFrame(texture: texture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label, cleanupAppliedRegions: decision.acceptedRects.count, cleanupRejectedRegions: decision.rejectedCount, cleanupReason: decision.reasons.isEmpty ? nil : decision.reasons.joined(separator: "；"))
     }
 
     /// Generated moving test card: real GPU command completion, not CPU submission time.

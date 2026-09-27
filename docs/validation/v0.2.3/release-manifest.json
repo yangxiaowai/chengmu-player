@@ -1,0 +1,19 @@
+{
+  "version": "0.2.3",
+  "build": "5",
+  "architecture": "arm64",
+  "signing": "local ad hoc; codesign --verify --deep --strict passed",
+  "executable_sha256": "ce5d7d5246954c21ed9d9ffd68c74e93ed8311b2d9bd017e2e61c484fb4aa3bc",
+  "zip_sha256": "98e62917c0af8518aa78fc310d9fedd705421de4e6debb0b3468ce132f3452fa",
+  "zip_bytes": 1341983,
+  "zip_entries": 23,
+  "zip_crc_passed": true,
+  "zip_binary_matches_app": true,
+  "zip_metadata_encoding": "UTF-8 (macOS ditto)",
+  "created_at": "2026-09-27T12:33:11.547482+00:00",
+  "core_tests": 93,
+  "core_suites": 13,
+  "playback_state_checks": 8,
+  "gpu_pixel_report": "ad-cleanup-gpu.json",
+  "native_ui_report": "native-ui.json"
+}
