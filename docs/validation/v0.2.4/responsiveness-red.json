@@ -1,0 +1,24 @@
+{
+  "checkedAt" : "2026-09-27T12:39:18Z",
+  "checks" : [
+    {
+      "detail" : "Second press was lost before KVO settled. After first: requested=false, observedPlaying=true, rate=0.0, position=0.0; after second: requested=false, observedPlaying=true, rate=0.0, position=0.0",
+      "name" : "rapid_pause_play_preserves_both_button_intents",
+      "passed" : false
+    },
+    {
+      "detail" : "Three synchronous +10-second presses from 20 seconds reach 50 seconds.",
+      "name" : "synchronous_skip_burst_accumulates_each_press",
+      "passed" : true
+    },
+    {
+      "detail" : "A skip was lost with 0 ns between presses: positions=[30.0, 30.0, 40.0, 30.0, 40.0, 40.0], final media time=40.0, expected 50",
+      "name" : "yielding_skip_bursts_do_not_lose_a_press_to_old_positions",
+      "passed" : false
+    }
+  ],
+  "mode" : "headless real controller and generated silent local WAV",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : false
+}

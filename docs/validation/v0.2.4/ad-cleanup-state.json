@@ -1,0 +1,52 @@
+{
+  "actualSleepDeadlineElapsed" : false,
+  "checkedAt" : "2026-09-27T12:45:24Z",
+  "checks" : [
+    {
+      "detail" : "An editor-owned pause restored playback intent without waiting for the published isPlaying observation to settle.",
+      "name" : "normal_editor_pause_can_resume_immediately",
+      "passed" : true
+    },
+    {
+      "detail" : "An unchanged paused intent resumes once; normal asynchronous AVPlayer observations do not block it.",
+      "name" : "normal_editor_pause_can_resume_after_settling",
+      "passed" : true
+    },
+    {
+      "detail" : "Each pause, including false-to-false, invalidates the editor token. This tests the sleep timer's shared pause operation, not a real elapsed sleep deadline.",
+      "name" : "external_repeated_pause_invalidates_editor_resume",
+      "passed" : true
+    },
+    {
+      "detail" : "The real failed-to-end notification handler produced an error and the editor could not restart playback.",
+      "name" : "media_failure_blocks_editor_resume",
+      "passed" : true
+    },
+    {
+      "detail" : "An actual failed local AVPlayerItem changed the intent token and rejected the prior editor completion.",
+      "name" : "failed_item_invalidates_editor_intent",
+      "passed" : true
+    },
+    {
+      "detail" : "Calling the guarded resume while playback is already requested leaves it playing.",
+      "name" : "already_requested_playback_is_not_toggled_off",
+      "passed" : true
+    },
+    {
+      "detail" : "New-item open resets all cleanup settings to defaults and an old editor token cannot resume that item.",
+      "name" : "opening_a_new_item_clears_cleanup_and_stale_intent",
+      "passed" : true
+    },
+    {
+      "detail" : "Retry preserved enabled state, ad selections and custom protection regions after preparation, while retaining pause and rejecting the old editor token.",
+      "name" : "retry_preserves_cleanup_and_paused_state",
+      "passed" : true
+    }
+  ],
+  "gpuProcessingVerified" : false,
+  "mode" : "headless real PlaybackController with generated silent local WAV",
+  "nativeUIVerified" : false,
+  "networkRequestsMade" : false,
+  "passed" : true,
+  "preferencesIsolated" : true
+}

@@ -264,7 +264,7 @@ final class AppModel: ObservableObject {
         if let a = current.number, let b = next.number, b != a + 1 { message = "下一集存在缺集，已停止自动续播。"; return }
         play(next)
     }
-    func closePlayer() { cancelAlternativeSources(); playback.pause(); playback.cancelSleepTimer(); detailPresented = false; showPlayer = false }
+    func closePlayer() { cancelAlternativeSources(); playback.cancelPendingSeek(); playback.pause(); playback.cancelSleepTimer(); detailPresented = false; showPlayer = false }
     func cancelAlternativeSources() {
         alternativeTask?.cancel(); alternativeTask = nil; alternativeID = UUID()
         alternativesLoading = false; alternativeSources = []; alternativeNotice = nil

@@ -1,0 +1,47 @@
+{
+  "cache_count_at_limit" : 48,
+  "cases" : [
+    {
+      "actual_time" : 7.291666666666667,
+      "image_size" : [
+        320,
+        180
+      ],
+      "latency_seconds" : 0.28428792953491211,
+      "main_player_unchanged" : true,
+      "requested_time" : 7.2999999999999998,
+      "source" : "local"
+    },
+    {
+      "actual_time" : 7.291666666666667,
+      "image_size" : [
+        320,
+        180
+      ],
+      "latency_seconds" : 0.25089597702026367,
+      "main_player_unchanged" : true,
+      "requested_time" : 7.2999999999999998,
+      "source" : "ordinary_hls"
+    },
+    {
+      "actual_time" : 7.291666666666667,
+      "image_size" : [
+        101,
+        180
+      ],
+      "latency_seconds" : 0.19029796123504639,
+      "main_player_unchanged" : true,
+      "requested_time" : 7.2999999999999998,
+      "source" : "rotated_local"
+    }
+  ],
+  "failure_cleared_stale_image" : true,
+  "hide_and_item_change_cancelled" : true,
+  "invalid_time_rejected" : true,
+  "passed" : true,
+  "playing_main_clock_untouched" : true,
+  "rapid_hover_last_request_only" : true,
+  "scope" : "Headless local MP4, rotated MP4 and ordinary no-iframe HLS served on loopback; no remote provider availability assertion",
+  "stop_released_cache" : true,
+  "version" : "0.2.4"
+}

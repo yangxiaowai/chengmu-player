@@ -1,0 +1,117 @@
+Building for debugging...
+[Pre-planning 1 / 124]
+[Planning deferred tasks]
+[6 / 34] CinemaCore
+[17 / 45] CinemaCore
+[21 / 39] CinemaCore
+[21 / 39] Cinema-product
+[32 / 50] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[35 / 50] CinemaCoreTests-product
+[37 / 50] CinemaCoreTests-product
+[41 / 61] CinemaCoreTests-product
+[43 / 61] CinemaCoreTests-product
+[44 / 61] CinemaCoreTests-product
+[45 / 61] CinemaCoreTests-product
+[47 / 61] CinemaCoreTests-product
+error: SwiftCompile normal arm64 /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift failed with a nonzero exit code. Command line:     cd /Users/yangjun/Downloads
+    builtin-SwiftPerFileCompile SeekTimelineGeometryTests.swift
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:7:17: error: cannot find 'SeekTimelineGeometry' in scope
+ 5 | struct SeekTimelineGeometryTests {
+ 6 |     @Test func thumbCentersMapToStartMiddleAndEnd() {
+ 7 |         #expect(SeekTimelineGeometry.time(at: 10, width: 500, knobWidth: 20, duration: 100) == 0)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+ 8 |         #expect(SeekTimelineGeometry.time(at: 250, width: 500, knobWidth: 20, duration: 100) == 50)
+ 9 |         #expect(SeekTimelineGeometry.time(at: 490, width: 500, knobWidth: 20, duration: 100) == 100)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:8:17: error: cannot find 'SeekTimelineGeometry' in scope
+ 6 |     @Test func thumbCentersMapToStartMiddleAndEnd() {
+ 7 |         #expect(SeekTimelineGeometry.time(at: 10, width: 500, knobWidth: 20, duration: 100) == 0)
+ 8 |         #expect(SeekTimelineGeometry.time(at: 250, width: 500, knobWidth: 20, duration: 100) == 50)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+ 9 |         #expect(SeekTimelineGeometry.time(at: 490, width: 500, knobWidth: 20, duration: 100) == 100)
+10 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:9:17: error: cannot find 'SeekTimelineGeometry' in scope
+ 7 |         #expect(SeekTimelineGeometry.time(at: 10, width: 500, knobWidth: 20, duration: 100) == 0)
+ 8 |         #expect(SeekTimelineGeometry.time(at: 250, width: 500, knobWidth: 20, duration: 100) == 50)
+ 9 |         #expect(SeekTimelineGeometry.time(at: 490, width: 500, knobWidth: 20, duration: 100) == 100)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+10 |     }
+11 |     @Test func pointsBeyondTrackClampToMediaBounds() {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:12:17: error: cannot find 'SeekTimelineGeometry' in scope
+10 |     }
+11 |     @Test func pointsBeyondTrackClampToMediaBounds() {
+12 |         #expect(SeekTimelineGeometry.time(at: -20, width: 500, knobWidth: 20, duration: 100) == 0)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+13 |         #expect(SeekTimelineGeometry.time(at: 550, width: 500, knobWidth: 20, duration: 100) == 100)
+14 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:13:17: error: cannot find 'SeekTimelineGeometry' in scope
+11 |     @Test func pointsBeyondTrackClampToMediaBounds() {
+12 |         #expect(SeekTimelineGeometry.time(at: -20, width: 500, knobWidth: 20, duration: 100) == 0)
+13 |         #expect(SeekTimelineGeometry.time(at: 550, width: 500, knobWidth: 20, duration: 100) == 100)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+14 |     }
+15 |     @Test func unknownDurationAndInvalidGeometryCannotSeek() {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:17:21: error: cannot find 'SeekTimelineGeometry' in scope
+15 |     @Test func unknownDurationAndInvalidGeometryCannotSeek() {
+16 |         for duration in [0.0, -1, .infinity, .nan] {
+17 |             #expect(SeekTimelineGeometry.time(at: 200, width: 500, knobWidth: 20, duration: duration) == nil)
+   |                     `- error: cannot find 'SeekTimelineGeometry' in scope
+18 |         }
+19 |         #expect(SeekTimelineGeometry.time(at: .nan, width: 500, knobWidth: 20, duration: 100) == nil)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:19:17: error: cannot find 'SeekTimelineGeometry' in scope
+17 |             #expect(SeekTimelineGeometry.time(at: 200, width: 500, knobWidth: 20, duration: duration) == nil)
+18 |         }
+19 |         #expect(SeekTimelineGeometry.time(at: .nan, width: 500, knobWidth: 20, duration: 100) == nil)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+20 |         #expect(SeekTimelineGeometry.time(at: 10, width: 20, knobWidth: 20, duration: 100) == nil)
+21 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:20:17: error: cannot find 'SeekTimelineGeometry' in scope
+18 |         }
+19 |         #expect(SeekTimelineGeometry.time(at: .nan, width: 500, knobWidth: 20, duration: 100) == nil)
+20 |         #expect(SeekTimelineGeometry.time(at: 10, width: 20, knobWidth: 20, duration: 100) == nil)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+21 |     }
+22 |     @Test func previewCardRemainsInsideNarrowAndWideControls() {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:23:17: error: cannot find 'SeekTimelineGeometry' in scope
+21 |     }
+22 |     @Test func previewCardRemainsInsideNarrowAndWideControls() {
+23 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 0, width: 500, bubbleWidth: 220) == 0)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+24 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 500, width: 500, bubbleWidth: 220) == 280)
+25 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 250, width: 500, bubbleWidth: 220) == 140)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:24:17: error: cannot find 'SeekTimelineGeometry' in scope
+22 |     @Test func previewCardRemainsInsideNarrowAndWideControls() {
+23 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 0, width: 500, bubbleWidth: 220) == 0)
+24 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 500, width: 500, bubbleWidth: 220) == 280)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+25 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 250, width: 500, bubbleWidth: 220) == 140)
+26 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 20, width: 100, bubbleWidth: 220) == 0)
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:25:17: error: cannot find 'SeekTimelineGeometry' in scope
+23 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 0, width: 500, bubbleWidth: 220) == 0)
+24 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 500, width: 500, bubbleWidth: 220) == 280)
+25 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 250, width: 500, bubbleWidth: 220) == 140)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+26 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 20, width: 100, bubbleWidth: 220) == 0)
+27 |     }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift:26:17: error: cannot find 'SeekTimelineGeometry' in scope
+24 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 500, width: 500, bubbleWidth: 220) == 280)
+25 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 250, width: 500, bubbleWidth: 220) == 140)
+26 |         #expect(SeekTimelineGeometry.bubbleOrigin(at: 20, width: 100, bubbleWidth: 220) == 0)
+   |                 `- error: cannot find 'SeekTimelineGeometry' in scope
+27 |     }
+28 | }
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/AdCleanupTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogLibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogPageTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/FullscreenControlsPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/LibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackCanvasClickPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/QualityTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceAccessTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceMatchingTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/VideoSelectionTests.swift -emit-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.d -emit-const-values-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.swiftconstvalues -emit-reference-dependencies-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.swiftdeps -serialize-diagnostics-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.dia -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/PackageFrameworks -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 5 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/yangjun/Downloads/视频播放器/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/yangjun/Downloads -enable-anonymous-context-mangled-names -file-compilation-dir /Users/yangjun/Downloads -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/yangjun/Downloads/视频播放器/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-a0facfad118c1a7a18f0aad9463f6549ffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/include -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name CinemaCoreTests -package-name 视频播放器 -const-gather-protocols-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.o -debug-module-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests.swiftmodule -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/SeekTimelineGeometryTests.o -index-store-path /Users/yangjun/Downloads/视频播放器/.build/out -index-system-modules
+error: Build failed
+error: fatalError

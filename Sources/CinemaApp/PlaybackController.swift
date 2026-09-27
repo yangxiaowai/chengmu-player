@@ -68,7 +68,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private(set) var playbackIntentID = UUID()
     private var url: URL?
     private var desiredResume = 0.0
-    private var wantsPlay = false { didSet { playbackIntentID = UUID() } }
+    private var seekRequestID = UUID()
+    private var pendingSeekTarget: Double?
+    @Published private var wantsPlay = false { didSet { playbackIntentID = UUID() } }
     private var lastSave = 0.0
     private var probeTask: Task<Void, Never>?
     private var prepareTask: Task<Void, Never>?
@@ -97,6 +99,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
 
     func open(url: URL, title: String, episode: String, resume: Double = 0) {
         saveProgress()
+        cancelPendingSeek()
         probeTask?.cancel(); prepareTask?.cancel()
         clearItemObservers()
         player.pause()
@@ -117,10 +120,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         item.add(output); subtitleOutput = output
         player.replaceCurrentItem(with: item)
         if let observer { player.removeTimeObserver(observer) }
-        observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.2, preferredTimescale: 600), queue: .main) { [weak self] time in
+        observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.2, preferredTimescale: 600), queue: .main) { [weak self] _ in
             Task { @MainActor in
                 guard let self, self.itemID == token else { return }
-                self.tick(time)
+                self.tick()
             }
         }
         statusObservation = item.observe(\.status, options: [.initial, .new]) { [weak self, weak item] _, _ in
@@ -172,8 +175,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         isLoading = false
         let value = item.duration.seconds
         if value.isFinite && value > 0 { duration = value }
-        if desiredResume > 0 {
-            let target = desiredResume; desiredResume = 0
+        if desiredResume > 0 || pendingSeekTarget != nil {
+            let target = pendingSeekTarget ?? desiredResume; desiredResume = 0
             seek(to: duration > 0 ? min(target, max(0, duration - 1)) : target)
         }
         if wantsPlay { player.playImmediately(atRate: rate) }
@@ -202,7 +205,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
 
     func togglePlayback() {
-        if isPlaying || wantsPlay {
+        if wantsPlay {
             wantsPlay = false; player.pause(); saveProgress()
         } else {
             wantsPlay = true
@@ -234,23 +237,42 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         if !shouldPlay { player.pause() }
     }
     func seek(to value: Double) {
-        guard value.isFinite, player.currentItem != nil else { return }
+        guard value.isFinite, let item = player.currentItem else { return }
         let safe = max(0, duration > 0 ? min(value, duration) : value)
+        let request = UUID(), token = itemID
+        seekRequestID = request; pendingSeekTarget = safe
         generation = UUID(); subtitleText = ""; position = safe
-        let token = itemID
-        player.seek(to: CMTime(seconds: safe, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: CMTime(seconds: 0.1, preferredTimescale: 600)) { [weak self] _ in
+        // A user request made during preparation replaces the original resume
+        // position; prepareReady will issue the seek when the item can accept it.
+        guard item.status == .readyToPlay else { desiredResume = safe; return }
+        desiredResume = 0
+        player.seek(to: CMTime(seconds: safe, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: CMTime(seconds: 0.1, preferredTimescale: 600)) { [weak self] finished in
             Task { @MainActor in
-                guard let self, self.itemID == token else { return }
+                guard let self, self.itemID == token, self.seekRequestID == request else { return }
+                self.pendingSeekTarget = nil
+                // A canceled latest request reconciles with the actual player;
+                // it must not commit its requested target or flush a newer frame.
+                guard finished else { self.tick(); return }
                 self.generation = UUID()
+                self.tick()
                 self.saveProgress()
             }
         }
+    }
+    func cancelPendingSeek() {
+        seekRequestID = UUID(); pendingSeekTarget = nil; desiredResume = 0
+        player.currentItem?.cancelPendingSeeks()
+        let actual = player.currentTime().seconds
+        if actual.isFinite, actual >= 0 { position = actual }
     }
     func resumeWhenReady(_ position: Double) {
         if player.currentItem?.status == .readyToPlay { seek(to: position) }
         else { desiredResume = max(0, position) }
     }
-    func skip(_ amount: Double) { seek(to: position + amount) }
+    func skip(_ amount: Double) {
+        let base = pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
+        seek(to: base + amount)
+    }
     func setRate(_ rate: Float) { self.rate = rate }
     func toggleMute() { preferences.toggleMute(); volume = Float(preferences.volume) }
     func adjustVolume(_ amount: Float) { volume += amount }
@@ -301,9 +323,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     func saveProgress() {
         if position.isFinite, position >= 0, duration.isFinite { onProgress?(position, duration) }
     }
-    private func tick(_ time: CMTime) {
-        guard time.seconds.isFinite else { return }
-        position = time.seconds
+    private func tick() {
+        // Periodic callbacks are delivered through an asynchronous MainActor
+        // hop. Their captured times can predate the latest seek completion.
+        // Sample the live player here, and keep a requested target while seeking.
+        guard pendingSeekTarget == nil else { return }
+        let actual = player.currentTime().seconds
+        guard actual.isFinite else { return }
+        position = actual
         if let current = player.currentItem?.duration.seconds, current.isFinite, current > 0 { duration = current }
         if !cues.isEmpty { subtitleText = SubtitleParser.text(at: position - subtitleOffset, in: cues) }
         let now = Date.timeIntervalSinceReferenceDate

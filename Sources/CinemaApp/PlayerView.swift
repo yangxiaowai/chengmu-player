@@ -162,14 +162,22 @@ struct PlayerView: View {
                 .foregroundStyle(playback.sleepRemainingSeconds == nil ? CinemaStyle.secondary : CinemaStyle.accent)
         }.menuStyle(.borderlessButton).fixedSize().help("到时暂停播放；返回片库时取消")
     }
+    private func transportIcon(_ name: String, size: CGFloat = 19) -> some View {
+        Image(systemName: name).font(.system(size: size))
+            .frame(width: 36, height: 36).contentShape(Rectangle())
+    }
     private var controls: some View {
         VStack(spacing: 15) {
-            Slider(value: $slider, in: 0...max(1, playback.duration), onEditingChanged: { editing in dragging = editing; presentation.interact("seek", active: editing); if !editing { playback.seek(to: slider) } }).tint(CinemaStyle.accent).disabled(playback.duration <= 0).accessibilityLabel("播放进度")
-            HStack(spacing: 19) {
-                Button { playback.togglePlayback() } label: { Image(systemName: playback.isPlaying ? "pause.fill" : "play.fill").font(.system(size: 19)).frame(width: 24) }.help("播放/暂停 · 空格")
-                Button { playback.skip(-10) } label: { Image(systemName: "gobackward.10").font(.system(size: 19)) }
-                Button { playback.skip(10) } label: { Image(systemName: "goforward.10").font(.system(size: 19)) }
-                Button { app.nextEpisode() } label: { Image(systemName: "forward.end").font(.system(size: 17)) }.disabled(!app.canPlayNext).help("下一集")
+            SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
+                    visible: !presentation.isFullscreen || presentation.controlsVisible,
+                    onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing) },
+                    onSeek: { playback.seek(to: $0) },
+                    onHover: { presentation.interact("seek-preview", active: $0) })
+            HStack(spacing: 12) {
+                Button { playback.togglePlayback() } label: { transportIcon(playback.playbackRequested ? "pause.fill" : "play.fill") }.help("播放/暂停 · 空格").accessibilityLabel(playback.playbackRequested ? "暂停" : "播放")
+                Button { playback.skip(-10) } label: { transportIcon("gobackward.10") }.help("快退 10 秒 · ←").accessibilityLabel("快退 10 秒")
+                Button { playback.skip(10) } label: { transportIcon("goforward.10") }.help("快进 10 秒 · →").accessibilityLabel("快进 10 秒")
+                Button { app.nextEpisode() } label: { transportIcon("forward.end", size: 17) }.disabled(!app.canPlayNext).help("下一集")
                 Text("\(timeString(playback.position)) / \(timeString(playback.duration))").font(.system(size: 10, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
                 Spacer(minLength: 5)
                 Menu { ForEach([0.5, 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in Button("\(speed, specifier: "%g")×") { playback.setRate(Float(speed)) } } } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)) }.menuStyle(.borderlessButton).fixedSize()

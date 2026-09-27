@@ -1,0 +1,24 @@
+Building for production...
+[Planning deferred tasks]
+[1 / 4]
+[2 / 5] CinemaCore
+[3 / 6] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[10 / 11] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/SeekBar.swift:9:58: warning: result of 'try?' is unused [#NoUsage]
+  7 |     let data = (text + "\n").data(using: .utf8)!
+  8 |     if !FileManager.default.fileExists(atPath: url.path) { try? data.write(to: url) }
+  9 |     else if let h = try? FileHandle(forWritingTo: url) { try? h.seekToEnd(); try? h.write(contentsOf: data); try? h.close() }
+    |                                                          `- warning: result of 'try?' is unused [#NoUsage]
+ 10 | }
+ 11 | 
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+[11 / 12] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[14 / 16] Cinema-product
+[15 / 16] Cinema-product
+Build complete! (15.07 sec)
+/Users/yangjun/Downloads/视频播放器/dist/映川.app: replacing existing signature
+/Users/yangjun/Downloads/视频播放器/dist/映川.app

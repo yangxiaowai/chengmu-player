@@ -1,0 +1,45 @@
+{
+  "checkedAt" : "2026-09-27T13:01:39Z",
+  "checks" : [
+    {
+      "detail" : "A 20→50→75 drag cancels back to 20 in both native value and binding, with no late commit.",
+      "name" : "cancel_restores_value_and_ignores_late_mouse_up",
+      "passed" : true
+    },
+    {
+      "detail" : "Down and drag publish candidates only; release commits its own 80-second position exactly once.",
+      "name" : "mouse_up_commits_final_event_exactly_once",
+      "passed" : true
+    },
+    {
+      "detail" : "Disabled mouseDown/drag/up neither change value nor commit a seek.",
+      "name" : "disabled_slider_ignores_all_pointer_events",
+      "passed" : true
+    },
+    {
+      "detail" : "The real didResignKey observer cancels and restores without a seek.",
+      "name" : "window_resignation_restores_cancelled_drag",
+      "passed" : true
+    },
+    {
+      "detail" : "Removing the unshown test view exercises viewWillMove cancellation and editing cleanup.",
+      "name" : "detaching_the_view_ends_tracking_without_commit",
+      "passed" : true
+    },
+    {
+      "detail" : "Silent cancellation does not write an old value into a replacement item's binding and ignores the previous release.",
+      "name" : "silent_item_invalidation_does_not_restore_old_value",
+      "passed" : true
+    },
+    {
+      "detail" : "Entered/moved report 50/75-second previews; native value stays 20 and no value, seek or editing callback fires.",
+      "name" : "pure_hover_does_not_change_value_or_seek",
+      "passed" : true
+    }
+  ],
+  "mode" : "headless AppKit: real HoverSlider with direct synthetic NSEvents",
+  "passed" : true,
+  "physicalPointerDeliveryVerified" : false,
+  "previewRenderingVerified" : false,
+  "userUIControlled" : false
+}

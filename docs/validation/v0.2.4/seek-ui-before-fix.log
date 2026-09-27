@@ -1,0 +1,7 @@
+down bounds (0.0, 0.0, 951.0, 28.0) frame (-2.0, -6.0, 951.0, 28.0) pt (530.0, 12.0)
+hover Optional(CinemaApp.(unknown context at $1022d00e0).TimelineLocation(x: 530.0, time: 50.314192849404115)) visible true
+hover nil visible true
+dismiss
+up value 50.314192849404115 mouse Optional((801.56640625, 425.8671875))
+hover nil visible true
+dismiss

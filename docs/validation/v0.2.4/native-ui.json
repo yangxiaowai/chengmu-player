@@ -1,0 +1,82 @@
+{
+  "version": "0.2.4",
+  "build": "6",
+  "machine": "Apple M4",
+  "tool": "CUA native AppKit accessibility and screenshots",
+  "fixture": "90s 640x360 12fps H264 test card with burned PTS",
+  "observations": [
+    {
+      "case": "window_drag_preview",
+      "seek_seconds": 59.5766666667,
+      "main_frame_pts": 59.5,
+      "preview_pts": 60.0,
+      "passed": true
+    },
+    {
+      "case": "three_forward_then_three_backward",
+      "initial_seconds": 20.0866666667,
+      "after_forward": 50.0866666667,
+      "after_backward": 20.0866666667,
+      "passed": true
+    },
+    {
+      "case": "play_button_padded_hit_region",
+      "coordinate_pixels": [
+        106,
+        1529
+      ],
+      "result": "changed from play icon to pause; clock advanced",
+      "passed": true
+    },
+    {
+      "case": "rapid_pause_then_play",
+      "result": "remained playing after pair; clock advanced",
+      "passed": true
+    },
+    {
+      "case": "fullscreen_right_edge_preview",
+      "seek_seconds": 87.52,
+      "preview_pts": 87.5,
+      "card_within_screen": true,
+      "passed": true
+    },
+    {
+      "case": "fullscreen_left_edge_preview",
+      "seek_seconds": 0,
+      "preview_pts": 0,
+      "card_within_screen": true,
+      "passed": true
+    },
+    {
+      "case": "final_build_restart_after_cancel_rollback_fix",
+      "seek_seconds": 41.05,
+      "main_frame_pts": 41.0,
+      "preview_pts": 41.0,
+      "passed": true
+    },
+    {
+      "case": "native_slider_keyboard_right",
+      "before": 41.05,
+      "after": 45.55,
+      "note": "Native slider adjustment; canvas shortcuts separately use 10-second skip",
+      "passed": true
+    }
+  ],
+  "user_state_restored": {
+    "title": "怪奇物语第一季",
+    "episode": "第07集",
+    "source": "非凡目录",
+    "line": "ffm3u8",
+    "position_seconds": 1444.671666666667,
+    "paused": true,
+    "fullscreen": true,
+    "volume": 0.8,
+    "rate": 1,
+    "mode": "GPU 4K"
+  },
+  "limits": [
+    "CUA has no standalone mouse-move API; visible UI preview checks use pointer drag and leave on timeline. Hover-only semantics covered separately by headless event test.",
+    "Native fullscreen/button checks preceded final small cancellation rollback; final build restarted and window preview/keyboard/restore rechecked.",
+    "No complete remote episode or every-source thumbnail availability claim."
+  ]
+}
