@@ -1,11 +1,10 @@
 import Foundation
 
-/// Decides whether fullscreen playback may hide its controls after user inactivity.
-public struct FullscreenControlsPolicy {
+/// Decides whether playback may hide its controls after user inactivity.
+public struct PlaybackControlsPolicy {
     public static let idleDelay: TimeInterval = 3
 
     public static func shouldHide(
-        isFullscreen: Bool,
         isPlaying: Bool,
         isBuffering: Bool,
         hasError: Bool,
@@ -13,7 +12,7 @@ public struct FullscreenControlsPolicy {
         isActive: Bool,
         idleFor: TimeInterval
     ) -> Bool {
-        isFullscreen && isPlaying && isActive
+        isPlaying && isActive
             && !isBuffering && !hasError && !isInteracting
             && idleFor.isFinite && idleFor >= idleDelay
     }

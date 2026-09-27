@@ -2,16 +2,12 @@ import Foundation
 import Testing
 @testable import CinemaCore
 
-struct FullscreenControlsPolicyTests {
-    @Test func playingFullscreenKeepsControlsUntilThreeSecondsOfInactivity() {
+struct PlaybackControlsPolicyTests {
+    @Test func playingKeepsControlsUntilThreeSecondsOfInactivity() {
         #expect(!shouldHide(idleFor: 0))
         #expect(!shouldHide(idleFor: 2.999))
         #expect(shouldHide(idleFor: 3))
         #expect(shouldHide(idleFor: 300))
-    }
-
-    @Test func windowedPlaybackAlwaysKeepsControlsVisible() {
-        #expect(!shouldHide(isFullscreen: false, idleFor: 300))
     }
 
     @Test func pausingBringsControlsBackEvenAfterLongInactivity() {
@@ -35,7 +31,6 @@ struct FullscreenControlsPolicyTests {
     }
 
     private func shouldHide(
-        isFullscreen: Bool = true,
         isPlaying: Bool = true,
         isBuffering: Bool = false,
         hasError: Bool = false,
@@ -43,8 +38,7 @@ struct FullscreenControlsPolicyTests {
         isActive: Bool = true,
         idleFor: TimeInterval
     ) -> Bool {
-        FullscreenControlsPolicy.shouldHide(
-            isFullscreen: isFullscreen,
+        PlaybackControlsPolicy.shouldHide(
             isPlaying: isPlaying,
             isBuffering: isBuffering,
             hasError: hasError,

@@ -1,0 +1,71 @@
+{
+  "checkedAt" : "2026-09-27T15:23:49Z",
+  "checks" : [
+    {
+      "detail" : "After 3.65s: hidden transitions=0, queued cleanup callbacks=0, visible=true. The real controller timer and published visibility drive the cleanup loop.",
+      "name" : "windowed:idle_hide_survives_preview_cleanup",
+      "passed" : false
+    },
+    {
+      "detail" : "After 3.65s: hidden transitions=1, queued cleanup callbacks=1, visible=true. The real controller timer and published visibility drive the cleanup loop.",
+      "name" : "fullscreen:idle_hide_survives_preview_cleanup",
+      "passed" : false
+    },
+    {
+      "detail" : "Repeated public interact(false) calls every 150ms did not count as user activity; visible=true.",
+      "name" : "windowed:duplicate_inactive_callbacks_do_not_postpone_hide",
+      "passed" : false
+    },
+    {
+      "detail" : "Repeated public interact(false) calls every 150ms did not count as user activity; visible=true.",
+      "name" : "fullscreen:duplicate_inactive_callbacks_do_not_postpone_hide",
+      "passed" : false
+    },
+    {
+      "detail" : "An actual active controls interaction blocks hiding past the idle deadline.",
+      "name" : "windowed:active_hover_keeps_controls_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "An actual active controls interaction blocks hiding past the idle deadline.",
+      "name" : "fullscreen:active_hover_keeps_controls_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "A real active-to-inactive transition keeps controls visible during the new idle interval.",
+      "name" : "windowed:real_hover_exit_starts_fresh_visible_interval",
+      "passed" : true
+    },
+    {
+      "detail" : "A real active-to-inactive transition keeps controls visible during the new idle interval.",
+      "name" : "fullscreen:real_hover_exit_starts_fresh_visible_interval",
+      "passed" : true
+    },
+    {
+      "detail" : "After the fresh idle interval the controls remain hidden despite the preview cleanup callback.",
+      "name" : "windowed:real_hover_exit_eventually_hides_again",
+      "passed" : false
+    },
+    {
+      "detail" : "After the fresh idle interval the controls remain hidden despite the preview cleanup callback.",
+      "name" : "fullscreen:real_hover_exit_eventually_hides_again",
+      "passed" : false
+    },
+    {
+      "detail" : "A real playback-state update immediately reveals controls and the next timer tick keeps them visible.",
+      "name" : "windowed:pause_reveals_controls",
+      "passed" : true
+    },
+    {
+      "detail" : "A real playback-state update immediately reveals controls and the next timer tick keeps them visible.",
+      "name" : "fullscreen:pause_reveals_controls",
+      "passed" : true
+    }
+  ],
+  "inputEventsInjected" : false,
+  "mode" : "Real PlayerPresentationController, public methods, published visibility, and actual idle Timer; test-only offscreen AppKit environment flags",
+  "nativeUIVerified" : false,
+  "passed" : false,
+  "sourceReference" : "2d655fa85c5a3bee3e3bb98a9808af6ae3b21b0b",
+  "userUIControlled" : false
+}

@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-09-27T15:34:34.450935+00:00",
+  "version": "0.2.7",
+  "build": "9",
+  "environment": "Apple M4; macOS native application",
+  "method": "Native CUA actions, accessibility trees and screenshots; existing local 30-second test clip",
+  "checks": [
+    {
+      "name": "windowed_idle_hides_bottom_controls",
+      "passed": true,
+      "evidence": "After 4.2s wait, playback progress and bottom controls removed from AX tree; screenshot confirmed no bottom bar while window header and episode panel remained."
+    },
+    {
+      "name": "fullscreen_idle_hides_header_and_controls",
+      "passed": true,
+      "evidence": "After 4.2s wait, AX tree contained only video canvas in window; screenshot at burned-in 12.583s showed only video, hard subtitles and letterbox."
+    },
+    {
+      "name": "keyboard_seek_wakes_controls",
+      "passed": true,
+      "evidence": "Left key revealed header and bottom controls immediately; progress 9.200081792s and pause action shown."
+    },
+    {
+      "name": "paused_controls_stay_visible",
+      "passed": true,
+      "evidence": "Cmd-P pause and Cmd-J seek to 5s; after more than 3 seconds of other verification work, AX tree unchanged with play action and progress visible."
+    },
+    {
+      "name": "drag_preview_and_release_keep_pause",
+      "passed": true,
+      "evidence": "Dragged real slider from 5s to 8.516666667s; AX preview 00:08 and screenshot thumbnail present; play action retained."
+    },
+    {
+      "name": "preview_exit_then_play_hides_again",
+      "passed": true,
+      "evidence": "Clicked canvas away from slider to resume; after 4.2s wait, preview/header/control elements disappeared, leaving only video canvas."
+    },
+    {
+      "name": "user_context_restored",
+      "passed": true,
+      "evidence": "Existing test clip restored to 17.39s paused. Opened original Stranger Things S1 E07 Feifan history and paused at original 1658.078210062s; windowed, episode panel hidden, volume 0.8, rate 1x and GPU 4K. Media positioning was still pending at final AX observation."
+    }
+  ],
+  "limitations": [
+    "No independent pointer-move-only action available; click and drag move the pointer as part of their actions.",
+    "External soft-subtitle dynamic spacing code reviewed and compiled, no separate soft-subtitle native fixture this turn.",
+    "Buffered/error/interacting policy covered by core/controller tests, not new network-fault native tests.",
+    "No full-episode or source-connectivity recertification."
+  ]
+}

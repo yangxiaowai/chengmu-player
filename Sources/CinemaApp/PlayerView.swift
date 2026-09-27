@@ -2,6 +2,11 @@ import SwiftUI
 import AppKit
 import CinemaCore
 
+private struct PlaybackControlHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = max(value, nextValue()) }
+}
+
 struct PlayerView: View {
     @ObservedObject var app: AppModel
     @ObservedObject var playback: PlaybackController
@@ -11,6 +16,7 @@ struct PlayerView: View {
     @LegacyState private var showStats = false
     @LegacyState private var showJump = false
     @LegacyState private var showShortcuts = false
+    @LegacyState private var controlHeight: CGFloat = 165
     @LegacyState private var editingAds = false
     @LegacyState private var adDraft = AdCleanupSettings()
     @LegacyState private var originalCleanup = AdCleanupSettings()
@@ -59,11 +65,13 @@ struct PlayerView: View {
                             }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
                         }
                         if showStats && !presentation.isFullscreen { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
-                        if presentation.isFullscreen && !editingAds {
+                        if !editingAds {
                             VStack(spacing: 0) {
-                                header
-                                    .background(LinearGradient(colors: [.black.opacity(0.75), .clear], startPoint: .top, endPoint: .bottom))
-                                    .onHover { presentation.interact("header", active: $0) }
+                                if presentation.isFullscreen {
+                                    header
+                                        .background(LinearGradient(colors: [.black.opacity(0.75), .clear], startPoint: .top, endPoint: .bottom))
+                                        .onHover { presentation.interact("header", active: $0) }
+                                }
                                 Spacer(minLength: 0)
                                 controls
                                     .onHover { presentation.interact("controls", active: $0) }
@@ -79,7 +87,7 @@ struct PlayerView: View {
                     }.frame(maxWidth: .infinity, maxHeight: .infinity)
                     if editingAds {
                         AdCleanupControls(draft: $adDraft, tool: $adTool, videoSize: videoDisplaySize, notice: $adNotice, onCancel: { finishAdEditing(apply: false) }, onApply: { finishAdEditing(apply: true) })
-                    } else if !presentation.isFullscreen { controls }
+                    }
                 }
                 if showEpisodes && !presentation.isFullscreen {
                     Divider().overlay(CinemaStyle.border)
@@ -103,6 +111,9 @@ struct PlayerView: View {
         .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
         .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
+        .onPreferenceChange(PlaybackControlHeightKey.self) { height in
+            if height.isFinite && height > 0 { controlHeight = height }
+        }
     }
     private var canSeek: Bool { playback.duration.isFinite && playback.duration > 0 && !playback.hasPlaybackFailure && playback.error == nil }
     private func performCommand(_ action: () -> Void) {
@@ -171,7 +182,7 @@ struct PlayerView: View {
         presentation.interact("ad-editor", active: false)
     }
     private var subtitleBottomPadding: CGFloat {
-        presentation.isFullscreen ? (presentation.controlsVisible ? 190 : 42) : 32
+        presentation.controlsVisible && !editingAds ? controlHeight + 18 : 32
     }
     private var header: some View {
         HStack(spacing: 17) {
@@ -209,7 +220,7 @@ struct PlayerView: View {
     private var controls: some View {
         VStack(spacing: 15) {
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
-                    visible: !presentation.isFullscreen || presentation.controlsVisible,
+                    visible: presentation.controlsVisible,
                     onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing) },
                     onSeek: { playback.seek(to: $0) },
                     onHover: { presentation.interact("seek-preview", active: $0) })
@@ -283,11 +294,10 @@ struct PlayerView: View {
                 }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
             }
         }.padding(.horizontal, presentation.isFullscreen ? 36 : 22).padding(.vertical, presentation.isFullscreen ? 25 : 17)
-            .background {
-                if presentation.isFullscreen {
-                    LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .top, endPoint: .bottom)
-                } else { CinemaStyle.panel }
-            }
+            .background(LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .top, endPoint: .bottom))
+            .background(GeometryReader { geometry in
+                Color.clear.preference(key: PlaybackControlHeightKey.self, value: geometry.size.height)
+            })
     }
     private var statistics: some View {
         VStack(alignment: .leading, spacing: 7) {

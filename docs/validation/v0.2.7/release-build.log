@@ -1,0 +1,15 @@
+Building for production...
+[Planning deferred tasks]
+[5 / 13]
+[6 / 14] CinemaCore
+[8 / 15] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[15 / 17] Cinema-product
+[17 / 18] Cinema-product
+[19 / 21] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[20 / 21] Cinema-product
+Build complete! (16.87 sec)
+/Users/yangjun/Downloads/视频播放器/dist/映川.app: replacing existing signature
+/Users/yangjun/Downloads/视频播放器/dist/映川.app

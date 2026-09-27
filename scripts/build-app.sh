@@ -22,8 +22,8 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIdentifier</key><string>local.yingchuan.cinema</string>
 <key>CFBundleExecutable</key><string>Cinema</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.2.6</string>
-<key>CFBundleVersion</key><string>8</string>
+<key>CFBundleShortVersionString</key><string>0.2.7</string>
+<key>CFBundleVersion</key><string>9</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>

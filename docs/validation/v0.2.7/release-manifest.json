@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-27T15:34:34.447585+00:00",
+  "version": "0.2.7",
+  "build": "9",
+  "app": "dist/映川.app",
+  "archive": "dist/映川-v0.2.7.zip",
+  "architecture": "arm64",
+  "signing": "local ad hoc; not notarized",
+  "codesignVerified": true,
+  "codesignOutput": "/Users/yangjun/Downloads/视频播放器/dist/映川.app: valid on disk\n/Users/yangjun/Downloads/视频播放器/dist/映川.app: satisfies its Designated Requirement",
+  "zipCRCVerified": true,
+  "archiveExecutableMatchesApp": true,
+  "executableSHA256": "d7b99d267fa7aeccab0714031da054076212e8a1df12db6fe6fa47f4a48309d5",
+  "archiveSHA256": "6935e45f0706c8fd34fcb91b906e67067247d0411e65a720633c9355833b02ed",
+  "archiveBytes": 1499608
+}

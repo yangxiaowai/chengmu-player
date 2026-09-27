@@ -83,7 +83,10 @@ final class PlayerPresentationController: ObservableObject {
     }
 
     func interact(_ reason: String, active: Bool) {
-        if active { interactions.insert(reason) } else { interactions.remove(reason) }
+        let changed = active ? interactions.insert(reason).inserted : interactions.remove(reason) != nil
+        // Hiding the chrome also clears its preview/hover views. An already
+        // inactive interaction is cleanup, not new user activity that wakes it.
+        guard changed else { return }
         activity()
     }
 
@@ -110,8 +113,8 @@ final class PlayerPresentationController: ObservableObject {
         // transitions for which a completion notification may not arrive.
         let actualFullscreen = window.styleMask.contains(.fullScreen)
         if isFullscreen != actualFullscreen { setFullscreen(actualFullscreen) }
-        let canHide = FullscreenControlsPolicy.shouldHide(
-            isFullscreen: isFullscreen, isPlaying: playing, isBuffering: buffering,
+        let canHide = PlaybackControlsPolicy.shouldHide(
+            isPlaying: playing, isBuffering: buffering,
             hasError: hasError,
             isInteracting: !interactions.isEmpty || menuDepth > 0 || window.attachedSheet != nil,
             isActive: NSApp.isActive && window.isKeyWindow,
@@ -119,7 +122,7 @@ final class PlayerPresentationController: ObservableObject {
         guard canHide else { showControls(); return }
         if controlsVisible { controlsVisible = false }
         // Do not hide another screen's cursor while this window remains key.
-        if window.frame.contains(NSEvent.mouseLocation) && !cursorWasHidden {
+        if isFullscreen && window.frame.contains(NSEvent.mouseLocation) && !cursorWasHidden {
             NSCursor.setHiddenUntilMouseMoves(true); cursorWasHidden = true
         }
     }
