@@ -1,0 +1,1911 @@
+{
+  "accessLog" : [
+    {
+      "indicatedBitrate" : 3406975,
+      "numberOfDroppedVideoFrames" : 0,
+      "observedBitrate" : 7182374,
+      "uri" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls740_dolbyvision/prog_index.m3u8"
+    }
+  ],
+  "audibleAtmosVerified" : false,
+  "audioOptions" : [
+    {
+      "displayName" : "English (US)",
+      "language" : "en-US",
+      "mediaSubTypes" : [
+
+      ],
+      "playable" : true
+    },
+    {
+      "displayName" : "English (US) AD",
+      "language" : "en-US",
+      "mediaSubTypes" : [
+
+      ],
+      "playable" : true
+    }
+  ],
+  "checkedAt" : "2026-09-27T18:09:32Z",
+  "elapsedSeconds" : 20.063194990158081,
+  "eligibleForHDRPlayback" : false,
+  "errorLog" : [
+
+  ],
+  "finalItemStatus" : "ready",
+  "finalPosition" : 0,
+  "finalPresentationSize" : {
+    "height" : 576,
+    "width" : 1024
+  },
+  "finalTransport" : "paused",
+  "itemError" : null,
+  "metrics" : [
+
+  ],
+  "muted" : true,
+  "officialSourcePage" : "https://developer.apple.com/streaming/examples/advanced-stream-dv-atmos.html",
+  "onScreenHDRVerified" : false,
+  "outputDevice" : "MacBook Pro Speakers",
+  "readyAndAdvanced" : false,
+  "scope" : "Real independent AVPlayer with official streaming sample; input selection and metadata evidence only. Muted and no window; does not prove screen rendering or speaker Atmos output. No media file is saved.",
+  "screens" : [
+    {
+      "edrCurrent" : 1,
+      "edrPotential" : 16,
+      "name" : "Built-in Retina Display"
+    }
+  ],
+  "selectedAudioOptionAtLoad" : {
+    "displayName" : "English (US)",
+    "language" : "en-US",
+    "mediaSubTypes" : [
+
+    ],
+    "playable" : true
+  },
+  "source" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/main.m3u8",
+  "spatializationPolicy" : "multichannel",
+  "states" : [
+    {
+      "elapsedSeconds" : 0.054462909698486328,
+      "itemStatus" : "unknown",
+      "position" : 0,
+      "rate" : 1,
+      "transport" : "waiting"
+    },
+    {
+      "elapsedSeconds" : 2.117068886756897,
+      "itemStatus" : "unknown",
+      "position" : 0,
+      "rate" : 1,
+      "transport" : "waiting"
+    },
+    {
+      "elapsedSeconds" : 4.1945658922195435,
+      "itemStatus" : "unknown",
+      "position" : 0,
+      "rate" : 1,
+      "transport" : "waiting"
+    },
+    {
+      "elapsedSeconds" : 6.2782119512557983,
+      "itemStatus" : "unknown",
+      "position" : 0,
+      "rate" : 1,
+      "transport" : "waiting"
+    },
+    {
+      "elapsedSeconds" : 19.961407899856567,
+      "itemStatus" : "ready",
+      "position" : 0,
+      "rate" : 0,
+      "transport" : "paused"
+    }
+  ],
+  "trackSnapshots" : [
+    {
+      "elapsedSeconds" : 19.867385983467102,
+      "tracks" : [
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "vide",
+          "trackID" : 2
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "soun",
+          "trackID" : 4
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "meta",
+          "trackID" : 5
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "sbtl",
+          "trackID" : 1
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "clcp",
+          "trackID" : 3
+        }
+      ]
+    },
+    {
+      "elapsedSeconds" : 19.961768984794617,
+      "tracks" : [
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "vide",
+          "trackID" : 2
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "soun",
+          "trackID" : 4
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "meta",
+          "trackID" : 5
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "sbtl",
+          "trackID" : 1
+        },
+        {
+          "containsHDRVideo" : false,
+          "enabled" : false,
+          "formats" : [
+
+          ],
+          "mediaType" : "clcp",
+          "trackID" : 3
+        }
+      ]
+    }
+  ],
+  "variants" : [
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 2193519,
+      "peakBitRate" : 3307941,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls240/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 576,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1024
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 10803450,
+      "peakBitRate" : 18352480,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls290/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 10419450,
+      "peakBitRate" : 17968480,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls290/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 10194270,
+      "peakBitRate" : 17743300,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls290/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 4569760,
+      "peakBitRate" : 6301022,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls265/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 4185760,
+      "peakBitRate" : 5917022,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls265/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 3960580,
+      "peakBitRate" : 5691842,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls265/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 4647460,
+      "peakBitRate" : 6766146,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls260/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 4263460,
+      "peakBitRate" : 6382146,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls260/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 4038280,
+      "peakBitRate" : 6156966,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls260/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3561760,
+      "peakBitRate" : 4909286,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls250/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3177760,
+      "peakBitRate" : 4525286,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls250/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2952580,
+      "peakBitRate" : 4300106,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls250/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1587664,
+      "peakBitRate" : 2431160,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls230/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 486,
+        "range" : "AVVideoRangeSDR",
+        "width" : 864
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 1144542,
+      "peakBitRate" : 1726020,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls220/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 432,
+        "range" : "AVVideoRangeSDR",
+        "width" : 768
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 792030,
+      "peakBitRate" : 1210957,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls210/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 378,
+        "range" : "AVVideoRangeSDR",
+        "width" : 672
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 542655,
+      "peakBitRate" : 830620,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls207/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 342,
+        "range" : "AVVideoRangeSDR",
+        "width" : 608
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 392060,
+      "peakBitRate" : 573116,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls205/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 306,
+        "range" : "AVVideoRangeSDR",
+        "width" : 544
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 291121,
+      "peakBitRate" : 408977,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hls203/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "avc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 270,
+        "range" : "AVVideoRangeSDR",
+        "width" : 480
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 2892539,
+      "peakBitRate" : 4501986,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls550/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 2508539,
+      "peakBitRate" : 4117986,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls550/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2283359,
+      "peakBitRate" : 3892806,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls550/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 21623585,
+      "peakBitRate" : 38288489,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls598/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 21239585,
+      "peakBitRate" : 37904489,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls598/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 21014405,
+      "peakBitRate" : 37679309,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls598/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 13061199,
+      "peakBitRate" : 26931098,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls597/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 12677199,
+      "peakBitRate" : 26547098,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls597/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 12452019,
+      "peakBitRate" : 26321918,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls597/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangeSDR",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 12822217,
+      "peakBitRate" : 21622014,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls591/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangeSDR",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 12438217,
+      "peakBitRate" : 21238014,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls591/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangeSDR",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 12213037,
+      "peakBitRate" : 21012834,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls591/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangeSDR",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 7766758,
+      "peakBitRate" : 12993630,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls585/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 7382758,
+      "peakBitRate" : 12609630,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls585/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 7157578,
+      "peakBitRate" : 12384450,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls585/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3488792,
+      "peakBitRate" : 5422896,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls565/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3104792,
+      "peakBitRate" : 5038896,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls565/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2879612,
+      "peakBitRate" : 4813716,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls565/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3516666,
+      "peakBitRate" : 5824986,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls560/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3132666,
+      "peakBitRate" : 5440986,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls560/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2907486,
+      "peakBitRate" : 5215806,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls560/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1583458,
+      "peakBitRate" : 2626980,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls540/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 576,
+        "range" : "AVVideoRangeSDR",
+        "width" : 1024
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1187775,
+      "peakBitRate" : 1923777,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls530/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 486,
+        "range" : "AVVideoRangeSDR",
+        "width" : 864
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 868990,
+      "peakBitRate" : 1402880,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls520/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 432,
+        "range" : "AVVideoRangeSDR",
+        "width" : 768
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 615729,
+      "peakBitRate" : 951412,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls510/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 378,
+        "range" : "AVVideoRangeSDR",
+        "width" : 672
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 439866,
+      "peakBitRate" : 676900,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls507/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 342,
+        "range" : "AVVideoRangeSDR",
+        "width" : 608
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 286802,
+      "peakBitRate" : 432092,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hevchls505/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 270,
+        "range" : "AVVideoRangeSDR",
+        "width" : 480
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1939787,
+      "peakBitRate" : 3406975,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls740_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 576,
+        "range" : "AVVideoRangePQ",
+        "width" : 1024
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 25097073,
+      "peakBitRate" : 37409767,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls798_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 24713073,
+      "peakBitRate" : 37025767,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls798_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 24487893,
+      "peakBitRate" : 36800587,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls798_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 16657358,
+      "peakBitRate" : 33623778,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls797_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 16273358,
+      "peakBitRate" : 33239778,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls797_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 16048178,
+      "peakBitRate" : 33014598,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls797_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 15695540,
+      "peakBitRate" : 27872950,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls791_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 15311540,
+      "peakBitRate" : 27488950,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls791_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 15086360,
+      "peakBitRate" : 27263770,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls791_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 9395322,
+      "peakBitRate" : 17259229,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls785_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 9011322,
+      "peakBitRate" : 16875229,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls785_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 8786142,
+      "peakBitRate" : 16650049,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls785_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 4091669,
+      "peakBitRate" : 6597524,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls765_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3707669,
+      "peakBitRate" : 6213524,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls765_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 3482489,
+      "peakBitRate" : 5988344,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls765_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 4067185,
+      "peakBitRate" : 6160435,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls760_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3683185,
+      "peakBitRate" : 5776435,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls760_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 3458005,
+      "peakBitRate" : 5551255,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls760_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3323532,
+      "peakBitRate" : 5186851,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls750_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 2939532,
+      "peakBitRate" : 4802851,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls750_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2714352,
+      "peakBitRate" : 4577671,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls750_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1440047,
+      "peakBitRate" : 2582259,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls730_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 486,
+        "range" : "AVVideoRangePQ",
+        "width" : 864
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 1105420,
+      "peakBitRate" : 2113263,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls720_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 432,
+        "range" : "AVVideoRangePQ",
+        "width" : 768
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 790193,
+      "peakBitRate" : 1352128,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls710_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 378,
+        "range" : "AVVideoRangePQ",
+        "width" : 672
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 575889,
+      "peakBitRate" : 964756,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls707_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 342,
+        "range" : "AVVideoRangePQ",
+        "width" : 608
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 394310,
+      "peakBitRate" : 631744,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job2dae5735-d6ca-48ca-91be-0ec0bead535c-107702578-hls_bundle_hdrhls705_dolbyvision/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "dvh1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 270,
+        "range" : "AVVideoRangePQ",
+        "width" : 480
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1904675,
+      "peakBitRate" : 3286930,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls740_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 576,
+        "range" : "AVVideoRangePQ",
+        "width" : 1024
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 24757420,
+      "peakBitRate" : 40068766,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls798_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 24373420,
+      "peakBitRate" : 39684766,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls798_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 24148240,
+      "peakBitRate" : 39459586,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls798_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 15879341,
+      "peakBitRate" : 30434627,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls797_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 15495341,
+      "peakBitRate" : 30050627,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls797_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 15270161,
+      "peakBitRate" : 29825447,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls797_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 2160,
+        "range" : "AVVideoRangePQ",
+        "width" : 3840
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 15331423,
+      "peakBitRate" : 26794663,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls791_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 14947423,
+      "peakBitRate" : 26410663,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls791_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 14722243,
+      "peakBitRate" : 26185483,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls791_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1440,
+        "range" : "AVVideoRangePQ",
+        "width" : 2560
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 9392465,
+      "peakBitRate" : 16580085,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls785_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 9008465,
+      "peakBitRate" : 16196085,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls785_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 8783285,
+      "peakBitRate" : 15970905,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls785_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 4005346,
+      "peakBitRate" : 6262643,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls765_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3621346,
+      "peakBitRate" : 5878643,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls765_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 3396166,
+      "peakBitRate" : 5653463,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls765_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 1080,
+        "range" : "AVVideoRangePQ",
+        "width" : 1920
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3990516,
+      "peakBitRate" : 6154594,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls760_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 3606516,
+      "peakBitRate" : 5770594,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls760_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 3381336,
+      "peakBitRate" : 5545414,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls760_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ec-3"
+      ],
+      "averageBitRate" : 3277330,
+      "peakBitRate" : 5186572,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls750_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "ac-3"
+      ],
+      "averageBitRate" : 2893330,
+      "peakBitRate" : 4802572,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls750_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aac "
+      ],
+      "averageBitRate" : 2668150,
+      "peakBitRate" : 4577392,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls750_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 720,
+        "range" : "AVVideoRangePQ",
+        "width" : 1280
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aach"
+      ],
+      "averageBitRate" : 1394013,
+      "peakBitRate" : 2479382,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls730_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 486,
+        "range" : "AVVideoRangePQ",
+        "width" : 864
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 1061415,
+      "peakBitRate" : 1996427,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls720_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 432,
+        "range" : "AVVideoRangePQ",
+        "width" : 768
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 743617,
+      "peakBitRate" : 1297032,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls710_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 378,
+        "range" : "AVVideoRangePQ",
+        "width" : 672
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 534180,
+      "peakBitRate" : 925170,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls707_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 342,
+        "range" : "AVVideoRangePQ",
+        "width" : 608
+      }
+    },
+    {
+      "audioFormatIDs" : [
+        "aacp"
+      ],
+      "averageBitRate" : 352193,
+      "peakBitRate" : 552510,
+      "url" : "https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/Job8208634a-0add-4223-9782-600c14a70339-139240443-hls_bundle_hdrhls705_hdr10plus/prog_index.m3u8",
+      "video" : {
+        "codecs" : [
+          "hvc1"
+        ],
+        "fps" : 23.975999999999999,
+        "height" : 270,
+        "range" : "AVVideoRangePQ",
+        "width" : 480
+      }
+    }
+  ],
+  "windowCreated" : false
+}

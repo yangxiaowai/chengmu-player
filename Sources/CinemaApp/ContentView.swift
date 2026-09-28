@@ -4,14 +4,6 @@ import CinemaCore
 // CLT ships the property wrapper but may omit the new SwiftUI State macro plugin.
 typealias LegacyState<Value> = SwiftUI.State<Value>
 
-enum CinemaStyle {
-    static let background = Color(red: 0.055, green: 0.065, blue: 0.075)
-    static let panel = Color(red: 0.09, green: 0.10, blue: 0.115)
-    static let border = Color.white.opacity(0.085)
-    static let accent = Color(red: 0.94, green: 0.66, blue: 0.29)
-    static let secondary = Color(red: 0.56, green: 0.59, blue: 0.62)
-}
-
 struct ContentView: View {
     @ObservedObject var app: AppModel
     @LegacyState private var showLink = false
@@ -60,36 +52,53 @@ struct ContentView: View {
     }
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 10) {
-                Image(systemName: "play.rectangle.fill").font(.system(size: 28, weight: .light)).foregroundStyle(CinemaStyle.accent)
-                VStack(alignment: .leading, spacing: 2) { Text("映川").font(.system(size: 23, weight: .semibold, design: .serif)); Text("Y I N G C H U A N").font(.system(size: 8, weight: .medium)).foregroundStyle(CinemaStyle.secondary) }
-            }.padding(.top, 33).padding(.bottom, 48).padding(.horizontal, 24)
-            Text("你的放映室").font(.system(size: 10, weight: .medium)).foregroundStyle(CinemaStyle.secondary).padding(.horizontal, 26).padding(.bottom, 13)
+            HStack(spacing: 11) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 9, style: .continuous).fill(CinemaStyle.accentSoft)
+                    Image(systemName: "play.rectangle.fill").font(.system(size: 17, weight: .regular)).foregroundStyle(CinemaStyle.accent)
+                }.frame(width: 36, height: 36)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("映川").font(.system(size: 21, weight: .semibold, design: .serif))
+                    Text("Y I N G C H U A N").font(.system(size: 7.5, weight: .medium)).tracking(1.4).foregroundStyle(CinemaStyle.tertiary)
+                }
+            }.padding(.top, 30).padding(.bottom, 34).padding(.horizontal, 20)
+            Text("你的放映室").font(.system(size: 9.5, weight: .semibold)).tracking(1.1).foregroundStyle(CinemaStyle.tertiary).padding(.horizontal, 24).padding(.bottom, 11)
             ForEach(AppSection.allCases) { section in
                 SidebarButton(title: section.rawValue, icon: section.icon, selected: app.section == section) {
                     app.section = section
-                }.padding(.horizontal, 12).padding(.bottom, 4)
+                }.padding(.horizontal, 10).padding(.bottom, 3)
             }
             Spacer()
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 3) {
                 SidebarButton(title: "打开本地影片", icon: "folder.badge.plus", isNavigation: false) { app.importFile() }
                 SidebarButton(title: "打开网络链接", icon: "link", isNavigation: false) { showLink = true }
-            }.padding(.horizontal, 12).padding(.vertical, 16)
-            Rectangle().fill(CinemaStyle.border).frame(height: 1).padding(.horizontal, 24)
-            HStack(spacing: 7) { Circle().fill(CinemaStyle.accent).frame(width: 5, height: 5); Text("\(app.enabledProviderCount) 个检索来源已启用").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }.padding(24)
-        }.frame(width: 204).background(Color.black.opacity(0.16))
+            }.padding(.horizontal, 10).padding(.bottom, 14)
+            Rectangle().fill(CinemaStyle.border).frame(height: 1).padding(.horizontal, 20)
+            HStack(spacing: 8) {
+                ZStack { Circle().fill(CinemaStyle.accent.opacity(0.18)).frame(width: 14, height: 14); Circle().fill(CinemaStyle.accent).frame(width: 5, height: 5) }
+                Text("\(app.enabledProviderCount) 个检索来源已启用").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
+            }.padding(.horizontal, 22).padding(.vertical, 18)
+        }.frame(width: 204)
+        .background(LinearGradient(colors: [Color.black.opacity(0.28), Color.black.opacity(0.12)], startPoint: .top, endPoint: .bottom))
     }
     private var topbar: some View {
         HStack(spacing: 18) {
             Text(app.section.rawValue).font(.system(size: 13, weight: .medium)).foregroundStyle(CinemaStyle.secondary)
             Spacer()
             HStack(spacing: 10) {
-                Image(systemName: "magnifyingglass").foregroundStyle(CinemaStyle.secondary)
+                Image(systemName: "magnifyingglass").font(.system(size: 12)).foregroundStyle(app.query.isEmpty ? CinemaStyle.tertiary : CinemaStyle.accent)
                 TextField("搜索电影、剧集…", text: $app.query).textFieldStyle(.plain).onSubmit { app.search() }.frame(width: 245).accessibilityIdentifier("searchField")
                 if app.searching { ProgressView().controlSize(.small) }
-            }.font(.system(size: 12)).padding(.horizontal, 14).padding(.vertical, 11).background(CinemaStyle.panel, in: Capsule())
-            Button { app.search() } label: { Text("搜索").font(.system(size: 12, weight: .medium)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.accent).accessibilityIdentifier("searchButton")
-        }.padding(.horizontal, 32).padding(.vertical, 20)
+            }
+            .font(.system(size: 12)).padding(.horizontal, 15).padding(.vertical, 10)
+            .background(CinemaStyle.backgroundRaised, in: Capsule())
+            .overlay(Capsule().strokeBorder(app.query.isEmpty ? CinemaStyle.border : CinemaStyle.accent.opacity(0.45), lineWidth: 1))
+            .animation(CinemaStyle.quick, value: app.query.isEmpty)
+            Button { app.search() } label: { Text("搜索").font(.system(size: 12, weight: .medium)).padding(.horizontal, 6).padding(.vertical, 6) }
+                .buttonStyle(.plain).foregroundStyle(CinemaStyle.accent).accessibilityIdentifier("searchButton")
+                .disabled(app.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .opacity(app.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.45 : 1)
+        }.padding(.horizontal, CinemaStyle.gutter).padding(.vertical, 18)
     }
 
 }
@@ -97,11 +106,33 @@ struct ContentView: View {
 struct PosterView: View {
     let url: URL?
     let title: String
+    /// Keeps the placeholder until the artwork has decoded, so a poster fades in instead of
+    /// flashing an empty frame.
+    @LegacyState private var loaded = false
     var body: some View {
         GeometryReader { geometry in
-            AsyncImage(url: url) { image in image.resizable().scaledToFill() } placeholder: {
-                ZStack { LinearGradient(colors: [Color(red: 0.18, green: 0.23, blue: 0.25), CinemaStyle.panel], startPoint: .topLeading, endPoint: .bottomTrailing); VStack(spacing: 18) { Image(systemName: "film").font(.system(size: 29, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent.opacity(0.6)); Text(title).font(.system(size: 18, weight: .medium, design: .serif)).multilineTextAlignment(.center).padding(.horizontal, 20) } }
-            }.frame(width: geometry.size.width, height: geometry.size.height).clipped()
+            ZStack {
+                placeholder
+                AsyncImage(url: url, transaction: Transaction(animation: .easeOut(duration: 0.28))) { phase in
+                    if case .success(let image) = phase {
+                        image.resizable().scaledToFill()
+                            .opacity(loaded ? 1 : 0)
+                            .onAppear { loaded = true }
+                    }
+                }
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .clipped()
+            .onChange(of: url) { _, _ in loaded = false }
+        }
+    }
+    private var placeholder: some View {
+        ZStack {
+            LinearGradient(colors: [Color(red: 0.16, green: 0.21, blue: 0.24), CinemaStyle.panel], startPoint: .topLeading, endPoint: .bottomTrailing)
+            VStack(spacing: 16) {
+                Image(systemName: "film").font(.system(size: 27, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent.opacity(0.55))
+                Text(title).font(.system(size: 17, weight: .medium, design: .serif)).multilineTextAlignment(.center).padding(.horizontal, 18).lineLimit(3)
+            }
         }
     }
 }
@@ -110,12 +141,36 @@ struct MediaCard: View {
     @LegacyState private var hovering = false
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            PosterView(url: title.posterURL, title: title.title).aspectRatio(2.0 / 3, contentMode: .fit).clipShape(RoundedRectangle(cornerRadius: 9))
-                .overlay(alignment: .bottomLeading) { Text(title.providerName).font(.system(size: 9, weight: .medium)).padding(.horizontal, 8).padding(.vertical, 5).background(.black.opacity(0.75), in: Capsule()).padding(8) }
-                .overlay { if hovering { RoundedRectangle(cornerRadius: 9).stroke(CinemaStyle.accent.opacity(0.8), lineWidth: 1.5); Image(systemName: "play.circle.fill").font(.system(size: 37)).foregroundStyle(.white).shadow(radius: 10) } }
-            Text(title.title).font(.system(size: 13, weight: .medium)).lineLimit(1)
-            Text(title.year.isEmpty ? "查看集数与线路" : "\(title.year) · 查看集数与线路").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
-        }.onHover { hovering = $0 }
+            PosterView(url: title.posterURL, title: title.title)
+                .aspectRatio(2.0 / 3, contentMode: .fit)
+                .clipShape(RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous))
+                .overlay(alignment: .bottomLeading) {
+                    Text(title.providerName).font(.system(size: 9, weight: .medium))
+                        .padding(.horizontal, 7).padding(.vertical, 4)
+                        .background(.black.opacity(0.66), in: Capsule())
+                        .overlay(Capsule().strokeBorder(Color.white.opacity(0.12), lineWidth: 1))
+                        .padding(8)
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous)
+                        .strokeBorder(hovering ? CinemaStyle.accent.opacity(0.85) : CinemaStyle.border, lineWidth: hovering ? 1.5 : 1)
+                    if hovering {
+                        ZStack {
+                            Color.black.opacity(0.28)
+                            Image(systemName: "play.circle.fill").font(.system(size: 36)).foregroundStyle(.white).shadow(color: .black.opacity(0.5), radius: 8)
+                        }
+                        .transition(.opacity)
+                    }
+                }
+                .shadow(color: .black.opacity(hovering ? 0.45 : 0.22), radius: hovering ? 14 : 7, y: hovering ? 7 : 3)
+                .scaleEffect(hovering ? 1.012 : 1)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title.title).font(.system(size: 13, weight: .medium)).lineLimit(1)
+                Text(title.year.isEmpty ? "查看集数与线路" : "\(title.year) · 查看集数与线路").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
+            }
+        }
+        .animation(CinemaStyle.quick, value: hovering)
+        .onHover { hovering = $0 }
     }
 }
 struct DetailView: View {

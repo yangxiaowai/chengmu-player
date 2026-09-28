@@ -9,11 +9,14 @@ public struct HLSInfo: Codable, Hashable {
     public var declaredWidth: Int?
     public var declaredHeight: Int?
     public var codecs: String?
+    /// Declarations from the outermost master playlist; nil when the URL is a media playlist.
+    public var declarations: HLSMediaDeclarations?
     public var encrypted: Bool
     public var firstSegmentURL: URL?
-    public init(url: URL, duration: Double, segmentCount: Int, isComplete: Bool, declaredWidth: Int? = nil, declaredHeight: Int? = nil, codecs: String? = nil, encrypted: Bool, firstSegmentURL: URL?) {
+    public init(url: URL, duration: Double, segmentCount: Int, isComplete: Bool, declaredWidth: Int? = nil, declaredHeight: Int? = nil, codecs: String? = nil, declarations: HLSMediaDeclarations? = nil, encrypted: Bool, firstSegmentURL: URL?) {
         self.url = url; self.duration = duration; self.segmentCount = segmentCount; self.isComplete = isComplete
-        self.declaredWidth = declaredWidth; self.declaredHeight = declaredHeight; self.codecs = codecs; self.encrypted = encrypted; self.firstSegmentURL = firstSegmentURL
+        self.declaredWidth = declaredWidth; self.declaredHeight = declaredHeight; self.codecs = codecs
+        self.declarations = declarations; self.encrypted = encrypted; self.firstSegmentURL = firstSegmentURL
     }
 }
 public struct HLSVariant: Hashable {
@@ -33,11 +36,18 @@ public struct HLSProbe {
         var next = url
         var seen = Set<URL>()
         var selected: HLSVariant?
+        // The outermost master playlist describes what the source offers. Nested playlists
+        // only narrow the branch this client follows, so the first declarations win.
+        var outermost: HLSMediaDeclarations?
         for _ in 0..<5 {
             try Task.checkCancellation()
             guard seen.insert(next).inserted else { throw SourceError.playlistLoop }
             let (data, finalURL) = try await client.get(next)
             guard let text = String(data: data, encoding: .utf8) else { throw SourceError.invalidPlaylist }
+            if outermost == nil {
+                let declarations = try Self.declarations(text: text, url: finalURL)
+                if !declarations.isEmpty { outermost = declarations }
+            }
             let choices = try Self.variants(text: text, url: finalURL)
             if let best = choices.first {
                 selected = best; next = best.url
@@ -45,9 +55,58 @@ public struct HLSProbe {
             }
             var info = try Self.parse(text: text, url: finalURL)
             info.declaredWidth = selected?.width; info.declaredHeight = selected?.height; info.codecs = selected?.codecs
+            info.declarations = outermost
             return info
         }
         throw SourceError.playlistDepth
+    }
+    /// Reads only the declarations of one playlist text. A leaf media playlist has none.
+    public static func declarations(text: String, url: URL) throws -> HLSMediaDeclarations {
+        let lines = try playlistLines(text)
+        var variants: [HLSVideoDeclaration] = []
+        var renditions: [HLSAudioRendition] = []
+        var index = 1
+        while index < lines.count {
+            let line = lines[index]
+            if line.hasPrefix("#EXT-X-STREAM-INF:") {
+                let info = try HLSManifestParser.attributes(String(line.dropFirst("#EXT-X-STREAM-INF:".count)))
+                let dimensions = (info["RESOLUTION"] ?? "").lowercased().split(separator: "x").compactMap { value -> Int? in
+                    guard let dimension = Int(value), dimension > 0, dimension <= 16384 else { return nil }; return dimension
+                }
+                var uri: String?
+                var scanned = index + 1
+                while scanned < lines.count, uri == nil {
+                    let candidate = lines[scanned]
+                    if !candidate.hasPrefix("#") && !candidate.isEmpty { uri = candidate }
+                    scanned += 1
+                }
+                guard let uri, let variantURL = networkURL(uri, relativeTo: url) else { throw SourceError.invalidPlaylist }
+                variants.append(HLSVideoDeclaration(url: variantURL,
+                    width: dimensions.count == 2 ? dimensions[0] : nil, height: dimensions.count == 2 ? dimensions[1] : nil,
+                    bandwidth: Int(info["BANDWIDTH"] ?? "") ?? 0, codecs: info["CODECS"],
+                    supplementalCodecs: info["SUPPLEMENTAL-CODECS"], videoRange: info["VIDEO-RANGE"], audioGroupID: info["AUDIO"]))
+                index = scanned
+                continue
+            }
+            if line.hasPrefix("#EXT-X-MEDIA:") {
+                let info = try HLSManifestParser.attributes(String(line.dropFirst("#EXT-X-MEDIA:".count)))
+                // A missing group, an unusable URI or a duplicated attribute on an AUDIO
+                // rendition is malformed manifest data, not an absence of audio.
+                if info["TYPE"]?.uppercased() == "AUDIO" {
+                    guard let group = info["GROUP-ID"], !group.isEmpty else { throw SourceError.invalidPlaylist }
+                    var renditionURL: URL?
+                    if let uri = info["URI"] {
+                        guard let resolved = networkURL(uri, relativeTo: url) else { throw SourceError.invalidPlaylist }
+                        renditionURL = resolved
+                    }
+                    renditions.append(HLSAudioRendition(groupID: group, name: info["NAME"] ?? "未命名音轨",
+                        language: info["LANGUAGE"], isDefault: info["DEFAULT"]?.uppercased() == "YES",
+                        channels: info["CHANNELS"], url: renditionURL))
+                }
+            }
+            index += 1
+        }
+        return HLSMediaDeclarations(variants: variants, audioRenditions: renditions)
     }
     public static func variants(text: String, url: URL) throws -> [HLSVariant] {
         let lines = try playlistLines(text)
@@ -101,13 +160,6 @@ public struct HLSProbe {
     }
     private static func attributes(_ value: String) -> [String: String] {
         // Commas inside quoted CODECS and URI values must stay inside one attribute.
-        let regex = try! NSRegularExpression(pattern: "([A-Z0-9-]+)=(\"[^\"]*\"|[^,]*)")
-        var result: [String: String] = [:]
-        for match in regex.matches(in: value, range: NSRange(value.startIndex..., in: value)) {
-            if let key = Range(match.range(at: 1), in: value), let val = Range(match.range(at: 2), in: value) {
-                result[String(value[key])] = String(value[val]).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
-            }
-        }
-        return result
+        (try? HLSManifestParser.attributes(value)) ?? [:]
     }
 }

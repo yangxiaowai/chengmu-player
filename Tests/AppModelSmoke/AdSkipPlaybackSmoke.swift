@@ -23,7 +23,11 @@ import CinemaCore
             try require(evidence.classification == .advertisement, "The actual fixture OCR did not recognize the inserted card")
             controller.setRate(0.5)
             controller.open(url: media, title: "广告识别隔离验收", episode: "40s synthetic")
-            try await eventually("real OCR identifies a closed upcoming segment", timeout: 45) { !controller.adSkip.segments.isEmpty }
+            do {
+                try await eventually("real OCR identifies a closed upcoming segment", timeout: 45) { !controller.adSkip.segments.isEmpty }
+            } catch {
+                throw Failure(message: "initial detection failed: position=\(controller.position) status=\(controller.adSkip.status) analyzed=\(controller.adSkip.analyzedFrames) playbackError=\(controller.error ?? "none")")
+            }
             controller.pause()
             let segment = try required(controller.adSkip.segments.first, "No detected interval")
             try require(segment.start >= 16 && segment.end < 28 && segment.end - segment.start >= 4, "Interval escaped synthetic ad boundaries: \(segment)")
@@ -127,7 +131,11 @@ import CinemaCore
     @MainActor static func identifiedFresh(_ controller: PlaybackController, media: URL) async throws {
         controller.setRate(0.5)
         controller.open(url: media, title: "Fresh detection", episode: "same fixture")
-        try await eventually("new item detected independently", timeout: 35) { !controller.adSkip.segments.isEmpty }
+        do {
+            try await eventually("new item detected independently", timeout: 35) { !controller.adSkip.segments.isEmpty }
+        } catch {
+            throw Failure(message: "new item detection failed: position=\(controller.position) status=\(controller.adSkip.status) analyzed=\(controller.adSkip.analyzedFrames) playbackError=\(controller.error ?? "none")")
+        }
         controller.pause(); controller.setRate(1)
     }
     static func require(_ condition: Bool, _ message: String) throws { if !condition { throw Failure(message: message) } }

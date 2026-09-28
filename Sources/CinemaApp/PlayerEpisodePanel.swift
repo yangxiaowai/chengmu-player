@@ -12,32 +12,35 @@ struct PlayerEpisodePanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("正在放映").font(.system(size: 11, weight: .semibold)).tracking(1).foregroundStyle(CinemaStyle.accent)
+            Text("正在放映").font(.system(size: 11, weight: .semibold)).tracking(1.1).foregroundStyle(CinemaStyle.accent)
             Text(playback.title).font(.system(size: 21, weight: .medium, design: .serif)).lineLimit(3)
             if let detail = app.detail {
                 Picker("线路", selection: Binding(get: { app.selectedLineID }, set: { app.switchLine($0) })) {
                     ForEach(detail.lines) { Text($0.name).tag($0.id) }
-                }.labelsHidden()
+                }.labelsHidden().controlSize(.small)
                 HStack(spacing: 8) {
                     Button { app.previousEpisode() } label: { Label("上一集", systemImage: "backward.end") }
                         .disabled(!app.canPlayPrevious)
                     Spacer(minLength: 0)
                     Button { app.nextEpisode() } label: { Label("下一集", systemImage: "forward.end") }
                         .disabled(!app.canPlayNext)
-                }.font(.system(size: 11)).buttonStyle(.bordered)
+                }.font(.system(size: 11)).buttonStyle(.bordered).controlSize(.small)
                 ScrollViewReader { proxy in
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                             ForEach(app.selectedLine?.episodes ?? []) { episode in
                                 Button { app.play(episode) } label: {
-                                    Text(episode.name).font(.system(size: 11)).lineLimit(1)
+                                    Text(episode.name).font(.system(size: 11, weight: episode.id == app.currentEpisodeID ? .medium : .regular)).lineLimit(1)
                                         .frame(maxWidth: .infinity, minHeight: 36)
-                                        .foregroundStyle(episode.id == app.currentEpisodeID ? CinemaStyle.accent : .white.opacity(0.75))
-                                        .background(episode.id == app.currentEpisodeID ? CinemaStyle.accent.opacity(0.1) : Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 6))
+                                        .foregroundStyle(episode.id == app.currentEpisodeID ? CinemaStyle.accent : CinemaStyle.primary)
+                                        .background(episode.id == app.currentEpisodeID ? CinemaStyle.accentSoft : CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous))
+                                        .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous)
+                                            .strokeBorder(episode.id == app.currentEpisodeID ? CinemaStyle.accent.opacity(0.55) : CinemaStyle.border, lineWidth: 1))
                                         .contentShape(Rectangle())
                                 }.buttonStyle(.plain).id(episode.id)
                                     .help(episode.name)
                                     .accessibilityAddTraits(episode.id == app.currentEpisodeID ? .isSelected : [])
+                                    .animation(CinemaStyle.quick, value: app.currentEpisodeID)
                             }
                         }
                     }
@@ -79,10 +82,12 @@ struct PlayerEpisodePanel: View {
                             Button { app.switchAlternativeSource(title) } label: {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(title.providerName).font(.system(size: 10, weight: .semibold)).foregroundStyle(CinemaStyle.accent)
-                                    Text(title.title).font(.system(size: 11)).foregroundStyle(.white.opacity(0.85)).lineLimit(2)
+                                    Text(title.title).font(.system(size: 11)).foregroundStyle(CinemaStyle.primary).lineLimit(2)
                                     Text("画质未知 · 核对同季同集后切换").font(.system(size: 9)).foregroundStyle(CinemaStyle.secondary)
-                                }.frame(maxWidth: .infinity, alignment: .leading).padding(9)
-                                    .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 6)).contentShape(Rectangle())
+                                }.frame(maxWidth: .infinity, alignment: .leading).padding(CinemaStyle.rowSpacing)
+                                    .background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous))
+                                    .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous).strokeBorder(CinemaStyle.border, lineWidth: 1))
+                                    .contentShape(Rectangle())
                             }.buttonStyle(.plain).disabled(app.alternativesLoading)
                         }
                     }

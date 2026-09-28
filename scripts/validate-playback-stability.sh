@@ -47,6 +47,7 @@ swiftc -swift-version 5 -target arm64-apple-macos15.0 -emit-module -emit-library
 swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 \
     -I "$validation_directory/core" -L "$validation_directory/core" -lCinemaCore \
     Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift \
+    Sources/CinemaApp/MediaExperienceInspector.swift Sources/CinemaApp/VideoProcessingPolicy.swift \
     Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift \
     Tests/AppModelSmoke/PlaybackStabilitySmoke.swift -o "$validation_directory/check"
 "$validation_directory/check" --validate "$validation_directory/silent.wav" "http://127.0.0.1:$port/pending.m3u8" > "$report"

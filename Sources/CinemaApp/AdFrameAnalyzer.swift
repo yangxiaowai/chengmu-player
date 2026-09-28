@@ -4,7 +4,13 @@ import CoreImage
 import Vision
 import CinemaCore
 
-/// Owns an independent, muted decoder. Neither analysis nor cancellation touches the playback asset.
+/// Owns an independent, muted decoder, used only when the playback pipeline cannot supply frames.
+///
+/// Playback frames are preferred (see `classify(image:time:protectedRegions:)`): they are already
+/// decoded, so recognition costs no extra decode and no extra waiting. This fallback covers local
+/// files and HTTP MP4, where a paused decoder can seek precisely. Ordinary HTTP HLS does not
+/// reliably complete a sequence of precise seeks, so its look-ahead is limited to whichever
+/// positions the decoder actually delivers and is reported as unavailable rather than guessed.
 @MainActor
 final class AdFrameAnalyzer {
     private(set) var lastFailure: String?
@@ -42,6 +48,19 @@ final class AdFrameAnalyzer {
         output = nil; decoder = nil; decoderItem = nil; transform = nil
         asset?.cancelLoading(); asset = nil
     }
+    /// Classification for a frame that the playback pipeline already decoded.
+    func classify(image: CGImage, time: Double, protectedRegions: [NormalizedVideoRect]) async -> AdFrameObservation? {
+        let token = epoch
+        guard time.isFinite, time >= 0, asset != nil else { return nil }
+        let texts = await recognize(image, token: token)
+        guard valid(token), let texts else { return nil }
+        let protected = [AdCleanupSettings.defaultProtection] + protectedRegions
+        return AdFrameObservation(time: time, classification: AdTextClassifier.classify(texts, protectedRegions: protected))
+    }
+
+    /// True when this analyzer owns a decoder that could be replaced by shared playback frames.
+    var hasIndependentDecoder: Bool { decoder != nil || generator != nil }
+
     func analyze(time: Double, protectedRegions: [NormalizedVideoRect]) async -> AdFrameObservation {
         let token = epoch
         lastFailure = nil
@@ -52,7 +71,7 @@ final class AdFrameAnalyzer {
         guard time.isFinite, time >= 0, let asset else { return unknown("等待可分析的媒体") }
         var frame: (CGImage, Double)?
         if !usesHLS { frame = await generatedFrame(at: time, token: token) }
-        if frame == nil, valid(token) { frame = await decodedFrame(at: time, asset: asset, token: token) }
+        if frame == nil, valid(token) { frame = await streamingFrame(at: time, asset: asset, token: token) }
         guard valid(token), let frame else { return unknown("取帧暂不可用，稍后重试") }
         guard abs(frame.1 - time) <= tolerance else { return unknown("取帧时间不匹配，保留原片") }
         let texts = await recognize(frame.0, token: token)
@@ -90,6 +109,65 @@ final class AdFrameAnalyzer {
             }
         }
     }
+    /// Keeps one muted decoder advancing through the look-ahead window. HLS will not complete a
+    /// sequence of precise paused seeks, so the frame nearest each requested time is taken while the
+    /// decoder plays instead of seeking twice per sample.
+    private func streamingFrame(at time: Double, asset: AVAsset, token: UUID) async -> (CGImage, Double)? {
+        if decoder == nil {
+            let item = AVPlayerItem(asset: asset)
+            item.preferredMaximumResolution = CGSize(width: 960, height: 540)
+            item.preferredForwardBufferDuration = 6
+            let output = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA, kCVPixelBufferIOSurfacePropertiesKey as String: [String: String]()])
+            item.add(output)
+            let player = AVPlayer(playerItem: item)
+            player.isMuted = true; player.volume = 0; player.automaticallyWaitsToMinimizeStalling = true
+            self.decoder = player; decoderItem = item; self.output = output
+            transform = usesHLS ? .identity : nil
+        }
+        guard let player = decoder, let item = decoderItem, let output else { return nil }
+        let readyDeadline = Date().addingTimeInterval(8)
+        while item.status != .readyToPlay {
+            guard valid(token), item.status != .failed, Date() < readyDeadline else { return nil }
+            do { try await Task.sleep(nanoseconds: 40_000_000) } catch { return nil }
+        }
+        let current = player.currentTime().seconds
+        let farBehind = time - current > 1.5
+        let rewound = current > time + tolerance
+        if player.rate == 0 || farBehind || rewound {
+            let target = rewound ? time : max(0, time - 0.75)
+            guard await seek(player: player, item: item, to: target) == true, valid(token) else { return nil }
+        }
+        player.playImmediately(atRate: 1)
+        let deadline = Date().addingTimeInterval(farBehind || rewound ? 6 : 3)
+        var closest: (CVPixelBuffer, Double)?
+        while valid(token), Date() < deadline {
+            var displayed = CMTime.invalid
+            let now = player.currentTime()
+            if let pixel = output.copyPixelBuffer(forItemTime: now, itemTimeForDisplay: &displayed), displayed.isNumeric {
+                let delta = abs(displayed.seconds - time)
+                if delta <= tolerance {
+                    player.pause()
+                    return await finish(pixel, at: displayed.seconds, asset: asset, token: token)
+                }
+                if displayed.seconds > time, closest == nil { closest = (pixel, displayed.seconds) }
+                if displayed.seconds > time + tolerance, closest == nil { break }
+            }
+            do { try await Task.sleep(nanoseconds: 15_000_000) } catch { return nil }
+        }
+        player.pause()
+        // A slightly late frame is still the requested moment; the caller re-checks the tolerance.
+        if let closest { return await finish(closest.0, at: closest.1, asset: asset, token: token) }
+        return nil
+    }
+
+    private func finish(_ buffer: CVPixelBuffer, at time: Double, asset: AVAsset, token: UUID) async -> (CGImage, Double)? {
+        if transform == nil { transform = await loadTransform(asset, token: token) }
+        guard valid(token), let transform else { return nil }
+        let image = await thumbnail(buffer, transform: transform, token: token)
+        guard valid(token), let image else { return nil }
+        return (image, time)
+    }
+
     private func decodedFrame(at time: Double, asset: AVAsset, token: UUID) async -> (CGImage, Double)? {
         if decoder == nil {
             let item = AVPlayerItem(asset: asset)
@@ -108,16 +186,13 @@ final class AdFrameAnalyzer {
             guard valid(token), item.status != .failed, Date() < deadline else { return nil }
             do { try await Task.sleep(nanoseconds: 40_000_000) } catch { return nil }
         }
-        let sought: Bool? = await withCheckedContinuation { continuation in
-            let waiter = AdScanWaiter<Bool>(continuation)
-            cancelOperation = { waiter.finish(nil) }
-            waiter.timeout = Task { @MainActor in
-                do { try await Task.sleep(nanoseconds: 3_000_000_000) } catch { return }
-                item.cancelPendingSeeks(); waiter.finish(nil)
-            }
-            player.seek(to: CMTime(seconds: time, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero) { success in
-                Task { @MainActor in waiter.finish(success) }
-            }
+        // A paused HLS item stops fetching, so a precise seek sometimes never calls back. The first
+        // attempt stays paused for speed; a second attempt plays the decoder so the seek can deliver
+        // data. The main player is never touched either way.
+        var sought: Bool? = await seek(player: player, item: item, to: time)
+        if sought != true, valid(token) {
+            player.playImmediately(atRate: 1)
+            sought = await seek(player: player, item: item, to: time)
         }
         guard sought == true, valid(token) else { return nil }
         player.playImmediately(atRate: 1)
@@ -141,6 +216,19 @@ final class AdFrameAnalyzer {
             do { try await Task.sleep(nanoseconds: 25_000_000) } catch { return nil }
         }
         return nil
+    }
+    private func seek(player: AVPlayer, item: AVPlayerItem, to time: Double) async -> Bool? {
+        await withCheckedContinuation { continuation in
+            let waiter = AdScanWaiter<Bool>(continuation)
+            cancelOperation = { waiter.finish(nil) }
+            waiter.timeout = Task { @MainActor in
+                do { try await Task.sleep(nanoseconds: 3_000_000_000) } catch { return }
+                item.cancelPendingSeeks(); waiter.finish(nil)
+            }
+            player.seek(to: CMTime(seconds: time, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero) { success in
+                Task { @MainActor in waiter.finish(success) }
+            }
+        }
     }
     private func loadTransform(_ asset: AVAsset, token: UUID) async -> CGAffineTransform? {
         await withCheckedContinuation { continuation in

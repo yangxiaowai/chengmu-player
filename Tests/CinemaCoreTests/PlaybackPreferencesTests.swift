@@ -12,6 +12,25 @@ struct PlaybackPreferencesTests {
         #expect(disabledJSON["automaticAdSkipping"] as? Bool == false)
     }
 
+    @Test func pipelineSwitchDefaultsToEnhancedAndSurvivesRoundTrip() throws {
+        // Older saved preferences predate the switch, so the enhanced pipeline stays the default.
+        let old = try JSONDecoder().decode(PlaybackPreferences.self, from: Data(#"{"volume":0.4,"keepsOriginalAudioLayout":true}"#.utf8))
+        #expect(old.pipeline == PlaybackPreferences.pipelineEnhanced)
+        #expect(old.pipelineProcessesFrames)
+        var changed = old
+        changed.setPipeline(PlaybackPreferences.pipelineOriginal)
+        #expect(!changed.pipelineProcessesFrames)
+        let restored = try JSONDecoder().decode(PlaybackPreferences.self, from: JSONEncoder().encode(changed))
+        #expect(restored.pipeline == PlaybackPreferences.pipelineOriginal)
+        #expect(!restored.pipelineProcessesFrames)
+        // An unknown stored value never silently disables the pipeline's counterpart.
+        #expect(PlaybackPreferences(pipeline: "no-such-mode").pipeline == PlaybackPreferences.pipelineEnhanced)
+        #expect(!PlaybackPreferences(pipeline: "original").pipelineProcessesFrames)
+        // A stored "preferSDR" value from the short-lived three-state build falls back to enhanced,
+        // so nobody keeps an HDR-preference mode this build no longer implements.
+        #expect(PlaybackPreferences(pipeline: "preferSDR").pipeline == PlaybackPreferences.pipelineEnhanced)
+    }
+
     @Test func invalidValuesCannotReachPlayback() {
         let clamped = PlaybackPreferences(volume: 4, rate: -10, enhancement: "unknown", lastAudibleVolume: -1)
         #expect(clamped.volume == 1)

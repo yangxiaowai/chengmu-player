@@ -1,0 +1,11 @@
+{
+  "checks" : [
+    {
+      "detail" : "outputs=1 observed=Optional(1111970369)",
+      "name" : "source_assessment_can_refuse_the_conversion_output",
+      "passed" : false
+    }
+  ],
+  "passed" : false,
+  "scope" : "Headless real AVPlayer\/CinemaVideoView; tagged synthetic SDR\/PQ\/HLG, not actual Dolby mastering or display output certification"
+}

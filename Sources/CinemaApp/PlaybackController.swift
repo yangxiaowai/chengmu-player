@@ -18,6 +18,29 @@ struct AdSkipEvent: Identifiable {
 final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleOutputPushDelegate {
     let player = AVPlayer()
     let adSkip = AdSkipController()
+    let experience = MediaExperienceInspector()
+    /// What the enhancement pipeline may do for the current item; the inspector lowers it when the
+    /// source is Dolby Vision or HDR.
+    @Published private(set) var videoPermission = VideoProcessingPermission.inspectSDRFrames
+    /// 原片直通开关. It only decides whether the realtime pipeline may replace the picture; it never
+    /// changes what the source is, and Dolby/HDR sources stay on the system layer either way.
+    @Published var pipelineProcessesFrames = true {
+        didSet {
+            preferences.setPipeline(pipelineProcessesFrames ? PlaybackPreferences.pipelineEnhanced : PlaybackPreferences.pipelineOriginal)
+            preferencesStore.save(preferences)
+            // Dropping or restoring the conversion output must not rebuild the item or the clock.
+            generation = UUID()
+        }
+    }
+    /// The picture mode actually handed to the surface: 原片 when the user switched the pipeline off.
+    var surfaceMode: EnhancementMode { pipelineProcessesFrames ? enhancementMode : .original }
+    @Published var keepsOriginalAudioLayout = false {
+        didSet {
+            preferences.setKeepsOriginalAudioLayout(keepsOriginalAudioLayout)
+            preferencesStore.save(preferences)
+            experience.updateAudioLayoutPreference(keepsOriginalAudioLayout, item: player.currentItem)
+        }
+    }
     @Published var automaticAdSkipping = true {
         didSet {
             preferences.setAutomaticAdSkipping(automaticAdSkipping)
@@ -105,11 +128,15 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var loadingWatchdog: Task<Void, Never>?
     private var waitingID: UUID?
     private var failureResumeTarget: Double?
+    /// One automatic recovery per item: `AVPlayerItemFailedToPlayToEndTime` is often a transient
+    /// transfer interruption rather than an unusable source.
+    private var automaticRecoveryAttempted = false
     private let preferencesStore: PlaybackPreferencesStore
     private var preferences: PlaybackPreferences
     private var sleepState = PlaybackSleepTimer()
     private var sleepTimer: Timer?
     private var adSkipSubscription: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     private var ignoredAdSegments: [AdSkipSegment] = []
     private var adSkipInteractions = Set<String>()
 
@@ -120,7 +147,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         rate = Float(saved.rate); volume = Float(saved.volume)
         enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .upscale4K
         automaticAdSkipping = saved.automaticAdSkipping
+        keepsOriginalAudioLayout = saved.keepsOriginalAudioLayout
+        pipelineProcessesFrames = saved.pipelineProcessesFrames
         super.init()
+        experience.$videoPermission.sink { [weak self] permission in
+            guard let self, self.videoPermission != permission else { return }
+            self.videoPermission = permission
+        }.store(in: &cancellables)
+        experience.$status.map { $0.audioIsAtmos }.removeDuplicates().sink { [weak self] _ in self?.objectWillChange.send() }.store(in: &cancellables)
         adSkipSubscription = adSkip.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         player.volume = volume
         player.automaticallyWaitsToMinimizeStalling = true
@@ -131,8 +165,11 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
 
-    func open(url: URL, title: String, episode: String, resume: Double = 0) {
+    func open(url: URL, title: String, episode: String, resume: Double = 0, isAutomaticRecovery: Bool = false) {
         saveProgress()
+        // A user-selected item starts a new recovery budget; only the internal replacement made
+        // by the first transport retry inherits the spent budget from its original item.
+        if !isAutomaticRecovery { automaticRecoveryAttempted = false }
         wantsPlay = false; player.pause(); adSkip.stop()
         cancelPendingSeek()
         probeTask?.cancel(); prepareTask?.cancel()
@@ -158,6 +195,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         output.setDelegate(self, queue: .main)
         item.add(output); subtitleOutput = output
         player.replaceCurrentItem(with: item)
+        experience.begin(item: item, declarations: nil, keepsOriginalAudioLayout: keepsOriginalAudioLayout, spatializationEnabled: true)
         if let observer { player.removeTimeObserver(observer) }
         observer = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.2, preferredTimescale: 600), queue: .main) { [weak self] _ in
             Task { @MainActor in
@@ -198,7 +236,22 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         failedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in
                 guard let self, self.itemID == token, self.player.currentItem === item else { return }
-                self.failCurrentItem("媒体传输中断。可以重试当前集，或在右侧选择其他线路。")
+                // A dropped connection mid-transfer is worth one silent retry at the same position;
+                // the source, the line and the user's play intent are all unchanged.
+                guard !self.automaticRecoveryAttempted else {
+                    self.failCurrentItem(self.describe(item.error))
+                    return
+                }
+                self.automaticRecoveryAttempted = true
+                guard let url = self.url else { self.failCurrentItem(self.describe(item.error)); return }
+                // Before an item becomes ready, position is still zero even when the user asked
+                // to resume later. Preserve that pending target across an early transport retry.
+                let resume = self.pendingSeekTarget ?? (self.desiredResume > 0 ? self.desiredResume : (self.position.isFinite ? self.position : 0))
+                let rewind = item.status == .readyToPlay && self.pendingSeekTarget == nil ? 0.5 : 0
+                self.loadingMessage = "传输中断，正在自动续播…"
+                self.isLoading = true
+                self.open(url: url, title: self.title, episode: self.episodeName,
+                          resume: max(0, resume - rewind), isAutomaticRecovery: true)
             }
         }
         stalledObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemPlaybackStalled, object: item, queue: .main) { [weak self] _ in
@@ -213,6 +266,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                     let result = try await HLSProbe().inspect(url: url)
                     guard !Task.isCancelled, self?.itemID == token else { return }
                     self?.sourceInfo = result
+                    self?.experience.updateDeclarations(result.declarations)
                 } catch { /* Playback owns media errors; non-HLS is a valid input. */ }
             }
         }
@@ -239,6 +293,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 let subtitles = try await item.asset.loadMediaSelectionGroup(for: .legible)
                 guard !Task.isCancelled, self.itemID == token, self.player.currentItem === item else { return }
                 self.audioGroup = audio; self.subtitleGroup = subtitles
+                // The inspector reuses this already-loaded group instead of asking the source again.
+                let selectedAudio = audio.flatMap { item.currentMediaSelection.selectedMediaOption(in: $0) }
+                self.experience.attach(item: item, selected: selectedAudio)
                 self.audioTracks = (audio?.options ?? []).enumerated().map { MediaTrack(id: $0.offset, name: $0.element.displayName) }
                 self.subtitleTracks = (subtitles?.options ?? []).enumerated().map { MediaTrack(id: $0.offset, name: $0.element.displayName) }
                 if let audio, let selected = item.currentMediaSelection.selectedMediaOption(in: audio) {
@@ -331,6 +388,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         refreshPlaybackState()
     }
 
+    /// Feeds one already decoded playback frame into local ad recognition. The enhancement surface
+    /// calls this; when it returns false the scanner keeps using its own bounded decoder.
+    func harvestScanFrame(_ image: CGImage, time: Double) -> Bool {
+        guard automaticAdSkipping, wantsPlay, isPlaying, !isLoading, error == nil, pendingSeekTarget == nil, adSkipInteractions.isEmpty else { return false }
+        return adSkip.harvest(image: image, time: time)
+    }
     func setAdSkipInteraction(_ reason: String, active: Bool) {
         let changed = active ? adSkipInteractions.insert(reason).inserted : adSkipInteractions.remove(reason) != nil
         if changed { updateAdSkipping() }
@@ -348,8 +411,13 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         if ignoredAdSegments.count > 128 { ignoredAdSegments.removeFirst(ignoredAdSegments.count - 128) }
     }
     private func updateAdSkipping() {
-        let available = automaticAdSkipping && wantsPlay && isPlaying && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && adSkipInteractions.isEmpty
-        adSkip.update(position: position, duration: duration, shouldScan: available)
+        // The scanner opens its own decoder, so it must not compete with a source that has not
+        // produced a decodable first frame yet. Several parallel connections to one slow HLS
+        // source can break the playback transport itself.
+        let ready = player.currentItem?.status == .readyToPlay && position > 0.05
+        let available = automaticAdSkipping && wantsPlay && isPlaying && ready && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && adSkipInteractions.isEmpty
+        let sharesPlaybackFrames = pipelineProcessesFrames && videoPermission == .inspectSDRFrames && metrics?.fallbackReason == nil
+        adSkip.update(position: position, duration: duration, shouldScan: available, prefersSharedFrames: sharesPlaybackFrames)
     }
     private func automaticallySkipAdIfNeeded() -> Bool {
         guard automaticAdSkipping, duration.isFinite, duration > 0,
@@ -486,8 +554,22 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         for value in [finishedObserver, stalledObserver, failedObserver].compactMap({$0}) { NotificationCenter.default.removeObserver(value) }
         finishedObserver = nil; stalledObserver = nil; failedObserver = nil
     }
+    /// Describes the failure from the actual error, and names transport failures as transport
+    /// failures instead of blaming the container or codec.
     private func describe(_ error: Error?) -> String {
-        let code = (error as NSError?)?.code ?? 0
-        return "当前资源无法播放（错误 \(code)）。请重试或更换线路；系统不支持的封装/编码也可能导致失败。"
+        let value = error as NSError?
+        let code = value?.code ?? 0
+        let reason: String
+        switch code {
+        case -1008: reason = "来源暂时无法提供媒体数据（网络或来源侧限制）"
+        case -1009: reason = "网络连接已断开"
+        case -11800: reason = "系统无法完成本次媒体加载"
+        case -11828: reason = "系统不支持该媒体的封装或编码"
+        case -12889: reason = "系统媒体服务被重置，通常是播放期间音频或显示设备发生变化"
+        case -12881, -12884: reason = "该媒体需要系统不支持的编码或加密"
+        default: reason = "系统不支持的封装、编码或来源限制都可能导致失败"
+        }
+        let domain = value?.domain == NSURLErrorDomain ? "网络" : "媒体"
+        return "当前资源无法播放（\(domain)错误 \(code)）：\(reason)。可以重试当前集，或更换线路。"
     }
 }

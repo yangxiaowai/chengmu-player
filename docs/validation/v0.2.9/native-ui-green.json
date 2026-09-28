@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-09-28T06:40:18.315715+00:00",
+  "passed": true,
+  "manualObservation": true,
+  "screenshotsStored": false,
+  "scope": "Isolated native AdSkipUINativeQA.app built from production PlayerView and playback sources, local synthetic MP4/SRT and separate profile; no official Dolby content or remote source playback.",
+  "checks": [
+    {
+      "name": "media_experience_sheet_opens_and_separates_evidence",
+      "passed": true,
+      "observed": "片源声明、当前画面、当前声音、本机能力、未验证范围分层显示；HDR/杜比原生直通为锁定说明行"
+    },
+    {
+      "name": "paused_unspecified_color_is_temporarily_native",
+      "passed": true,
+      "observed": "BT.709 合成片暂停首帧显示 原生（等待色彩确认）/ COLORPRIMARIES#2，没有标为 HDR"
+    },
+    {
+      "name": "sdr_enhancement_recovers_after_play",
+      "passed": true,
+      "observed": "播放后显示 960×540 → 3,840×2,160 · GPU 增强至 4K"
+    },
+    {
+      "name": "future_insert_detected_before_entry",
+      "passed": true,
+      "observed": "播放位置 10.5s 时菜单显示 已识别 1 段 / 已分析 20 帧 / 复用播放帧 + 前方预读；广告从 16s 开始"
+    },
+    {
+      "name": "automatic_skip_notice_is_visible",
+      "passed": true,
+      "observed": "显示 已跳过插播主段 00:16–00:26 与 撤销并暂停 按钮"
+    },
+    {
+      "name": "undo_restores_original_subtitle_timeline",
+      "passed": true,
+      "observed": "点击撤销后播放位置 16.0s，暂停，显示 广告时段字幕：保留原时间轴"
+    }
+  ]
+}

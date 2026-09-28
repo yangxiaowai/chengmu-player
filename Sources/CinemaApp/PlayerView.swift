@@ -14,6 +14,7 @@ struct PlayerView: View {
     @LegacyState private var dragging = false
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
+    @LegacyState private var showExperience = false
     @LegacyState private var showJump = false
     @LegacyState private var showShortcuts = false
     @LegacyState private var controlHeight: CGFloat = 165
@@ -33,7 +34,9 @@ struct PlayerView: View {
                 VStack(spacing: 0) {
                     ZStack {
                         Color.black
-                        VideoSurface(player: playback.player, mode: playback.enhancementMode, generation: playback.generation, cleanup: playback.adCleanup) { metrics in playback.metrics = metrics }
+                        VideoSurface(player: playback.player, mode: playback.surfaceMode, generation: playback.generation, cleanup: playback.adCleanup,
+                                     permission: playback.videoPermission, assessedItem: playback.player.currentItem,
+                                     onScanFrame: { image, time in _ = playback.harvestScanFrame(image, time: time) }) { metrics in playback.metrics = metrics }
                         if !editingAds { PlaybackKeyboardSurface(playback: playback, presentation: presentation) }
                         if !playback.subtitleText.isEmpty {
                             VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
@@ -104,15 +107,17 @@ struct PlayerView: View {
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
         .onChange(of: playback.adSkipNotice?.id) { _, value in if value != nil { presentation.activity() } }
-        .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts ? nil : commandContext)
+        .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts || showExperience ? nil : commandContext)
         .sheet(isPresented: $showJump) {
             JumpToTimeDialog(current: playback.position, duration: playback.duration) { target in playback.seek(to: target) }
         }
         .sheet(isPresented: $showShortcuts) { PlaybackShortcutsDialog() }
+        .sheet(isPresented: $showExperience) { MediaExperienceView(experience: playback.experience, playback: playback) }
         .onChange(of: showJump) { _, value in playback.setAdSkipInteraction("jump-dialog", active: value) }
         .onChange(of: showShortcuts) { _, value in playback.setAdSkipInteraction("shortcuts", active: value) }
+        .onChange(of: showExperience) { _, value in playback.setAdSkipInteraction("experience", active: value) }
         .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
-        .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false }
+        .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false; showExperience = false }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
         .onPreferenceChange(PlaybackControlHeightKey.self) { height in
             if height.isFinite && height > 0 { controlHeight = height }
@@ -120,7 +125,7 @@ struct PlayerView: View {
     }
     private var canSeek: Bool { playback.duration.isFinite && playback.duration > 0 && !playback.hasPlaybackFailure && playback.error == nil }
     private func performCommand(_ action: () -> Void) {
-        guard !editingAds, !showJump, !showShortcuts, presentation.canPerformPlayerCommand else { return }
+        guard !editingAds, !showJump, !showShortcuts, !showExperience, presentation.canPerformPlayerCommand else { return }
         presentation.activity(); action()
     }
     private var commandContext: PlayerCommandContext {
@@ -194,6 +199,8 @@ struct PlayerView: View {
             Spacer()
             sleepMenu
             if !presentation.isFullscreen {
+                Button { showExperience = true } label: { Label("视听适配", systemImage: "waveform.badge.magnifyingglass") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(playback.experience.status.videoIsHDR || playback.experience.status.audioIsAtmos ? CinemaStyle.accent : CinemaStyle.secondary)
+                    .help("查看片源声明、所选轨道、系统能力与实际决策")
                 Button { showStats.toggle() } label: { Label("播放信息", systemImage: "waveform.path") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                 Button { showEpisodes.toggle() } label: { Label("选集", systemImage: "list.bullet.rectangle") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
             } else {
@@ -271,7 +278,7 @@ struct PlayerView: View {
                 Button { presentation.toggleFullscreen() } label: { Image(systemName: presentation.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right").font(.system(size: 14)) }.help(presentation.isFullscreen ? "退出全屏 · Esc / F" : "全屏 · F")
             }.buttonStyle(.plain)
             HStack(spacing: 8) {
-                Circle().fill((playback.metrics?.fallbackReason == nil) ? CinemaStyle.accent : .gray).frame(width: 5, height: 5)
+                Circle().fill((playback.metrics?.fallbackReason == nil) ? CinemaStyle.positive : CinemaStyle.secondary).frame(width: 6, height: 6)
                 Text(playback.metrics.map { "\($0.sourceWidth)×\($0.sourceHeight) → \($0.outputWidth)×\($0.outputHeight) · \($0.mode)" } ?? "正在读取实际画面信息…").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
                 Spacer()
                 Menu {
@@ -281,6 +288,7 @@ struct PlayerView: View {
                     Divider()
                     Text(playback.automaticAdSkipping ? playback.adSkip.status : "自动跳过已关闭")
                     Text("已识别 \(playback.adSkip.segments.count) 段 · 已分析 \(playback.adSkip.analyzedFrames) 帧")
+                    Text("帧来源：\(playback.adSkip.frameSource)")
                     Button("撤销上次跳过并暂停") { playback.undoAdSkip() }.disabled(playback.adSkipNotice == nil)
                 } label: {
                     Label(playback.automaticAdSkipping ? "自动跳广告 · 开" : "自动跳广告 · 关", systemImage: "forward.frame")
@@ -294,7 +302,27 @@ struct PlayerView: View {
                     }
                 } label: { Label(playback.adCleanup.isActive ? "广告柔化 · 开" : "广告柔化", systemImage: "rectangle.dashed").font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }
                     .menuStyle(.borderlessButton).fixedSize().help("手动框选，字幕保护优先；换集或换源时清空")
-                Menu { ForEach(EnhancementMode.allCases) { mode in Button(mode.title) { playback.enhancementMode = mode } } } label: { HStack(spacing: 5) { Image(systemName: "sparkles"); Text("画质增强") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize()
+                Menu {
+                    Toggle("实时画质增强", isOn: $playback.pipelineProcessesFrames)
+                    Toggle("杜比/HDR 原生直通", isOn: .constant(true)).disabled(true)
+                    Divider()
+                    // Choosing a mode while the pipeline is off turns it back on, so a mode click is
+                    // never silently ignored, and the current choice is always visible.
+                    ForEach(EnhancementMode.allCases) { mode in
+                        Button {
+                            playback.enhancementMode = mode
+                            if mode != .original { playback.pipelineProcessesFrames = true }
+                            else { playback.pipelineProcessesFrames = false }
+                        } label: {
+                            Text(playback.enhancementMode == mode ? "\(mode.title) ✓" : mode.title)
+                        }
+                    }
+                    Divider()
+                    Text(playback.pipelineProcessesFrames
+                         ? "当前：\(playback.enhancementMode.title)"
+                         : "当前：原片直通 · 选择上面任一项即恢复增强")
+                    Text("杜比视界与 HDR 始终原生直通：改写像素会让动态元数据失效")
+                } label: { HStack(spacing: 5) { Image(systemName: playback.pipelineProcessesFrames ? "sparkles" : "film"); Text(playback.pipelineProcessesFrames ? "画质增强" : "原片直通") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize().help("开启/关闭实时画质增强；杜比与 HDR 始终原生播放")
             }
             if let event = playback.adSkipNotice {
                 HStack(spacing: 8) {
@@ -333,7 +361,9 @@ struct PlayerView: View {
                 Text(m.mode)
             }
             if let info = playback.sourceInfo { Text("HLS \(info.segmentCount) 分片 · \(timeString(info.duration))") }
-        }.font(.system(size: 10, design: .monospaced)).padding(14).background(.black.opacity(0.75), in: RoundedRectangle(cornerRadius: 8))
+        }.font(.system(size: 10, design: .monospaced)).padding(14)
+            .background(CinemaStyle.overlayStrong, in: RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous).strokeBorder(CinemaStyle.border, lineWidth: 1))
     }
 }
 

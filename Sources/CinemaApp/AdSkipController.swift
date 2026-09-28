@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 import Combine
 import CinemaCore
 
@@ -16,9 +17,20 @@ final class AdSkipController: ObservableObject {
     private var worker: Task<Void, Never>?
     private var workerID = UUID()
     private var analyzer: AdFrameAnalyzer?
+    private var sharedAnalyzer: AdFrameAnalyzer?
+    private var sharedRunID = UUID()
+    private var pendingHarvestKey: Int?
+    private var inflightSampleKey: Int?
     private var position = 0.0
     private var duration = 0.0
     private var enabled = false
+    private var prefersSharedFrames = false
+    private var sharedExpectedSince = Date.distantPast
+    private var lastSharedFrameAt = Date.distantPast
+    /// Current playback frames avoid a second decode for their own sample points. An independent
+    /// decoder still inspects *future* points: a frame shown now cannot reveal an upcoming insert.
+    private var usesSharedFrames = false
+    private var pendingHarvest = false
     private var retryAfter = Date.distantPast
     private var consecutiveFailures = 0
     private let step = 2.0
@@ -30,13 +42,42 @@ final class AdSkipController: ObservableObject {
         let protected = [AdCleanupSettings.defaultProtection] + protectedRegions.filter { $0 != AdCleanupSettings.defaultProtection }
         guard self.url != url || self.itemID != itemID || protections != protected else { return }
         cancelWorker()
+        usesSharedFrames = false
         self.url = url; self.itemID = itemID; protections = protected
         observations.removeAll(); completedSegments.removeAll(); segments = []; analyzedFrames = 0
         position = 0; duration = 0; retryAfter = .distantPast; consecutiveFailures = 0
         enabled = false
         status = url == nil ? "等待可分析的媒体" : "等待播放后识别"
     }
-    func update(position: Double, duration: Double, shouldScan: Bool) {
+    /// Plays one already decoded frame into the same evidence pipeline. Returns false when the
+    /// caller should fall back to the independent decoder (disabled, paused, or a frame in flight).
+    func harvest(image: CGImage, time: Double) -> Bool {
+        guard enabled, let url, url.isFileURL || ["http", "https"].contains(url.scheme?.lowercased() ?? ""),
+              !pendingHarvest, time.isFinite, time >= 0 else { return false }
+        guard let (key, requested) = sampleKey(for: time) else { return false }
+        // The independent worker may already be decoding this exact point. Otherwise reserve it
+        // so that look-ahead skips the duplicate but continues to inspect unseen future frames.
+        guard inflightSampleKey != key else { return false }
+        usesSharedFrames = true
+        lastSharedFrameAt = Date()
+        let analyzer: AdFrameAnalyzer
+        if let existing = sharedAnalyzer { analyzer = existing }
+        else { analyzer = AdFrameAnalyzer(); analyzer.configure(url: url); sharedAnalyzer = analyzer }
+        pendingHarvest = true; pendingHarvestKey = key
+        let run = sharedRunID, protected = protections
+        Task { [weak self] in
+            let observation = await analyzer.classify(image: image, time: requested, protectedRegions: protected)
+            guard let self, self.sharedRunID == run, self.enabled else { return }
+            self.pendingHarvest = false; self.pendingHarvestKey = nil
+            self.store(observation ?? AdFrameObservation(time: requested, classification: .unknown), key: key, requested: requested, analyzer: analyzer)
+        }
+        return true
+    }
+    /// True while shared playback frames are actually feeding recognition.
+    var isUsingSharedFrames: Bool { usesSharedFrames && enabled }
+    /// Where the last analyzed frame came from, for the status menu.
+    var frameSource: String { usesSharedFrames ? "复用播放帧 + 前方预读" : "独立扫描解码" }
+    func update(position: Double, duration: Double, shouldScan: Bool, prefersSharedFrames: Bool = false) {
         guard position.isFinite, position >= 0, duration.isFinite, duration > 0, position < duration,
               position / step < Double(Int.max / 2) else {
             enabled = false; cancelWorker(); status = "等待有效播放时间"; return
@@ -51,6 +92,8 @@ final class AdSkipController: ObservableObject {
         guard url.isFileURL || ["http", "https"].contains(url.scheme?.lowercased() ?? "") else {
             cancelWorker(); status = "该媒体类型暂不支持本地广告识别"; return
         }
+        if prefersSharedFrames && !self.prefersSharedFrames { sharedExpectedSince = Date() }
+        self.prefersSharedFrames = prefersSharedFrames
         guard worker == nil, Date() >= retryAfter else { return }
         guard nextSample() != nil else { status = summary; return }
         let run = UUID(); workerID = run
@@ -74,46 +117,86 @@ final class AdSkipController: ObservableObject {
     private func cancelWorker() {
         workerID = UUID(); worker?.cancel(); worker = nil
         analyzer?.cancel(); analyzer = nil
+        sharedRunID = UUID(); sharedAnalyzer?.cancel(); sharedAnalyzer = nil
+        pendingHarvest = false; pendingHarvestKey = nil; inflightSampleKey = nil
+        prefersSharedFrames = false; sharedExpectedSince = .distantPast; lastSharedFrameAt = .distantPast
     }
     private func nextSample() -> (Int, Double)? {
         let first = max(0, Int(floor(position / step)))
         let last = Int(floor(min(duration - 0.1, position + lookAhead) / step))
         guard last >= first else { return nil }
-        for key in first...last where observations[key] == nil { return (key, Double(key) * step) }
+        // Let the enhancement surface cover the current few seconds, while this decoder seeks
+        // ahead to find a closed insert before playback reaches it. If frames never arrive, the
+        // short grace expires and the independent path covers the current window too.
+        let now = Date()
+        let sharedIsExpected = prefersSharedFrames &&
+            (now.timeIntervalSince(sharedExpectedSince) < 3 || now.timeIntervalSince(lastSharedFrameAt) < 5)
+        let reservedEnd = sharedIsExpected ? Int(ceil((position + 8) / step)) : first
+        guard reservedEnd <= last else { return nil }
+        for key in max(first, reservedEnd)...last where observations[key] == nil && key != pendingHarvestKey && key != inflightSampleKey {
+            return (key, Double(key) * step)
+        }
         return nil
     }
     private func run(id: UUID, analyzer: AdFrameAnalyzer) async {
         defer {
             // Keep the paused decoder warm when the look-ahead window is complete.
-            if workerID == id { worker = nil }
+            if workerID == id { worker = nil; inflightSampleKey = nil }
         }
         while !Task.isCancelled, workerID == id, enabled, let (key, requested) = nextSample() {
+            inflightSampleKey = key
             let frame = await analyzer.analyze(time: requested, protectedRegions: protections)
             guard !Task.isCancelled, workerID == id, enabled else { return }
-            // Preserve actual PTS, not requested times; repeated/mismatched outputs must not create evidence.
-            let usable = frame.time.isFinite && frame.time >= 0 && abs(frame.time - requested) <= 0.2 &&
-                !observations.values.contains(where: { abs($0.time - frame.time) < 0.001 })
-            let stored = usable ? frame : AdFrameObservation(time: requested, classification: .unknown)
-            observations[key] = stored
-            analyzedFrames += 1
-            if observations.count > maxObservations {
-                let oldest = observations.keys.sorted { abs(Double($0) * step - position) > abs(Double($1) * step - position) }
-                for key in oldest.prefix(observations.count - maxObservations) { observations[key] = nil }
-            }
-            rebuildSegments()
-            if stored.classification == .unknown {
-                consecutiveFailures += 1
-                retryAfter = Date().addingTimeInterval(min(30, pow(2, Double(min(consecutiveFailures, 4)))))
-                status = analyzer.lastFailure ?? "画面分析暂不可用，稍后继续"
-                analyzer.cancel(); self.analyzer = nil
-                return
-            }
-            consecutiveFailures = 0; retryAfter = .distantPast
-            status = segments.isEmpty ? "正在分析前方画面 · 已分析 \(analyzedFrames) 帧" : "已识别 \(segments.count) 段 · 正在分析前方画面"
+            inflightSampleKey = nil
+            store(frame, key: key, requested: requested, analyzer: analyzer)
+            if observations[key]?.classification == .unknown { return }
             // Yield between frames so foreground interaction, decoding and previews retain priority.
             do { try await Task.sleep(nanoseconds: 150_000_000) } catch { return }
         }
         if workerID == id { status = summary }
+    }
+    /// Shared rule for both frame sources: preserve the actual PTS, reject repeats, bound history.
+    private func store(_ frame: AdFrameObservation, key: Int, requested: Double, analyzer: AdFrameAnalyzer) {
+        guard observations[key] == nil else { return }
+        let usable = frame.time.isFinite && frame.time >= 0 && abs(frame.time - requested) <= 0.2 &&
+            !observations.values.contains(where: { abs($0.time - frame.time) < 0.001 })
+        let stored = usable ? frame : AdFrameObservation(time: requested, classification: .unknown)
+        observations[key] = stored
+        analyzedFrames += 1
+        if observations.count > maxObservations {
+            let oldest = observations.keys.sorted { abs(Double($0) * step - position) > abs(Double($1) * step - position) }
+            for value in oldest.prefix(observations.count - maxObservations) { observations[value] = nil }
+        }
+        rebuildSegments()
+        if stored.classification == .unknown {
+            consecutiveFailures += 1
+            retryAfter = Date().addingTimeInterval(min(30, pow(2, Double(min(consecutiveFailures, 4)))))
+            status = analyzer.lastFailure ?? "画面分析暂不可用，稍后继续"
+            if analyzer === self.analyzer { analyzer.cancel(); self.analyzer = nil }
+            if analyzer === sharedAnalyzer { analyzer.cancel(); sharedAnalyzer = nil }
+            return
+        }
+        consecutiveFailures = 0; retryAfter = .distantPast
+        status = segments.isEmpty ? "正在分析前方画面 · 已分析 \(analyzedFrames) 帧" : "已识别 \(segments.count) 段 · 正在分析前方画面"
+    }
+    /// Maps a real frame time onto the fixed look-ahead grid. The recorded time is always the key's
+    /// own time, never the frame's, and a frame that no grid point represents closely enough is
+    /// recorded as unknown instead of being attributed to a nearby moment.
+    private func sampleKey(for time: Double) -> (Int, Double)? {
+        let first = max(0, Int(floor(position / step)))
+        let last = Int(floor(min(duration - 0.1, position + lookAhead) / step))
+        guard last >= first else { return nil }
+        let rounded = Int((time / step).rounded())
+        if (first...last).contains(rounded), observations[rounded] == nil, abs(Double(rounded) * step - time) <= 0.3 {
+            return (rounded, Double(rounded) * step)
+        }
+        // A shared playback frame can arrive before the scanner reached that grid point; the
+        // earliest unanalyzed point inside the window is then the honest home for it.
+        for key in first...last where observations[key] == nil {
+            guard abs(Double(key) * step - time) <= 0.3 else { continue }
+            return (key, Double(key) * step)
+        }
+        return nil
     }
     private func rebuildSegments() {
         let ordered = observations.values.sorted { $0.time < $1.time }

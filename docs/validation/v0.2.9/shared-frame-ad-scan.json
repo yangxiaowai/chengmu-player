@@ -1,0 +1,52 @@
+{
+  "checkedAt" : "2026-09-28T06:49:48Z",
+  "checks" : [
+    {
+      "detail" : "enhanced=2 offered=1",
+      "name" : "enhancement_supplies_a_frame_it_already_decoded",
+      "passed" : true
+    },
+    {
+      "detail" : "time=0.0 class=Optional(CinemaCore.AdFrameClassification.ordinary)",
+      "name" : "shared_frame_is_classified_without_a_second_decode",
+      "passed" : true
+    },
+    {
+      "detail" : "accepted=true source=复用播放帧 + 前方预读",
+      "name" : "scanner_accepts_a_shared_frame",
+      "passed" : true
+    },
+    {
+      "detail" : "analyzed=1",
+      "name" : "shared_frame_becomes_recorded_evidence",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "disabled_scanning_refuses_shared_frames",
+      "passed" : true
+    },
+    {
+      "detail" : "accepted=true analyzed=3 status=正在分析前方画面 · 已分析 3 帧",
+      "name" : "shared_current_frame_keeps_future_lookahead_active",
+      "passed" : true
+    },
+    {
+      "detail" : "position=0.2 segments=[CinemaCore.AdSkipSegment(start: 16.0, end: 26.0)]",
+      "name" : "future_insert_is_found_before_playback_reaches_it",
+      "passed" : true
+    },
+    {
+      "detail" : "enhanced=336 offered=9 accepted=4",
+      "name" : "enhancement_and_scan_run_together",
+      "passed" : true
+    },
+    {
+      "detail" : "return=Optional(16.000359332) position=26.0 scan=已识别 1 段 · 继续分析前方画面 analyzed=19 segments=[CinemaCore.AdSkipSegment(start: 16.0, end: 26.0)]",
+      "name" : "combined_player_skips_insert_before_it_ends",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Real AVPlayer, Vision OCR, PlaybackController and CinemaVideoView on a synthetic local MP4; checks shared-frame handoff, early lookahead and automatic skip with enhancement active."
+}

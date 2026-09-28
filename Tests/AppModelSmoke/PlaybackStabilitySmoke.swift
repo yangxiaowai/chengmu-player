@@ -12,27 +12,39 @@ import CinemaCore
         let stalledURL = URL(string: CommandLine.arguments[3])!
         let c = PlaybackController(); c.volume = 0
         var checks: [Check] = []; var finishCount = 0
+        var stage = "initial"
         c.onFinished = { finishCount += 1 }
         func check(_ name: String, _ passed: Bool, _ detail: String) { checks.append(.init(name: name, passed: passed, detail: detail)) }
         func until(_ predicate: () -> Bool, seconds: Double = 6) async throws {
             let deadline = Date().addingTimeInterval(seconds)
             while !predicate() {
-                if Date() >= deadline { throw Failure(detail: "timed out: status=\(String(describing: c.player.currentItem?.status)) error=\(c.error ?? "nil") position=\(c.position)") }
+                if Date() >= deadline { throw Failure(detail: "timed out at \(stage): status=\(String(describing: c.player.currentItem?.status)) error=\(c.error ?? "nil") position=\(c.position)") }
                 try await Task.sleep(nanoseconds: 20_000_000)
             }
         }
         func ready(_ position: Double = 20) async throws {
+            stage = "ready(\(position))"
             c.open(url: media, title: "Stability", episode: "Local", resume: position)
             try await until { c.player.currentItem?.status == .readyToPlay && c.position >= position - 0.3 && c.isPlaying }
         }
         try await ready(); c.pause()
+        stage = "paused stall"
         NotificationCenter.default.post(name: .AVPlayerItemPlaybackStalled, object: c.player.currentItem)
         try await Task.sleep(nanoseconds: 100_000_000)
         check("paused_stall_has_no_spinner", !c.isLoading && c.loadingMessage == nil && !c.recoverySuggested && !c.playbackRequested, "Injected stalled notification on real paused local media; no network stall is claimed.")
         try await ready()
+        stage = "first injected failure"
+        let firstInterruptedItem = c.itemID
+        let firstInterruptedPosition = c.position
         NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
-        try await Task.sleep(nanoseconds: 100_000_000)
-        check("fatal_notification_pauses_without_next", c.error != nil && c.player.rate == 0 && !c.isPlaying && !c.playbackRequested && !c.isLoading && finishCount == 0, "Injected failed-to-end notification; both physical playback and intent stop.")
+        try await until { c.itemID != firstInterruptedItem && c.isPlaying && c.player.currentItem?.status == .readyToPlay }
+        check("first_transport_failure_recovers_once", c.error == nil && c.position >= firstInterruptedPosition - 0.7 && finishCount == 0,
+              "First injected interruption rebuilt the item near the previous position without advancing the episode.")
+        stage = "repeated injected failure"
+        NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
+        try await until { c.hasPlaybackFailure }
+        check("repeated_transport_failure_pauses_without_next", c.error != nil && c.player.rate == 0 && !c.isPlaying && !c.playbackRequested && !c.isLoading && finishCount == 0,
+              "A second interruption in the same item lineage stops and offers explicit retry.")
         let failedItem = c.itemID
         let failedPosition = c.position
         c.error = nil
@@ -40,6 +52,13 @@ import CinemaCore
         try await until { c.isPlaying && c.error == nil }
         check("dismissed_failure_play_rebuilds_item", c.itemID != failedItem && abs(c.player.currentTime().seconds - failedPosition) < 0.5, "Injected failed-to-end on ready local media, dismissed error text, then explicit Play must rebuild media at retained position.")
         check("play_on_error_explicitly_retries", c.playbackRequested && c.player.rate > 0, "Explicit Play recovers on real local media after dismissing fatal error text.")
+        try await ready(30)
+        stage = "new media automatic recovery"
+        let distinctItem = c.itemID
+        NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
+        try await until { c.itemID != distinctItem && c.isPlaying && c.player.currentItem?.status == .readyToPlay }
+        check("new_media_gets_its_own_recovery_budget", c.error == nil && c.position >= 29.2,
+              "A separately opened item may use its own one automatic recovery.")
         try await ready(119)
         var raced = false
         let observer = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: c.player.currentItem, queue: .main) { _ in
@@ -69,16 +88,18 @@ import CinemaCore
         try await Task.sleep(nanoseconds: 100_000_000)
         _ = try await URLSession.shared.data(from: stalledURL.deletingLastPathComponent().appendingPathComponent("release"))
         c.togglePlayback()
-        try await until { c.player.currentItem?.status == .readyToPlay && c.isPlaying }
-        check("repeated_failure_during_preparation_preserves_resume", abs(c.player.currentTime().seconds - 52) < 0.5, "Two injected fatal notices before loopback media is ready; explicit retry must preserve the first 52-second resume target.")
+        stage = "repeated preparation failure retry"
+        try await until({ c.player.currentItem?.status == .readyToPlay && c.isPlaying && abs(c.player.currentTime().seconds - 52) < 0.5 }, seconds: 10)
+        check("repeated_failure_during_preparation_preserves_resume", abs(c.player.currentTime().seconds - 52) < 0.5,
+              "Two injected notices during preparation; current=\(c.player.currentTime().seconds), controller=\(c.position), error=\(c.error ?? "none").")
         try await ready(70)
+        stage = "zero destination automatic recovery"
+        let zeroInterruptedItem = c.itemID
         c.seek(to: 0)
         NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
-        try await until { c.hasPlaybackFailure }
-        let zeroFailedItem = c.itemID
-        c.error = nil; c.togglePlayback()
-        try await until { c.player.currentItem?.status == .readyToPlay && c.isPlaying }
-        check("zero_destination_failure_retry", c.itemID != zeroFailedItem && c.player.currentTime().seconds < 0.5, "Seek to zero followed immediately by injected fatal notice; explicit retry rebuilds at zero. Exact underlying seek completion order is not asserted.")
+        try await until { c.itemID != zeroInterruptedItem && c.player.currentItem?.status == .readyToPlay && c.isPlaying }
+        check("zero_destination_failure_retry", c.error == nil && c.player.currentTime().seconds < 0.5,
+              "Seek to zero followed immediately by an interruption; automatic retry rebuilds at zero.")
         let waitStarted = Date()
         c.open(url: stalledURL, title: "Waiting", episode: "Loopback")
         try await Task.sleep(nanoseconds: 300_000_000)
@@ -86,8 +107,10 @@ import CinemaCore
         try await until({ c.recoverySuggested }, seconds: 17)
         check("continuous_wait_suggests_manual_recovery", c.isLoading && Date().timeIntervalSince(waitStarted) >= 15 && c.player.currentItem?.status == .unknown, "Real pending loopback load exceeds 15 seconds; only suggestion, no automatic retry.")
         c.open(url: media, title: "Replacement", episode: "Local", resume: 7); c.pause()
-        try await until { c.player.currentItem?.status == .readyToPlay && abs(c.position - 7) < 0.3 }
-        check("replacement_clears_wait_suggestion", !c.isLoading && c.loadingMessage == nil && !c.recoverySuggested && c.player.rate == 0, "Replacement ready paused item clears the old preparation timer and recovery suggestion.")
+        stage = "paused replacement"
+        try await until { c.player.currentItem?.status == .readyToPlay && abs(c.player.currentTime().seconds - 7) < 0.3 && !c.isLoading }
+        check("replacement_clears_wait_suggestion", !c.isLoading && c.loadingMessage == nil && !c.recoverySuggested && c.player.rate == 0,
+              "Replacement ready paused item: loading=\(c.isLoading) message=\(c.loadingMessage ?? "none") suggested=\(c.recoverySuggested) rate=\(c.player.rate).")
         c.pause()
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         print(String(decoding: try encoder.encode(checks), as: UTF8.self))

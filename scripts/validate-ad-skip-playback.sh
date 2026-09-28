@@ -12,6 +12,7 @@ xcrun swiftc -swift-version 5 -target "$(uname -m)-apple-macos15.0" -emit-module
 xcrun swiftc -parse-as-library -swift-version 5 -target "$(uname -m)-apple-macos15.0" \
   -I "$validation_directory/core" -L "$validation_directory/core" -lCinemaCore \
   Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift \
+  Sources/CinemaApp/MediaExperienceInspector.swift Sources/CinemaApp/VideoProcessingPolicy.swift \
   Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift \
   Tests/AppModelSmoke/AdSkipPlaybackSmoke.swift -o "$validation_directory/check"
 validation_status=0

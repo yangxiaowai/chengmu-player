@@ -1,0 +1,195 @@
+{
+  "cases" : [
+    {
+      "actualTitle" : "流浪地球",
+      "catalogID" : "25734",
+      "decodedFrameCount" : 1,
+      "decodedHeight" : 504,
+      "decodedWidth" : 1280,
+      "detailSeconds" : 0.8028659820556641,
+      "episode" : "中字",
+      "error" : "媒体传输中断。可以重试当前集，或在右侧选择其他线路。",
+      "line" : "wjm3u8",
+      "maxPosition" : 0,
+      "mediaURL" : "https://v1.ppqrrs.com/wjv1/202308/19/7aS9rcbyey2/video/index.m3u8",
+      "observationSeconds" : 0.00019299983978271484,
+      "passed" : false,
+      "phase" : "failed",
+      "providerID" : "wujin",
+      "query" : "流浪地球",
+      "readyAfterSeconds" : 18.507543921470642,
+      "samples" : [
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 9.5367431640625e-07,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 1.06243097782135,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 2.022868037223816,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 3.0891369581222534,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        }
+      ],
+      "searchCount" : 5,
+      "searchFailures" : [
+
+      ],
+      "searchSeconds" : 0.7554110288619995,
+      "year" : "2019"
+    },
+    {
+      "actualTitle" : "琅琊榜",
+      "catalogID" : "11751",
+      "decodedFrameCount" : 1,
+      "decodedHeight" : 606,
+      "decodedWidth" : 1080,
+      "detailSeconds" : 0.5552390813827515,
+      "episode" : "第01集",
+      "error" : "媒体传输中断。可以重试当前集，或在右侧选择其他线路。",
+      "line" : "rym3u8",
+      "maxPosition" : 0,
+      "mediaURL" : "https://cdn3.ryplay3.com/20240901/32158_ca03e426/index.m3u8",
+      "observationSeconds" : 0.00017499923706054688,
+      "passed" : false,
+      "phase" : "failed",
+      "providerID" : "ruyi",
+      "query" : "琅琊榜",
+      "readyAfterSeconds" : 17.19096803665161,
+      "samples" : [
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 0,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 1.0543029308319092,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "decodedHeight" : 606,
+          "decodedWidth" : 1080,
+          "elapsed" : 2.0910120010375977,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 606,
+          "presentationWidth" : 1080
+        }
+      ],
+      "searchCount" : 3,
+      "searchFailures" : [
+
+      ],
+      "searchSeconds" : 0.9343430995941162,
+      "year" : "2015"
+    },
+    {
+      "actualTitle" : "怪奇物语第一季",
+      "catalogID" : "10734",
+      "decodedFrameCount" : 1,
+      "decodedHeight" : 576,
+      "decodedWidth" : 1024,
+      "detailSeconds" : 0.8040680885314941,
+      "episode" : "第01集",
+      "error" : "媒体传输中断。可以重试当前集，或在右侧选择其他线路。",
+      "line" : "modum3u8",
+      "maxPosition" : 0,
+      "mediaURL" : "https://play.modujx12.com/20240701/gLgDbkaF/index.m3u8",
+      "observationSeconds" : 0.00015306472778320312,
+      "passed" : false,
+      "phase" : "failed",
+      "providerID" : "mdzy",
+      "query" : "怪奇物语第一季",
+      "readyAfterSeconds" : 16.995592951774597,
+      "samples" : [
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 9.5367431640625e-07,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        },
+        {
+          "buffering" : true,
+          "controllerPosition" : 0,
+          "elapsed" : 1.0604119300842285,
+          "itemStatus" : "unknown",
+          "playerPosition" : 0,
+          "playing" : false,
+          "presentationHeight" : 0,
+          "presentationWidth" : 0
+        }
+      ],
+      "searchCount" : 1,
+      "searchFailures" : [
+
+      ],
+      "searchSeconds" : 0.5307968854904175,
+      "year" : "2016–"
+    }
+  ],
+  "catalogRequestTimeoutSeconds" : 15,
+  "final" : true,
+  "finishedAt" : "2026-09-27T18:12:55Z",
+  "limitations" : [
+    "Uses the real SourceService and PlaybackController, but does not launch the application scene.",
+    "Decoded pixel-buffer dimensions are source dimensions, not enhancement output or visible presentation proof.",
+    "No SwiftUI interaction, fullscreen, keyboard, visual quality, perceived audio sync or GPU rendering was verified.",
+    "Short sequential samples do not establish complete-episode reliability or general source availability.",
+    "Media is streamed into AVFoundation buffers; the smoke does not save media or frame files."
+  ],
+  "mediaFilesSaved" : false,
+  "mode" : "headless AVPlayer; no UI or GPU presentation validation",
+  "muted" : true,
+  "passed" : false,
+  "processTimeoutSeconds" : 210,
+  "readyTimeoutSeconds" : 20,
+  "requestedObservationSeconds" : 15,
+  "startedAt" : "2026-09-27T18:11:58Z"
+}

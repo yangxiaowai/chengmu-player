@@ -24,15 +24,30 @@ import CinemaCore
         let protected = await analyzer.analyze(time: 1, protectedRegions: [NormalizedVideoRect(x: 0.2, y: 0.2, width: 0.65, height: 0.5)])
         check("custom_subtitle_protection_excludes_main_title", protected.classification == .ordinary)
         let local = directory.appendingPathComponent("sequence.mp4")
-        for (name, url) in [("local_sequence", local), ("ordinary_hls", hls)] {
-            analyzer.configure(url: url)
-            var observations: [AdFrameObservation] = []
-            for time in stride(from: 0.5, through: 38.5, by: 2) {
-                observations.append(await analyzer.analyze(time: time, protectedRegions: [AdCleanupSettings.defaultProtection]))
-            }
-            let segments = AdSegmentPolicy.segments(from: observations)
-            check(name + "_detects_inserted_advertisement", segments.count == 1 && segments.allSatisfy { $0.start >= 16 && $0.end < 28 }, "segments=\(segments.map { "\($0.start)-\($0.end)" }), samples=\(observations.map { "\($0.time):\($0.classification)" })")
+        analyzer.configure(url: local)
+        var localObservations: [AdFrameObservation] = []
+        for time in stride(from: 0.5, through: 38.5, by: 2) {
+            localObservations.append(await analyzer.analyze(time: time, protectedRegions: [AdCleanupSettings.defaultProtection]))
         }
+        let localSegments = AdSegmentPolicy.segments(from: localObservations)
+        check("local_sequence_detects_inserted_advertisement", localSegments.count == 1 && localSegments.allSatisfy { $0.start >= 16 && $0.end < 28 }, "segments=\(localSegments.map { "\($0.start)-\($0.end)" }), samples=\(localObservations.map { "\($0.time):\($0.classification)" })")
+        // HTTP HLS may yield some real frames near a requested time, or report them unavailable.
+        // Sparse evidence must never be expanded into a complete advertisement interval.
+        analyzer.configure(url: hls)
+        var hlsObservations: [AdFrameObservation] = []
+        for time in [0.5, 2.5, 4.5, 18.5] {
+            hlsObservations.append(await analyzer.analyze(time: time, protectedRegions: [AdCleanupSettings.defaultProtection]))
+        }
+        let hlsSegments = AdSegmentPolicy.segments(from: hlsObservations)
+        let requestedHLS = [0.5, 2.5, 4.5, 18.5]
+        let boundedHLS = zip(requestedHLS, hlsObservations).allSatisfy { requested, observed in
+            observed.classification == .unknown || abs(observed.time - requested) <= 0.2
+        }
+        let honestHLS = hlsObservations.enumerated().allSatisfy { index, observed in
+            observed.classification == .unknown || observed.classification == (index == 3 ? .advertisement : .ordinary)
+        }
+        check("http_hls_uses_only_timestamped_evidence_and_no_sparse_interval", hlsSegments.isEmpty && boundedHLS && honestHLS,
+              "samples=\(hlsObservations.map { "\($0.time):\($0.classification)" })")
         analyzer.configure(url: hls)
         let cancelledRead = Task { @MainActor in await analyzer.analyze(time: 18, protectedRegions: []) }
         try await Task.sleep(nanoseconds: 20_000_000)

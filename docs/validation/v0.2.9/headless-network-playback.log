@@ -1,0 +1,10 @@
+START wujin 流浪地球 catalog=25734
+READY wujin after 18.51s
+FAIL wujin position=0.00s decoded=1280x504 frames=1 error=媒体传输中断。可以重试当前集，或在右侧选择其他线路。
+START ruyi 琅琊榜 catalog=11751
+READY ruyi after 17.19s
+FAIL ruyi position=0.00s decoded=1080x606 frames=1 error=媒体传输中断。可以重试当前集，或在右侧选择其他线路。
+START mdzy 怪奇物语第一季 catalog=10734
+READY mdzy after 17.00s
+FAIL mdzy position=0.00s decoded=1024x576 frames=1 error=媒体传输中断。可以重试当前集，或在右侧选择其他线路。
+HEADLESS_NETWORK_PLAYBACK_FAIL — not UI/GPU presentation validation

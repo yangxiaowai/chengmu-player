@@ -1,0 +1,73 @@
+{
+  "checkedAt" : "2026-09-28T05:12:49Z",
+  "displaySampleWidthPixels" : 2468,
+  "results" : [
+    {
+      "detailAfterDisplayDownscale" : 0.122,
+      "detailNative" : 0.14699999999999999,
+      "fixture" : "bars",
+      "isReference" : true,
+      "meanLuma" : 92.609999999999999,
+      "milliseconds" : 2.5,
+      "mode" : "原片",
+      "outputHeight" : 1080,
+      "outputWidth" : 1920
+    },
+    {
+      "detailAfterDisplayDownscale" : 0.154,
+      "detailNative" : 0.19400000000000001,
+      "fixture" : "bars",
+      "isReference" : false,
+      "meanLuma" : 92.640000000000001,
+      "milliseconds" : 13.6,
+      "mode" : "GPU 清晰增强",
+      "outputHeight" : 1080,
+      "outputWidth" : 1920
+    },
+    {
+      "detailAfterDisplayDownscale" : 0.17599999999999999,
+      "detailNative" : 0.193,
+      "fixture" : "bars",
+      "isReference" : false,
+      "meanLuma" : 92.689999999999998,
+      "milliseconds" : 31,
+      "mode" : "GPU 增强至 4K",
+      "outputHeight" : 2160,
+      "outputWidth" : 3840
+    },
+    {
+      "detailAfterDisplayDownscale" : 0.047,
+      "detailNative" : 0.045999999999999999,
+      "fixture" : "gradient",
+      "isReference" : true,
+      "meanLuma" : 144.33000000000001,
+      "milliseconds" : 1.7,
+      "mode" : "原片",
+      "outputHeight" : 1080,
+      "outputWidth" : 1920
+    },
+    {
+      "detailAfterDisplayDownscale" : 0.047,
+      "detailNative" : 0.045999999999999999,
+      "fixture" : "gradient",
+      "isReference" : false,
+      "meanLuma" : 144.33000000000001,
+      "milliseconds" : 7.7000000000000002,
+      "mode" : "GPU 清晰增强",
+      "outputHeight" : 1080,
+      "outputWidth" : 1920
+    },
+    {
+      "detailAfterDisplayDownscale" : 0.058000000000000003,
+      "detailNative" : 0.057000000000000002,
+      "fixture" : "gradient",
+      "isReference" : false,
+      "meanLuma" : 144.31,
+      "milliseconds" : 28.399999999999999,
+      "mode" : "GPU 增强至 4K",
+      "outputHeight" : 2160,
+      "outputWidth" : 3840
+    }
+  ],
+  "scope" : "Real EnhancementPipeline on static 1920x1080 fixtures; measures luminance, edge detail and 4K survival through the player's display downscale. Not a subjective quality claim."
+}

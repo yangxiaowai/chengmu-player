@@ -1,0 +1,32 @@
+variants=100 renditions=10
+hasDolbyVision=true hasHDR=true hasAtmos=true
+  DV: 1024×576 · 3406 kbps · PQ · dvh1.05.01,mp4a.40.5 | evidence: dvh1.05.01 | audioGroup: aache-44-64
+  DV: 3840×2160 · 37409 kbps · PQ · dvh1.05.06,ec-3 | evidence: dvh1.05.06 | audioGroup: ec3-48-768
+  DV: 3840×2160 · 37025 kbps · PQ · dvh1.05.06,ac-3 | evidence: dvh1.05.06 | audioGroup: ac3-48-384
+  DV: 3840×2160 · 36800 kbps · PQ · dvh1.05.06,mp4a.40.2 | evidence: dvh1.05.06 | audioGroup: aaclc-48-160
+  DV: 3840×2160 · 33623 kbps · PQ · dvh1.05.06,ec-3 | evidence: dvh1.05.06 | audioGroup: ec3-48-768
+  DV: 3840×2160 · 33239 kbps · PQ · dvh1.05.06,ac-3 | evidence: dvh1.05.06 | audioGroup: ac3-48-384
+  DV: 3840×2160 · 33014 kbps · PQ · dvh1.05.06,mp4a.40.2 | evidence: dvh1.05.06 | audioGroup: aaclc-48-160
+  DV: 2560×1440 · 27872 kbps · PQ · dvh1.05.05,ec-3 | evidence: dvh1.05.05 | audioGroup: ec3-48-768
+  DV: 2560×1440 · 27488 kbps · PQ · dvh1.05.05,ac-3 | evidence: dvh1.05.05 | audioGroup: ac3-48-384
+  DV: 2560×1440 · 27263 kbps · PQ · dvh1.05.05,mp4a.40.2 | evidence: dvh1.05.05 | audioGroup: aaclc-48-160
+  DV: 1920×1080 · 17259 kbps · PQ · dvh1.05.03,ec-3 | evidence: dvh1.05.03 | audioGroup: ec3-48-768
+  DV: 1920×1080 · 16875 kbps · PQ · dvh1.05.03,ac-3 | evidence: dvh1.05.03 | audioGroup: ac3-48-384
+  DV: 1920×1080 · 16650 kbps · PQ · dvh1.05.03,mp4a.40.2 | evidence: dvh1.05.03 | audioGroup: aaclc-48-160
+  DV: 1920×1080 · 6597 kbps · PQ · dvh1.05.03,ec-3 | evidence: dvh1.05.03 | audioGroup: ec3-48-768
+  DV: 1920×1080 · 6213 kbps · PQ · dvh1.05.03,ac-3 | evidence: dvh1.05.03 | audioGroup: ac3-48-384
+  DV: 1920×1080 · 5988 kbps · PQ · dvh1.05.03,mp4a.40.2 | evidence: dvh1.05.03 | audioGroup: aaclc-48-160
+  DV: 1280×720 · 6160 kbps · PQ · dvh1.05.01,ec-3 | evidence: dvh1.05.01 | audioGroup: ec3-48-768
+  DV: 1280×720 · 5776 kbps · PQ · dvh1.05.01,ac-3 | evidence: dvh1.05.01 | audioGroup: ac3-48-384
+  DV: 1280×720 · 5551 kbps · PQ · dvh1.05.01,mp4a.40.2 | evidence: dvh1.05.01 | audioGroup: aaclc-48-160
+  DV: 1280×720 · 5186 kbps · PQ · dvh1.05.01,ec-3 | evidence: dvh1.05.01 | audioGroup: ec3-48-768
+  DV: 1280×720 · 4802 kbps · PQ · dvh1.05.01,ac-3 | evidence: dvh1.05.01 | audioGroup: ac3-48-384
+  DV: 1280×720 · 4577 kbps · PQ · dvh1.05.01,mp4a.40.2 | evidence: dvh1.05.01 | audioGroup: aaclc-48-160
+  DV: 864×486 · 2582 kbps · PQ · dvh1.05.01,mp4a.40.5 | evidence: dvh1.05.01 | audioGroup: aache-44-64
+  DV: 768×432 · 2113 kbps · PQ · dvh1.05.01,mp4a.40.29 | evidence: dvh1.05.01 | audioGroup: aachev2-44-32
+  DV: 672×378 · 1352 kbps · PQ · dvh1.05.01,mp4a.40.29 | evidence: dvh1.05.01 | audioGroup: aachev2-44-32
+  DV: 608×342 · 964 kbps · PQ · dvh1.05.01,mp4a.40.29 | evidence: dvh1.05.01 | audioGroup: aachev2-44-32
+  DV: 480×270 · 631 kbps · PQ · dvh1.05.01,mp4a.40.29 | evidence: dvh1.05.01 | audioGroup: aachev2-44-32
+  JOC rendition: ec3-48-768 English 16/JOC en-US true
+  JOC rendition: ec3-48-768 English (DVS) 16/JOC en-US false
+leaf: prog_index.m3u8 segments=19 codecs=hvc1.2.20000000.H150.B0,ec-3 rangeInfo=3840x2160

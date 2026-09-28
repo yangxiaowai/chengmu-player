@@ -1,0 +1,8 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:302:75: warning: forming 'UnsafeMutableRawPointer' to a variable of type 'CFString'; this is likely incorrect because 'CFString' may contain an object reference.
+300 |         var name: CFString = "未知" as CFString
+301 |         size = UInt32(MemoryLayout<CFString>.size)
+302 |         guard AudioObjectGetPropertyData(device, &address, 0, nil, &size, &name) == noErr else { return "未知" }
+    |                                                                           `- warning: forming 'UnsafeMutableRawPointer' to a variable of type 'CFString'; this is likely incorrect because 'CFString' may contain an object reference.
+303 |         return name as String
+304 |     }
+Expected multichannel-only spatialization with per-frame HDR metadata, no audio mix; actual flags=4, metadata=true, passed=true

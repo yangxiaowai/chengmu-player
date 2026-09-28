@@ -1,0 +1,11 @@
+{
+  "eligibleForHDRPlayback" : true,
+  "screens" : [
+    {
+      "edrCurrent" : 1.2000000476837158,
+      "edrPotential" : 16,
+      "edrReference" : 0,
+      "name" : "Built-in Retina Display"
+    }
+  ]
+}
