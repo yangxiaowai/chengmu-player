@@ -7,8 +7,11 @@ if [ "$build_config" = release ]; then product_dir=".build/out/Products/Release"
 if [ ! -f "$product_dir/Cinema" ]; then
   product_dir="$(bash scripts/swift.sh build -c "$build_config" --show-bin-path | tail -n 1)"
 fi
-# Keep the previous bundle intact while a user may still be watching in it.
-app_dir="$PWD/dist/映川-v0.3.0.app"
+# Assemble a complete bundle away from the public entry point. Keep it for retry if
+# either released copy is running; install-app.py never terminates the player.
+mkdir -p "$PWD/.build"
+staging_dir="$(mktemp -d "$PWD/.build/app-stage-0.3.1.XXXXXX")"
+app_dir="$staging_dir/映川.app"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
 cp "$product_dir/Cinema" "$app_dir/Contents/MacOS/Cinema.new"
 mv -f "$app_dir/Contents/MacOS/Cinema.new" "$app_dir/Contents/MacOS/Cinema"
@@ -23,8 +26,8 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIdentifier</key><string>local.yingchuan.cinema</string>
 <key>CFBundleExecutable</key><string>Cinema</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.0</string>
-<key>CFBundleVersion</key><string>12</string>
+<key>CFBundleShortVersionString</key><string>0.3.1</string>
+<key>CFBundleVersion</key><string>13</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>
@@ -33,4 +36,6 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 </dict></plist>
 PLIST
 codesign --force --sign - "$app_dir"
-printf '%s\n' "$app_dir"
+codesign --verify --strict --deep "$app_dir"
+python3 scripts/install-app.py "$app_dir" "$PWD/dist"
+rmdir "$staging_dir"

@@ -9,19 +9,21 @@ enum EnhancementMode: String, CaseIterable, Identifiable {
     case original, clarity, upscale4K, appleAI
     var id: String { rawValue }
     var title: String {
-        switch self { case .original: return "原片"; case .clarity: return "GPU 清晰增强"; case .upscale4K: return "GPU 增强至 4K"; case .appleAI: return "Apple AI 超分" }
+        switch self { case .original: return "原片"; case .clarity: return "自然降噪"; case .upscale4K: return "平滑 4K 缩放"; case .appleAI: return "Apple AI 超分" }
     }
     var detail: String {
         switch self {
         case .original: return "系统硬件解码与原始画面"
-        case .clarity: return "实时去噪与温和锐化，保持原始尺寸"
-        case .upscale4K: return "等比例 Lanczos 放大与 GPU 修复，非 AI"
+        case .clarity: return "轻度降噪，不叠加锐化，保持原始尺寸"
+        case .upscale4K: return "降噪后平滑放大至最高 4K，不增加原片没有的细节"
         case .appleAI: return "按设备与输入尺寸查询真实 AI 倍率，不支持时回退"
         }
     }
 }
 
 struct EnhancementMetrics {
+    /// The surface has selected an enhanced frame for display; preference alone is not evidence.
+    var isEnhancedOutput = false
     var sourceWidth = 0
     var sourceHeight = 0
     var outputWidth = 0
@@ -97,31 +99,75 @@ final class EnhancementPipeline {
             output = PixelSize(width: Int(image.extent.width), height: Int(image.extent.height))
             label = "Apple AI ×\(session.factor)"
         } else if mode != .original {
-            image = image.applyingFilter("CINoiseReduction", parameters: ["inputNoiseLevel": 0.015, "inputSharpness": 0.2])
+            // Core Image's denoiser also sharpens by default. Keep it disabled: adding another
+            // luminance sharpen amplified residual compression noise, especially in midtones.
+            image = image.applyingFilter("CINoiseReduction", parameters: ["inputNoiseLevel": 0.015, "inputSharpness": 0.0])
             if mode == .upscale4K {
                 output = QualityPolicy.target4K(width: width, height: height)
-                image = image.applyingFilter("CILanczosScaleTransform", parameters: ["inputScale": Double(output.width) / Double(width), "inputAspectRatio": 1.0])
+                // Cubic B-spline (B=1, C=0) has no negative lobes: it does not add the bright/dark
+                // halos that Lanczos produced around subtitle strokes and compressed edges.
+                // Even scale=1 changes pixels with this kernel; preserve native 4K/larger detail.
+                if output.width != width || output.height != height {
+                    image = image.clampedToExtent().applyingFilter("CIBicubicScaleTransform", parameters: [
+                        "inputScale": Double(output.width) / Double(width), "inputAspectRatio": 1.0,
+                        "inputB": 1.0, "inputC": 0.0
+                    ]).cropped(to: CGRect(x: 0, y: 0, width: output.width, height: output.height))
+                }
             }
-            image = image.applyingFilter("CISharpenLuminance", parameters: ["inputSharpness": 0.35])
         }
-        // Apply after denoise/resize/AI: cleanup cannot propagate through another enhancement filter
-        // into the protected subtitle pixels. Every blur samples only its own cropped region.
+        // Always materialize the enhanced base through the same render graph. Compositing cleanup
+        // into a lazy Core Image graph can change rounding outside its ROI (notably after bicubic
+        // scaling), so accepted patches are applied later with bounded texture copies.
         let decision = AdCleanupPolicy.evaluate(cleanup, width: output.width, height: output.height)
-        let enhanced = image
-        for rectangle in decision.acceptedRects {
-            let patch = enhanced.cropped(to: rectangle).clampedToExtent()
-                .applyingFilter("CIGaussianBlur", parameters: ["inputRadius": max(4.0, min(24.0, Double(min(rectangle.width, rectangle.height)) * 0.12))])
-                .cropped(to: rectangle)
-            image = patch.composited(over: image)
-        }
-        if !decision.acceptedRects.isEmpty { label += " + 局部柔化（\(decision.acceptedRects.count)框）" }
         let description = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: output.width, height: output.height, mipmapped: false)
         description.usage = [.shaderRead, .shaderWrite, .renderTarget]
         guard let texture = device.makeTexture(descriptor: description), let command = queue.makeCommandBuffer() else { throw EnhancementError.unavailable("GPU 画面缓冲分配失败") }
         context.render(image, to: texture, commandBuffer: command, bounds: CGRect(x: 0, y: 0, width: output.width, height: output.height), colorSpace: colorSpace)
         command.commit(); command.waitUntilCompleted()
         guard command.status == .completed else { throw EnhancementError.unavailable(command.error?.localizedDescription ?? "GPU 帧处理失败") }
-        return EnhancedFrame(texture: texture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label, cleanupAppliedRegions: decision.acceptedRects.count, cleanupRejectedRegions: decision.rejectedCount, cleanupReason: decision.reasons.isEmpty ? nil : decision.reasons.joined(separator: "；"))
+        var resultTexture = texture
+        if !decision.acceptedRects.isEmpty {
+            guard let cleanedTexture = device.makeTexture(descriptor: description),
+                  let cleanupCommand = queue.makeCommandBuffer(),
+                  let baseImage = CIImage(mtlTexture: texture, options: [.colorSpace: colorSpace]),
+                  let baseCopy = cleanupCommand.makeBlitCommandEncoder() else {
+                throw EnhancementError.unavailable("局部柔化缓冲分配失败")
+            }
+            baseCopy.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
+                          sourceSize: MTLSize(width: output.width, height: output.height, depth: 1),
+                          to: cleanedTexture, destinationSlice: 0, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
+            baseCopy.endEncoding()
+            // Core Image retains the rendered texture's image coordinates; the rectangle origin
+            // also addresses its backing texels. Keep the base immutable for overlapping selections.
+            let enhanced = baseImage
+            for rectangle in decision.acceptedRects {
+                let patchWidth = Int(rectangle.width), patchHeight = Int(rectangle.height)
+                let patchDescription = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: patchWidth, height: patchHeight, mipmapped: false)
+                patchDescription.usage = [.shaderRead, .shaderWrite, .renderTarget]
+                guard let patchTexture = device.makeTexture(descriptor: patchDescription) else {
+                    throw EnhancementError.unavailable("局部柔化选区缓冲分配失败")
+                }
+                let patch = enhanced.cropped(to: rectangle).clampedToExtent()
+                    .applyingFilter("CIGaussianBlur", parameters: ["inputRadius": max(4.0, min(24.0, Double(min(rectangle.width, rectangle.height)) * 0.12))])
+                    .cropped(to: rectangle)
+                    .transformed(by: CGAffineTransform(translationX: -rectangle.minX, y: -rectangle.minY))
+                context.render(patch, to: patchTexture, commandBuffer: cleanupCommand,
+                               bounds: CGRect(x: 0, y: 0, width: patchWidth, height: patchHeight), colorSpace: colorSpace)
+                guard let patchCopy = cleanupCommand.makeBlitCommandEncoder() else {
+                    throw EnhancementError.unavailable("局部柔化选区提交失败")
+                }
+                patchCopy.copy(from: patchTexture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
+                               sourceSize: MTLSize(width: patchWidth, height: patchHeight, depth: 1),
+                               to: cleanedTexture, destinationSlice: 0, destinationLevel: 0,
+                               destinationOrigin: MTLOrigin(x: Int(rectangle.minX), y: Int(rectangle.minY), z: 0))
+                patchCopy.endEncoding()
+            }
+            cleanupCommand.commit(); cleanupCommand.waitUntilCompleted()
+            guard cleanupCommand.status == .completed else { throw EnhancementError.unavailable(cleanupCommand.error?.localizedDescription ?? "局部柔化处理失败") }
+            resultTexture = cleanedTexture
+            label += " + 局部柔化（\(decision.acceptedRects.count)框）"
+        }
+        return EnhancedFrame(texture: resultTexture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label, cleanupAppliedRegions: decision.acceptedRects.count, cleanupRejectedRegions: decision.rejectedCount, cleanupReason: decision.reasons.isEmpty ? nil : decision.reasons.joined(separator: "；"))
     }
 
     /// Generated moving test card: real GPU command completion, not CPU submission time.

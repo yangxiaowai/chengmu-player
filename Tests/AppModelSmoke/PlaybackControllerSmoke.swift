@@ -22,7 +22,7 @@ import CinemaCore
         controller.setRate(.infinity)
         precondition(controller.rate == 1)
         controller.setRate(1.5)
-        controller.enhancementMode = .clarity
+        controller.selectEnhancementMode(.clarity)
         controller.scheduleSleepTimer(minutes: 15)
         precondition(controller.sleepRemainingSeconds == 900)
         controller.cancelSleepTimer()

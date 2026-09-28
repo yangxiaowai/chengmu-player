@@ -43,11 +43,16 @@ struct MediaExperienceView: View {
 
     private var controlSection: some View {
         CinemaCard(title: "画面与声音开关", icon: "switch.2") {
-            Toggle("实时画质增强", isOn: Binding(get: { playback.pipelineProcessesFrames }, set: { playback.pipelineProcessesFrames = $0 }))
-                .font(.system(size: 11)).toggleStyle(.switch)
-            Text("关闭后切回原片：系统直接输出片源画面，不叠加去噪、锐化、放大与柔化。不改变片源本身，也不重建播放。")
+            Picker("画面模式", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
+                ForEach(EnhancementMode.allCases) { mode in Text(mode.title).tag(mode) }
+            }
+            .font(.system(size: 11)).pickerStyle(.menu)
+            Text("选择原片后使用系统画面。增强只对适合处理的片源生效；下方显示实际输出，所选模式不会保证改变当前画面。")
                 .font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-            Divider().overlay(CinemaStyle.border)
+            if playback.canCompareOriginal || playback.isComparingOriginal {
+                Button(playback.isComparingOriginal ? "结束原片对照" : "临时查看原片") { playback.toggleOriginalComparison() }
+                    .font(.system(size: 11))
+            }
             Divider().overlay(CinemaStyle.border)
             HStack(alignment: .top, spacing: 8) {
                 Image(systemName: "lock.fill").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).padding(.top, 1)
@@ -79,8 +84,11 @@ struct MediaExperienceView: View {
             CinemaKeyValue("所选视频轨道", experience.status.videoDetail)
             CinemaKeyValue("杜比视界", experience.status.videoIsDolbyVision ? "识别到" : "未识别到", accent: experience.status.videoIsDolbyVision)
             CinemaKeyValue("片源判定", experience.status.nativePlayback ? "杜比/HDR → 系统原生层" : "SDR → 允许实时增强")
-            CinemaKeyValue("当前处理", playback.pipelineProcessesFrames ? (experience.status.nativePlayback ? "原生直通（增强对 HDR 停用）" : "实时增强已开启") : "已切回原片（增强关闭）")
-            if let metrics = playback.metrics {
+            CinemaKeyValue("所选模式", playback.selectedPictureMode.title)
+            CinemaKeyValue("正在呈现", playback.pictureStatusTitle, accent: playback.pictureIsEnhanced)
+            Text(playback.pictureStatusDetail).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
+            if let metrics = playback.metrics, metrics.sourceWidth > 0, metrics.sourceHeight > 0,
+               metrics.outputWidth > 0, metrics.outputHeight > 0 {
                 CinemaKeyValue("实际画面", "\(metrics.sourceWidth)×\(metrics.sourceHeight) → \(metrics.outputWidth)×\(metrics.outputHeight)")
                 CinemaKeyValue("处理模式", metrics.mode)
                 if let reason = metrics.fallbackReason { CinemaKeyValue("回退原因", reason, accent: true) }

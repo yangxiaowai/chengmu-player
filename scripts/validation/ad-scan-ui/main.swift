@@ -86,8 +86,7 @@ private struct AdSkipQAView: View {
         playback.pause()
         playback.volume = 0
         playback.rate = 0.5
-        playback.pipelineProcessesFrames = true
-        playback.enhancementMode = .upscale4K
+        playback.selectEnhancementMode(.upscale4K)
         playback.automaticAdSkipping = true
         playback.loadSubtitles(subtitle)
         playback.seek(to: 0)

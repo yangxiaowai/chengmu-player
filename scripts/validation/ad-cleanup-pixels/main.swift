@@ -26,16 +26,25 @@ for (mode, transform) in [(EnhancementMode.original, CGAffineTransform.identity)
     let cleaned = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: settings)
     let original = bytes(baseline), changed = bytes(cleaned)
     let rectangle = AdCleanupPolicy.pixelRect(region, width: baseline.width, height: baseline.height)!
-    var insideChanges = 0, outsideChanges = 0, protectedChanges = 0
+    var insideChanges = 0, outsideChanges = 0, protectedChanges = 0, outsideMaximumDifference = 0
+    var outsideBounds = CGRect.null
     let protected = AdCleanupPolicy.pixelRect(AdCleanupSettings.defaultProtection, width: baseline.width, height: baseline.height)!
     for y in 0..<baseline.height {
         for x in 0..<baseline.width {
             let index = (y * baseline.width + x) * 4
             guard original[index..<index+4] != changed[index..<index+4] else { continue }
             let point = CGPoint(x: Double(x) + 0.5, y: Double(y) + 0.5)
-            if rectangle.contains(point) { insideChanges += 1 } else { outsideChanges += 1 }
+            if rectangle.contains(point) { insideChanges += 1 } else {
+                outsideChanges += 1
+                outsideBounds = outsideBounds.union(CGRect(x: x, y: y, width: 1, height: 1))
+                for channel in 0..<4 { outsideMaximumDifference = max(outsideMaximumDifference, abs(Int(original[index + channel]) - Int(changed[index + channel]))) }
+            }
             if protected.contains(point) { protectedChanges += 1 }
         }
+    }
+    if outsideChanges > 0 {
+        let diagnostic = "\(mode.rawValue) \(baseline.width)x\(baseline.height) outside=\(outsideChanges) maxDelta=\(outsideMaximumDifference) bounds=\(outsideBounds) protected=\(protectedChanges)\n"
+        FileHandle.standardError.write(Data(diagnostic.utf8))
     }
     assert(insideChanges > 0, "No real blur inside selected region")
     assert(outsideChanges == 0, "Cleanup changed pixels outside selection: \(outsideChanges)")
@@ -49,7 +58,7 @@ for (mode, transform) in [(EnhancementMode.original, CGAffineTransform.identity)
     let invalid = AdCleanupSettings(enabled: true, regions: [region], protectedRegions: [NormalizedVideoRect(x: 0, y: .nan, width: 1, height: 0.1)])
     let closed = try pipeline.process(buffer!, mode: mode, time: .zero, displayTransform: transform, cleanup: invalid)
     assert(bytes(closed) == original && closed.cleanupAppliedRegions == 0, "Invalid protection must fail closed")
-    cases.append(["mode": mode.rawValue, "rotated": !transform.isIdentity, "output": [baseline.width, baseline.height], "inside_changed_pixels": insideChanges, "outside_changed_pixels": outsideChanges, "protected_changed_pixels": protectedChanges, "disabled_equals_baseline": true, "whole_conflict_rejected": true, "invalid_protection_fail_closed": true, "processing_ms": cleaned.milliseconds])
+    cases.append(["mode": mode.rawValue, "rotated": !transform.isIdentity, "output": [baseline.width, baseline.height], "inside_changed_pixels": insideChanges, "outside_changed_pixels": outsideChanges, "outside_maximum_channel_difference": outsideMaximumDifference, "protected_changed_pixels": protectedChanges, "disabled_equals_baseline": true, "whole_conflict_rejected": true, "invalid_protection_fail_closed": true, "processing_ms": cleaned.milliseconds])
 }
 // Hold selected pixels fixed and change every surrounding pixel: the blur must not sample outside its crop.
 let sampleRect = AdCleanupPolicy.pixelRect(region, width: width, height: height)!
@@ -69,7 +78,37 @@ for y in Int(sampleRect.minY)..<Int(sampleRect.maxY) {
     }
 }
 assert(samplingDifferences == 0, "Blur sampled pixels outside selected rectangle")
+// An asymmetric patch catches a source import or destination blit that flips Y. The selected
+// rectangle is deliberately off-centre, with red below blue in Core Image coordinates.
+let splitY = sampleRect.midY
+let redHalf = CIImage(color: CIColor(red: 1, green: 0, blue: 0)).cropped(to: CGRect(x: sampleRect.minX, y: sampleRect.minY, width: sampleRect.width, height: splitY - sampleRect.minY))
+let blueHalf = CIImage(color: CIColor(red: 0, green: 0, blue: 1)).cropped(to: CGRect(x: sampleRect.minX, y: splitY, width: sampleRect.width, height: sampleRect.maxY - splitY))
+let asymmetric = blueHalf.composited(over: redHalf.composited(over: checker))
+pipeline.context.render(asymmetric, to: buffer!, bounds: extent, colorSpace: pipeline.colorSpace)
+let asymmetricResult = bytes(try pipeline.process(buffer!, mode: .original, time: .zero, cleanup: settings))
+let sampleX = Int(sampleRect.midX), lowerY = Int(sampleRect.minY + sampleRect.height * 0.2), upperY = Int(sampleRect.minY + sampleRect.height * 0.8)
+let lowerOffset = (lowerY * width + sampleX) * 4, upperOffset = (upperY * width + sampleX) * 4
+assert(Int(asymmetricResult[lowerOffset]) > Int(asymmetricResult[lowerOffset + 2]) + 100, "Selected lower red pixels flipped vertically")
+assert(Int(asymmetricResult[upperOffset + 2]) > Int(asymmetricResult[upperOffset]) + 100, "Selected upper blue pixels flipped vertically")
+// Every patch samples the same immutable base. In overlaps the last selection wins, exactly
+// matching that selection rendered alone; it must not blur an already softened earlier patch.
+let secondRegion = NormalizedVideoRect(x: 0.3, y: 0.2, width: 0.25, height: 0.25)
+let secondRect = AdCleanupPolicy.pixelRect(secondRegion, width: width, height: height)!
+let multiBase = bytes(try pipeline.process(buffer!, mode: .original, time: .zero))
+let firstOnly = asymmetricResult
+let secondOnly = bytes(try pipeline.process(buffer!, mode: .original, time: .zero, cleanup: AdCleanupSettings(enabled: true, regions: [secondRegion])))
+let forward = bytes(try pipeline.process(buffer!, mode: .original, time: .zero, cleanup: AdCleanupSettings(enabled: true, regions: [region, secondRegion])))
+let reverse = bytes(try pipeline.process(buffer!, mode: .original, time: .zero, cleanup: AdCleanupSettings(enabled: true, regions: [secondRegion, region])))
+var forwardMismatches = 0, reverseMismatches = 0
+for y in 0..<height { for x in 0..<width {
+    let point = CGPoint(x: Double(x) + 0.5, y: Double(y) + 0.5), offset = (y * width + x) * 4
+    let expectedForward = secondRect.contains(point) ? secondOnly : sampleRect.contains(point) ? firstOnly : multiBase
+    let expectedReverse = sampleRect.contains(point) ? firstOnly : secondRect.contains(point) ? secondOnly : multiBase
+    if forward[offset..<offset+4] != expectedForward[offset..<offset+4] { forwardMismatches += 1 }
+    if reverse[offset..<offset+4] != expectedReverse[offset..<offset+4] { reverseMismatches += 1 }
+} }
+assert(forwardMismatches == 0 && reverseMismatches == 0, "Multiple regions sampled a mutated base or wrote outside their union")
 var samples: [Double] = []
 for index in 0..<60 { samples.append(try pipeline.process(buffer!, mode: .original, time: CMTime(value: Int64(index), timescale: 30), cleanup: settings).milliseconds) }
-let report: [String: Any] = ["version": "0.2.3", "device": pipeline.device.name, "scope": "Synthetic SDR checkerboard and caption blocks, exact RGBA8 GPU output comparisons; not OCR, background reconstruction, or network playback validation", "display_geometry_policy": "Full clean aperture, square pixels, and transformed/presentation aspect agreement required; otherwise cleanup falls back", "core_tests_passed": 6, "sampling_isolation_changed_pixels": samplingDifferences, "texture_readback_coordinates": "MTL texture readback is downMirrored into Core Image bottom-left coordinates before comparison", "cases": cases, "original_cleanup_60_frames_mean_ms": samples.reduce(0,+) / Double(samples.count), "passed": true]
+let report: [String: Any] = ["version": "0.3.1", "device": pipeline.device.name, "scope": "Synthetic SDR checkerboard, caption blocks, asymmetric red/blue selection and overlapping selections; exact RGBA8 GPU output comparisons. Not OCR, background reconstruction, or network playback validation", "display_geometry_policy": "Full clean aperture, square pixels, and transformed/presentation aspect agreement required; otherwise cleanup falls back", "sampling_isolation_changed_pixels": samplingDifferences, "asymmetric_selection_orientation_preserved": true, "overlapping_forward_mismatched_pixels": forwardMismatches, "overlapping_reverse_mismatched_pixels": reverseMismatches, "texture_readback_coordinates": "MTL texture readback is downMirrored into Core Image bottom-left coordinates before comparison", "cases": cases, "original_cleanup_60_frames_mean_ms": samples.reduce(0,+) / Double(samples.count), "passed": true]
 print(String(decoding: try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]), as: UTF8.self))

@@ -3,6 +3,16 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func newProfilesStartWithOriginalAndRememberGentleEnhancement() throws {
+        let fresh = PlaybackPreferences()
+        #expect(!fresh.pipelineProcessesFrames)
+        #expect(fresh.enhancement == "clarity")
+        let restored = try JSONDecoder().decode(PlaybackPreferences.self, from: JSONEncoder().encode(fresh))
+        #expect(restored == fresh)
+        let legacy = try JSONDecoder().decode(PlaybackPreferences.self, from: Data(#"{"enhancement":"upscale4K","pipeline":"enhanced"}"#.utf8))
+        #expect(legacy.pipelineProcessesFrames)
+        #expect(legacy.enhancement == "upscale4K")
+    }
     @Test func oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() throws {
         let old = try JSONDecoder().decode(PlaybackPreferences.self, from: Data(#"{"volume":0.4}"#.utf8))
         let oldJSON = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(old)) as? [String: Any])

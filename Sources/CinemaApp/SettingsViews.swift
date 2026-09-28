@@ -6,35 +6,45 @@ struct QualityStudio: View {
     @LegacyState private var hoveredMode: EnhancementMode?
     var body: some View {
         VStack(alignment: .leading, spacing: 26) {
-            Text("让每一帧，更值得看。").font(.system(size: 30, weight: .medium, design: .serif))
-            Text("先选择更好的片源，再为当前画面增强。所有处理都在这台 Mac 上进行。").font(.system(size: 13)).foregroundStyle(CinemaStyle.secondary)
+            Text("保留质感，按需调整。").font(.system(size: 30, weight: .medium, design: .serif))
+            Text("优先使用清晰片源。画面处理在这台 Mac 上进行，播放时可随时与原片对照。").font(.system(size: 13)).foregroundStyle(CinemaStyle.secondary)
             ForEach(EnhancementMode.allCases) { mode in
-                Button { playback.enhancementMode = mode } label: {
+                Button { playback.selectEnhancementMode(mode) } label: {
                     CinemaCard {
                         HStack(spacing: 22) {
                             Image(systemName: icon(mode)).font(.system(size: 26, weight: .light)).frame(width: 40)
-                                .foregroundStyle(playback.enhancementMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
+                                .foregroundStyle(playback.selectedPictureMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(mode.title).font(.system(size: 17, weight: .medium))
                                 Text(mode.detail).font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
                             }
                             Spacer()
-                            Image(systemName: playback.enhancementMode == mode ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(playback.enhancementMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
+                            Image(systemName: playback.selectedPictureMode == mode ? "checkmark.circle.fill" : "circle")
+                                .foregroundStyle(playback.selectedPictureMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
                         }
                     }
                     .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous)
-                        .fill(playback.enhancementMode == mode ? CinemaStyle.accentSoft : (hoveredMode == mode ? CinemaStyle.panelHover : Color.clear)))
+                        .fill(playback.selectedPictureMode == mode ? CinemaStyle.accentSoft : (hoveredMode == mode ? CinemaStyle.panelHover : Color.clear)))
                     .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous)
-                        .strokeBorder(playback.enhancementMode == mode ? CinemaStyle.accent.opacity(0.45) : CinemaStyle.border, lineWidth: playback.enhancementMode == mode ? 1.5 : 1))
+                        .strokeBorder(playback.selectedPictureMode == mode ? CinemaStyle.accent.opacity(0.45) : CinemaStyle.border, lineWidth: playback.selectedPictureMode == mode ? 1.5 : 1))
                 }.buttonStyle(.plain)
                     .animation(CinemaStyle.quick, value: hoveredMode)
-                    .animation(CinemaStyle.quick, value: playback.enhancementMode)
+                    .animation(CinemaStyle.quick, value: playback.selectedPictureMode)
                     .onHover { hoveredMode = $0 ? mode : nil }
+                    .accessibilityLabel("\(mode.title)，\(playback.selectedPictureMode == mode ? "已选择" : "未选择")")
+            }
+            if playback.player.currentItem != nil {
+                CinemaCard(title: "当前播放", icon: playback.pictureIsEnhanced ? "sparkles" : "film") {
+                    Text(playback.pictureStatusTitle).font(.system(size: 13, weight: .medium))
+                    Text(playback.pictureStatusDetail).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                    Button(playback.isComparingOriginal ? "结束对照，恢复所选模式" : "临时查看原片") {
+                        playback.toggleOriginalComparison()
+                    }.disabled(!playback.canCompareOriginal && !playback.isComparingOriginal)
+                }
             }
             HStack(alignment: .top, spacing: 13) {
                 Image(systemName: "info.circle").foregroundStyle(CinemaStyle.accent)
-                Text("GPU 增强至 4K 使用去噪、等比例缩放和锐化。Apple AI 是否可用取决于输入尺寸与设备；本机目前可处理720p→1080p。播放页会显示实际模式，处理跟不上时回到原片，保持流畅。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
+                Text("自然降噪用于减轻噪点；4K 缩放改变输出尺寸，无法保证补回原片缺失的细节。Apple AI 的输出取决于系统、设备和片源。杜比视界与 HDR 保持原生呈现，处理跟不上时也会回到原片，播放页会显示实际状态。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
             }.padding(.top, 8)
         }
     }

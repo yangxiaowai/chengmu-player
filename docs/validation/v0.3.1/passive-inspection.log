@@ -1,0 +1,1 @@
+PASS: application code uses only asynchronous AVFoundation accessors

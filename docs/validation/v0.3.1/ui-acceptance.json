@@ -1,0 +1,13 @@
+{
+  "version": "0.3.1",
+  "native_ui_verified": false,
+  "reason": "Native UI tool reports Mac is locked and automatic unlock failed. No UI interaction or screenshot verification performed this turn.",
+  "checks_not_completed": [
+    "New original comparison button in native window",
+    "1040-point width with episodes expanded",
+    "Fullscreen native layout and mouse controls"
+  ],
+  "prior_version_screenshots_reused": false,
+  "final_isolated_qa_build_passed": true,
+  "final_isolated_qa_codesign_verified": true
+}

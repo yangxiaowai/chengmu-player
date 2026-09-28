@@ -341,26 +341,47 @@ struct PlayerView: View {
 
     private var qualityMenu: some View {
         Menu {
-            Toggle("实时画质增强", isOn: $playback.pipelineProcessesFrames)
-            Toggle("杜比/HDR 原生直通", isOn: .constant(true)).disabled(true)
-            Divider()
-            ForEach(EnhancementMode.allCases) { mode in
-                Button {
-                    playback.enhancementMode = mode
-                    playback.pipelineProcessesFrames = mode != .original
-                } label: {
-                    Text(playback.enhancementMode == mode ? "\(mode.title) ✓" : mode.title)
+            Picker("画面模式", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
+                ForEach(EnhancementMode.allCases) { mode in
+                    Text(mode.title).tag(mode)
                 }
+            }.pickerStyle(.inline)
+            Divider()
+            Text("所选：\(playback.selectedPictureMode.title)")
+            Text("正在呈现：\(playback.pictureStatusTitle)")
+            Text(playback.pictureStatusDetail)
+            if let dimensions = pictureDimensions { Text(dimensions) }
+            if playback.isComparingOriginal {
+                Button("结束对照，恢复所选模式") { playback.toggleOriginalComparison() }
+            } else {
+                Button("临时查看原片") { playback.toggleOriginalComparison() }
+                    .disabled(!playback.canCompareOriginal)
             }
             Divider()
-            Text(playback.pipelineProcessesFrames ? "当前：\(playback.enhancementMode.title)" : "当前：原片直通")
-            Text("杜比视界与 HDR 固定使用系统原生呈现")
-            if let reason = playback.metrics?.fallbackReason { Text(reason) }
+            Text("杜比视界与 HDR 使用系统原生呈现")
+            Text("4K 缩放改变输出尺寸，不等于恢复原生 4K 细节")
         } label: {
-            PlayerChromeIcon(systemName: playback.pipelineProcessesFrames ? "sparkles" : "film", selected: playback.pipelineProcessesFrames)
+            PlayerChromeIcon(systemName: playback.pictureIsEnhanced ? "sparkles" : "film", selected: playback.pictureIsEnhanced)
         }
-        .accessibilityLabel("画质设置")
+        .accessibilityLabel("画质设置，\(playback.pictureStatusTitle)")
         .menuStyle(.borderlessButton).fixedSize().help("画质增强与原片直通")
+    }
+
+    private var pictureDimensions: String? {
+        guard let metrics = playback.metrics,
+              metrics.sourceWidth > 0, metrics.sourceHeight > 0,
+              metrics.outputWidth > 0, metrics.outputHeight > 0 else { return nil }
+        return "片源 \(metrics.sourceWidth)×\(metrics.sourceHeight) → 输出 \(metrics.outputWidth)×\(metrics.outputHeight)"
+    }
+
+    private var originalComparisonButton: some View {
+        Button { playback.toggleOriginalComparison() } label: {
+            PlayerChromeIcon(systemName: "circle.lefthalf.filled", selected: playback.isComparingOriginal, symbolSize: 17)
+        }
+        .disabled(!playback.canCompareOriginal && !playback.isComparingOriginal)
+        .opacity(playback.canCompareOriginal || playback.isComparingOriginal ? 1 : 0.35)
+        .help(playback.isComparingOriginal ? "结束原片对照，恢复所选模式" : (playback.canCompareOriginal ? "临时查看原片，再次点击恢复增强" : "增强画面就绪后可与原片对照"))
+        .accessibilityLabel(playback.isComparingOriginal ? "结束原片对照" : "查看原片对照")
     }
 
     private var moreMenu: some View {
@@ -398,6 +419,21 @@ struct PlayerView: View {
 
     private var controls: some View {
         VStack(spacing: 7) {
+            HStack(spacing: 8) {
+                Image(systemName: playback.isComparingOriginal ? "circle.lefthalf.filled" : (playback.pictureIsEnhanced ? "sparkles" : "film"))
+                    .foregroundStyle(playback.isComparingOriginal || playback.pictureIsEnhanced ? CinemaStyle.accent : CinemaStyle.secondary)
+                Text(playback.pictureStatusTitle)
+                    .foregroundStyle(CinemaStyle.primary)
+                    .fixedSize()
+                Text(playback.pictureStatusDetail)
+                    .foregroundStyle(CinemaStyle.secondary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                Spacer(minLength: 0)
+            }
+            .font(.system(size: 10))
+            .help(playback.pictureStatusDetail)
+            .allowsHitTesting(false)
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
                     visible: presentation.controlsVisible,
                     onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing); playback.setAdSkipInteraction("seek", active: editing) },
@@ -413,16 +449,20 @@ struct PlayerView: View {
                 .accessibilityLabel(playback.playbackRequested ? "暂停" : "播放")
                 Button { playback.skip(10) } label: { PlayerChromeIcon(systemName: "goforward.10", symbolSize: 19) }
                     .help("快进 10 秒 · →").accessibilityLabel("快进 10 秒")
-                Button { app.nextEpisode() } label: { PlayerChromeIcon(systemName: "forward.end.fill", symbolSize: 15) }
-                    .disabled(!app.canPlayNext).opacity(app.canPlayNext ? 1 : 0.35).help("下一集")
-                    .accessibilityLabel("下一集")
-                Button { showJump = true } label: {
-                    PlayerChromeText(text: "\(timeString(playback.position)) / \(timeString(playback.duration))", monospaced: true)
+                if !showEpisodes || presentation.isFullscreen {
+                    Button { app.nextEpisode() } label: { PlayerChromeIcon(systemName: "forward.end.fill", symbolSize: 15) }
+                        .disabled(!app.canPlayNext).opacity(app.canPlayNext ? 1 : 0.35).help("下一集")
+                        .accessibilityLabel("下一集")
                 }
-                .disabled(!canSeek).help("跳转到时间 · ⌘J").accessibilityLabel("跳转到时间")
+                Button { showJump = true } label: {
+                    PlayerChromeText(text: showEpisodes && !presentation.isFullscreen ? timeString(playback.position) : "\(timeString(playback.position)) / \(timeString(playback.duration))", monospaced: true)
+                }
+                .disabled(!canSeek).help("\(timeString(playback.position)) / \(timeString(playback.duration)) · 跳转到时间 · ⌘J")
+                .accessibilityLabel("跳转到时间").accessibilityValue("\(timeString(playback.position))，共 \(timeString(playback.duration))")
                 Spacer(minLength: 3)
                 speedMenu
                 subtitleMenu
+                originalComparisonButton
                 qualityMenu
                 HStack(spacing: 1) {
                     Button { playback.toggleMute() } label: {

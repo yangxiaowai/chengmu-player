@@ -89,7 +89,7 @@ import CinemaCore
         let playback = PlaybackController()
         playback.volume = 0
         playback.setRate(1)
-        playback.enhancementMode = .original
+        playback.selectEnhancementMode(.original)
 
         for spec in cases {
             report.cases.append(CaseResult(providerID: spec.provider, query: spec.query, catalogID: spec.catalogID))

@@ -1,0 +1,21 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS new profile uses native original
+PASS mode choice restores processing from original
+PASS quality studio choice restores processing after switch off
+PASS selection without a rendered frame is not reported as enhanced
+PASS completed enhancement enables comparison
+PASS reselecting same paused mode keeps real output status
+PASS comparison presents original while retaining selected enhancement
+PASS comparison never changes persisted preferences
+PASS comparison preserves item position subtitles and play intent
+PASS leaving comparison restores selected processing without changing preferences
+PASS fallback status reports native presentation and its actual reason
+PASS turning enhancement back on after original selects gentle denoise

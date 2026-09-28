@@ -28,7 +28,7 @@ final class PlaybackValidation {
         testDuration = Double(option("--seconds") ?? "120") ?? 120
         reportPath = option("--report") ?? reportPath
         name = option("--title") ?? name
-        model.playback.enhancementMode = EnhancementMode(rawValue: option("--mode") ?? "upscale4K") ?? .upscale4K
+        model.playback.selectEnhancementMode(EnhancementMode(rawValue: option("--mode") ?? "upscale4K") ?? .upscale4K)
         model.playback.volume = 0
         startTime = Date()
         phase = "searching"

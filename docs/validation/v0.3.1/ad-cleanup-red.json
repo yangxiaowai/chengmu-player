@@ -1,0 +1,21 @@
+{
+  "scope": "Actual GPU ad cleanup pixel regression after noise fix, before frozen-base bounded blit fix",
+  "mode": "upscale4K",
+  "output": [
+    3840,
+    2160
+  ],
+  "outside_changed_pixels": 335520,
+  "outside_maximum_channel_difference": 1,
+  "outside_difference_bounds": [
+    0,
+    0,
+    3840,
+    2160
+  ],
+  "protected_changed_pixels": 97114,
+  "insertingIntermediate_attempt": "same failure, same counts",
+  "diagnostic_log": "/tmp/yingchuan-v031-ad-cleanup-diagnostic.log",
+  "intermediate_log": "/tmp/yingchuan-v031-ad-cleanup-intermediate.log",
+  "passed": false
+}

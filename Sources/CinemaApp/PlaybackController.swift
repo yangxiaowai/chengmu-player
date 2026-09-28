@@ -24,8 +24,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published private(set) var videoPermission = VideoProcessingPermission.inspectSDRFrames
     /// 原片直通开关. It only decides whether the realtime pipeline may replace the picture; it never
     /// changes what the source is, and Dolby/HDR sources stay on the system layer either way.
-    @Published var pipelineProcessesFrames = true {
+    @Published var pipelineProcessesFrames = false {
         didSet {
+            guard oldValue != pipelineProcessesFrames else { return }
+            isComparingOriginal = false
+            if pipelineProcessesFrames && enhancementMode == .original { enhancementMode = .clarity }
+            metrics = nil
             preferences.setPipeline(pipelineProcessesFrames ? PlaybackPreferences.pipelineEnhanced : PlaybackPreferences.pipelineOriginal)
             preferencesStore.save(preferences)
             // Dropping or restoring the conversion output must not rebuild the item or the clock.
@@ -33,7 +37,47 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
     /// The picture mode actually handed to the surface: 原片 when the user switched the pipeline off.
-    var surfaceMode: EnhancementMode { pipelineProcessesFrames ? enhancementMode : .original }
+    var surfaceMode: EnhancementMode { isComparingOriginal ? .original : selectedPictureMode }
+    var selectedPictureMode: EnhancementMode { pipelineProcessesFrames ? enhancementMode : .original }
+    @Published private(set) var isComparingOriginal = false
+    var canCompareOriginal: Bool { isComparingOriginal || pictureIsEnhanced }
+    var pictureIsEnhanced: Bool {
+        !isComparingOriginal && selectedPictureMode != .original && videoPermission == .inspectSDRFrames &&
+        metrics?.isEnhancedOutput == true && metrics?.fallbackReason == nil
+    }
+    var pictureStatusTitle: String {
+        if isComparingOriginal { return "原片对照" }
+        if selectedPictureMode == .original { return "原片" }
+        if case .nativeOnly = videoPermission { return "原生直通" }
+        if pictureIsEnhanced { return metrics?.mode ?? selectedPictureMode.title }
+        if metrics?.fallbackReason != nil { return "当前呈现原片" }
+        return "等待画面处理"
+    }
+    var pictureStatusDetail: String {
+        if isComparingOriginal { return "临时查看原片，点对照按钮恢复\(selectedPictureMode.title)；设置未改变" }
+        if selectedPictureMode == .original { return "系统呈现原片，未叠加降噪或缩放处理" }
+        if case .nativeOnly(let reason) = videoPermission { return reason }
+        if let reason = metrics?.fallbackReason { return reason }
+        if pictureIsEnhanced, let metrics {
+            return "源 \(metrics.sourceWidth)×\(metrics.sourceHeight) → 输出 \(metrics.outputWidth)×\(metrics.outputHeight) · \(selectedPictureMode.detail)"
+        }
+        return "已选择\(selectedPictureMode.title)，等待增强画面就绪"
+    }
+    /// Both quality entry points use this action; a mode selection can never be swallowed by the
+    /// separate output switch. Original comparison is deliberately excluded from saved settings.
+    func selectEnhancementMode(_ mode: EnhancementMode) {
+        guard isComparingOriginal || selectedPictureMode != mode else { return }
+        isComparingOriginal = false
+        metrics = nil
+        enhancementMode = mode
+        pipelineProcessesFrames = mode != .original
+    }
+    func toggleOriginalComparison() {
+        guard canCompareOriginal else { return }
+        isComparingOriginal.toggle()
+        metrics = nil
+        updateAdSkipping()
+    }
     @Published var keepsOriginalAudioLayout = false {
         didSet {
             preferences.setKeepsOriginalAudioLayout(keepsOriginalAudioLayout)
@@ -78,7 +122,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
     @Published var generation = UUID()
-    @Published var enhancementMode: EnhancementMode = .upscale4K {
+    @Published private(set) var enhancementMode: EnhancementMode = .clarity {
         didSet { preferences.setEnhancement(enhancementMode.rawValue); preferencesStore.save(preferences) }
     }
     @Published private(set) var sleepRemainingSeconds: Int?
@@ -140,12 +184,12 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var ignoredAdSegments: [AdSkipSegment] = []
     private var adSkipInteractions = Set<String>()
 
-    override init() {
-        let store = PlaybackPreferencesStore()
+    override convenience init() { self.init(preferencesStore: PlaybackPreferencesStore()) }
+    init(preferencesStore store: PlaybackPreferencesStore) {
         let saved = store.load()
         preferencesStore = store; preferences = saved
         rate = Float(saved.rate); volume = Float(saved.volume)
-        enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .upscale4K
+        enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .clarity
         automaticAdSkipping = saved.automaticAdSkipping
         keepsOriginalAudioLayout = saved.keepsOriginalAudioLayout
         pipelineProcessesFrames = saved.pipelineProcessesFrames
@@ -167,6 +211,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
 
     func open(url: URL, title: String, episode: String, resume: Double = 0, isAutomaticRecovery: Bool = false) {
         saveProgress()
+        isComparingOriginal = false
         // A user-selected item starts a new recovery budget; only the internal replacement made
         // by the first transport retry inherits the spent budget from its original item.
         if !isAutomaticRecovery { automaticRecoveryAttempted = false }
@@ -416,7 +461,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         // source can break the playback transport itself.
         let ready = player.currentItem?.status == .readyToPlay && position > 0.05
         let available = automaticAdSkipping && wantsPlay && isPlaying && ready && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && adSkipInteractions.isEmpty
-        let sharesPlaybackFrames = pipelineProcessesFrames && videoPermission == .inspectSDRFrames && metrics?.fallbackReason == nil
+        let sharesPlaybackFrames = surfaceMode != .original && videoPermission == .inspectSDRFrames && metrics?.fallbackReason == nil
         adSkip.update(position: position, duration: duration, shouldScan: available, prefersSharedFrames: sharesPlaybackFrames)
     }
     private func automaticallySkipAdIfNeeded() -> Bool {

@@ -72,10 +72,61 @@ import CinemaCore
    while hdrMetrics.sourceWidth == 0, Date() < sizeDeadline { try await Task.sleep(nanoseconds:50_000_000) }
    check(name + "_reports_native_dimensions_and_cleanup_disabled",hdrMetrics.sourceWidth == 320 && hdrMetrics.cleanupAppliedRegions == 0 && hdrMetrics.cleanupReason != nil,"src=\(hdrMetrics.sourceWidth)x\(hdrMetrics.sourceHeight) reason=\(hdrMetrics.cleanupReason ?? "nil")")
    // Simulate absent inspector metadata: real HDR frames must trip the independent pixel gate.
-   hdrView.configure(player:hdrPlayer,mode:.upscale4K,generation:UUID(),cleanup:cleanup,permission:.inspectSDRFrames,assessedItem:hdrItem,onMetrics:{hdrMetrics=$0})
+   let hdrGeneration = UUID()
+   hdrView.configure(player:hdrPlayer,mode:.upscale4K,generation:hdrGeneration,cleanup:cleanup,permission:.inspectSDRFrames,assessedItem:hdrItem,onMetrics:{hdrMetrics=$0})
    try await Task.sleep(nanoseconds:600_000_000)
    check(name + "_raw_frame_gate_blocks_before_sdr_processing",hdrView.diagnosticState.isNativeVisible && hdrMetrics.processedFrames == 0 && hdrView.diagnosticState.isHDRSticky)
+   hdrView.configure(player:hdrPlayer,mode:.clarity,generation:hdrGeneration,cleanup:cleanup,permission:.inspectSDRFrames,assessedItem:hdrItem,onMetrics:{hdrMetrics=$0})
+   try await Task.sleep(nanoseconds:150_000_000)
+   check(name + "_mode_switch_preserves_hdr_sticky",hdrView.diagnosticState.isNativeVisible && hdrMetrics.processedFrames == 0 && hdrView.diagnosticState.isHDRSticky && hdrItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.isEmpty)
    hdrPlayer.pause(); hdrView.stop()
+  }
+  // Changing the requested filter must recover a processing-only failure without a new item or
+  // generation. The deliberately small 128x72 input is not supported by the local AI scaler.
+  do {
+   let recoveryURL = folder.appendingPathComponent("sdr-small.mp4")
+   let resize = Process(); resize.executableURL = URL(fileURLWithPath:"/usr/bin/env")
+   resize.arguments = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-i", folder.appendingPathComponent("sdr709.mp4").path,
+                       "-vf", "scale=128:72", "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p", "-movflags", "+write_colr", "-y", recoveryURL.path]
+   try resize.run(); resize.waitUntilExit()
+   guard resize.terminationStatus == 0 else { throw NSError(domain:"HDRRendererSmoke.fixture",code:Int(resize.terminationStatus)) }
+   let recoveryItem = AVPlayerItem(url:recoveryURL)
+   let recoveryPlayer = AVPlayer(playerItem:recoveryItem); recoveryPlayer.isMuted = true
+   let recoveryView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   let recoveryGeneration = UUID()
+   var recoveryMetrics = EnhancementMetrics()
+   recoveryView.configure(player:recoveryPlayer,mode:.appleAI,generation:recoveryGeneration,permission:.inspectSDRFrames,assessedItem:recoveryItem,onMetrics:{recoveryMetrics=$0})
+   recoveryPlayer.playImmediately(atRate:1)
+   let failureDeadline = Date().addingTimeInterval(6)
+   while recoveryMetrics.fallbackReason?.contains("Apple AI") != true, Date() < failureDeadline { try await Task.sleep(nanoseconds:30_000_000) }
+   check("unsupported_ai_falls_back_before_mode_recovery",recoveryMetrics.fallbackReason?.contains("Apple AI") == true && recoveryView.diagnosticState.isNativeVisible,
+         "reason=\(recoveryMetrics.fallbackReason ?? "none")")
+   recoveryView.configure(player:recoveryPlayer,mode:.clarity,generation:recoveryGeneration,permission:.inspectSDRFrames,assessedItem:recoveryItem,onMetrics:{recoveryMetrics=$0})
+   let recoveryDeadline = Date().addingTimeInterval(5)
+   while !recoveryView.diagnosticState.hasEnhancedFrame, Date() < recoveryDeadline { try await Task.sleep(nanoseconds:30_000_000) }
+   check("processing_failure_recovers_after_mode_switch_with_same_generation",recoveryPlayer.currentItem === recoveryItem && recoveryMetrics.processedFrames > 0 && recoveryMetrics.fallbackReason == nil && recoveryView.diagnosticState.hasEnhancedFrame,
+         "frames=\(recoveryMetrics.processedFrames) reason=\(recoveryMetrics.fallbackReason ?? "none")")
+   recoveryView.configure(player:recoveryPlayer,mode:.upscale4K,generation:recoveryGeneration,permission:.nativeOnly("权限保留测试"),assessedItem:recoveryItem,onMetrics:{recoveryMetrics=$0})
+   recoveryView.configure(player:recoveryPlayer,mode:.clarity,generation:recoveryGeneration,permission:.nativeOnly("权限保留测试"),assessedItem:recoveryItem,onMetrics:{recoveryMetrics=$0})
+   try await Task.sleep(nanoseconds:150_000_000)
+   check("mode_switch_preserves_native_only_permission",recoveryView.diagnosticState.isNativeVisible && !recoveryView.diagnosticState.hasEnhancedFrame && recoveryItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.isEmpty && recoveryMetrics.fallbackReason == "权限保留测试")
+   recoveryPlayer.pause(); recoveryView.stop()
+  }
+  do {
+   let noVideoItem = AVPlayerItem(asset:AVMutableComposition())
+   let noVideoPlayer = AVPlayer(playerItem:noVideoItem)
+   let noVideoView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   let noVideoGeneration = UUID()
+   var noVideoMetrics = EnhancementMetrics()
+   noVideoView.configure(player:noVideoPlayer,mode:.appleAI,generation:noVideoGeneration,permission:.inspectSDRFrames,assessedItem:noVideoItem,onMetrics:{noVideoMetrics=$0})
+   let geometryDeadline = Date().addingTimeInterval(3)
+   while noVideoMetrics.fallbackReason?.contains("方向") != true, Date() < geometryDeadline { try await Task.sleep(nanoseconds:30_000_000) }
+   let geometryReason = noVideoMetrics.fallbackReason
+   noVideoView.configure(player:noVideoPlayer,mode:.clarity,generation:noVideoGeneration,permission:.inspectSDRFrames,assessedItem:noVideoItem,onMetrics:{noVideoMetrics=$0})
+   try await Task.sleep(nanoseconds:150_000_000)
+   check("mode_switch_preserves_geometry_failure",geometryReason?.contains("方向") == true && noVideoMetrics.fallbackReason == geometryReason && noVideoView.diagnosticState.isNativeVisible && !noVideoView.diagnosticState.hasEnhancedFrame,
+         "reason=\(noVideoMetrics.fallbackReason ?? "none")")
+   noVideoView.stop()
   }
   // 切回原片 must drop the conversion output, and re-enabling must restore it, without rebuilding.
   do {

@@ -1,0 +1,387 @@
+{
+  "artifactDirectory" : "\/tmp\/yingchuan-picture-quality-baseline\/report-1920.frames",
+  "checkedAt" : "2026-09-28T11:21:48Z",
+  "device" : "Apple M4",
+  "displayPixels" : [
+    1920,
+    1080
+  ],
+  "failures" : [
+    "midgray-luma-noise \/ clarity: luma_noise_not_amplified",
+    "midgray-luma-noise \/ clarity: noise_reduced",
+    "midgray-luma-noise \/ clarity: noise_not_amplified",
+    "midgray-luma-noise \/ upscale4K: luma_noise_not_amplified",
+    "midgray-luma-noise \/ upscale4K: noise_reduced",
+    "midgray-luma-noise \/ upscale4K: noise_not_amplified",
+    "color-chroma-noise \/ clarity: noise_reduced",
+    "color-chroma-noise \/ clarity: luma_noise_not_amplified",
+    "color-chroma-noise \/ clarity: noise_not_amplified",
+    "color-chroma-noise \/ upscale4K: noise_reduced",
+    "color-chroma-noise \/ upscale4K: noise_not_amplified",
+    "color-chroma-noise \/ upscale4K: luma_noise_not_amplified",
+    "edges-subtitles-texture \/ clarity: ringing_bounded",
+    "edges-subtitles-texture \/ clarity: texture_contrast_preserved",
+    "edges-subtitles-texture \/ upscale4K: ringing_bounded"
+  ],
+  "passed" : false,
+  "pipelineSource" : "\/tmp\/yingchuan-picture-quality-baseline\/EnhancementPipeline.swift",
+  "results" : [
+    {
+      "actualMode" : "原片",
+      "checks" : {
+
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "dark-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 1.1032433727892463,
+        "lumaRMS" : 3.3431156968502553,
+        "meanLumaDrift" : -0.46653015584886137,
+        "rgbMSE" : 11.770931022084344
+      },
+      "mode" : "original",
+      "png" : "dark-luma-noise-original.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 清晰增强",
+      "checks" : {
+        "luma_noise_not_amplified" : true,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : true,
+        "noise_reduced" : true
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "dark-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 0.86469552896119917,
+        "lumaRMS" : 2.8857653404957198,
+        "meanLumaDrift" : -0.19284189621664621,
+        "rgbMSE" : 8.6930730875291218
+      },
+      "mode" : "clarity",
+      "png" : "dark-luma-noise-clarity.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 增强至 4K",
+      "checks" : {
+        "luma_noise_not_amplified" : true,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : true,
+        "noise_reduced" : true
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "dark-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 0.87159698825797238,
+        "lumaRMS" : 2.9944482174487437,
+        "meanLumaDrift" : 0.062812809669626352,
+        "rgbMSE" : 9.333648871713498
+      },
+      "mode" : "upscale4K",
+      "png" : "dark-luma-noise-upscale4K.png",
+      "processingOutputPixels" : [
+        3840,
+        2160
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "原片",
+      "checks" : {
+
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "midgray-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 1.1047951522684085,
+        "lumaRMS" : 3.3050530704505467,
+        "meanLumaDrift" : 0.134160798655695,
+        "rgbMSE" : 11.516722048388248
+      },
+      "mode" : "original",
+      "png" : "midgray-luma-noise-original.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 清晰增强",
+      "checks" : {
+        "luma_noise_not_amplified" : false,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : false,
+        "noise_reduced" : false
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "midgray-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 1.3793135403894807,
+        "lumaRMS" : 4.856175449319176,
+        "meanLumaDrift" : -0.078261769451568985,
+        "rgbMSE" : 24.507670981315076
+      },
+      "mode" : "clarity",
+      "png" : "midgray-luma-noise-clarity.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 增强至 4K",
+      "checks" : {
+        "luma_noise_not_amplified" : false,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : false,
+        "noise_reduced" : false
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "midgray-luma-noise",
+      "metrics" : {
+        "chromaRMS" : 1.452003573535267,
+        "lumaRMS" : 5.2258726136151026,
+        "meanLumaDrift" : 0.15298432140118773,
+        "rgbMSE" : 28.326551765380593
+      },
+      "mode" : "upscale4K",
+      "png" : "midgray-luma-noise-upscale4K.png",
+      "processingOutputPixels" : [
+        3840,
+        2160
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "原片",
+      "checks" : {
+
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "color-chroma-noise",
+      "metrics" : {
+        "chromaRMS" : 3.031535419590309,
+        "lumaRMS" : 2.3962560030039843,
+        "meanLumaDrift" : -0.0086557425385013695,
+        "rgbMSE" : 10.265535482931584
+      },
+      "mode" : "original",
+      "png" : "color-chroma-noise-original.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 清晰增强",
+      "checks" : {
+        "luma_noise_not_amplified" : false,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : false,
+        "noise_reduced" : false
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "color-chroma-noise",
+      "metrics" : {
+        "chromaRMS" : 4.1644475415643534,
+        "lumaRMS" : 3.2820455448610275,
+        "meanLumaDrift" : -0.15660833801348301,
+        "rgbMSE" : 19.312393025246042
+      },
+      "mode" : "clarity",
+      "png" : "color-chroma-noise-clarity.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 增强至 4K",
+      "checks" : {
+        "luma_noise_not_amplified" : false,
+        "mean_luma_preserved" : true,
+        "noise_not_amplified" : false,
+        "noise_reduced" : false
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "color-chroma-noise",
+      "metrics" : {
+        "chromaRMS" : 4.4598675113831501,
+        "lumaRMS" : 3.5128099980924823,
+        "meanLumaDrift" : 0.038186127380193891,
+        "rgbMSE" : 22.098018404114963
+      },
+      "mode" : "upscale4K",
+      "png" : "color-chroma-noise-upscale4K.png",
+      "processingOutputPixels" : [
+        3840,
+        2160
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "原片",
+      "checks" : {
+
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "edges-subtitles-texture",
+      "metrics" : {
+        "edgeOvershootCodeValues" : 4.2632564145606011e-13,
+        "edgeWidth10to90Pixels" : 2.2000000000000455,
+        "subtitleBackgroundLeak" : 0,
+        "subtitleInkRecall" : 1,
+        "textureContrastRetention" : 1
+      },
+      "mode" : "original",
+      "png" : "edges-subtitles-texture-original.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 清晰增强",
+      "checks" : {
+        "edge_width_preserved" : true,
+        "ringing_bounded" : false,
+        "subtitle_strokes_preserved" : true,
+        "texture_contrast_preserved" : false
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "edges-subtitles-texture",
+      "metrics" : {
+        "edgeOvershootCodeValues" : 51.000000000000014,
+        "edgeWidth10to90Pixels" : 1.2865531151950336,
+        "subtitleBackgroundLeak" : 0,
+        "subtitleInkRecall" : 1,
+        "textureContrastRetention" : 1.161110375712807
+      },
+      "mode" : "clarity",
+      "png" : "edges-subtitles-texture-clarity.png",
+      "processingOutputPixels" : [
+        960,
+        540
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    },
+    {
+      "actualMode" : "GPU 增强至 4K",
+      "checks" : {
+        "edge_width_preserved" : true,
+        "ringing_bounded" : false,
+        "subtitle_strokes_preserved" : true,
+        "texture_contrast_preserved" : true
+      },
+      "comparedDisplayPixels" : [
+        1920,
+        1080
+      ],
+      "fixture" : "edges-subtitles-texture",
+      "metrics" : {
+        "edgeOvershootCodeValues" : 51.000000000000014,
+        "edgeWidth10to90Pixels" : 1.2101923076922958,
+        "subtitleBackgroundLeak" : 0.0010293447629975869,
+        "subtitleInkRecall" : 1,
+        "textureContrastRetention" : 1.0982403425673639
+      },
+      "mode" : "upscale4K",
+      "png" : "edges-subtitles-texture-upscale4K.png",
+      "processingOutputPixels" : [
+        3840,
+        2160
+      ],
+      "sourcePixels" : [
+        960,
+        540
+      ]
+    }
+  ],
+  "scope" : "Actual GPU EnhancementPipeline; deterministic synthetic SDR noise, known clean reference, hard edges, 8-pixel stripes and burnt-in subtitle glyphs at the same display raster. Does not prove quality on real films, HDR, temporal stability or native AVPlayer display equivalence.",
+  "sourcePixels" : [
+    960,
+    540
+  ],
+  "thresholdRationale" : "Require 2% MSE reduction on fixed noisy flat fields; allow at most 2% noise amplification tolerance, 1 code-value mean drift, 3 code-value edge overshoot, 1.5 source-pixel additional edge width (scaled to the display raster), 85-110% texture contrast, >=98% subtitle ink recall and <=0.5% false ink. All spatial ROIs scale with the display raster. Engineering regression bounds for these fixtures, not universal perceptual scores."
+}

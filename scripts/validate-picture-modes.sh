@@ -1,6 +1,6 @@
 #!/bin/bash
 # Measures what each picture mode actually does to the frame, and what survives the display
-# downscale. Guards against both "no visible change" and colour damage regressions.
+# downscale. Guards mean luminance only; noise and ringing have a separate quality harness.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 report="${1:-docs/validation/v0.2.9/picture-modes.json}"
@@ -92,7 +92,7 @@ import CinemaCore
             }
         }
         if failures.isEmpty {
-            print("PASS picture modes: colour stable, no mode is a no-op")
+            print("PASS picture modes: mean luminance stable on these clean fixtures; noise and detail quality are checked separately")
             for row in results { print("  \(row["fixture"] ?? "") \(row["mode"] ?? "") \(row["outputWidth"] ?? 0)x\(row["outputHeight"] ?? 0) luma=\(row["meanLuma"] ?? 0) detail=\(row["detailNative"] ?? 0) shown=\(row["detailAfterDisplayDownscale"] ?? 0)") }
         } else {
             failures.forEach { print("FAIL \($0)") }

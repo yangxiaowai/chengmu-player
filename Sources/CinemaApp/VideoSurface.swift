@@ -113,7 +113,8 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         let itemChanged = self.item !== player.currentItem
         let previousPermission = self.permission
         let sourceChanged = playerChanged || itemChanged || self.generation != generation || self.assessed !== assessedItem
-        let layoutChanged = self.mode != mode || self.cleanup != cleanup || previousPermission != permission
+        let modeChanged = self.mode != mode
+        let layoutChanged = modeChanged || self.cleanup != cleanup || previousPermission != permission
         self.player = player; original.player = player
         self.mode = mode; self.generation = generation; self.cleanup = cleanup
         self.permission = permission
@@ -121,6 +122,13 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
             self.assessed = assessedItem
             reset()
         } else if layoutChanged {
+            // A new filter can recover a failed AI session or an exceeded frame budget. Keep
+            // source-level blocks intact: a mode choice cannot authorize HDR or unknown geometry.
+            if modeChanged, permission == .inspectSDRFrames, route == "增强", !hdrSticky,
+               geometryReady, geometryFailure == nil {
+                fallback = nil
+                refreshRouteMetrics()
+            }
             resetFrames()
         }
         if itemChanged {
@@ -448,6 +456,7 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         guard force || now - lastReport >= 0.5 else { return }
         lastReport = now
         publishDiagnosticState()
+        metrics.isEnhancedOutput = currentFrame != nil && original.isHidden && metalView?.isHidden == false
         // Publishing is deferred so SwiftUI never receives state mutations inside updateNSView.
         let value = metrics, token = revision
         DispatchQueue.main.async { [weak self] in guard let self, token == self.revision else { return }; self.onMetrics(value) }

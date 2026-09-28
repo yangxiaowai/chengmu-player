@@ -16,7 +16,7 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public static let pipelineEnhanced = "enhanced"
     public static let pipelineOriginal = "original"
 
-    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "upscale4K", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineEnhanced) {
+    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "clarity", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineOriginal) {
         self.volume = Self.validVolume(volume)
         self.rate = Self.validRate(rate)
         self.enhancement = Self.validEnhancement(enhancement)

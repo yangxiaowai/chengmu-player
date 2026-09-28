@@ -1,0 +1,10 @@
+{
+  "passed": 5,
+  "checks": [
+    "running instance preserves both bundles and staged app",
+    "single installed entry archives both versions without collisions",
+    "verification failure restores both originals and staged app",
+    "launch during archive phase triggers rollback",
+    "real process path detection supports spaces and Chinese, ignores other apps"
+  ]
+}
