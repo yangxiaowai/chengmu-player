@@ -1,0 +1,41 @@
+{
+  "version": "0.3.0",
+  "build": "12",
+  "architecture": "arm64",
+  "app": "dist/映川-v0.3.0.app",
+  "archive": "dist/映川-v0.3.0.zip",
+  "executable_sha256": "658a4c714c43d8320d1b34f4670568c5342d6af6fb0fe36cf5a48b10b9e4c36b",
+  "app_files": [
+    {
+      "path": "Contents/Info.plist",
+      "size": 869,
+      "sha256": "11ad5b2d38e5d431c41d254466bb2a1aea4264c79132b18bf679d046c34054fd"
+    },
+    {
+      "path": "Contents/MacOS/Cinema",
+      "size": 5868672,
+      "sha256": "658a4c714c43d8320d1b34f4670568c5342d6af6fb0fe36cf5a48b10b9e4c36b"
+    },
+    {
+      "path": "Contents/Resources/AppIcon.icns",
+      "size": 385189,
+      "sha256": "c4cdb5b669fee8d87de725d31fa614278702faf4306cc4a9d3d994a9c07f720f"
+    },
+    {
+      "path": "Contents/_CodeSignature/CodeResources",
+      "size": 2446,
+      "sha256": "e5133b46d39878e12cff29054b8ba89744ffcf4d8c9d92b4b7d486bf63c4a4c8"
+    }
+  ],
+  "archive_size": 1731527,
+  "archive_sha256": "432e339520803a001a47bf75faf4b3a9e71fc0c5a78193fe97d88454338ead22",
+  "archive_entries": 4,
+  "archive_crc_ok": true,
+  "archive_bytes_match_app": true,
+  "archive_utf8_names": true,
+  "codesign_verify_strict_deep": true,
+  "ditto_extract_bytes_match_app": true,
+  "ditto_extract_executable_mode": true,
+  "ditto_extracted_app_codesign_verify_strict_deep": true,
+  "archive_tool": "Python zipfile with UTF-8 entry names and source file modes"
+}

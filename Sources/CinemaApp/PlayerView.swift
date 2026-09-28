@@ -10,7 +10,7 @@ private struct PlaybackControlHeightKey: PreferenceKey {
 struct PlayerView: View {
     @ObservedObject var app: AppModel
     @ObservedObject var playback: PlaybackController
-    @LegacyState private var showEpisodes = true
+    @LegacyState private var showEpisodes = false
     @LegacyState private var dragging = false
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
@@ -28,9 +28,7 @@ struct PlayerView: View {
     @LegacyState private var resumeAfterAdEditing = false
     @StateObject private var presentation = PlayerPresentationController()
     var body: some View {
-        VStack(spacing: 0) {
-            if !presentation.isFullscreen { header.disabled(editingAds) }
-            HStack(spacing: 0) {
+        HStack(spacing: 0) {
                 VStack(spacing: 0) {
                     ZStack {
                         Color.black
@@ -67,17 +65,16 @@ struct PlayerView: View {
                                 }
                             }.padding(30).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 14))
                         }
-                        if showStats && !presentation.isFullscreen { VStack { HStack { statistics.padding(14); Spacer() }; Spacer() }.allowsHitTesting(false) }
+                        if showStats && presentation.controlsVisible {
+                            VStack { HStack { statistics.padding(22); Spacer() }; Spacer() }
+                                .padding(.top, 96).allowsHitTesting(false)
+                        }
                         if !editingAds {
                             VStack(spacing: 0) {
-                                if presentation.isFullscreen {
-                                    header
-                                        .background(LinearGradient(colors: [.black.opacity(0.75), .clear], startPoint: .top, endPoint: .bottom))
-                                        .onHover { presentation.interact("header", active: $0) }
-                                }
+                                header
+                                notificationStack
                                 Spacer(minLength: 0)
                                 controls
-                                    .onHover { presentation.interact("controls", active: $0) }
                             }
                             .opacity(presentation.controlsVisible ? 1 : 0)
                             .allowsHitTesting(presentation.controlsVisible)
@@ -94,9 +91,8 @@ struct PlayerView: View {
                 }
                 if showEpisodes && !presentation.isFullscreen {
                     Divider().overlay(CinemaStyle.border)
-                    PlayerEpisodePanel(app: app).frame(width: 278).disabled(editingAds)
+                    PlayerEpisodePanel(app: app).frame(width: 300).disabled(editingAds)
                 }
-            }
         }
         .background(CinemaStyle.background)
         .background(PlayerWindowAttachment(presentation: presentation).frame(width: 0, height: 0))
@@ -106,7 +102,13 @@ struct PlayerView: View {
         .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
-        .onChange(of: playback.adSkipNotice?.id) { _, value in if value != nil { presentation.activity() } }
+        .onChange(of: playback.adSkipNotice?.id) { _, value in
+            if value != nil { presentation.activity() }
+            else { presentation.interact("ad-notice", active: false) }
+        }
+        .onChange(of: playback.subtitleNotice) { _, value in
+            if value == nil { presentation.interact("subtitle-notice", active: false) }
+        }
         .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts || showExperience ? nil : commandContext)
         .sheet(isPresented: $showJump) {
             JumpToTimeDialog(current: playback.position, duration: playback.duration) { target in playback.seek(to: target) }
@@ -193,21 +195,98 @@ struct PlayerView: View {
         presentation.controlsVisible && !editingAds ? controlHeight + 18 : 32
     }
     private var header: some View {
-        HStack(spacing: 17) {
-            Button { presentation.leaveFullscreen(); app.closePlayer() } label: { Image(systemName: "chevron.left").frame(width: 30, height: 30) }.buttonStyle(.plain).help("返回片库")
-            VStack(alignment: .leading, spacing: 4) { Text(playback.title).font(.system(size: 14, weight: .medium)); Text(playback.episodeName).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
-            Spacer()
-            sleepMenu
-            if !presentation.isFullscreen {
-                Button { showExperience = true } label: { Label("视听适配", systemImage: "waveform.badge.magnifyingglass") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(playback.experience.status.videoIsHDR || playback.experience.status.audioIsAtmos ? CinemaStyle.accent : CinemaStyle.secondary)
-                    .help("查看片源声明、所选轨道、系统能力与实际决策")
-                Button { showStats.toggle() } label: { Label("播放信息", systemImage: "waveform.path") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                Button { showEpisodes.toggle() } label: { Label("选集", systemImage: "list.bullet.rectangle") }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
-            } else {
-                Button { presentation.leaveFullscreen() } label: { Label("退出全屏", systemImage: "arrow.down.right.and.arrow.up.left") }.buttonStyle(.plain).font(.system(size: 11)).help("退出全屏 · Esc / F")
+        HStack(spacing: 13) {
+            Button { presentation.leaveFullscreen(); app.closePlayer() } label: {
+                PlayerChromeIcon(systemName: "chevron.left", symbolSize: 15)
             }
-        }.padding(.horizontal, 20).padding(.vertical, 15)
+            .help("返回片库")
+            .accessibilityLabel("返回片库")
+            VStack(alignment: .leading, spacing: 3) {
+                Text(playback.title)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(CinemaStyle.primary)
+                    .lineLimit(1)
+                if !playback.episodeName.isEmpty {
+                    Text(playback.episodeName)
+                        .font(.system(size: 11))
+                        .foregroundStyle(.white.opacity(0.66))
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            Button { showExperience = true } label: {
+                PlayerChromeIcon(systemName: "waveform.path", selected: playback.experience.status.videoIsHDR || playback.experience.status.audioIsAtmos)
+            }
+            .help("视听适配：片源、轨道与设备能力")
+            .accessibilityLabel("视听适配")
+            if !presentation.isFullscreen {
+                Button { showEpisodes.toggle() } label: {
+                    HStack(spacing: 7) {
+                        Image(systemName: "list.bullet.rectangle").font(.system(size: 15))
+                        Text("选集").font(.system(size: 11, weight: .semibold))
+                    }
+                    .foregroundStyle(showEpisodes ? CinemaStyle.accent : CinemaStyle.primary)
+                    .padding(.horizontal, 13)
+                    .frame(height: 42)
+                    .background(showEpisodes ? CinemaStyle.accentSoft : Color.white.opacity(0.055), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    .contentShape(Rectangle())
+                }
+                .help(showEpisodes ? "收起选集" : "展开选集")
+                .accessibilityLabel(showEpisodes ? "收起选集" : "展开选集")
+            }
+        }
+        .buttonStyle(PlayerChromeButtonStyle())
+        .padding(.horizontal, presentation.isFullscreen ? 34 : 22)
+        .padding(.top, presentation.isFullscreen ? 19 : 26)
+        .padding(.bottom, 30)
+        .background(CinemaStyle.headerScrim.allowsHitTesting(false))
     }
+
+    private var notificationStack: some View {
+        VStack(alignment: .trailing, spacing: 8) {
+            if let event = playback.adSkipNotice {
+                HStack(spacing: 10) {
+                    Image(systemName: "forward.end.fill").foregroundStyle(CinemaStyle.accent)
+                    Text("已跳过插播 \(timeString(event.returnPosition))–\(timeString(event.segment.end))")
+                        .lineLimit(1)
+                    Button { playback.undoAdSkip() } label: {
+                        Text("撤销")
+                            .foregroundStyle(CinemaStyle.accent)
+                            .frame(minWidth: 36, minHeight: 36)
+                            .background(CinemaStyle.accentSoft, in: RoundedRectangle(cornerRadius: 9, style: .continuous))
+                            .contentShape(Rectangle())
+                    }
+                    .accessibilityLabel("撤销跳过")
+                    Button { playback.dismissAdSkipNotice() } label: {
+                        Image(systemName: "xmark").frame(width: 36, height: 36).contentShape(Rectangle())
+                    }
+                        .help("关闭跳过提示").accessibilityLabel("关闭跳过提示")
+                }
+                .font(.system(size: 11, weight: .medium))
+                .padding(.horizontal, 13).padding(.vertical, 10)
+                .background(CinemaStyle.overlayStrong, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .onHover { presentation.interact("ad-notice", active: $0) }
+            }
+            if let notice = playback.subtitleNotice {
+                HStack(spacing: 9) {
+                    Image(systemName: "captions.bubble.fill").foregroundStyle(CinemaStyle.accent)
+                    Text(notice).lineLimit(2)
+                    Button { playback.subtitleNotice = nil } label: {
+                        Image(systemName: "xmark").frame(width: 36, height: 36).contentShape(Rectangle())
+                    }
+                        .help("关闭字幕提示").accessibilityLabel("关闭字幕提示")
+                }
+                .font(.system(size: 11))
+                .padding(.horizontal, 13).padding(.vertical, 10)
+                .background(CinemaStyle.overlayStrong, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .onHover { presentation.interact("subtitle-notice", active: $0) }
+            }
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .padding(.horizontal, presentation.isFullscreen ? 36 : 24)
+    }
+
     private var sleepMenu: some View {
         Menu {
             ForEach(PlaybackSleepTimer.minuteOptions, id: \.self) { minutes in
@@ -219,137 +298,157 @@ struct PlayerView: View {
             }
         } label: {
             Label(playback.sleepRemainingSeconds.map { "\(timeString(Double($0))) 后暂停" } ?? "睡眠定时", systemImage: "moon.zzz")
-                .font(.system(size: 11)).monospacedDigit()
-                .foregroundStyle(playback.sleepRemainingSeconds == nil ? CinemaStyle.secondary : CinemaStyle.accent)
-        }.menuStyle(.borderlessButton).fixedSize().help("到时暂停播放；返回片库时取消")
+        }
     }
-    private func transportIcon(_ name: String, size: CGFloat = 19) -> some View {
-        Image(systemName: name).font(.system(size: size))
-            .frame(width: 36, height: 36).contentShape(Rectangle())
+
+    private var speedMenu: some View {
+        Menu {
+            Picker("播放速度", selection: $playback.rate) {
+                ForEach([Float(0.5), 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in
+                    Text("\(speed, specifier: "%g")×").tag(speed)
+                }
+            }.pickerStyle(.inline)
+        } label: { PlayerChromeText(text: String(format: "%g×", playback.rate), monospaced: true) }
+            .accessibilityLabel(String(format: "播放速度，%g 倍", playback.rate))
+            .menuStyle(.borderlessButton).fixedSize().help("播放速度")
     }
+
+    private var subtitleMenu: some View {
+        Menu {
+            Button("导入 SRT / VTT / ASS…") { app.importSubtitle() }
+            Toggle("关闭字幕", isOn: Binding(get: { playback.selectedSubtitle == -1 && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(-1) } }))
+            ForEach(playback.subtitleTracks) { track in
+                Toggle(track.name, isOn: Binding(get: { playback.selectedSubtitle == track.id && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(track.id) } }))
+            }
+            if let name = playback.externalSubtitleName {
+                Divider()
+                Label("外部字幕 · \(name)", systemImage: "checkmark")
+                Text("字幕偏移：\(playback.subtitleOffset, specifier: "%+.1f") 秒")
+                Button("字幕提前 0.5 秒") { playback.subtitleOffset -= 0.5 }
+                Button("字幕延后 0.5 秒") { playback.subtitleOffset += 0.5 }
+                Button("重置字幕偏移") { playback.subtitleOffset = 0 }
+            }
+            if !playback.audioTracks.isEmpty {
+                Divider()
+                ForEach(playback.audioTracks) { track in
+                    Toggle("音轨 · \(track.name)", isOn: Binding(get: { playback.selectedAudio == track.id }, set: { if $0 { playback.selectAudio(track.id) } }))
+                }
+            }
+        } label: { PlayerChromeIcon(systemName: "captions.bubble", symbolSize: 16) }
+            .accessibilityLabel("字幕与音轨")
+            .menuStyle(.borderlessButton).fixedSize().help("字幕与音轨")
+    }
+
+    private var qualityMenu: some View {
+        Menu {
+            Toggle("实时画质增强", isOn: $playback.pipelineProcessesFrames)
+            Toggle("杜比/HDR 原生直通", isOn: .constant(true)).disabled(true)
+            Divider()
+            ForEach(EnhancementMode.allCases) { mode in
+                Button {
+                    playback.enhancementMode = mode
+                    playback.pipelineProcessesFrames = mode != .original
+                } label: {
+                    Text(playback.enhancementMode == mode ? "\(mode.title) ✓" : mode.title)
+                }
+            }
+            Divider()
+            Text(playback.pipelineProcessesFrames ? "当前：\(playback.enhancementMode.title)" : "当前：原片直通")
+            Text("杜比视界与 HDR 固定使用系统原生呈现")
+            if let reason = playback.metrics?.fallbackReason { Text(reason) }
+        } label: {
+            PlayerChromeIcon(systemName: playback.pipelineProcessesFrames ? "sparkles" : "film", selected: playback.pipelineProcessesFrames)
+        }
+        .accessibilityLabel("画质设置")
+        .menuStyle(.borderlessButton).fixedSize().help("画质增强与原片直通")
+    }
+
+    private var moreMenu: some View {
+        Menu {
+            Toggle("自动识别并跳过插播（实验）", isOn: $playback.automaticAdSkipping)
+            Text(playback.automaticAdSkipping ? playback.adSkip.status : "自动跳过已关闭")
+            Text("已识别 \(playback.adSkip.segments.count) 段 · 已分析 \(playback.adSkip.analyzedFrames) 帧")
+            Text("帧来源：\(playback.adSkip.frameSource)")
+            Button("撤销上次跳过并暂停") { playback.undoAdSkip() }.disabled(playback.adSkipNotice == nil)
+            Divider()
+            Menu {
+                Button("框选广告与字幕保护区…") { beginAdEditing() }.disabled(videoDisplaySize.width <= 0)
+                if !playback.adCleanup.regions.isEmpty {
+                    Button(playback.adCleanup.enabled ? "关闭柔化，显示原画面" : "启用已确认的选区") { playback.adCleanup.enabled.toggle() }
+                    Button("清除当前影片的所有选区") { playback.adCleanup = AdCleanupSettings() }
+                }
+                if playback.adCleanup.isActive, let metrics = playback.metrics {
+                    Text(metrics.cleanupReason ?? "已柔化 \(metrics.cleanupAppliedRegions) 个区域 · 字幕保护区保持原画面")
+                }
+            } label: { Label("广告文字柔化", systemImage: "rectangle.dashed") }
+            sleepMenu
+            Menu("音量") {
+                Button("调高 10%") { playback.adjustVolume(0.1) }
+                Button("调低 10%") { playback.adjustVolume(-0.1) }
+                Button("静音 / 恢复") { playback.toggleMute() }
+            }
+            Divider()
+            Button("视听适配…") { showExperience = true }
+            Button("播放信息") { showStats.toggle() }
+            Button("快捷键…") { showShortcuts = true }
+        } label: { PlayerChromeIcon(systemName: "ellipsis", symbolSize: 20) }
+            .accessibilityLabel("更多播放设置")
+            .menuStyle(.borderlessButton).fixedSize().help("更多播放设置")
+    }
+
     private var controls: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 7) {
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
                     visible: presentation.controlsVisible,
                     onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing); playback.setAdSkipInteraction("seek", active: editing) },
                     onSeek: { playback.seek(to: $0) },
                     onHover: { presentation.interact("seek-preview", active: $0); playback.setAdSkipInteraction("seek-preview", active: $0) })
-            HStack(spacing: 12) {
-                Button { playback.togglePlayback() } label: { transportIcon(playback.playbackRequested ? "pause.fill" : "play.fill") }.help("播放/暂停 · 空格").accessibilityLabel(playback.playbackRequested ? "暂停" : "播放")
-                Button { playback.skip(-10) } label: { transportIcon("gobackward.10") }.help("快退 10 秒 · ←").accessibilityLabel("快退 10 秒")
-                Button { playback.skip(10) } label: { transportIcon("goforward.10") }.help("快进 10 秒 · →").accessibilityLabel("快进 10 秒")
-                Button { app.nextEpisode() } label: { transportIcon("forward.end", size: 17) }.disabled(!app.canPlayNext).help("下一集")
-                Button { showJump = true } label: {
-                    Text("\(timeString(playback.position)) / \(timeString(playback.duration))")
-                        .font(.system(size: 11, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
-                        .padding(.vertical, 9).contentShape(Rectangle())
-                }.disabled(!canSeek).help("跳转到时间 · ⌘J").accessibilityLabel("跳转到时间")
-                Spacer(minLength: 5)
-                Menu {
-                    Picker("播放速度", selection: $playback.rate) {
-                        ForEach([Float(0.5), 0.75, 1, 1.25, 1.5, 2], id: \.self) { speed in Text("\(speed, specifier: "%g")×").tag(speed) }
-                    }.pickerStyle(.inline)
-                } label: { Text("\(playback.rate, specifier: "%g")×").font(.system(size: 12)).padding(.vertical, 8).contentShape(Rectangle()) }.menuStyle(.borderlessButton).fixedSize().help("播放速度")
-                Menu {
-                    Button("导入 SRT / VTT / ASS…") { app.importSubtitle() }
-                    Toggle("关闭字幕", isOn: Binding(get: { playback.selectedSubtitle == -1 && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(-1) } }))
-                    ForEach(playback.subtitleTracks) { track in
-                        Toggle(track.name, isOn: Binding(get: { playback.selectedSubtitle == track.id && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(track.id) } }))
-                    }
-                    if let name = playback.externalSubtitleName {
-                        Divider()
-                        Label("外部字幕 · \(name)", systemImage: "checkmark")
-                        Text("字幕偏移：\(playback.subtitleOffset, specifier: "%+.1f") 秒")
-                        Button("字幕提前 0.5 秒") { playback.subtitleOffset -= 0.5 }
-                        Button("字幕延后 0.5 秒") { playback.subtitleOffset += 0.5 }
-                        Button("重置字幕偏移") { playback.subtitleOffset = 0 }
-                    }
-                    if !playback.audioTracks.isEmpty {
-                        Divider()
-                        ForEach(playback.audioTracks) { track in
-                            Toggle("音轨 · \(track.name)", isOn: Binding(get: { playback.selectedAudio == track.id }, set: { if $0 { playback.selectAudio(track.id) } }))
-                        }
-                    }
-                } label: { Image(systemName: "captions.bubble").font(.system(size: 16)) }.menuStyle(.borderlessButton).fixedSize().help("字幕与音轨")
-                HStack(spacing: 6) {
-                    Button { playback.toggleMute() } label: { Image(systemName: playback.volume == 0 ? "speaker.slash" : "speaker.wave.2").font(.system(size: 12)) }.help("静音 / 恢复音量 · M")
-                    Slider(value: $playback.volume, in: 0...1, onEditingChanged: { presentation.interact("volume", active: $0) }).frame(width: 68).accessibilityLabel("播放音量")
+            HStack(spacing: 5) {
+                Button { playback.skip(-10) } label: { PlayerChromeIcon(systemName: "gobackward.10", symbolSize: 19) }
+                    .help("快退 10 秒 · ←").accessibilityLabel("快退 10 秒")
+                Button { playback.togglePlayback() } label: {
+                    PlayerChromeIcon(systemName: playback.playbackRequested ? "pause.fill" : "play.fill", prominent: true, symbolSize: 18)
                 }
-                Button { presentation.toggleFullscreen() } label: { Image(systemName: presentation.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right").font(.system(size: 14)) }.help(presentation.isFullscreen ? "退出全屏 · Esc / F" : "全屏 · F")
-            }.buttonStyle(.plain)
-            HStack(spacing: 8) {
-                Circle().fill((playback.metrics?.fallbackReason == nil) ? CinemaStyle.positive : CinemaStyle.secondary).frame(width: 6, height: 6)
-                Text(playback.metrics.map { "\($0.sourceWidth)×\($0.sourceHeight) → \($0.outputWidth)×\($0.outputHeight) · \($0.mode)" } ?? "正在读取实际画面信息…").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
-                Spacer()
-                Menu {
-                    Toggle("自动识别并跳过（实验）", isOn: $playback.automaticAdSkipping)
-                    Text("本机识别新葡京类文字插播；不上传视频")
-                    Text("字幕、角标或边界不明时保留播放")
-                    Divider()
-                    Text(playback.automaticAdSkipping ? playback.adSkip.status : "自动跳过已关闭")
-                    Text("已识别 \(playback.adSkip.segments.count) 段 · 已分析 \(playback.adSkip.analyzedFrames) 帧")
-                    Text("帧来源：\(playback.adSkip.frameSource)")
-                    Button("撤销上次跳过并暂停") { playback.undoAdSkip() }.disabled(playback.adSkipNotice == nil)
-                } label: {
-                    Label(playback.automaticAdSkipping ? "自动跳广告 · 开" : "自动跳广告 · 关", systemImage: "forward.frame")
-                        .font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
-                }.menuStyle(.borderlessButton).fixedSize().help("本地分析视频帧，跳过确认的插播主段；可关闭或撤销")
-                Menu {
-                    Button("框选广告与字幕保护区…") { beginAdEditing() }.disabled(videoDisplaySize.width <= 0)
-                    if !playback.adCleanup.regions.isEmpty {
-                        Button(playback.adCleanup.enabled ? "关闭柔化，显示原画面" : "启用已确认的选区") { playback.adCleanup.enabled.toggle() }
-                        Button("清除当前影片的所有选区") { playback.adCleanup = AdCleanupSettings() }
+                .help("播放/暂停 · 空格")
+                .accessibilityLabel(playback.playbackRequested ? "暂停" : "播放")
+                Button { playback.skip(10) } label: { PlayerChromeIcon(systemName: "goforward.10", symbolSize: 19) }
+                    .help("快进 10 秒 · →").accessibilityLabel("快进 10 秒")
+                Button { app.nextEpisode() } label: { PlayerChromeIcon(systemName: "forward.end.fill", symbolSize: 15) }
+                    .disabled(!app.canPlayNext).opacity(app.canPlayNext ? 1 : 0.35).help("下一集")
+                    .accessibilityLabel("下一集")
+                Button { showJump = true } label: {
+                    PlayerChromeText(text: "\(timeString(playback.position)) / \(timeString(playback.duration))", monospaced: true)
+                }
+                .disabled(!canSeek).help("跳转到时间 · ⌘J").accessibilityLabel("跳转到时间")
+                Spacer(minLength: 3)
+                speedMenu
+                subtitleMenu
+                qualityMenu
+                HStack(spacing: 1) {
+                    Button { playback.toggleMute() } label: {
+                        PlayerChromeIcon(systemName: playback.volume == 0 ? "speaker.slash.fill" : "speaker.wave.2.fill", symbolSize: 15)
+                    }.help("静音 / 恢复音量 · M").accessibilityLabel(playback.volume == 0 ? "恢复音量" : "静音")
+                    if !showEpisodes || presentation.isFullscreen {
+                        Slider(value: $playback.volume, in: 0...1,
+                               onEditingChanged: { presentation.interact("volume", active: $0) })
+                            .frame(width: 64).accessibilityLabel("播放音量")
                     }
-                } label: { Label(playback.adCleanup.isActive ? "广告柔化 · 开" : "广告柔化", systemImage: "rectangle.dashed").font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }
-                    .menuStyle(.borderlessButton).fixedSize().help("手动框选，字幕保护优先；换集或换源时清空")
-                Menu {
-                    Toggle("实时画质增强", isOn: $playback.pipelineProcessesFrames)
-                    Toggle("杜比/HDR 原生直通", isOn: .constant(true)).disabled(true)
-                    Divider()
-                    // Choosing a mode while the pipeline is off turns it back on, so a mode click is
-                    // never silently ignored, and the current choice is always visible.
-                    ForEach(EnhancementMode.allCases) { mode in
-                        Button {
-                            playback.enhancementMode = mode
-                            if mode != .original { playback.pipelineProcessesFrames = true }
-                            else { playback.pipelineProcessesFrames = false }
-                        } label: {
-                            Text(playback.enhancementMode == mode ? "\(mode.title) ✓" : mode.title)
-                        }
-                    }
-                    Divider()
-                    Text(playback.pipelineProcessesFrames
-                         ? "当前：\(playback.enhancementMode.title)"
-                         : "当前：原片直通 · 选择上面任一项即恢复增强")
-                    Text("杜比视界与 HDR 始终原生直通：改写像素会让动态元数据失效")
-                } label: { HStack(spacing: 5) { Image(systemName: playback.pipelineProcessesFrames ? "sparkles" : "film"); Text(playback.pipelineProcessesFrames ? "画质增强" : "原片直通") }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent) }.menuStyle(.borderlessButton).fixedSize().help("开启/关闭实时画质增强；杜比与 HDR 始终原生播放")
+                }
+                moreMenu
+                Button { presentation.toggleFullscreen() } label: {
+                    PlayerChromeIcon(systemName: presentation.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", symbolSize: 15)
+                }.help(presentation.isFullscreen ? "退出全屏 · Esc / F" : "全屏 · F")
+                    .accessibilityLabel(presentation.isFullscreen ? "退出全屏" : "进入全屏")
             }
-            if let event = playback.adSkipNotice {
-                HStack(spacing: 8) {
-                    Image(systemName: "forward.end")
-                    Text("已跳过插播主段 \(timeString(event.returnPosition))–\(timeString(event.segment.end))")
-                    Spacer()
-                    Button("撤销并暂停") { playback.undoAdSkip() }
-                    Button { playback.dismissAdSkipNotice() } label: { Image(systemName: "xmark") }.help("关闭跳过提示")
-                }.font(.system(size: 11)).foregroundStyle(CinemaStyle.accent).buttonStyle(.plain)
-            }
-            if playback.adCleanup.isActive, let metrics = playback.metrics {
-                Text(metrics.cleanupReason ?? (metrics.cleanupAppliedRegions > 0 ? "已柔化 \(metrics.cleanupAppliedRegions) 个区域 · 字幕保护区保持原画面" : "正在准备广告柔化…"))
-                    .font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).frame(maxWidth: .infinity, alignment: .leading)
-            }
-            if let reason = playback.metrics?.fallbackReason { Text(reason).font(.system(size: 10)).foregroundStyle(CinemaStyle.accent).frame(maxWidth: .infinity, alignment: .leading) }
-            if let notice = playback.subtitleNotice {
-                HStack(alignment: .top, spacing: 8) {
-                    Image(systemName: "captions.bubble")
-                    Text(notice).frame(maxWidth: .infinity, alignment: .leading)
-                    Button { playback.subtitleNotice = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).help("关闭字幕提示")
-                }.font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
-            }
-        }.padding(.horizontal, presentation.isFullscreen ? 36 : 22).padding(.vertical, presentation.isFullscreen ? 25 : 17)
-            .background(LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .top, endPoint: .bottom))
-            .background(GeometryReader { geometry in
-                Color.clear.preference(key: PlaybackControlHeightKey.self, value: geometry.size.height)
-            })
+            .buttonStyle(PlayerChromeButtonStyle())
+        }
+        .padding(.horizontal, presentation.isFullscreen ? 34 : 22)
+        .padding(.top, 31)
+        .padding(.bottom, presentation.isFullscreen ? 23 : 16)
+        .background(CinemaStyle.controlsScrim.allowsHitTesting(false))
+        .background(GeometryReader { geometry in
+            Color.clear.preference(key: PlaybackControlHeightKey.self, value: geometry.size.height)
+        })
     }
     private var statistics: some View {
         VStack(alignment: .leading, spacing: 7) {
@@ -378,7 +477,10 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
         view.setAccessibilityElement(true)
         view.setAccessibilityRole(.group)
         view.setAccessibilityLabel("影片画面")
-        view.setAccessibilityHelp("单击画面播放或暂停，双击切换全屏。空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音，Esc 退出全屏。")
+        view.setAccessibilityHelp("单击画面播放或暂停，双击切换全屏。可用“显示播放控制”操作呼出隐藏的按钮。空格播放暂停，左右快退快进，上下调节音量，F 全屏，M 静音，Esc 退出全屏。")
+        view.setAccessibilityCustomActions([
+            NSAccessibilityCustomAction(name: "显示播放控制", target: view, selector: #selector(KeyboardView.revealControls))
+        ])
         return view
     }
     func updateNSView(_ view: KeyboardView, context: Context) { view.bind(playback: playback, presentation: presentation) }
@@ -396,6 +498,11 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
 
         override var acceptsFirstResponder: Bool { true }
         override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+
+        @objc func revealControls() -> Bool {
+            presentation?.activity()
+            return presentation != nil
+        }
 
         func bind(playback: PlaybackController, presentation: PlayerPresentationController) {
             if self.playback !== playback || generation != playback.generation { cancelClick() }

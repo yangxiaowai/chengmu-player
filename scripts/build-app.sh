@@ -7,7 +7,8 @@ if [ "$build_config" = release ]; then product_dir=".build/out/Products/Release"
 if [ ! -f "$product_dir/Cinema" ]; then
   product_dir="$(bash scripts/swift.sh build -c "$build_config" --show-bin-path | tail -n 1)"
 fi
-app_dir="$PWD/dist/映川.app"
+# Keep the previous bundle intact while a user may still be watching in it.
+app_dir="$PWD/dist/映川-v0.3.0.app"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
 cp "$product_dir/Cinema" "$app_dir/Contents/MacOS/Cinema.new"
 mv -f "$app_dir/Contents/MacOS/Cinema.new" "$app_dir/Contents/MacOS/Cinema"
@@ -22,8 +23,8 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIdentifier</key><string>local.yingchuan.cinema</string>
 <key>CFBundleExecutable</key><string>Cinema</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.2.9</string>
-<key>CFBundleVersion</key><string>11</string>
+<key>CFBundleShortVersionString</key><string>0.3.0</string>
+<key>CFBundleVersion</key><string>12</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>

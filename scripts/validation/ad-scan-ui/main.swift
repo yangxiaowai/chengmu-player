@@ -35,7 +35,8 @@ struct AdSkipQAApp: App {
         WindowGroup("映川 · 广告跳过隔离验收") {
             AdSkipQAView(model: model)
         }
-        .defaultSize(width: 1250, height: 820)
+        // Match the production window's minimum width when inspecting crowded controls.
+        .defaultSize(width: 1040, height: 680)
         .windowStyle(.hiddenTitleBar)
         .commands { PlaybackCommands() }
     }
