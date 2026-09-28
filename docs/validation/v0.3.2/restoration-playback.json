@@ -1,0 +1,82 @@
+{
+  "checks" : [
+    {
+      "detail" : "frames=73 mediaAdvanced=3.1094852500000005 fallback=none",
+      "name" : "temporal_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中）",
+      "name" : "temporal_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "temporal_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_resumes_after_comparison",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=63 mediaAdvanced=3.131326167 fallback=none",
+      "name" : "restoration_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + Apple AI ×1.5",
+      "name" : "restoration_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "Apple AI ×1.5（时域参考建立中）",
+      "name" : "restoration_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + Apple AI ×1.5",
+      "name" : "restoration_resumes_after_comparison",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "samples" : [
+    {
+      "completedFrames" : 99,
+      "droppedTicks" : 0,
+      "mode" : "temporal",
+      "note" : "Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        1280,
+        720
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.55612708333333338,
+      "sampledProcessingMeanMS" : 10.918383346870542
+    },
+    {
+      "completedFrames" : 91,
+      "droppedTicks" : 3,
+      "mode" : "restoration",
+      "note" : "Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        1920,
+        1080
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.54995520800000008,
+      "sampledProcessingMeanMS" : 16.726376399553072
+    }
+  ],
+  "scope" : "Headless real AVPlayer + CinemaVideoView on synthetic tagged SDR720p24. Completed processing \/ frame routing \/ paused seek \/ original comparison. No visible screen, audible sync or long-film validation."
+}

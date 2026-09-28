@@ -53,6 +53,19 @@ import CinemaCore
         controller.selectEnhancementMode(.original)
         controller.pipelineProcessesFrames = true
         check(controller.surfaceMode == .clarity, "turning enhancement back on after original selects gentle denoise")
+        for mode in [EnhancementMode.temporal, .restoration] {
+            controller.selectEnhancementMode(mode)
+            check(controller.surfaceMode == mode && store.load().enhancement == mode.rawValue,
+                  "\(mode.rawValue) selection reaches the surface and survives restart")
+            metrics.mode = "原帧（时域参考建立中）"; metrics.fallbackReason = nil; metrics.isEnhancedOutput = true
+            controller.metrics = metrics
+            check(controller.pictureStatusTitle == metrics.mode, "priming reports actual frame state rather than requested repair")
+            let modePreferences = store.load()
+            controller.toggleOriginalComparison()
+            controller.toggleOriginalComparison()
+            check(controller.surfaceMode == mode && store.load() == modePreferences,
+                  "\(mode.rawValue) comparison restores selection without overwriting settings")
+        }
         controller.player.replaceCurrentItem(with: nil)
         exit(passed ? 0 : 1)
     }

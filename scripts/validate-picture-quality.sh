@@ -10,5 +10,5 @@ work=$(mktemp -d "${TMPDIR:-/tmp/}cinema-picture-quality.XXXXXX")
 trap 'rm -rf "$work"' EXIT
 mkdir -p "$(dirname "$report")"
 swiftc -emit-module -emit-library -module-name CinemaCore -swift-version 5 -target arm64-apple-macos15.0 Sources/CinemaCore/*.swift -o "$work/libCinemaCore.dylib" -emit-module-path "$work/CinemaCore.swiftmodule"
-swiftc -O -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$work" -L "$work" -lCinemaCore -Xlinker -rpath -Xlinker "$work" "$pipeline" scripts/validation/picture-quality/main.swift -o "$work/check"
+swiftc -O -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$work" -L "$work" -lCinemaCore -Xlinker -rpath -Xlinker "$work" "$pipeline" Sources/CinemaApp/TemporalRestorer.swift scripts/validation/picture-quality/main.swift -o "$work/check"
 "$work/check" "$report" "$pipeline" "$display_width"

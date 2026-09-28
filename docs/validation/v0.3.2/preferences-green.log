@@ -1,0 +1,41 @@
+Building for debugging...
+[2 / 11] CinemaCore
+[4 / 13] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[12 / 16] CinemaCoreTests-product
+[18 / 21] Cinema-product
+[27 / 29] Cinema-product
+[29 / 31] Cinema-product/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+
+Build complete! (3.65 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test decodingValidatesOutOfRangeStoredValues() started.
+◇ Test pipelineSwitchDefaultsToEnhancedAndSurvivesRoundTrip() started.
+◇ Test newProfilesStartWithOriginalAndRememberGentleEnhancement() started.
+◇ Test temporalRestorationChoicesSurviveRestart() started.
+◇ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() started.
+◇ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() started.
+◇ Test invalidValuesCannotReachPlayback() started.
+◇ Test preferencesSurviveReloadIncludingMutedVolume() started.
+◇ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() started.
+◇ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() started.
+◇ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() started.
+✔ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() passed after 0.001 seconds.
+✔ Test invalidValuesCannotReachPlayback() passed after 0.001 seconds.
+✔ Test temporalRestorationChoicesSurviveRestart() passed after 0.001 seconds.
+✔ Test decodingValidatesOutOfRangeStoredValues() passed after 0.001 seconds.
+✔ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() passed after 0.001 seconds.
+✔ Test pipelineSwitchDefaultsToEnhancedAndSurvivesRoundTrip() passed after 0.001 seconds.
+✔ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() passed after 0.001 seconds.
+✔ Test newProfilesStartWithOriginalAndRememberGentleEnhancement() passed after 0.001 seconds.
+✔ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() passed after 0.001 seconds.
+✔ Test preferencesSurviveReloadIncludingMutedVolume() passed after 0.003 seconds.
+✔ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() passed after 0.003 seconds.
+✔ Suite PlaybackPreferencesTests passed after 0.003 seconds.
+✔ Test run with 11 tests in 1 suite passed after 0.003 seconds.

@@ -10,7 +10,7 @@ fi
 # Assemble a complete bundle away from the public entry point. Keep it for retry if
 # either released copy is running; install-app.py never terminates the player.
 mkdir -p "$PWD/.build"
-staging_dir="$(mktemp -d "$PWD/.build/app-stage-0.3.1.XXXXXX")"
+staging_dir="$(mktemp -d "$PWD/.build/app-stage-0.3.2.XXXXXX")"
 app_dir="$staging_dir/映川.app"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
 cp "$product_dir/Cinema" "$app_dir/Contents/MacOS/Cinema.new"
@@ -26,8 +26,8 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIdentifier</key><string>local.yingchuan.cinema</string>
 <key>CFBundleExecutable</key><string>Cinema</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.1</string>
-<key>CFBundleVersion</key><string>13</string>
+<key>CFBundleShortVersionString</key><string>0.3.2</string>
+<key>CFBundleVersion</key><string>14</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>

@@ -1,0 +1,60 @@
+Building for debugging...
+[Planning deferred tasks]
+[4 / 16]
+[5 / 17] CinemaCore
+[16 / 28] CinemaCore
+[20 / 32] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[22 / 32] CinemaCore
+[34 / 43] CinemaCoreTests-product
+[36 / 54] CinemaCoreTests-product
+[37 / 54] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[41 / 54] CinemaCoreTests-product
+[43 / 54] Cinema-product
+[45 / 54] Cinema-product
+[48 / 54] CinemaCoreTests-product
+[52 / 57] CinemaCoreTests-product
+[52 / 57] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[54 / 60] CinemaCoreTests-product
+[56 / 60] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[58 / 60] Cinema-product
+Build complete! (5.81 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test temporalRestorationChoicesSurviveRestart() started.
+✘ Test temporalRestorationChoicesSurviveRestart() recorded an issue at PlaybackPreferencesTests.swift:9:13: Expectation failed: chosen.enhancement == mode
+↳ chosen.enhancement == mode → false
+↳   chosen.enhancement → "upscale4K"
+↳   mode → "temporal"
+✘ Test temporalRestorationChoicesSurviveRestart() recorded an issue at PlaybackPreferencesTests.swift:11:13: Expectation failed: restored.enhancement == mode
+↳ restored.enhancement == mode → false
+↳   restored.enhancement → "upscale4K"
+↳   mode → "temporal"
+✘ Test temporalRestorationChoicesSurviveRestart() recorded an issue at PlaybackPreferencesTests.swift:9:13: Expectation failed: chosen.enhancement == mode
+↳ chosen.enhancement == mode → false
+↳   chosen.enhancement → "upscale4K"
+↳   mode → "restoration"
+✘ Test temporalRestorationChoicesSurviveRestart() recorded an issue at PlaybackPreferencesTests.swift:11:13: Expectation failed: restored.enhancement == mode
+↳ restored.enhancement == mode → false
+↳   restored.enhancement → "upscale4K"
+↳   mode → "restoration"
+✘ Test temporalRestorationChoicesSurviveRestart() failed after 0.001 seconds with 4 issues.
+✘ Suite PlaybackPreferencesTests failed after 0.001 seconds with 4 issues.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)

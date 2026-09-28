@@ -1,0 +1,79 @@
+{
+  "asymmetric_selection_orientation_preserved" : true,
+  "cases" : [
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "original",
+      "output" : [
+        320,
+        180
+      ],
+      "outside_changed_pixels" : 0,
+      "outside_maximum_channel_difference" : 0,
+      "processing_ms" : 6.3352084252983332,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "clarity",
+      "output" : [
+        320,
+        180
+      ],
+      "outside_changed_pixels" : 0,
+      "outside_maximum_channel_difference" : 0,
+      "processing_ms" : 1.5349582536146045,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 746284,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "upscale4K",
+      "output" : [
+        3840,
+        2160
+      ],
+      "outside_changed_pixels" : 0,
+      "outside_maximum_channel_difference" : 0,
+      "processing_ms" : 7.9636250156909227,
+      "protected_changed_pixels" : 0,
+      "rotated" : false,
+      "whole_conflict_rejected" : true
+    },
+    {
+      "disabled_equals_baseline" : true,
+      "inside_changed_pixels" : 5184,
+      "invalid_protection_fail_closed" : true,
+      "mode" : "original",
+      "output" : [
+        180,
+        320
+      ],
+      "outside_changed_pixels" : 0,
+      "outside_maximum_channel_difference" : 0,
+      "processing_ms" : 1.8721666419878602,
+      "protected_changed_pixels" : 0,
+      "rotated" : true,
+      "whole_conflict_rejected" : true
+    }
+  ],
+  "device" : "Apple M4",
+  "display_geometry_policy" : "Full clean aperture, square pixels, and transformed\/presentation aspect agreement required; otherwise cleanup falls back",
+  "original_cleanup_60_frames_mean_ms" : 0.71999583354530239,
+  "overlapping_forward_mismatched_pixels" : 0,
+  "overlapping_reverse_mismatched_pixels" : 0,
+  "passed" : true,
+  "sampling_isolation_changed_pixels" : 0,
+  "scope" : "Synthetic SDR checkerboard, caption blocks, asymmetric red\/blue selection and overlapping selections; exact RGBA8 GPU output comparisons. Not OCR, background reconstruction, or network playback validation",
+  "texture_readback_coordinates" : "MTL texture readback is downMirrored into Core Image bottom-left coordinates before comparison",
+  "version" : "0.3.2"
+}

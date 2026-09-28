@@ -10,7 +10,7 @@ fi
 validation_directory=$(mktemp -d "${TMPDIR:-/tmp/}cinema-ad-pixels.XXXXXX")
 trap 'rm -rf "$validation_directory"' EXIT
 swiftc -swift-version 5 -target arm64-apple-macos15.0 -I "$core_products" \
-  Sources/CinemaApp/EnhancementPipeline.swift \
+  Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift \
   scripts/validation/ad-cleanup-pixels/main.swift "$core_products/CinemaCore.o" \
   -o "$validation_directory/check"
 "$validation_directory/check"

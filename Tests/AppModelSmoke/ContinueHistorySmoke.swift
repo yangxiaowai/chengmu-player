@@ -1,5 +1,5 @@
 // Run without rebuilding the app bundle (uses the existing Debug CinemaCore build):
-// swiftc -parse-as-library -target arm64-apple-macos15.0 -I .build/out/Products/Debug -L .build/out/Products/Debug -lCinemaCore Sources/CinemaApp/AppModel.swift Sources/CinemaApp/SourceAccessController.swift Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Tests/AppModelSmoke/ContinueHistorySmoke.swift -o .build/continue-history-smoke
+// swiftc -parse-as-library -target arm64-apple-macos15.0 -I .build/out/Products/Debug -L .build/out/Products/Debug -lCinemaCore Sources/CinemaApp/AppModel.swift Sources/CinemaApp/SourceAccessController.swift Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Tests/AppModelSmoke/ContinueHistorySmoke.swift -o .build/continue-history-smoke
 // .build/continue-history-smoke --validate
 import Foundation
 import CinemaCore

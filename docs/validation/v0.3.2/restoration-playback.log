@@ -1,0 +1,10 @@
+PASS temporal_keeps_processing_during_playback frames=73 mediaAdvanced=3.1094852500000005 fallback=none
+PASS temporal_reports_actual_restoration 时域降噪
+PASS temporal_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中）
+PASS temporal_comparison_detaches_processing 
+PASS temporal_resumes_after_comparison 时域降噪
+PASS restoration_keeps_processing_during_playback frames=63 mediaAdvanced=3.131326167 fallback=none
+PASS restoration_reports_actual_restoration 时域降噪 + Apple AI ×1.5
+PASS restoration_paused_seek_rebuilds_without_old_reference Apple AI ×1.5（时域参考建立中）
+PASS restoration_comparison_detaches_processing 
+PASS restoration_resumes_after_comparison 时域降噪 + Apple AI ×1.5

@@ -13,7 +13,7 @@ enum VideoProcessingPermission: Equatable {
 }
 STUB
 swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$work" -L "$work" -lCinemaCore -Xlinker -rpath -Xlinker "$work" \
-  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/AdSkipController.swift \
+  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/AdSkipController.swift \
   Sources/CinemaApp/AdFrameAnalyzer.swift Sources/CinemaApp/MediaExperienceInspector.swift "$work/VideoProcessingPermissionStub.swift" \
   Tests/AppModelSmoke/PicturePipelineSwitchSmoke.swift -o "$work/check"
 "$work/check"

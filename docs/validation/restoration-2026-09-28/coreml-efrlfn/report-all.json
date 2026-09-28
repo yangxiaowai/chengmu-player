@@ -1,0 +1,170 @@
+{
+  "compile_and_load_ms" : 805.73833326343447,
+  "device" : "Apple M4",
+  "input_description" : "[\"image\": image : Image (Color, 64 x 64)]",
+  "output_description" : "[\"restored\": restored : Image (Color, 1 x 1)]",
+  "results" : [
+    {
+      "completed_frames" : 5,
+      "input" : [
+        64,
+        64
+      ],
+      "model_ms" : [
+        2.5465833023190498,
+        0.65100006759166718,
+        0.50970830488950014,
+        0.49737503286451101,
+        0.49129163380712271
+      ],
+      "output" : [
+        128,
+        128
+      ],
+      "output_first_last_sha256" : [
+        "643bdedf25de9a41f7a089af82050a5a04cd6de6ca791c6b9efe7401d39d6ea4",
+        "643bdedf25de9a41f7a089af82050a5a04cd6de6ca791c6b9efe7401d39d6ea4"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        12.454208335839212,
+        1.4121666317805648,
+        1.1637500720098615,
+        1.3358748983591795,
+        1.3647916493937373
+      ],
+      "warm_max_ms" : 1.4121666317805648,
+      "warm_mean_ms" : 1.3191458128858358
+    },
+    {
+      "completed_frames" : 5,
+      "input" : [
+        480,
+        200
+      ],
+      "model_ms" : [
+        1154.8747500637546,
+        46.768500003963709,
+        47.643458237871528,
+        45.829291688278317,
+        47.244583372958004
+      ],
+      "output" : [
+        960,
+        400
+      ],
+      "output_first_last_sha256" : [
+        "032d8d62284070b5fcd238de2b68d3e5f8f0a81ae40f1db635e26485a9919e7e",
+        "032d8d62284070b5fcd238de2b68d3e5f8f0a81ae40f1db635e26485a9919e7e"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        1156.5444999141619,
+        48.03316667675972,
+        48.652125056833029,
+        47.084791585803032,
+        49.769833334721625
+      ],
+      "warm_max_ms" : 49.769833334721625,
+      "warm_mean_ms" : 48.384979163529351
+    },
+    {
+      "completed_frames" : 5,
+      "input" : [
+        960,
+        400
+      ],
+      "model_ms" : [
+        219.30087497457862,
+        187.38775001838803,
+        220.23570828605443,
+        183.09766671154648,
+        184.51262498274446
+      ],
+      "output" : [
+        1920,
+        800
+      ],
+      "output_first_last_sha256" : [
+        "7aa53f1ecaa5f3d5b3b31c123d3fed8f8be98596c8a6f5a23064422d461ff687",
+        "7aa53f1ecaa5f3d5b3b31c123d3fed8f8be98596c8a6f5a23064422d461ff687"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        221.55729157384485,
+        189.0715000918135,
+        223.27341663185507,
+        185.31266669742763,
+        186.27687497064471
+      ],
+      "warm_max_ms" : 223.27341663185507,
+      "warm_mean_ms" : 195.98361459793523
+    },
+    {
+      "completed_frames" : 5,
+      "input" : [
+        1280,
+        720
+      ],
+      "model_ms" : [
+        490.94266665633768,
+        435.76899997424334,
+        443.86433332692832,
+        458.90716672874987,
+        474.37170834746212
+      ],
+      "output" : [
+        2560,
+        1440
+      ],
+      "output_first_last_sha256" : [
+        "5ddf18eb8f7c13bfbaa76b85b3248ee9ad6f0c293bba868663c2ddfe0b44edad",
+        "5ddf18eb8f7c13bfbaa76b85b3248ee9ad6f0c293bba868663c2ddfe0b44edad"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        497.02041666023433,
+        438.92195832449943,
+        447.37183337565511,
+        461.61037497222424,
+        477.57245833054185
+      ],
+      "warm_max_ms" : 477.57245833054185,
+      "warm_mean_ms" : 456.36915625073016
+    },
+    {
+      "completed_frames" : 5,
+      "input" : [
+        1920,
+        1080
+      ],
+      "model_ms" : [
+        1126.863208366558,
+        1028.8945416687056,
+        1079.5327082742006,
+        1208.1760833971202,
+        1076.1613750364631
+      ],
+      "output" : [
+        3840,
+        2160
+      ],
+      "output_first_last_sha256" : [
+        "66583aa25d71dda741b52db29ea4ab8b929265030b09ff0828dce4c94f5209ce",
+        "66583aa25d71dda741b52db29ea4ab8b929265030b09ff0828dce4c94f5209ce"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        1134.0065833646804,
+        1036.5737499669194,
+        1084.9897500593215,
+        1215.5209999764338,
+        1080.8035833761096
+      ],
+      "warm_max_ms" : 1215.5209999764338,
+      "warm_mean_ms" : 1104.4720208446961
+    }
+  ],
+  "scope" : "5 repeated synthetic SDR frames per size; CI sRGB input render + synchronous Core ML prediction + completed Metal output render; no decode\/audio\/playback. No FPS claim.",
+  "units" : "all"
+}

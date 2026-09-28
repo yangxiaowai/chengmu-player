@@ -1,0 +1,39 @@
+{
+  "version": "0.3.2",
+  "build": "14",
+  "app": "dist/映川.app",
+  "archive": "dist/映川-v0.3.2.zip",
+  "bundle_identifier": "local.yingchuan.cinema",
+  "architecture": "arm64",
+  "app_files": [
+    {
+      "path": "Contents/Info.plist",
+      "size": 869,
+      "sha256": "0bf3c4d87ca2b65a7a3ae4e7362935c237855daf3d9acc99ca048496aa7884ca"
+    },
+    {
+      "path": "Contents/MacOS/Cinema",
+      "size": 6040400,
+      "sha256": "3172d6968f6dac520818761456b7f3e4d918d6421e50e1f10375a6ed5ae3e0cb"
+    },
+    {
+      "path": "Contents/Resources/AppIcon.icns",
+      "size": 385189,
+      "sha256": "c4cdb5b669fee8d87de725d31fa614278702faf4306cc4a9d3d994a9c07f720f"
+    },
+    {
+      "path": "Contents/_CodeSignature/CodeResources",
+      "size": 2446,
+      "sha256": "e5133b46d39878e12cff29054b8ba89744ffcf4d8c9d92b4b7d486bf63c4a4c8"
+    }
+  ],
+  "archive_size": 1771516,
+  "archive_sha256": "7928cf32ef43638407b1e17120de03685c7d6d464f24b607938531c15c7b4e37",
+  "archive_crc_and_bytes_match": true,
+  "archive_utf8_names": true,
+  "ditto_extracted_codesign_and_mode_passed": true,
+  "previous_0_3_1_bytes_unchanged": true,
+  "library_json_files_checked": 1,
+  "library_json_files_unchanged": true,
+  "notes": "No Python or downloaded neural weights bundled. Local ad-hoc signature."
+}

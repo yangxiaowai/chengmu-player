@@ -1,6 +1,6 @@
 // Headless local-media state regression; no window, network, or GPU processing.
 // Compile against the existing Debug CinemaCore library:
-// swiftc -parse-as-library -target arm64-apple-macos15.0 -I .build/out/Products/Debug -L .build/out/Products/Debug -lCinemaCore Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Tests/AppModelSmoke/AdCleanupStateSmoke.swift -o /tmp/ad-cleanup-state-smoke
+// swiftc -parse-as-library -target arm64-apple-macos15.0 -I .build/out/Products/Debug -L .build/out/Products/Debug -lCinemaCore Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Tests/AppModelSmoke/AdCleanupStateSmoke.swift -o /tmp/ad-cleanup-state-smoke
 // /tmp/ad-cleanup-state-smoke --validate
 import Foundation
 import AVFoundation

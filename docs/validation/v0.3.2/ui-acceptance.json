@@ -1,0 +1,6 @@
+{
+  "status": "blocked",
+  "tool": "cua.getState",
+  "reason": "The Mac is locked and automatic unlock could not unlock it.",
+  "scope": "Physical pointer, new menu layouts and visible motion quality not verified. Headless/GPU checks reported separately."
+}

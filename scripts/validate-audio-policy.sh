@@ -14,5 +14,5 @@ enum VideoProcessingPermission: Equatable {
     case nativeOnly(String)
 }
 STUB
-xcrun swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$validation_directory/core" -L "$validation_directory/core" -lCinemaCore Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift Sources/CinemaApp/MediaExperienceInspector.swift "$validation_directory/VideoProcessingPermissionStub.swift" scripts/validation/media-experience/audio-policy.swift -o "$validation_directory/check"
+xcrun swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$validation_directory/core" -L "$validation_directory/core" -lCinemaCore Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift Sources/CinemaApp/MediaExperienceInspector.swift "$validation_directory/VideoProcessingPermissionStub.swift" scripts/validation/media-experience/audio-policy.swift -o "$validation_directory/check"
 "$validation_directory/check" --validate

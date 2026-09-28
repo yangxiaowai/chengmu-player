@@ -1,0 +1,559 @@
+{
+  "causality" : {
+    "frame_delivery" : "One degraded frame delivered to TemporalRestorer at a time; current frame is processed before the next degraded frame is decoded.",
+    "maximum_reference_history_frames" : 1,
+    "next_frames_supplied" : 0,
+    "note" : "The clean reference is used only for metrics and never supplied to the restorer. This harness checks the production API's sequential use; it does not audit Apple's internal implementation."
+  },
+  "device" : "Apple M4",
+  "metric_method" : {
+    "baseline" : "Frozen v0.3.1 clarity: CINoiseReduction inputNoiseLevel=0.015,inputSharpness=0.0; no additional sharpening.",
+    "color" : "Decoded SDR images explicitly rendered to 8-bit sRGB RGB; alpha excluded.",
+    "display_reference" : "Decoded clean 960x400 frame; all candidate outputs are materialized then fitted to 960x400 with the same positive cubic B-spline scale (B=1,C=0). Apple's chosen processing dimensions are recorded separately. Native-size fidelity is reported only for non-upscaling methods.",
+    "native_reference" : "960x400 clean reference downsampled once with CILanczosScaleTransform to 480x200. All candidates remain native size; no candidate upscale is involved in this score.",
+    "temporal" : "Mean squared ((output[t]-output[t-1])-(clean[t]-clean[t-1])) over RGB and 95 aligned pairs. Lower means better temporal fidelity to the moving clean reference, not simply a static picture.",
+    "temporal_strength" : 0.75,
+    "timing" : "Synchronous processing plus completed RGBA readback at the method's processing size. Excludes decode, metric loops, common display resampling, PNG IO and player work. Sequential modes are not a randomized performance study."
+  },
+  "operating_system" : "Version 27.0 (Build 26A428)",
+  "png_directory" : "\/Users\/yangjun\/Downloads\/视频播放器\/docs\/validation\/v0.3.2\/film-restoration\/report.frames",
+  "quality_acceptance" : "Informational measurements only. No hard-coded requirement that the candidate must beat the original.",
+  "results" : [
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 64.787541748955846,
+            "mean" : 6.1006302130408585,
+            "p95" : 7.1969166165217757,
+            "warm_mean" : 5.4828732495049115
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 49.863605242693865,
+            "rgb_psnr_db" : 31.152966851677956,
+            "temporal_derivative_error_mse_8bit" : 8.6812457785087727,
+            "temporal_derivative_error_rmse_8bit" : 2.9463953873349675,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.072292652576163
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 1.1996666435152292,
+            "mean" : 0.41508246310210478,
+            "p95" : 0.66462496761232615,
+            "warm_mean" : 0.4068236822556508
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.13853315791377,
+            "rgb_psnr_db" : 30.795738761503394,
+            "temporal_derivative_error_mse_8bit" : 8.4363192160087728,
+            "temporal_derivative_error_rmse_8bit" : 2.9045342511336947,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.712506033668873
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.384926649305555,
+            "rgb_psnr_db" : 31.374401481836763,
+            "temporal_derivative_error_mse_8bit" : 7.7032392909356728,
+            "temporal_derivative_error_rmse_8bit" : 2.7754710034398977,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.182758493387144
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal" : {
+          "completed_processing_ms" : {
+            "first" : 4.4133750488981605,
+            "mean" : 3.5513372386049014,
+            "p95" : 4.0592083241790533,
+            "warm_mean" : 3.5422631563912881
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.60212995515046,
+            "rgb_psnr_db" : 30.75870776593095,
+            "temporal_derivative_error_mse_8bit" : 8.4812244791666664,
+            "temporal_derivative_error_rmse_8bit" : 2.9122541920592484,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.56801415815443
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.469694082754629,
+            "rgb_psnr_db" : 31.366639279403586,
+            "temporal_derivative_error_mse_8bit" : 7.585580957602339,
+            "temporal_derivative_error_rmse_8bit" : 2.7541933406357546,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.083472198680621
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 45.733416685834527,
+            "mean" : 8.5115711784358918,
+            "p95" : 9.7556250402703881,
+            "warm_mean" : 8.1197622783580101
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 50.144404911747685,
+            "rgb_psnr_db" : 31.128578791747458,
+            "temporal_derivative_error_mse_8bit" : 8.6011438048245612,
+            "temporal_derivative_error_rmse_8bit" : 2.9327706703430736,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.013255223556822
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "v031_clarity" : {
+          "completed_processing_ms" : {
+            "first" : 2.7446249732747674,
+            "mean" : 0.67526779942757764,
+            "p95" : 1.2021666625514627,
+            "warm_mean" : 0.65348509233444929
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 55.083333523220489,
+            "rgb_psnr_db" : 30.720601459327639,
+            "temporal_derivative_error_mse_8bit" : 8.41334814510234,
+            "temporal_derivative_error_rmse_8bit" : 2.9005772089538211,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.643747392544139
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.789019531249998,
+            "rgb_psnr_db" : 31.337522405068967,
+            "temporal_derivative_error_mse_8bit" : 7.6046119517543858,
+            "temporal_derivative_error_rmse_8bit" : 2.7576460889233747,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.150272774803504
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "compressed-film"
+    },
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 43.876208364963531,
+            "mean" : 5.6961814213233692,
+            "p95" : 6.1601666966453195,
+            "warm_mean" : 5.2942864008639985
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 44.313418990523729,
+            "rgb_psnr_db" : 31.665451016637615,
+            "temporal_derivative_error_mse_8bit" : 7.3218716648391817,
+            "temporal_derivative_error_rmse_8bit" : 2.7058957232013174,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.603907003116557
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 0.38954161573201418,
+            "mean" : 0.45208333540358581,
+            "p95" : 0.86591672152280807,
+            "warm_mean" : 0.45274166929486553
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.5711979437934,
+            "rgb_psnr_db" : 31.267015459688231,
+            "temporal_derivative_error_mse_8bit" : 7.5314251918859645,
+            "temporal_derivative_error_rmse_8bit" : 2.7443442189138674,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.28348972262663
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.745358615451387,
+            "rgb_psnr_db" : 32.030022163195532,
+            "temporal_derivative_error_mse_8bit" : 6.36440807748538,
+            "temporal_derivative_error_rmse_8bit" : 2.5227778494123059,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.838268341681953
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal" : {
+          "completed_processing_ms" : {
+            "first" : 1.9501666538417339,
+            "mean" : 3.3578168319460624,
+            "p95" : 3.835999988950789,
+            "warm_mean" : 3.3726342022418976
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.370148410373261,
+            "rgb_psnr_db" : 31.285029409653497,
+            "temporal_derivative_error_mse_8bit" : 7.6882965643274854,
+            "temporal_derivative_error_rmse_8bit" : 2.7727777704546548,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.317468957558873
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.08792545572917,
+            "rgb_psnr_db" : 32.100667787117075,
+            "temporal_derivative_error_mse_8bit" : 6.4063617690058479,
+            "temporal_derivative_error_rmse_8bit" : 2.5310791708292824,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.919816418047354
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 50.33083341550082,
+            "mean" : 8.5139249131316319,
+            "p95" : 9.2577500035986304,
+            "warm_mean" : 8.073746928896167
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 43.906457618995951,
+            "rgb_psnr_db" : 31.705519613080881,
+            "temporal_derivative_error_mse_8bit" : 7.4307347496345031,
+            "temporal_derivative_error_rmse_8bit" : 2.7259374075048939,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.649456677817049
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "v031_clarity" : {
+          "completed_processing_ms" : {
+            "first" : 0.46374998055398464,
+            "mean" : 0.59888193572987802,
+            "p95" : 1.0925417300313711,
+            "warm_mean" : 0.60030437736330844
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 49.306688811125582,
+            "rgb_psnr_db" : 31.201745223874941,
+            "temporal_derivative_error_mse_8bit" : 7.5170438961988308,
+            "temporal_derivative_error_rmse_8bit" : 2.7417227971111213,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.218555655799516
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.846336118344908,
+            "rgb_psnr_db" : 32.019272540985661,
+            "temporal_derivative_error_mse_8bit" : 6.2664845394736846,
+            "temporal_derivative_error_rmse_8bit" : 2.5032947368365726,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.823463101933147
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "noisy-film"
+    },
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 43.31029171589762,
+            "mean" : 5.6942743067338597,
+            "p95" : 6.7189167020842433,
+            "warm_mean" : 5.2983162287426619
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 34.361994945384836,
+            "rgb_psnr_db" : 32.770019912552179,
+            "temporal_derivative_error_mse_8bit" : 7.6703771655701756,
+            "temporal_derivative_error_rmse_8bit" : 2.7695445772852576,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.957680899450256
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 0.42695843148976564,
+            "mean" : 0.4364691873585495,
+            "p95" : 0.86095824372023344,
+            "warm_mean" : 0.43656930057822091
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.887281150535301,
+            "rgb_psnr_db" : 32.345869201135287,
+            "temporal_derivative_error_mse_8bit" : 7.9457709429824561,
+            "temporal_derivative_error_rmse_8bit" : 2.8188243902347758,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.565227413391362
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 30.657786747685186,
+            "rgb_psnr_db" : 33.26539561881264,
+            "temporal_derivative_error_mse_8bit" : 7.4223164108187136,
+            "temporal_derivative_error_rmse_8bit" : 2.7243928517779357,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal" : {
+          "completed_processing_ms" : {
+            "first" : 2.7634999714791775,
+            "mean" : 3.4739218729858599,
+            "p95" : 3.9609166560694575,
+            "warm_mean" : 3.4813999982648776
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.149981743706597,
+            "rgb_psnr_db" : 32.431217561928356,
+            "temporal_derivative_error_mse_8bit" : 7.466826215277778,
+            "temporal_derivative_error_rmse_8bit" : 2.7325493985064164,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.420066899320283
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 29.023257776331018,
+            "rgb_psnr_db" : 33.503342017367189,
+            "temporal_derivative_error_mse_8bit" : 6.2971779605263158,
+            "temporal_derivative_error_rmse_8bit" : 2.509417852914559,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_apple_ai" : {
+          "completed_processing_ms" : {
+            "first" : 47.120250063017011,
+            "mean" : 8.4482352431223262,
+            "p95" : 9.3649167101830244,
+            "warm_mean" : 8.041161402912909
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 33.495527388961229,
+            "rgb_psnr_db" : 32.880935406959331,
+            "temporal_derivative_error_mse_8bit" : 7.1077676809210528,
+            "temporal_derivative_error_rmse_8bit" : 2.6660396998021341,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.957680899450256
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : null,
+          "processing_output_sizes" : [
+            "1920x800"
+          ]
+        },
+        "v031_clarity" : {
+          "completed_processing_ms" : {
+            "first" : 0.8674166165292263,
+            "mean" : 0.62804513800074346,
+            "p95" : 0.97441661637276411,
+            "warm_mean" : 0.62552543822675943
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.893085440176506,
+            "rgb_psnr_db" : 32.345203917743063,
+            "temporal_derivative_error_mse_8bit" : 7.4439335526315791,
+            "temporal_derivative_error_rmse_8bit" : 2.7283572992977989,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.572297127079665
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 29.333818901909723,
+            "rgb_psnr_db" : 33.457117544144069,
+            "temporal_derivative_error_mse_8bit" : 6.1146879385964912,
+            "temporal_derivative_error_rmse_8bit" : 2.4727895055172997,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.185101969230885
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "heavy-noisy-film"
+    }
+  ],
+  "sample_frames" : [
+    24
+  ],
+  "schema_version" : 1,
+  "scope" : "3 aligned 4-second synthetic degradations of one real film excerpt; 96 frames at 24 FPS per variant. This is not a general film-quality claim, player performance test, or 4K benchmark.",
+  "source" : {
+    "attribution" : "(CC) Blender Foundation | mango.blender.org",
+    "audio" : "omitted",
+    "fixture_sha256" : {
+      "clean-film.mp4" : "329160f1df8746f57c3567f085c23cec00ff950de3788a81ecd2e60ce5514ac5",
+      "compressed-film.mp4" : "c1480e63dd3dabe4678d1420247e74d05d27f3385dd05677284b0ff457f4b432",
+      "heavy-noisy-film.mp4" : "855dfb5c4bbd47ff1c2e8c4ae9314b2b4432e195c92e52e4d4c78529047a6187",
+      "noisy-film.mp4" : "2e42ef75dd7e477099e629c896a3c185b47c6aa87d1fa9e1ba5d1f15c8e79d4f"
+    },
+    "generation" : "720p MOV excerpt -> clean 960x400,24fps,96 frames,H.264 CRF16; compressed=clean scaled480x200 bicubic,H.264 CRF34; noisy=480x200 plus noise alls=4:allf=t+u,H.264 CRF30. Original mild-noise command did not pin a seed; hashes identify actual inputs, not guaranteed bitwise regeneration. Optional heavy-noisy=scale480x200 bicubic,noise=alls=12:allf=t+u:all_seed=7,H.264 CRF24.",
+    "license" : "CC BY 3.0",
+    "license_url" : "https:\/\/mango.blender.org\/sharing\/",
+    "original_excerpt_duration_seconds" : 4,
+    "original_excerpt_start_seconds" : 62,
+    "original_url" : "https:\/\/download.blender.org\/demo\/movies\/ToS\/tears_of_steel_720p.mov",
+    "title" : "Tears of Steel"
+  },
+  "validation_completed" : true
+}

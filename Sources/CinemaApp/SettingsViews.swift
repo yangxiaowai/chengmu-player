@@ -44,12 +44,12 @@ struct QualityStudio: View {
             }
             HStack(alignment: .top, spacing: 13) {
                 Image(systemName: "info.circle").foregroundStyle(CinemaStyle.accent)
-                Text("自然降噪用于减轻噪点；4K 缩放改变输出尺寸，无法保证补回原片缺失的细节。Apple AI 的输出取决于系统、设备和片源。杜比视界与 HDR 保持原生呈现，处理跟不上时也会回到原片，播放页会显示实际状态。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
+                Text("噪点明显时可试时域降噪；同时需要放大时可试流式修复。切镜和拖动进度后会重新建立前帧参考。实际超分倍率取决于设备与片源，无法保证修回所有细节。杜比视界与 HDR 保持原生呈现，处理跟不上时回到原片，播放页显示实际状态。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
             }.padding(.top, 8)
         }
     }
     private func icon(_ mode: EnhancementMode) -> String {
-        switch mode { case .original: return "film"; case .clarity: return "viewfinder"; case .upscale4K: return "4k.tv"; case .appleAI: return "sparkles" }
+        switch mode { case .original: return "film"; case .temporal: return "square.3.layers.3d"; case .restoration: return "sparkles.tv"; case .clarity: return "viewfinder"; case .upscale4K: return "4k.tv"; case .appleAI: return "sparkles" }
     }
 }
 

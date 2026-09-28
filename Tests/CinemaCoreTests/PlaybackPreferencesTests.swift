@@ -3,6 +3,15 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func temporalRestorationChoicesSurviveRestart() throws {
+        for mode in ["temporal", "restoration"] {
+            let chosen = PlaybackPreferences(enhancement: mode, pipeline: PlaybackPreferences.pipelineEnhanced)
+            #expect(chosen.enhancement == mode)
+            let restored = try JSONDecoder().decode(PlaybackPreferences.self, from: JSONEncoder().encode(chosen))
+            #expect(restored.enhancement == mode)
+            #expect(restored.pipelineProcessesFrames)
+        }
+    }
     @Test func newProfilesStartWithOriginalAndRememberGentleEnhancement() throws {
         let fresh = PlaybackPreferences()
         #expect(!fresh.pipelineProcessesFrames)

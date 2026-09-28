@@ -377,7 +377,7 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
         metrics.sourceWidth = CVPixelBufferGetWidth(buffer); metrics.sourceHeight = CVPixelBufferGetHeight(buffer)
         offerScanFrame(buffer, time: pts.seconds)
         worker.async { [weak self] in
-            let result: Result<EnhancedFrame, Error> = autoreleasepool { Result { try pipeline.process(buffer, mode: requestedMode, time: pts, displayTransform: transform, cleanup: requestedCleanup) } }
+            let result: Result<EnhancedFrame, Error> = autoreleasepool { Result { try pipeline.process(buffer, mode: requestedMode, time: pts, displayTransform: transform, cleanup: requestedCleanup, streamID: token) } }
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.busy = false

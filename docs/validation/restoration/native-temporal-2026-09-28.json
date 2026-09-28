@@ -1,0 +1,876 @@
+{
+  "checks" : [
+    {
+      "details" : {
+        "reason" : "正在建立前帧参考"
+      },
+      "name" : "1280p frame 0 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "1280p priming is exact original",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 1 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.217492007568339,
+        "restored_mse" : 19.883277875644289
+      },
+      "name" : "1280p frame 1 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.928335807356092,
+        "restored_mse" : 13.725108582110067
+      },
+      "name" : "1280p frame 1 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 13.725108582110067,
+        "spatial_mse" : 78.96731541041288
+      },
+      "name" : "1280p frame 1 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.877118377118379,
+        "restored_mse" : 34.378850878850876
+      },
+      "name" : "1280p frame 1 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 34.378850878850876,
+        "spatial_mse" : 79.511623511623512
+      },
+      "name" : "1280p frame 1 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.387240829346098,
+        "restored_mse" : 19.974641148325357
+      },
+      "name" : "1280p frame 1 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1280p frame 1 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 2 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 3 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 4 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 5 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 6 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.894310693547339,
+        "restored_mse" : 16.951895348078555
+      },
+      "name" : "1280p frame 6 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.075540161636155,
+        "restored_mse" : 14.39188520534389
+      },
+      "name" : "1280p frame 6 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 14.39188520534389,
+        "spatial_mse" : 79.053658804772112
+      },
+      "name" : "1280p frame 6 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.07588357588358,
+        "restored_mse" : 24.723083223083222
+      },
+      "name" : "1280p frame 6 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 24.723083223083222,
+        "spatial_mse" : 79.666509166509172
+      },
+      "name" : "1280p frame 6 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.08373205741627,
+        "restored_mse" : 27.970334928229665
+      },
+      "name" : "1280p frame 6 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1280p frame 6 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 7 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 8 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 9 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 10 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1280p frame 11 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.982475370261625,
+        "restored_mse" : 20.80542832909245
+      },
+      "name" : "1280p frame 11 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.036478091153995,
+        "restored_mse" : 12.784045302105667
+      },
+      "name" : "1280p frame 11 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 12.784045302105667,
+        "spatial_mse" : 77.969816922315687
+      },
+      "name" : "1280p frame 11 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.350721350721358,
+        "restored_mse" : 26.147483147483147
+      },
+      "name" : "1280p frame 11 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 26.147483147483147,
+        "spatial_mse" : 79.021546021546015
+      },
+      "name" : "1280p frame 11 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.328229665071774,
+        "restored_mse" : 18.883253588516748
+      },
+      "name" : "1280p frame 11 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1280p frame 11 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "正在建立前帧参考"
+      },
+      "name" : "1920p frame 0 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "1920p priming is exact original",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 1 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.134596671504269,
+        "restored_mse" : 18.411899956072308
+      },
+      "name" : "1920p frame 1 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.408983451536642,
+        "restored_mse" : 12.555761942286765
+      },
+      "name" : "1920p frame 1 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 12.555761942286765,
+        "spatial_mse" : 78.386299673533713
+      },
+      "name" : "1920p frame 1 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.557963095552125,
+        "restored_mse" : 21.888269209028902
+      },
+      "name" : "1920p frame 1 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 21.888269209028902,
+        "spatial_mse" : 79.22079863335469
+      },
+      "name" : "1920p frame 1 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 78.762998405103673,
+        "restored_mse" : 16.536363636363635
+      },
+      "name" : "1920p frame 1 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1920p frame 1 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 2 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 3 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 4 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 5 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 6 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.924586162221075,
+        "restored_mse" : 21.498896247240619
+      },
+      "name" : "1920p frame 6 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.723516829899808,
+        "restored_mse" : 12.074036549213854
+      },
+      "name" : "1920p frame 6 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 12.074036549213854,
+        "spatial_mse" : 78.695767195767189
+      },
+      "name" : "1920p frame 6 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.916418585371375,
+        "restored_mse" : 23.463114393739559
+      },
+      "name" : "1920p frame 6 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 23.463114393739559,
+        "spatial_mse" : 79.527364308952286
+      },
+      "name" : "1920p frame 6 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.646889952153117,
+        "restored_mse" : 25.840510366826155
+      },
+      "name" : "1920p frame 6 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1920p frame 6 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 7 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 8 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 9 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 10 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "reason" : "none"
+      },
+      "name" : "1920p frame 11 history",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.042362420137792,
+        "restored_mse" : 16.891142731635167
+      },
+      "name" : "1920p frame 11 flat noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 79.195992344928513,
+        "restored_mse" : 11.702390333596007
+      },
+      "name" : "1920p frame 11 motion noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 11.702390333596007,
+        "spatial_mse" : 78.171544898495256
+      },
+      "name" : "1920p frame 11 motion beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 80.504842295662655,
+        "restored_mse" : 18.520970720126616
+      },
+      "name" : "1920p frame 11 texture noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "restored_mse" : 18.520970720126616,
+        "spatial_mse" : 80.123349788345834
+      },
+      "name" : "1920p frame 11 texture beats spatial",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "raw_mse" : 78.185964912280696,
+        "restored_mse" : 18.935087719298245
+      },
+      "name" : "1920p frame 11 subtitle noise improves",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "background_leak" : 0,
+        "foreground_recall" : 1
+      },
+      "name" : "1920p frame 11 subtitle strokes",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "steady frame uses history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "seek primes exact current image",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "mse" : 0
+      },
+      "name" : "seek output equals fresh session",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "backward timestamp clears history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "duplicate timestamp clears history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "new stream identity clears history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "invalid timestamp clears history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "hard cut has no old-frame ghost",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "equal-luma color cut clears history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "large fast motion bypasses history",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "size change throws for session rebuild",
+      "passed" : true
+    },
+    {
+      "details" : {
+
+      },
+      "name" : "invalid strength is rejected",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "mse" : 0.0033429610611895593
+      },
+      "name" : "clean detailed frame is preserved",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "input" : [
+          25,
+          25,
+          25
+        ],
+        "max_difference" : 1,
+        "output" : [
+          26,
+          25,
+          26
+        ]
+      },
+      "name" : "SDR color [0.1, 0.1, 0.1] remains within 2 codes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "input" : [
+          102,
+          51,
+          153
+        ],
+        "max_difference" : 1,
+        "output" : [
+          102,
+          51,
+          154
+        ]
+      },
+      "name" : "SDR color [0.4, 0.2, 0.6] remains within 2 codes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "input" : [
+          178,
+          128,
+          51
+        ],
+        "max_difference" : 1,
+        "output" : [
+          179,
+          127,
+          51
+        ]
+      },
+      "name" : "SDR color [0.7, 0.5, 0.2] remains within 2 codes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "input" : [
+          242,
+          242,
+          242
+        ],
+        "max_difference" : 1,
+        "output" : [
+          243,
+          242,
+          243
+        ]
+      },
+      "name" : "SDR color [0.95, 0.95, 0.95] remains within 2 codes",
+      "passed" : true
+    },
+    {
+      "details" : {
+        "distinct_levels_on_640_pixel_ramp" : 640
+      },
+      "name" : "restoration keeps more than 8-bit ramp steps",
+      "passed" : true
+    }
+  ],
+  "device" : "Apple M4",
+  "failed_checks" : 0,
+  "os" : "Version 27.0 (Build 26A428)",
+  "passed" : true,
+  "reference_frames" : {
+    "future" : 0,
+    "past" : 1
+  },
+  "results" : [
+    {
+      "dimensions" : [
+        1280,
+        720
+      ],
+      "first_native_process_ms" : 19.35495832003653,
+      "first_priming_ms" : 8.1977499648928642,
+      "frames" : 12,
+      "measurements" : [
+        {
+          "flat" : {
+            "raw_mse" : 80.217492007568339,
+            "spatial_mse" : 28.766444835910484,
+            "temporal_mse" : 19.883277875644289
+          },
+          "frame" : 1,
+          "motion" : {
+            "raw_mse" : 79.928335807356092,
+            "spatial_mse" : 78.96731541041288,
+            "temporal_mse" : 13.725108582110067
+          },
+          "subtitle" : {
+            "raw_mse" : 80.387240829346098,
+            "spatial_mse" : 60.489154704944177,
+            "temporal_mse" : 19.974641148325357
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 79.877118377118379,
+            "spatial_mse" : 79.511623511623512,
+            "temporal_mse" : 34.378850878850876
+          }
+        },
+        {
+          "flat" : {
+            "raw_mse" : 79.894310693547339,
+            "spatial_mse" : 28.534253278528087,
+            "temporal_mse" : 16.951895348078555
+          },
+          "frame" : 6,
+          "motion" : {
+            "raw_mse" : 80.075540161636155,
+            "spatial_mse" : 79.053658804772112,
+            "temporal_mse" : 14.39188520534389
+          },
+          "subtitle" : {
+            "raw_mse" : 79.08373205741627,
+            "spatial_mse" : 54.701435406698565,
+            "temporal_mse" : 27.970334928229665
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 80.07588357588358,
+            "spatial_mse" : 79.666509166509172,
+            "temporal_mse" : 24.723083223083222
+          }
+        },
+        {
+          "flat" : {
+            "raw_mse" : 79.982475370261625,
+            "spatial_mse" : 28.664122137404579,
+            "temporal_mse" : 20.80542832909245
+          },
+          "frame" : 11,
+          "motion" : {
+            "raw_mse" : 79.036478091153995,
+            "spatial_mse" : 77.969816922315687,
+            "temporal_mse" : 12.784045302105667
+          },
+          "subtitle" : {
+            "raw_mse" : 80.328229665071774,
+            "spatial_mse" : 55.31084529505582,
+            "temporal_mse" : 18.883253588516748
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 79.350721350721358,
+            "spatial_mse" : 79.021546021546015,
+            "temporal_mse" : 26.147483147483147
+          }
+        }
+      ],
+      "warm_completed_mean_ms" : 6.827816681470722,
+      "warm_completed_p95_ms" : 7.0084583712741733
+    },
+    {
+      "dimensions" : [
+        1920,
+        1080
+      ],
+      "first_native_process_ms" : 24.251875001937151,
+      "first_priming_ms" : 4.7960416413843632,
+      "frames" : 12,
+      "measurements" : [
+        {
+          "flat" : {
+            "raw_mse" : 80.134596671504269,
+            "spatial_mse" : 28.764133317764024,
+            "temporal_mse" : 18.411899956072308
+          },
+          "frame" : 1,
+          "motion" : {
+            "raw_mse" : 79.408983451536642,
+            "spatial_mse" : 78.386299673533713,
+            "temporal_mse" : 12.555761942286765
+          },
+          "subtitle" : {
+            "raw_mse" : 78.762998405103673,
+            "spatial_mse" : 49.091866028708132,
+            "temporal_mse" : 16.536363636363635
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 79.557963095552125,
+            "spatial_mse" : 79.22079863335469,
+            "temporal_mse" : 21.888269209028902
+          }
+        },
+        {
+          "flat" : {
+            "raw_mse" : 79.924586162221075,
+            "spatial_mse" : 28.604617412047308,
+            "temporal_mse" : 21.498896247240619
+          },
+          "frame" : 6,
+          "motion" : {
+            "raw_mse" : 79.723516829899808,
+            "spatial_mse" : 78.695767195767189,
+            "temporal_mse" : 12.074036549213854
+          },
+          "subtitle" : {
+            "raw_mse" : 79.646889952153117,
+            "spatial_mse" : 50.315629984051036,
+            "temporal_mse" : 25.840510366826155
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 79.916418585371375,
+            "spatial_mse" : 79.527364308952286,
+            "temporal_mse" : 23.463114393739559
+          }
+        },
+        {
+          "flat" : {
+            "raw_mse" : 80.042362420137792,
+            "spatial_mse" : 28.690195784053692,
+            "temporal_mse" : 16.891142731635167
+          },
+          "frame" : 11,
+          "motion" : {
+            "raw_mse" : 79.195992344928513,
+            "spatial_mse" : 78.171544898495256,
+            "temporal_mse" : 11.702390333596007
+          },
+          "subtitle" : {
+            "raw_mse" : 78.185964912280696,
+            "spatial_mse" : 49.27224880382775,
+            "temporal_mse" : 18.935087719298245
+          },
+          "subtitle_background_leak" : 0,
+          "subtitle_foreground_recall" : 1,
+          "texture" : {
+            "raw_mse" : 80.504842295662655,
+            "spatial_mse" : 80.123349788345834,
+            "temporal_mse" : 18.520970720126616
+          }
+        }
+      ],
+      "warm_completed_mean_ms" : 11.898229119833559,
+      "warm_completed_p95_ms" : 12.900041649118066
+    }
+  ],
+  "scope" : "Deterministic synthetic SDR native temporal processing. Actual completion waited, includes scene preview and float16-to-lossless10 conversion. No application playback, decoding, network, HDR or long-duration claim.",
+  "strength" : 0.75
+}

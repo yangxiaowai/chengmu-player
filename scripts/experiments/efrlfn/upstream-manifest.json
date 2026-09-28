@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/EvgeneyBogatyrev/EfRLFN",
+  "commit": "1f7f3678f1bd7ba04ca8ccb04726eef71bf8520a",
+  "files_sha256": {
+    "code/utils.py": "13c2895209ec710cb1850d1e3f666a670ac5aaa3d6f15109e3af8bf1f824a361",
+    "code/blocks.py": "d893a498885fdf357841a4ee2a6c5086294bedec253f486b13aa9ab2f26d5ce7",
+    "code/model.py": "bc096ea24c6abe2160f3b782478f03bf7af2d56617a58f4ff7a87be878d23338",
+    "LICENSE": "7e124f1726b1b7800d9a82882e97226bf6f392819c279b8805059018e4e770df"
+  },
+  "checkpoint": {
+    "url": "https://drive.google.com/file/d/1VeoW94hN1X-8kxGXQSyR53YzRqF1htKQ/view",
+    "sha256": "fbfd1bb37973d2b8b53493c5b91c0ef106f74d200115250a8a025b8e6a121cb3",
+    "size_bytes": 1968047
+  },
+  "license": "MIT, Copyright (c) 2026 MSU Graphics & Media Lab"
+}

@@ -1,0 +1,54 @@
+{
+  "is_supported" : true,
+  "queries" : [
+    {
+      "factors" : [
+        1.5,
+        2,
+        4
+      ],
+      "input" : [
+        480,
+        200
+      ]
+    },
+    {
+      "factors" : [
+        1.5,
+        2
+      ],
+      "input" : [
+        960,
+        400
+      ]
+    },
+    {
+      "factors" : [
+        1.5
+      ],
+      "input" : [
+        1280,
+        720
+      ]
+    },
+    {
+      "factors" : [
+
+      ],
+      "input" : [
+        1920,
+        1080
+      ]
+    },
+    {
+      "factors" : [
+        1.5
+      ],
+      "input" : [
+        720,
+        1280
+      ]
+    }
+  ],
+  "scope" : "Capability query only; not frame processing or video evidence."
+}
