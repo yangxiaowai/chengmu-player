@@ -1,0 +1,86 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "edge_observed_range" : [
+        58,
+        202
+      ],
+      "edge_overshoot_codevalues" : 10,
+      "expected_plateaus" : [
+        64,
+        192
+      ],
+      "first_completed_ms" : 15.83808334544301,
+      "flat_readback_values" : [
+        64,
+        192
+      ],
+      "method" : "metalfx-perceptual",
+      "upscaled_flat_noise_mse" : 43.499957245224294,
+      "warm_gpu_mean_ms" : 3.3724444607893624,
+      "warm_mean_completed_ms" : 4.9313610652461648
+    },
+    {
+      "edge_observed_range" : [
+        53,
+        202
+      ],
+      "edge_overshoot_codevalues" : 11,
+      "expected_plateaus" : [
+        64,
+        192
+      ],
+      "first_completed_ms" : 8.1436249893158674,
+      "flat_readback_values" : [
+        64,
+        192
+      ],
+      "method" : "metalfx-linear",
+      "upscaled_flat_noise_mse" : 41.087493373009764,
+      "warm_gpu_mean_ms" : 3.6767777831604085,
+      "warm_mean_completed_ms" : 5.0412222044542432
+    },
+    {
+      "edge_observed_range" : [
+        7,
+        200
+      ],
+      "edge_overshoot_codevalues" : 57,
+      "expected_plateaus" : [
+        64,
+        192
+      ],
+      "first_completed_ms" : 36.118416697718203,
+      "flat_readback_values" : [
+        64,
+        192
+      ],
+      "method" : "mps-lanczos",
+      "upscaled_flat_noise_mse" : 19.418928394301645,
+      "warm_gpu_mean_ms" : 2.1442499710246921,
+      "warm_mean_completed_ms" : 3.6133749720950923
+    },
+    {
+      "edge_observed_range" : [
+        64,
+        192
+      ],
+      "edge_overshoot_codevalues" : 0,
+      "expected_plateaus" : [
+        64,
+        192
+      ],
+      "first_completed_ms" : 8.244000026024878,
+      "flat_readback_values" : [
+        64,
+        192
+      ],
+      "method" : "ci-bspline",
+      "upscaled_flat_noise_mse" : 5.6036461272724161,
+      "warm_gpu_mean_ms" : 1.6336805808047454,
+      "warm_mean_completed_ms" : 3.2291388682400188
+    }
+  ],
+  "scope" : "Synthetic grayscale step and independent flat noise,1080→4K,first+3warm. Completed GPU command including source conversion; does not include temporal DNR or playback. Not general image quality."
+}

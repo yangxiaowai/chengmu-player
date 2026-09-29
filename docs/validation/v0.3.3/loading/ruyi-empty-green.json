@@ -1,0 +1,7 @@
+{
+  "malformedExpected" : 6,
+  "malformedRejected" : 6,
+  "passed" : true,
+  "validEmptyAccepted" : 2,
+  "validEmptyExpected" : 2
+}

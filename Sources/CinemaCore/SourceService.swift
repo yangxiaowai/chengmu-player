@@ -216,9 +216,15 @@ public struct SourceService {
         try rootObject(data)["list"] as! [[String: Any]]
     }
     private static func rootObject(_ data: Data) throws -> [String: Any] {
-        guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any], let list = root["list"] as? [[String: Any]] else { throw SourceError.invalidResponse }
+        guard var root = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw SourceError.invalidResponse }
         if let code = root["code"], !["1", "200"].contains(string(code)) { throw SourceError.invalidResponse }
-        _ = list
+        // Some CMS implementations encode an explicitly successful empty search as
+        // list:null. Require zero counts so a missing or damaged list is not hidden.
+        if root["list"] is NSNull, ["1", "200"].contains(string(root["code"])),
+           string(root["total"]) == "0", string(root["pagecount"]) == "0" {
+            root["list"] = [[String: Any]]()
+        }
+        guard root["list"] is [[String: Any]] else { throw SourceError.invalidResponse }
         return root
     }
     private static func string(_ value: Any?) -> String {

@@ -1,0 +1,1023 @@
+{
+  "timing": [
+    {
+      "variant": "baseline",
+      "units": "all",
+      "first_ms": 159.3646666733548,
+      "warm_ms": [
+        123.57625004369766,
+        120.57162495329976,
+        123.51658334955573
+      ],
+      "warm_mean_ms": 122.55481944885105,
+      "model_ms": [
+        143.25741666834801,
+        118.9395833062008,
+        114.40062499605119,
+        117.42699996102601
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "baseline",
+      "units": "gpu",
+      "first_ms": 1055.2260832628235,
+      "warm_ms": [
+        442.25937500596046,
+        447.9050833033398,
+        437.62512505054474
+      ],
+      "warm_mean_ms": 442.596527786615,
+      "model_ms": [
+        1047.9036666220054,
+        438.30270832404494,
+        440.14966662507504,
+        434.7511667292565
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "baseline",
+      "units": "ne",
+      "first_ms": 144.46883334312588,
+      "warm_ms": [
+        118.07133327238262,
+        118.53275005705655,
+        123.75291669741273
+      ],
+      "warm_mean_ms": 120.11900000895064,
+      "model_ms": [
+        136.39695837628096,
+        113.65850002039224,
+        114.57400000654161,
+        119.73091657273471
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "baseline1080",
+      "units": "ne",
+      "first_ms": 437.6575417118147,
+      "warm_ms": [
+        320.5282083945349,
+        320.71512495167553,
+        321.6056249802932
+      ],
+      "warm_mean_ms": 320.9496527755012,
+      "model_ms": [
+        421.1473750183359,
+        312.36416671890765,
+        312.37099994905293,
+        312.24837503395975
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "eca2d",
+      "units": "all",
+      "first_ms": 147.37091667484492,
+      "warm_ms": [
+        120.85033324547112,
+        120.0883750570938,
+        120.80925004556775
+      ],
+      "warm_mean_ms": 120.5826527827109,
+      "model_ms": [
+        134.99112497083843,
+        114.70916657708585,
+        117.42979171685874,
+        117.17708338983357
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "eca2d",
+      "units": "ne",
+      "first_ms": 147.8805833030492,
+      "warm_ms": [
+        120.42433337774128,
+        119.12783328443766,
+        125.23274996783584
+      ],
+      "warm_mean_ms": 121.59497221000493,
+      "model_ms": [
+        133.38333333376795,
+        116.10437510535121,
+        116.41583335585892,
+        122.1607499755919
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "padded64",
+      "units": "all",
+      "first_ms": 220.0570417335257,
+      "warm_ms": [
+        141.3254584185779,
+        138.43558332882822,
+        142.84920832142234
+      ],
+      "warm_mean_ms": 140.87008335627615,
+      "model_ms": [
+        202.97629164997488,
+        137.06658326555043,
+        134.42670833319426,
+        135.7493334216997
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "padded64",
+      "units": "ne",
+      "first_ms": 224.23224989324808,
+      "warm_ms": [
+        145.96220827661455,
+        145.5376249505207,
+        137.90516671724617
+      ],
+      "warm_mean_ms": 143.13499998146048,
+      "model_ms": [
+        213.37933326140046,
+        142.46008335612714,
+        140.6701667001471,
+        134.6392499981448
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "toeplitz",
+      "units": "all",
+      "first_ms": 147.77499996125698,
+      "warm_ms": [
+        123.05195827502757,
+        123.09574999380857,
+        123.53108334355056
+      ],
+      "warm_mean_ms": 123.22626387079556,
+      "model_ms": [
+        134.1035000514239,
+        117.45004169642925,
+        120.16562500502914,
+        117.31916666030884
+      ],
+      "repeat_identical": true
+    },
+    {
+      "variant": "toeplitz",
+      "units": "ne",
+      "first_ms": 149.0358334267512,
+      "warm_ms": [
+        123.59095830470324,
+        118.32374997902662,
+        118.1859583593905
+      ],
+      "warm_mean_ms": 120.03355554770678,
+      "model_ms": [
+        139.05841670930386,
+        117.12720838841051,
+        115.50879164133221,
+        115.54420832544565
+      ],
+      "repeat_identical": true
+    }
+  ],
+  "plans": [
+    {
+      "variant": "baseline",
+      "units": "all",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 103,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529455225357965,
+        "ANE": 0.9954705447746413,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489979335483413
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.2841188755848549
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.22421612936814864
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040621802075178
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04735320175873268
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425500163535995
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425500163535995
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0030925437709629143
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0028903077926516153
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0016391474327063491
+        },
+        {
+          "operator": "ios18.transpose",
+          "preferred": "ANE",
+          "count": 12,
+          "estimated_cost_weight_sum": 2.304490123403884e-07
+        },
+        {
+          "operator": "ios18.squeeze",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0473911317828881e-07
+        },
+        {
+          "operator": "ios18.expand_dims",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0473911317828881e-07
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0276290349567958e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "units": "gpu",
+      "preferred_operation_counts": {
+        "GPU": 106
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "GPU": 0.9999999999999996
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "GPU",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.7604035835722619
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "GPU",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.09268874308756452
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "GPU",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.08949676085015912
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "GPU",
+          "count": 8,
+          "estimated_cost_weight_sum": 0.0380484707196934
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "GPU",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.014916144394021167
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "GPU",
+          "count": 2,
+          "estimated_cost_weight_sum": 0.0021513644435134397
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "GPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0011473944736240485
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "GPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0011473944736240485
+        },
+        {
+          "operator": "ios18.transpose",
+          "preferred": "GPU",
+          "count": 12,
+          "estimated_cost_weight_sum": 4.563033515770673e-08
+        },
+        {
+          "operator": "ios18.squeeze",
+          "preferred": "GPU",
+          "count": 6,
+          "estimated_cost_weight_sum": 3.2992568144158646e-08
+        },
+        {
+          "operator": "ios18.expand_dims",
+          "preferred": "GPU",
+          "count": 6,
+          "estimated_cost_weight_sum": 3.2992568144158646e-08
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "GPU",
+          "count": 6,
+          "estimated_cost_weight_sum": 3.23700668584198e-08
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "units": "ne",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 103,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529455225357967,
+        "ANE": 0.9954705447746423,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489979335483416
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.28411887558485494
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.22421612936814872
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040621802075182
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.047353201758732706
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425500163536012
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425500163536012
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003092543770962916
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0028903077926516166
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.00163914743270635
+        },
+        {
+          "operator": "ios18.transpose",
+          "preferred": "ANE",
+          "count": 12,
+          "estimated_cost_weight_sum": 2.3044901234038844e-07
+        },
+        {
+          "operator": "ios18.squeeze",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0473911317828885e-07
+        },
+        {
+          "operator": "ios18.expand_dims",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0473911317828885e-07
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0276290349567964e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "eca2d",
+      "units": "all",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 91,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529456155202071,
+        "ANE": 0.995470543844799,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489980051935295
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.2841189339111323
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.22421617539709385
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040623452720656
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04735321147979038
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003642550764126454
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003642550764126454
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003092544405825929
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.002890308385997952
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0016391477692041185
+        },
+        {
+          "operator": "ios18.transpose",
+          "preferred": "ANE",
+          "count": 12,
+          "estimated_cost_weight_sum": 2.3463904255157823e-07
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0276292459170005e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "eca2d",
+      "units": "ne",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 91,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529456155202068,
+        "ANE": 0.9954705438447986,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489980051935291
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.28411893391113224
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.22421617539709376
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040623452720654
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.047353211479790346
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425507641264523
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425507641264523
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0030925444058259276
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0028903083859979505
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0016391477692041176
+        },
+        {
+          "operator": "ios18.transpose",
+          "preferred": "ANE",
+          "count": 12,
+          "estimated_cost_weight_sum": 2.3463904255157804e-07
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.027629245917e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "padded64",
+      "units": "all",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 79,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.003419584622038739,
+        "ANE": 0.9965804153779607,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3976936714868637
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.26400010650059824
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.20833913942005783
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.07471256556641225
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04400006885010948
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0027500013580430797
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0027500013580430797
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0023347653516832614
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0021820840672796557
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0012375005547590834
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 9.548614963129277e-08
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "padded64",
+      "units": "ne",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 79,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.003419584622038739,
+        "ANE": 0.99658041537796,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3976936714868637
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.2640001065005982
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.2083391394200578
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.07471256556641223
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04400006885010947
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0027500013580430793
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0027500013580430793
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0023347653516832614
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0021820840672796553
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0012375005547590834
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 9.548614963129277e-08
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "toeplitz",
+      "units": "all",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 79,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529455450854562,
+        "ANE": 0.995470544549147,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489983410657999
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.2841188897295669
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.2242161405306332
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040622202373396
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04735320411618745
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425501976960774
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0036425501976960774
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0030925439249236144
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0028903079365441013
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0016391475143104604
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0276290861167784e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    },
+    {
+      "variant": "toeplitz",
+      "units": "ne",
+      "preferred_operation_counts": {
+        "CPU": 2,
+        "ANE": 79,
+        "unknown": 1
+      },
+      "relative_predicted_cost_by_preferred_device": {
+        "CPU": 0.004529455450854562,
+        "ANE": 0.995470544549147,
+        "unknown": 0
+      },
+      "operators": [
+        {
+          "operator": "ios18.conv",
+          "preferred": "ANE",
+          "count": 33,
+          "estimated_cost_weight_sum": 0.3489983410658
+        },
+        {
+          "operator": "ios18.tanh",
+          "preferred": "ANE",
+          "count": 18,
+          "estimated_cost_weight_sum": 0.2841188897295671
+        },
+        {
+          "operator": "ios18.add",
+          "preferred": "ANE",
+          "count": 7,
+          "estimated_cost_weight_sum": 0.2242161405306332
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.08040622202373397
+        },
+        {
+          "operator": "ios16.reduce_mean",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 0.04735320411618747
+        },
+        {
+          "operator": "pixel_shuffle",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003642550197696078
+        },
+        {
+          "operator": "ios18.clip",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003642550197696078
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "ANE",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.003092543924923615
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0028903079365441018
+        },
+        {
+          "operator": "ios18.cast",
+          "preferred": "CPU",
+          "count": 1,
+          "estimated_cost_weight_sum": 0.0016391475143104606
+        },
+        {
+          "operator": "ios18.sigmoid",
+          "preferred": "ANE",
+          "count": 6,
+          "estimated_cost_weight_sum": 1.0276290861167784e-07
+        },
+        {
+          "operator": "ios18.mul",
+          "preferred": "unknown",
+          "count": 1,
+          "estimated_cost_weight_sum": 0
+        }
+      ]
+    }
+  ],
+  "caution": "MLComputePlan cost is a static relative estimate; it does not measure GPU/ANE occupancy or power. Times include completed input/output CI rendering, exclude decode/audio, from four repeated synthetic frames."
+}

@@ -1,0 +1,7 @@
+START ffzy 怪奇物语第一季 catalog=24151
+READY ffzy after 5.18s
+PASS ffzy position=20.04s decoded=1920x960 frames=194 error=none
+START mdzy 怪奇物语第一季 catalog=10734
+READY mdzy after 2.62s
+PASS mdzy position=19.96s decoded=1024x576 frames=195 error=none
+HEADLESS_NETWORK_PLAYBACK_FAIL — not UI/GPU presentation validation

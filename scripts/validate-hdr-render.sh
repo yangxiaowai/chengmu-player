@@ -37,5 +37,5 @@ if [[ "$mode" == red ]]; then
   git show HEAD:Sources/CinemaApp/VideoSurface.swift > "$surface"
   : > "$policy"
 fi
-swiftc "${flags[@]}" -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$fixture_dir" -L "$fixture_dir" -lCinemaCore -Xlinker -rpath -Xlinker "$fixture_dir" $policy "$surface" Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift scripts/validation/hdr-render/main.swift -o "$fixture_dir/check"
+swiftc "${flags[@]}" -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$fixture_dir" -L "$fixture_dir" -lCinemaCore -Xlinker -rpath -Xlinker "$fixture_dir" $policy "$surface" Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift scripts/validation/hdr-render/main.swift -o "$fixture_dir/check"
 "$fixture_dir/check" "$fixture_dir" "$report" "http://127.0.0.1:$(cat "$fixture_dir/port")/sdr.m3u8"

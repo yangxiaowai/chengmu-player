@@ -71,6 +71,8 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
     private var reportedSize = CGSize.zero
     private var nativeRouteToken = UUID()
     private(set) var diagnosticState = VideoSurfaceDiagnosticState()
+    /// Main-actor snapshot of current counters; read-only and does not mutate or publish state.
+    @MainActor var diagnosticMetrics: EnhancementMetrics { metrics }
     /// Set by the player when local ad recognition should reuse this surface's decoded frames.
     var onScanFrame: ((CGImage, Double) -> Void)?
     private var lastScanHandoff: CFTimeInterval = 0
@@ -88,6 +90,9 @@ final class CinemaVideoView: NSView, MTKViewDelegate {
             let pipeline = try EnhancementPipeline(); self.pipeline = pipeline
             let view = MTKView(frame: bounds, device: pipeline.device)
             view.framebufferOnly = false; view.colorPixelFormat = .rgba16Float
+            // draw(in:) writes sRGB code values. A float drawable without this tag can
+            // be presented as linear light, lifting shadows even when pipeline pixels match.
+            view.colorspace = pipeline.colorSpace
             view.clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
             view.isPaused = true; view.enableSetNeedsDisplay = false
             view.delegate = self; view.isHidden = true

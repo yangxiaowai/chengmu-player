@@ -1,0 +1,71 @@
+{
+  "variant": "eca2d",
+  "input": [
+    1280,
+    720
+  ],
+  "output": [
+    2560,
+    1440
+  ],
+  "source": {
+    "repository": "https://github.com/EvgeneyBogatyrev/EfRLFN",
+    "commit": "1f7f3678f1bd7ba04ca8ccb04726eef71bf8520a",
+    "files_sha256": {
+      "code/utils.py": "13c2895209ec710cb1850d1e3f666a670ac5aaa3d6f15109e3af8bf1f824a361",
+      "code/blocks.py": "d893a498885fdf357841a4ee2a6c5086294bedec253f486b13aa9ab2f26d5ce7",
+      "code/model.py": "bc096ea24c6abe2160f3b782478f03bf7af2d56617a58f4ff7a87be878d23338",
+      "LICENSE": "7e124f1726b1b7800d9a82882e97226bf6f392819c279b8805059018e4e770df"
+    },
+    "checkpoint": {
+      "url": "https://drive.google.com/file/d/1VeoW94hN1X-8kxGXQSyR53YzRqF1htKQ/view",
+      "sha256": "fbfd1bb37973d2b8b53493c5b91c0ef106f74d200115250a8a025b8e6a121cb3",
+      "size_bytes": 1968047
+    },
+    "license": "MIT, Copyright (c) 2026 MSU Graphics & Media Lab"
+  },
+  "parity": [
+    {
+      "fixture": "random64",
+      "input_shape": [
+        1,
+        3,
+        64,
+        64
+      ],
+      "unclipped_FP32_max_abs": 0.0,
+      "unclipped_FP32_mean_abs": 0.0
+    },
+    {
+      "fixture": "compressed-film-24",
+      "input_shape": [
+        1,
+        3,
+        200,
+        480
+      ],
+      "unclipped_FP32_max_abs": 0.0,
+      "unclipped_FP32_mean_abs": 0.0
+    }
+  ],
+  "MIL_operator_counts": {
+    "const": 256,
+    "mul": 8,
+    "cast": 2,
+    "conv": 33,
+    "tanh": 18,
+    "add": 7,
+    "reduce_mean": 6,
+    "transpose": 12,
+    "sigmoid": 6,
+    "pixel_shuffle": 1,
+    "clip": 1
+  },
+  "files_sha256": {
+    "Data/com.apple.CoreML/model.mlmodel": "41605d816081095326edd720674296d36f9a524a81eee990039d28b2f39cae6f",
+    "Data/com.apple.CoreML/weights/weight.bin": "409c341247d74a465dfaac7d626923bc755044f8ef2029ea2cffdc99f1687434",
+    "Manifest.json": "3fad6a4200cfad9f0daf8b4ab2e099504d87adfbf0eac47c118c2d27431d2933"
+  },
+  "torch": "2.7.0",
+  "coremltools": "9.0"
+}

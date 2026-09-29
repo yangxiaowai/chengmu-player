@@ -1,0 +1,42 @@
+{
+  "scope": "Provenance of pre-existing fixed baseline CoreML packages reused in the 2026-09-29 run; same hash-checked official weights as converter records.",
+  "baseline_artifacts": {
+    "1280": {
+      "Data/com.apple.CoreML/model.mlmodel": {
+        "bytes": 59242,
+        "sha256": "daf6ddf2dc0c73bb47d963dff3d96299cf5741683615ef0c233b383dd932028a"
+      },
+      "Data/com.apple.CoreML/weights/weight.bin": {
+        "bytes": 978968,
+        "sha256": "409c341247d74a465dfaac7d626923bc755044f8ef2029ea2cffdc99f1687434"
+      },
+      "Manifest.json": {
+        "bytes": 617,
+        "sha256": "cae14738dcc98993281e69d8d404829c9c0accf7d03172f797cc2a8f94c0efbf"
+      }
+    },
+    "1920": {
+      "Data/com.apple.CoreML/model.mlmodel": {
+        "bytes": 59242,
+        "sha256": "a897ffca4672b8f6e7867c1e803b14683ae33564a503edf56e5797d63755c62d"
+      },
+      "Data/com.apple.CoreML/weights/weight.bin": {
+        "bytes": 978968,
+        "sha256": "409c341247d74a465dfaac7d626923bc755044f8ef2029ea2cffdc99f1687434"
+      },
+      "Manifest.json": {
+        "bytes": 617,
+        "sha256": "7a3d4986d3d45b77088edd8bbed7d48d71b14ae9ccd71141bcf12b30d70d9c3a"
+      }
+    }
+  },
+  "environment": {
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A428\n",
+    "cpu": "Apple M4",
+    "memory_bytes": 17179869184,
+    "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+    "device": "Apple M4",
+    "color_domain": "Explicit sRGB input/output, extendedLinearSRGB CI working space",
+    "new_artifacts_total_bytes": 60338584
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": "0.3.3",
+  "build": "15",
+  "app": "dist/映川.app",
+  "archive": "dist/映川-v0.3.3.zip",
+  "bundle_identifier": "local.yingchuan.cinema",
+  "architecture": "arm64",
+  "app_files": [
+    {
+      "path": "Contents/Info.plist",
+      "size": 869,
+      "sha256": "aa5f8f79d1fab8f1a4a11fc42b99f409d59de4980fcb863d9b030964260a5b25"
+    },
+    {
+      "path": "Contents/MacOS/Cinema",
+      "size": 6066784,
+      "sha256": "854b15f7c95c7bb73c4f4603c49db707e6c1725b3c3bd9a9685a73d0b7d9d4a0"
+    },
+    {
+      "path": "Contents/Resources/AppIcon.icns",
+      "size": 385189,
+      "sha256": "c4cdb5b669fee8d87de725d31fa614278702faf4306cc4a9d3d994a9c07f720f"
+    },
+    {
+      "path": "Contents/_CodeSignature/CodeResources",
+      "size": 2446,
+      "sha256": "e5133b46d39878e12cff29054b8ba89744ffcf4d8c9d92b4b7d486bf63c4a4c8"
+    }
+  ],
+  "archive_size": 1776904,
+  "archive_sha256": "77eb7e0dc228a3320cf06ef0e56050c7d271008348d06bec879ee3717e7aa54d",
+  "archive_crc_and_bytes_match": true,
+  "archive_utf8_names": true,
+  "ditto_extracted_codesign_and_mode_passed": true,
+  "previous_0_3_2_bytes_unchanged": true,
+  "notes": [
+    "Local ad-hoc signature; not notarization or App Store distribution.",
+    "No library-history hash claim: no pre-turn snapshot was taken.",
+    "Release includes explicit sRGB presentation tag after visible UI verification."
+  ]
+}

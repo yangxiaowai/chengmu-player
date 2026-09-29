@@ -22,7 +22,7 @@ enum EnhancementMode: String, CaseIterable, Identifiable {
         switch self {
         case .original: return "系统硬件解码与原始画面"
         case .temporal: return "利用前帧减轻噪点，保留原始尺寸；需要 macOS 26"
-        case .restoration: return "先时域降噪，再按系统支持倍率超分；无可用倍率时保留降噪结果"
+        case .restoration: return "先时域降噪，支持时使用 Apple AI；再以细节保护插值放大至最高 4K"
         case .clarity: return "轻度降噪，不叠加锐化，保持原始尺寸"
         case .upscale4K: return "降噪后平滑放大至最高 4K，不增加原片没有的细节"
         case .appleAI: return "按设备与输入尺寸查询真实 AI 倍率，不支持时回退"
@@ -77,6 +77,7 @@ final class EnhancementPipeline {
     private var aiKey = ""
     private var temporalSession: AnyObject?
     private var temporalKey = ""
+    private var detailScaler: DetailScaler?
     init() throws {
         guard let device = MTLCreateSystemDefaultDevice(), let queue = device.makeCommandQueue() else {
             throw EnhancementError.unavailable("当前设备没有可用 Metal GPU")
@@ -154,14 +155,28 @@ final class EnhancementPipeline {
                 }
             }
         }
-        // Always materialize the enhanced base through the same render graph. Compositing cleanup
-        // into a lazy Core Image graph can change rounding outside its ROI (notably after bicubic
-        // scaling), so accepted patches are applied later with bounded texture copies.
+        let detailTarget = QualityPolicy.target4K(width: output.width, height: output.height)
+        let usesDetailScaling = mode == .restoration && detailTarget != output
+        if usesDetailScaling {
+            output = detailTarget
+            if !useScaler { label = usedTemporalHistory ? "时域降噪" : "原帧（时域参考建立中）" }
+            label += " + 细节缩放（非 AI）"
+        }
+        // Finish the enhanced base before cleanup. Applying patches with bounded copies
+        // preserves exact pixels outside the selection, regardless of the scaling path.
         let decision = AdCleanupPolicy.evaluate(cleanup, width: output.width, height: output.height)
         let description = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: output.width, height: output.height, mipmapped: false)
         description.usage = [.shaderRead, .shaderWrite, .renderTarget]
-        guard let texture = device.makeTexture(descriptor: description), let command = queue.makeCommandBuffer() else { throw EnhancementError.unavailable("GPU 画面缓冲分配失败") }
-        context.render(image, to: texture, commandBuffer: command, bounds: CGRect(x: 0, y: 0, width: output.width, height: output.height), colorSpace: colorSpace)
+        guard let command = queue.makeCommandBuffer() else { throw EnhancementError.unavailable("GPU 画面提交失败") }
+        let texture: MTLTexture
+        if usesDetailScaling {
+            if detailScaler == nil { detailScaler = try DetailScaler(device: device) }
+            texture = try detailScaler!.encode(image, width: output.width, height: output.height, context: context, command: command)
+        } else {
+            guard let rendered = device.makeTexture(descriptor: description) else { throw EnhancementError.unavailable("GPU 画面缓冲分配失败") }
+            texture = rendered
+            context.render(image, to: texture, commandBuffer: command, bounds: CGRect(x: 0, y: 0, width: output.width, height: output.height), colorSpace: colorSpace)
+        }
         command.commit(); command.waitUntilCompleted()
         guard command.status == .completed else { throw EnhancementError.unavailable(command.error?.localizedDescription ?? "GPU 帧处理失败") }
         var resultTexture = texture

@@ -1,0 +1,96 @@
+{
+  "scope": "Static archive inspection only; no network, media, or GPU rerun.",
+  "checks": {
+    "no_user_home_paths": true,
+    "no_email_addresses": true,
+    "no_public_or_private_ipv4_literals": true,
+    "no_playback_url_values": true,
+    "no_account_or_auth_values": true,
+    "no_trailing_whitespace": true,
+    "json_and_jsonl_valid": true
+  },
+  "playback_url_fields_removed": 2,
+  "original_aggregate_failure_preserved": true,
+  "files": [
+    {
+      "name": "README.md",
+      "bytes": 5132,
+      "sha256": "fc4b5a9a08bdc919f3e5274ba9db4fac70a88c8e3a878bcc3fd90c53e865d23b"
+    },
+    {
+      "name": "core-tests.log",
+      "bytes": 31469,
+      "sha256": "febd2c2c6fc22fabeb1346801ef2bd8095f8a42cea63246062ca37b4ae29ce75"
+    },
+    {
+      "name": "homepage-catalog.jsonl",
+      "bytes": 1304,
+      "sha256": "d380618907629f080e56ff033671cc3945c3e57a8792180b7cfa471e959292b9"
+    },
+    {
+      "name": "homepage-catalog.swift",
+      "bytes": 714,
+      "sha256": "bedc0df47b58cbf89b62549129cdc39ad30cfce727701fdd6270b08048a9b69a"
+    },
+    {
+      "name": "network-playback-original.json",
+      "bytes": 19831,
+      "sha256": "81be249a7d83327fe5ebb8265f6145ec4817f400dcf5a60115f55eff684d12b7"
+    },
+    {
+      "name": "network-playback-original.log",
+      "bytes": 340,
+      "sha256": "a16bd7497ac6067a4e8c14cb9fd8a9f2b0ad760a544b5c73da71e9ae13ad65b0"
+    },
+    {
+      "name": "network-playback-summary.json",
+      "bytes": 1041,
+      "sha256": "e20827f8c098f23fd2db04017049aba2fc9f146965b430a1f0acac9506762e7e"
+    },
+    {
+      "name": "network-playback.swift",
+      "bytes": 11377,
+      "sha256": "76fe5bfb11caf3ed714af4d074325d1c5d924d7f48f3098bb7ec6dc60a390789"
+    },
+    {
+      "name": "ruyi-empty-green.json",
+      "bytes": 132,
+      "sha256": "296c04c60fa5a8b16e8357b5c67fed5ddb4db71b1473bf16f60cfb0682719c03"
+    },
+    {
+      "name": "ruyi-empty-live-fixed.json",
+      "bytes": 127,
+      "sha256": "783bb9d113d8b2458871b2350b6c9f2fa07981569a80d7f1f66f839e1676104c"
+    },
+    {
+      "name": "ruyi-empty-live-fixed.swift",
+      "bytes": 702,
+      "sha256": "3fe8255ac0edee1ed76ec23d194eca355b10a9f22dfdae06aa11941fab29897f"
+    },
+    {
+      "name": "ruyi-empty-observed-response.json",
+      "bytes": 88,
+      "sha256": "10ecc79fe3d0afb7600248ba6fd2c98f53babce1595adb58ca24242fa4085d59"
+    },
+    {
+      "name": "ruyi-empty-red.json",
+      "bytes": 133,
+      "sha256": "67eb30a1866ccc37058136aa9ef9398f2f6ec0e008eec6059c19755929d155c7"
+    },
+    {
+      "name": "ruyi-empty-regression.swift",
+      "bytes": 1395,
+      "sha256": "e9d624cf259570b2e171b5b5a4595e684aa711e5cca2617a53c215ce1e404495"
+    },
+    {
+      "name": "source-service.jsonl",
+      "bytes": 2527,
+      "sha256": "c6dbbb833f643b5936f6b76bec8190e57870877bed662c53edd03380cf31e9d2"
+    },
+    {
+      "name": "source-service.swift",
+      "bytes": 2098,
+      "sha256": "de593351d0889f12f185ffdbe9f0752c997dde2e48533d517702042b4530a167"
+    }
+  ]
+}

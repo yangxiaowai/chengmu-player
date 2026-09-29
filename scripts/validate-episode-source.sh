@@ -14,7 +14,7 @@ mkdir -p "$(dirname "$report")"
 xcrun swiftc -parse-as-library -swift-version 5 -target "$(uname -m)-apple-macos15.0" \
   -I "$core_directory" -L "$core_directory" -lCinemaCore \
   Sources/CinemaApp/AppModel.swift Sources/CinemaApp/SourceAccessController.swift \
-  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift \
+  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift \
   Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift \
   Tests/AppModelSmoke/EpisodeSourceInteractionSmoke.swift -o "$validation_directory/check"
 validation_status=0

@@ -41,6 +41,30 @@ struct CatalogPageTests {
         #expect(try SourceService.parsePage(data: inferred, provider: provider, requestedPage: 2).pageCount == 3)
     }
 
+    @Test func successfulExplicitlyEmptyNullListIsNotAProviderFailure() throws {
+        // Actual Ruyi empty search response: code 1, zero total/pages, list null.
+        for json in [#"{"code":1,"page":1,"pagecount":0,"limit":20,"total":0,"list":null}"#,
+                     #"{"code":"200","page":"1","pagecount":"0","total":"0","list":null}"#] {
+            let data = Data(json.utf8)
+            let page = try SourceService.parsePage(data: data, provider: provider)
+            #expect(page.titles.isEmpty && page.total == 0 && page.pageCount == 1 && !page.hasMore)
+            #expect(try SourceService.parseSearch(data: data, provider: provider).isEmpty)
+        }
+    }
+
+    @Test func nullListWithoutExplicitSuccessfulEmptyMetadataRemainsInvalid() {
+        for json in [#"{"code":0,"pagecount":0,"total":0,"list":null}"#,
+                     #"{"code":1,"pagecount":1,"total":1,"list":null}"#,
+                     #"{"code":1,"pagecount":0,"list":null}"#,
+                     #"{"code":1,"total":0,"list":null}"#,
+                     #"{"pagecount":0,"total":0,"list":null}"#,
+                     #"{"code":1,"pagecount":0,"total":0}"#] {
+            #expect(throws: (any Error).self) {
+                try SourceService.parsePage(data: Data(json.utf8), provider: provider)
+            }
+        }
+    }
+
     @Test func ignoredPageAndMalformedPaginationAreErrorsRatherThanRepeatedFirstPage() {
         for json in [#"{"page":1,"pagecount":3,"list":[]}"#,
                      #"{"page":2,"pagecount":-1,"list":[]}"#,

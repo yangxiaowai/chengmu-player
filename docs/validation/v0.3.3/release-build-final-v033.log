@@ -1,0 +1,25 @@
+Building for production...
+[Planning deferred tasks]
+[1 / 6]
+[2 / 7] CinemaCore
+[4 / 8] CinemaCore
+<workspace>/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[10 / 12] Cinema-product
+<workspace>/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[12 / 13] Cinema-product
+<workspace>/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+<workspace>/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[14 / 16] Cinema-product
+[15 / 16] Cinema-product
+Build complete! (15.87 sec)
+<workspace>/.build/app-stage-0.3.3.WH0x6S/映川.app: replacing existing signature
+旧版已备份：<workspace>/dist/历史版本/映川-v0.3.3-build15.app
+<workspace>/dist/映川.app

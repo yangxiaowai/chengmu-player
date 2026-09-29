@@ -73,15 +73,17 @@ import CinemaCore
             let b=try fixture(p,w:w,h:h)
             let factors=VTLowLatencySuperResolutionScalerConfiguration.supportedScaleFactors(frameWidth:w,frameHeight:h)
             let available=VTLowLatencySuperResolutionScalerConfiguration.isSupported ? factors.max():nil
-            let expectedW=available.map{Int(Float(w)*$0)} ?? w,expectedH=available.map{Int(Float(h)*$0)} ?? h
+            let intermediateW=available.map{Int(Float(w)*$0)} ?? w,intermediateH=available.map{Int(Float(h)*$0)} ?? h
+            let target=QualityPolicy.target4K(width:intermediateW,height:intermediateH)
             let first=try p.process(b,mode:.restoration,time:time(0),streamID:id)
             let warm=try p.process(b,mode:.restoration,time:time(1),streamID:id)
             check("\(w)x\(h) combined warm temporal active",warm.usedTemporalHistory)
-            check("\(w)x\(h) actual output follows queried scale",warm.width==expectedW && warm.height==expectedH,["factors":factors,"expected":[expectedW,expectedH],"output":[warm.width,warm.height]])
+            check("\(w)x\(h) combined reaches aspect-preserving 4K target",warm.width==target.width && warm.height==target.height,["factors":factors,"AI_intermediate":[intermediateW,intermediateH],"expected":[target.width,target.height],"output":[warm.width,warm.height]])
+            check("\(w)x\(h) combined identifies spatial scaling",warm.mode.contains("细节缩放") && warm.mode.contains("非 AI"),["mode":warm.mode])
             if let available {
                 check("\(w)x\(h) combined label has actual factor",warm.mode.contains("时域降噪 + Apple AI ×\(available)") && first.mode.contains("参考建立"),["first_mode":first.mode,"warm_mode":warm.mode])
             } else {
-                check("\(w)x\(h) no AI factor preserves denoised output",warm.mode.contains("无 AI 超分倍率") && warm.width==w && warm.height==h,["mode":warm.mode])
+                check("\(w)x\(h) no AI factor retains temporal denoising without false AI label",warm.mode.contains("时域降噪") && !warm.mode.contains("Apple AI"),["mode":warm.mode])
             }
             reports.append(["input":[w,h],"queried_factors":factors,"output":[warm.width,warm.height],"first_mode":first.mode,"warm_mode":warm.mode,"warm_completed_ms":warm.milliseconds])
         }

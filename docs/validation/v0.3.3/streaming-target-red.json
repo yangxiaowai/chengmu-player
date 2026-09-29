@@ -1,0 +1,166 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+
+      },
+      "name" : "1280x720 combined warm temporal active",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "AI_intermediate" : [
+          1920,
+          1080
+        ],
+        "expected" : [
+          3840,
+          2160
+        ],
+        "factors" : [
+          1.5
+        ],
+        "output" : [
+          1920,
+          1080
+        ]
+      },
+      "name" : "1280x720 combined reaches aspect-preserving 4K target",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 + Apple AI ×1.5"
+      },
+      "name" : "1280x720 combined identifies spatial scaling",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "first_mode" : "Apple AI ×1.5（时域参考建立中）",
+        "warm_mode" : "时域降噪 + Apple AI ×1.5"
+      },
+      "name" : "1280x720 combined label has actual factor",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "1920x1080 combined warm temporal active",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "AI_intermediate" : [
+          1920,
+          1080
+        ],
+        "expected" : [
+          3840,
+          2160
+        ],
+        "factors" : [
+
+        ],
+        "output" : [
+          1920,
+          1080
+        ]
+      },
+      "name" : "1920x1080 combined reaches aspect-preserving 4K target",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率"
+      },
+      "name" : "1920x1080 combined identifies spatial scaling",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率"
+      },
+      "name" : "1920x1080 no AI factor retains temporal denoising without false AI label",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "quarter rotation initializes correct native dimensions",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "dimension change drops old rotated reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "ci_extent" : [
+          692,
+          461
+        ],
+        "output" : [
+          692,
+          461
+        ]
+      },
+      "name" : "non-quarter rotation follows actual raster extent",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "arbitrary rotation does not contaminate next landscape session",
+      "passed" : true
+    }
+  ],
+  "cleanup_cases" : [
+
+  ],
+  "device" : "Apple M4",
+  "failed_checks" : 4,
+  "os" : "Version 27.0 (Build 26A428)",
+  "passed" : false,
+  "scaling_cases" : [
+    {
+      "first_mode" : "Apple AI ×1.5（时域参考建立中）",
+      "input" : [
+        1280,
+        720
+      ],
+      "output" : [
+        1920,
+        1080
+      ],
+      "queried_factors" : [
+        1.5
+      ],
+      "warm_completed_ms" : 26.805875007994473,
+      "warm_mode" : "时域降噪 + Apple AI ×1.5"
+    },
+    {
+      "first_mode" : "原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率",
+      "input" : [
+        1920,
+        1080
+      ],
+      "output" : [
+        1920,
+        1080
+      ],
+      "queried_factors" : [
+
+      ],
+      "warm_completed_ms" : 26.122124982066453,
+      "warm_mode" : "时域降噪 · 当前尺寸无 AI 超分倍率"
+    }
+  ],
+  "scope" : "Real production EnhancementPipeline and TemporalRestorer on synthetic SDR CVPixelBuffers; native\/GPU completion and pixel readback. No app UI, network decoding, audio sync, real-film or sustained-playback validation."
+}

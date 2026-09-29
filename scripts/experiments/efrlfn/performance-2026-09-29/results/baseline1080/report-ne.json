@@ -1,0 +1,40 @@
+{
+  "compile_and_load_ms" : 1335.0271249655634,
+  "device" : "Apple M4",
+  "input_description" : "[\"image\": image : Image (Color, 1920 x 1080)]",
+  "output_description" : "[\"restored\": restored : Image (Color, 3840 x 2160)]",
+  "results" : [
+    {
+      "completed_frames" : 4,
+      "input" : [
+        1920,
+        1080
+      ],
+      "model_ms" : [
+        421.14737501833588,
+        312.36416671890765,
+        312.37099994905293,
+        312.24837503395975
+      ],
+      "output" : [
+        3840,
+        2160
+      ],
+      "output_first_last_sha256" : [
+        "4effda682725fc03cd0c3270d1d006dea3684351167570047bfd02eb1dc2cfcc",
+        "4effda682725fc03cd0c3270d1d006dea3684351167570047bfd02eb1dc2cfcc"
+      ],
+      "repeat_identical" : true,
+      "total_ms" : [
+        437.6575417118147,
+        320.52820839453489,
+        320.71512495167553,
+        321.60562498029321
+      ],
+      "warm_max_ms" : 321.60562498029321,
+      "warm_mean_ms" : 320.94965277550119
+    }
+  ],
+  "scope" : "4 repeated synthetic SDR frames per size; CI sRGB input render + synchronous Core ML prediction + completed Metal output render; no decode\/audio\/playback. No FPS claim.",
+  "units" : "ne"
+}

@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "configuration_created" : true,
+      "format" : "bgra8Unorm",
+      "input_usage_bits" : 1,
+      "mode" : 0,
+      "output_usage_bits" : 5
+    },
+    {
+      "configuration_created" : true,
+      "format" : "bgra8Unorm_srgb",
+      "input_usage_bits" : 1,
+      "mode" : 0,
+      "output_usage_bits" : 5
+    },
+    {
+      "configuration_created" : true,
+      "format" : "rgba16Float",
+      "input_usage_bits" : 1,
+      "mode" : 1,
+      "output_usage_bits" : 5
+    },
+    {
+      "configuration_created" : true,
+      "format" : "rgba16Float",
+      "input_usage_bits" : 1,
+      "mode" : 0,
+      "output_usage_bits" : 5
+    }
+  ],
+  "device" : "Apple M4",
+  "input" : [
+    1920,
+    1080
+  ],
+  "os" : "Version 27.0 (Build 26A428)",
+  "output" : [
+    3840,
+    2160
+  ],
+  "scope" : "Read configuration\/capability only. No GPU command encoded or committed. No quality or performance result.",
+  "spatial_supported" : true
+}

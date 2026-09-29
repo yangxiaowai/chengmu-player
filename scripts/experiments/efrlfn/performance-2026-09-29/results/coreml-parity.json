@@ -1,0 +1,42 @@
+{
+  "scope": "one full1280x720 RGB8 input rendered x2; selected still image checks color/FP16 conversion only, not perceptual quality or temporal consistency",
+  "fixture_sha256": "89d2de3a0eae353005245796dbd52215340a0a7859f1fb31e440d3fb83d8fbf9",
+  "results": [
+    {
+      "variant": "eca2d",
+      "shape": [
+        1440,
+        2560,
+        3
+      ],
+      "MAE_RGB8_codes": 0.2656855285167694,
+      "max_RGB8_codes": 1.0918426513671875,
+      "p99_RGB8_codes": 0.6866607666015625,
+      "png_sha256": "1223f6da72173e57af39ab568cd6e8b2f7472044b2107c8b2a4ccefc270853d5"
+    },
+    {
+      "variant": "padded64",
+      "shape": [
+        1440,
+        2560,
+        3
+      ],
+      "MAE_RGB8_codes": 0.2656855285167694,
+      "max_RGB8_codes": 1.0918426513671875,
+      "p99_RGB8_codes": 0.6866607666015625,
+      "png_sha256": "1223f6da72173e57af39ab568cd6e8b2f7472044b2107c8b2a4ccefc270853d5"
+    },
+    {
+      "variant": "toeplitz",
+      "shape": [
+        1440,
+        2560,
+        3
+      ],
+      "MAE_RGB8_codes": 0.2656855285167694,
+      "max_RGB8_codes": 1.0918426513671875,
+      "p99_RGB8_codes": 0.6866607666015625,
+      "png_sha256": "1223f6da72173e57af39ab568cd6e8b2f7472044b2107c8b2a4ccefc270853d5"
+    }
+  ]
+}

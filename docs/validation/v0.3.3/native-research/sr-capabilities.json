@@ -1,0 +1,38 @@
+[
+  {
+    "factor" : 4,
+    "formats" : [
+      "52476841"
+    ],
+    "input" : [
+      640,
+      360
+    ],
+    "model_percentage" : 1,
+    "model_status" : 2
+  },
+  {
+    "factor" : 4,
+    "formats" : [
+      "52476841"
+    ],
+    "input" : [
+      1280,
+      720
+    ],
+    "model_percentage" : 1,
+    "model_status" : 2
+  },
+  {
+    "factor" : 4,
+    "formats" : [
+      "52476841"
+    ],
+    "input" : [
+      1920,
+      1080
+    ],
+    "model_percentage" : 1,
+    "model_status" : 2
+  }
+]

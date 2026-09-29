@@ -1,0 +1,123 @@
+{
+  "checks" : [
+    {
+      "detail" : "sampledMeanMS=19.279213913250715 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "temporal_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=63 mediaAdvanced=3.1275005 fallback=none",
+      "name" : "temporal_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中）",
+      "name" : "temporal_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "temporal_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_resumes_after_comparison",
+      "passed" : true
+    },
+    {
+      "detail" : "sampledMeanMS=26.72722499119118 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "restoration_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=75 mediaAdvanced=3.1132877920000004 fallback=none",
+      "name" : "restoration_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "input=1920x1080 completedOutput=3840x2160",
+      "name" : "restoration_outputs_actual_3840x2160",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_non_ai_detail_scaling",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中） + 细节缩放（非 AI）",
+      "name" : "restoration_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + 细节缩放（非 AI）",
+      "name" : "restoration_resumes_after_comparison",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "samples" : [
+    {
+      "completedFrames" : 89,
+      "completedFramesPerMediaSecond" : 20.144681442741902,
+      "droppedTicks" : 0,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.127376334,
+      "mode" : "temporal",
+      "note" : "Window counts are the delta of published completed-frame counters over media time, not displayed FPS. Processing mean is sampled work duration, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        1920,
+        1080
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.57051549999999995,
+      "sampledProcessingMeanMS" : 19.279213913250715,
+      "source" : [
+        1920,
+        1080
+      ],
+      "windowCompletedFrames" : 63
+    },
+    {
+      "completedFrames" : 103,
+      "completedFramesPerMediaSecond" : 24.090568333616101,
+      "droppedTicks" : 11,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1132515830000003,
+      "mode" : "restoration",
+      "note" : "Window counts are the delta of published completed-frame counters over media time, not displayed FPS. Processing mean is sampled work duration, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        3840,
+        2160
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.57434154199999998,
+      "sampledProcessingMeanMS" : 26.727224991191179,
+      "source" : [
+        1920,
+        1080
+      ],
+      "windowCompletedFrames" : 75
+    }
+  ],
+  "scope" : "Headless real AVPlayer + CinemaVideoView on synthetic tagged SDR 1920x1080 at nominal 24.0 fps. Completed processing \/ reported completed-frame dimensions \/ frame routing \/ paused seek \/ original comparison. No visible screen, audible sync or long-film validation.",
+  "source" : {
+    "height" : 1080,
+    "nominalFrameRate" : 24,
+    "width" : 1920
+  }
+}

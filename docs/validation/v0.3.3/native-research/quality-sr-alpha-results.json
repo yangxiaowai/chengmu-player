@@ -1,0 +1,149 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "frames" : [
+        {
+          "destination_attributes" : "[\"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 2560, \"Height\": 1440]",
+          "frame" : 0,
+          "layout" : {
+            "bits_first_16" : [
+              "2f94",
+              "31ad",
+              "336c",
+              "ffff",
+              "2eff",
+              "3162",
+              "3322",
+              "ffff",
+              "2fdf",
+              "31cf",
+              "33a2",
+              "ffff",
+              "2f82",
+              "31a0",
+              "3373",
+              "ffff"
+            ],
+            "plane_count" : 0,
+            "row_bytes" : 20480,
+            "size_bytes" : 29491200
+          },
+          "raw_corner_rgba" : [
+            "0.120666504",
+            "0.17919922",
+            "0.23620605",
+            "nan"
+          ],
+          "raw_max" : [
+            "0.96777344",
+            "0.96875",
+            "0.96728516",
+            "-3.4028235e+38"
+          ],
+          "raw_min" : [
+            "0.0149383545",
+            "0.016311646",
+            "0.014732361",
+            "3.4028235e+38"
+          ],
+          "raw_output_format" : 1380411457,
+          "source_attributes" : "[\"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 640, \"Height\": 360]",
+          "thumbnail" : [
+            {
+              "alpha_min" : 0,
+              "force_alpha_one" : false,
+              "rgb_max" : 0
+            },
+            {
+              "alpha_min" : 0,
+              "force_alpha_one" : true,
+              "rgb_max" : 0
+            }
+          ]
+        },
+        {
+          "complete_input_to_texture_ms" : 392.23295834381133,
+          "final_texture_and_optional_downscale_ms" : 2.4889583000913262,
+          "frame" : 0,
+          "native_model_completed_ms" : 361.29816668108106
+        },
+        {
+          "destination_attributes" : "[\"IOSurfaceProperties\": {\n}, \"Height\": 1440, \"Width\": 2560, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+          "frame" : 1,
+          "layout" : {
+            "bits_first_16" : [
+              "2fa7",
+              "31b6",
+              "3375",
+              "ffff",
+              "2f12",
+              "316c",
+              "332b",
+              "ffff",
+              "2ff1",
+              "31d8",
+              "33ab",
+              "ffff",
+              "2f82",
+              "31a0",
+              "3373",
+              "ffff"
+            ],
+            "plane_count" : 0,
+            "row_bytes" : 20480,
+            "size_bytes" : 29491200
+          },
+          "raw_corner_rgba" : [
+            "0.109313965",
+            "0.16821289",
+            "0.22290039",
+            "nan"
+          ],
+          "raw_max" : [
+            "0.96777344",
+            "0.96875",
+            "0.96728516",
+            "-3.4028235e+38"
+          ],
+          "raw_min" : [
+            "0.0149383545",
+            "0.016311646",
+            "0.014732361",
+            "3.4028235e+38"
+          ],
+          "raw_output_format" : 1380411457,
+          "source_attributes" : "[\"IOSurfaceProperties\": {\n}, \"Height\": 360, \"Width\": 640, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+          "thumbnail" : [
+            {
+              "alpha_min" : 0,
+              "force_alpha_one" : false,
+              "rgb_max" : 0
+            },
+            {
+              "alpha_min" : 0,
+              "force_alpha_one" : true,
+              "rgb_max" : 0
+            }
+          ]
+        },
+        {
+          "complete_input_to_texture_ms" : 240.44379161205143,
+          "final_texture_and_optional_downscale_ms" : 2.5395833654329181,
+          "frame" : 1,
+          "native_model_completed_ms" : 220.63483332749456
+        }
+      ],
+      "input" : [
+        640,
+        360
+      ],
+      "native_output" : [
+        2560,
+        1440
+      ],
+      "setup_ms" : 7067.8017917089164
+    }
+  ],
+  "scope" : "Native quality4x; first+3 sequential frames; no model download. GPU completed output, no playback\/sync\/quality claim."
+}

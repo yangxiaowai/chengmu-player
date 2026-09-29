@@ -1,0 +1,2534 @@
+{
+  "available_devices" : [
+    "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+    "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+    "<MLCPUComputeDevice: 0x7b028ad060>"
+  ],
+  "compile_and_plan_ms" : 759.27662500180304,
+  "model" : ".build\/restoration-performance-2026-09-29\/toeplitz-1280x720.mlpackage",
+  "operations" : [
+    {
+      "operator" : "const",
+      "outputs" : [
+        "image__scaled___y_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0028903079365441013,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "image__scaled__"
+      ],
+      "preferred" : "<MLCPUComputeDevice: 0x7b028ad060>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_3"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "image_to_fp16_dtype_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_1_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_1_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0016391475143104604,
+      "operator" : "ios18.cast",
+      "outputs" : [
+        "image_to_fp16"
+      ],
+      "preferred" : "<MLCPUComputeDevice: 0x7b028ad060>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0022129709669841922,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_1_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_1_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_3_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_3_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_5_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_5_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_7_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_7_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_9_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_11_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_11_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_11_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_70_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_70_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_70_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_70_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_70_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_70_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_71_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_13_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_9_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_15_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_11_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_17_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_13_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_15_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_19_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_21_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_21_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_21_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_21_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_21_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_21_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_23_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_118_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_118_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_118_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_118_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_118_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_118_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_119_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_25_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_17_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_27_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_19_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_29_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_21_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_23_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_31_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_33_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_33_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_33_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_33_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_33_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_33_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_35_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_35_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_35_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_166_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_166_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_166_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_166_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_166_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_166_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_167_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_37_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_25_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_39_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_27_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_41_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_29_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_31_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_43_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_45_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_45_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_45_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_45_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_45_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_45_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_47_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_47_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_47_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_214_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_214_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_214_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_214_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_214_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_214_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_215_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_49_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_33_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_51_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_35_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_53_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_37_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_39_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_55_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_57_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_57_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_57_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_57_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_57_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_57_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_59_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_59_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_59_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_262_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_262_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_262_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_262_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_262_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_262_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_263_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_61_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_41_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_63_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_43_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_65_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_45_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784382762753717,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_67_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247627551516391,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_69_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_71_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_71_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922006860312425,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "input_71_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_310_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_310_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_310_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_310_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_310_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 6.9004844787455937e-08,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_310_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127151435279641e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "var_311_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.01340103700395566,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "out_b6_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030877218661893,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_73_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_75_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_75_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_75_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_75_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_75_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_2_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_2_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714691736019537,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_75_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_upsampler_0_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_upsampler_0_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0038572365544660477,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0036425501976960774,
+      "operator" : "pixel_shuffle",
+      "outputs" : [
+        "var_329_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_330_promoted_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_331_promoted_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0036425501976960774,
+      "operator" : "ios18.clip",
+      "outputs" : [
+        "clip_0_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_333_to_fp16"
+      ]
+    },
+    {
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "var_334_cast_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_334_cast_fp16_to_fp32_dtype_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0030925439249236144,
+      "operator" : "ios18.cast",
+      "outputs" : [
+        "restored"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x7b028acde0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x7b028ad060>",
+        "<MLGPUComputeDevice: 0x7b028ad050> Apple M4",
+        "<MLNeuralEngineComputeDevice: 0x7b028acde0>"
+      ]
+    }
+  ],
+  "scope" : "Core ML predicted placement and relative operation cost; not runtime utilization counters or milliseconds.",
+  "units" : "all"
+}

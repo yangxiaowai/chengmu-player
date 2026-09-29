@@ -1,0 +1,123 @@
+{
+  "checks" : [
+    {
+      "detail" : "sampledMeanMS=10.036872210912406 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "temporal_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=75 mediaAdvanced=3.119641583 fallback=none",
+      "name" : "temporal_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中）",
+      "name" : "temporal_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "temporal_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_resumes_after_comparison",
+      "passed" : true
+    },
+    {
+      "detail" : "sampledMeanMS=27.32036527013406 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "restoration_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=63 mediaAdvanced=3.1321727920000004 fallback=none",
+      "name" : "restoration_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "input=1280x720 completedOutput=3840x2160",
+      "name" : "restoration_outputs_actual_3840x2160",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_non_ai_detail_scaling",
+      "passed" : true
+    },
+    {
+      "detail" : "Apple AI ×1.5（时域参考建立中） + 细节缩放（非 AI）",
+      "name" : "restoration_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_comparison_detaches_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）",
+      "name" : "restoration_resumes_after_comparison",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "samples" : [
+    {
+      "completedFrames" : 102,
+      "completedFramesPerMediaSecond" : 24.041782371297167,
+      "droppedTicks" : 0,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1195690420000002,
+      "mode" : "temporal",
+      "note" : "Window counts are the delta of published completed-frame counters over media time, not displayed FPS. Processing mean is sampled work duration, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        1280,
+        720
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.47392675033333331,
+      "sampledProcessingMeanMS" : 10.036872210912406,
+      "source" : [
+        1280,
+        720
+      ],
+      "windowCompletedFrames" : 75
+    },
+    {
+      "completedFrames" : 90,
+      "completedFramesPerMediaSecond" : 20.11409106432453,
+      "droppedTicks" : 3,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1321325829999997,
+      "mode" : "restoration",
+      "note" : "Window counts are the delta of published completed-frame counters over media time, not displayed FPS. Processing mean is sampled work duration, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        3840,
+        2160
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.56696229100000006,
+      "sampledProcessingMeanMS" : 27.320365270134062,
+      "source" : [
+        1280,
+        720
+      ],
+      "windowCompletedFrames" : 63
+    }
+  ],
+  "scope" : "Headless real AVPlayer + CinemaVideoView on synthetic tagged SDR 1280x720 at nominal 24.0 fps. Completed processing \/ reported completed-frame dimensions \/ frame routing \/ paused seek \/ original comparison. No visible screen, audible sync or long-film validation.",
+  "source" : {
+    "height" : 720,
+    "nominalFrameRate" : 24,
+    "width" : 1280
+  }
+}

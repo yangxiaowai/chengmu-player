@@ -1,0 +1,163 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "display_output" : [
+        2560,
+        1440
+      ],
+      "frames" : [
+        {
+          "complete_input_to_texture_ms" : 977.25466673728079,
+          "final_texture_and_optional_downscale_ms" : 5.4414583137258887,
+          "frame" : 0,
+          "native_model_completed_ms" : 959.25187494140118
+        },
+        {
+          "complete_input_to_texture_ms" : 275.37366666365415,
+          "final_texture_and_optional_downscale_ms" : 4.0019999723881483,
+          "frame" : 1,
+          "native_model_completed_ms" : 270.17116663046181
+        },
+        {
+          "complete_input_to_texture_ms" : 273.7362083280459,
+          "final_texture_and_optional_downscale_ms" : 6.1147500528022647,
+          "frame" : 2,
+          "native_model_completed_ms" : 266.48020825814456
+        },
+        {
+          "complete_input_to_texture_ms" : 289.59687508177012,
+          "final_texture_and_optional_downscale_ms" : 4.3020832818001509,
+          "frame" : 3,
+          "native_model_completed_ms" : 280.23379156365991
+        }
+      ],
+      "input" : [
+        640,
+        360
+      ],
+      "last_background_rgba" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "native_output" : [
+        2560,
+        1440
+      ],
+      "native_scale_factor" : 4,
+      "setup_ms" : 7983.1060833530501,
+      "warm_mean_model_ms" : 272.29505548408878,
+      "warm_mean_total_ms" : 279.56891669115674
+    },
+    {
+      "display_output" : [
+        3840,
+        2160
+      ],
+      "frames" : [
+        {
+          "complete_input_to_texture_ms" : 726.9519999390468,
+          "final_texture_and_optional_downscale_ms" : 5.0878332694992423,
+          "frame" : 0,
+          "native_model_completed_ms" : 719.42387497983873
+        },
+        {
+          "complete_input_to_texture_ms" : 556.20724998880178,
+          "final_texture_and_optional_downscale_ms" : 5.6607916485518217,
+          "frame" : 1,
+          "native_model_completed_ms" : 549.23500004224479
+        },
+        {
+          "complete_input_to_texture_ms" : 559.72420831676573,
+          "final_texture_and_optional_downscale_ms" : 7.4707500170916319,
+          "frame" : 2,
+          "native_model_completed_ms" : 547.28116665501148
+        },
+        {
+          "complete_input_to_texture_ms" : 555.08495843969285,
+          "final_texture_and_optional_downscale_ms" : 6.2007500091567636,
+          "frame" : 3,
+          "native_model_completed_ms" : 545.36037496291101
+        }
+      ],
+      "input" : [
+        960,
+        540
+      ],
+      "last_background_rgba" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "native_output" : [
+        3840,
+        2160
+      ],
+      "native_scale_factor" : 4,
+      "setup_ms" : 7144.8300416814163,
+      "warm_mean_model_ms" : 547.29218055338913,
+      "warm_mean_total_ms" : 557.00547224842012
+    },
+    {
+      "display_output" : [
+        3840,
+        2160
+      ],
+      "frames" : [
+        {
+          "complete_input_to_texture_ms" : 1141.3251665653661,
+          "final_texture_and_optional_downscale_ms" : 28.630750020965934,
+          "frame" : 0,
+          "native_model_completed_ms" : 1102.6479166466743
+        },
+        {
+          "complete_input_to_texture_ms" : 1000.7942500524223,
+          "final_texture_and_optional_downscale_ms" : 17.068833345547318,
+          "frame" : 1,
+          "native_model_completed_ms" : 981.71504167839885
+        },
+        {
+          "complete_input_to_texture_ms" : 963.03666674066335,
+          "final_texture_and_optional_downscale_ms" : 17.05845829565078,
+          "frame" : 2,
+          "native_model_completed_ms" : 944.12445835769176
+        },
+        {
+          "complete_input_to_texture_ms" : 997.12275003548712,
+          "final_texture_and_optional_downscale_ms" : 14.590791659429669,
+          "frame" : 3,
+          "native_model_completed_ms" : 980.9424999402836
+        }
+      ],
+      "input" : [
+        1280,
+        720
+      ],
+      "last_background_rgba" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "native_output" : [
+        5120,
+        2880
+      ],
+      "native_scale_factor" : 4,
+      "setup_ms" : 7210.0848333211616,
+      "warm_mean_model_ms" : 968.92733332545811,
+      "warm_mean_total_ms" : 986.98455560952425
+    },
+    {
+      "input" : [
+        1920,
+        1080
+      ],
+      "skipped" : "Earlier full pipeline warm mean exceeds30ms or failed; no 8K workload initiated"
+    }
+  ],
+  "scope" : "Native quality4x; first+3 sequential frames; no model download. GPU completed output, no playback\/sync\/quality claim."
+}

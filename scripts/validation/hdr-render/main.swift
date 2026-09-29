@@ -2,6 +2,7 @@ import Foundation
 import AppKit
 import AVFoundation
 import CoreVideo
+import MetalKit
 import CinemaCore
 
 @main struct HDRRendererSmoke {
@@ -15,6 +16,10 @@ import CinemaCore
   let item = AVPlayerItem(url: folder.appendingPathComponent("sdr709.mp4"))
   let player = AVPlayer(playerItem: item); player.isMuted = true
   let view = CinemaVideoView(frame: CGRect(x:0,y:0,width:640,height:360))
+  let display = view.subviews.compactMap { $0 as? MTKView }.first
+  let renderSpace = try EnhancementPipeline().colorSpace
+  check("drawable_color_tag_matches_pipeline_srgb_encoding", display?.colorspace == renderSpace,
+        "drawable=\(String(describing: display?.colorspace?.name)) render=\(String(describing: renderSpace.name))")
   var latest = EnhancementMetrics()
   view.configure(player:player,mode:.clarity,generation:UUID(),onMetrics:{latest=$0})
 #if !HDR_RENDER_BASELINE

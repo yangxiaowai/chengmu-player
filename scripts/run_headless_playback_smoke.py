@@ -31,7 +31,7 @@ stub = root / ".build/headless-permission-stub.swift"
 stub.write_text("import Foundation\nenum VideoProcessingPermission: Equatable { case inspectSDRFrames; case nativeOnly(String) }\n")
 command = ["swiftc", "-parse-as-library", "-target", f"{platform.machine()}-apple-macos15.0",
            "-I", str(library), "-L", str(library), "-lCinemaCore",
-           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift",
+           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift", "Sources/CinemaApp/DetailScaler.swift",
            "Sources/CinemaApp/MediaExperienceInspector.swift", str(stub),
            "Sources/CinemaApp/AdSkipController.swift", "Sources/CinemaApp/AdFrameAnalyzer.swift",
            "Tests/AppModelSmoke/NetworkPlaybackSmoke.swift", "-o", str(binary)]

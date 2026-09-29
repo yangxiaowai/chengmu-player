@@ -44,7 +44,7 @@ struct QualityStudio: View {
             }
             HStack(alignment: .top, spacing: 13) {
                 Image(systemName: "info.circle").foregroundStyle(CinemaStyle.accent)
-                Text("噪点明显时可试时域降噪；同时需要放大时可试流式修复。切镜和拖动进度后会重新建立前帧参考。实际超分倍率取决于设备与片源，无法保证修回所有细节。杜比视界与 HDR 保持原生呈现，处理跟不上时回到原片，播放页显示实际状态。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
+                Text("噪点明显时可试时域降噪；需要放大时可试流式修复：先降噪，系统支持时使用 Apple AI，再用细节保护插值放大至最高 4K。插值部分不是 AI，也不等于恢复原生 4K 细节。切镜和拖动后会重新建立前帧参考。杜比视界与 HDR 保持原生呈现，处理跟不上时回到原片；播放页会显示实际使用的算法。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
             }.padding(.top, 8)
         }
     }

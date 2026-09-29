@@ -1,0 +1,34 @@
+{
+  "rawReport": "network-playback-original.json",
+  "rawHarnessExit": 1,
+  "rawHarnessPassed": false,
+  "harnessIssue": "Temporary two-case adapter retained the original three-case count assertion; individual sample results are unaffected. Source assertion now uses selected cases.count. No media sample was rerun to generate this derived summary.",
+  "expectedCases": 2,
+  "observedCases": 2,
+  "bothIndividualCasesPassed": true,
+  "nativeUIVerified": false,
+  "samples": [
+    {
+      "providerID": "ffzy",
+      "catalogID": "24151",
+      "readyAfterSeconds": 5.179418087005615,
+      "maxPosition": 20.038271457,
+      "decodedFrameCount": 194,
+      "decodedWidth": 1920,
+      "decodedHeight": 960,
+      "error": null,
+      "passed": true
+    },
+    {
+      "providerID": "mdzy",
+      "catalogID": "10734",
+      "readyAfterSeconds": 2.619737982749939,
+      "maxPosition": 19.959829743,
+      "decodedFrameCount": 195,
+      "decodedWidth": 1024,
+      "decodedHeight": 576,
+      "error": null,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "Read-only system asset catalog metadata. No download invoked. Runtime status query separately confirms ready.",
+  "AssetSpecifier": "com.apple.videoeffect.VSR",
+  "AssetVersion": "1.0.0.11.6435,0",
+  "download_bytes": 62259200,
+  "unarchived_bytes": 69414912,
+  "catalog_last_checked": "2026-09-28 13:23:45"
+}

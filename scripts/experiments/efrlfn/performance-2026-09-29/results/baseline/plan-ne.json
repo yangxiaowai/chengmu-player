@@ -1,0 +1,2885 @@
+{
+  "available_devices" : [
+    "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+    "<MLGPUComputeDevice: 0x78a08e9ca0> Apple M4",
+    "<MLCPUComputeDevice: 0x78a08e9cb0>"
+  ],
+  "compile_and_plan_ms" : 767.16991676948965,
+  "model" : ".build\/restoration-coreml-probe\/EfRLFN2-fixed1280.mlpackage",
+  "operations" : [
+    {
+      "operator" : "const",
+      "outputs" : [
+        "image__scaled___y_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0028903077926516166,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "image__scaled__"
+      ],
+      "preferred" : "<MLCPUComputeDevice: 0x78a08e9cb0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_4"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_1_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "image_to_fp16_dtype_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_1_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_1_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.00163914743270635,
+      "operator" : "ios18.cast",
+      "outputs" : [
+        "image_to_fp16"
+      ],
+      "preferred" : "<MLCPUComputeDevice: 0x78a08e9cb0>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0022129708568125782,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_1_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_1_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_1_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_3_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_3_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_3_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_5_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_5_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_5_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_7_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_7_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_9_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_9_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_65_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_65_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_65_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_66_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_66_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_67"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_74_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_74_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_74_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_74_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_74_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_1_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_11_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_74_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_75"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_13_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_76_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_13_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_1_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_15_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_9_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_9_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_17_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_11_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_11_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_19_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_13_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_13_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_15_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_21_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_23_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_23_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_119_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_119_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_119_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_120_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_120_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_121"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_128_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_128_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_128_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_128_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_128_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_2_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_25_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_128_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_129"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_27_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_130_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_27_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_3_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_29_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_17_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_17_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_31_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_19_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_19_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_33_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_21_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_21_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_23_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_35_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_37_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_37_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_37_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_37_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_37_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_37_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_173_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_173_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_173_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_174_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_174_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_175"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_182_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_182_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_182_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_182_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_182_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_3_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_39_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_182_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_183"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_41_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_184_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_41_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_5_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_43_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_25_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_25_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_45_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_27_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_27_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_47_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_29_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_29_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_31_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_49_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_51_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_51_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_51_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_51_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_51_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_51_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_227_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_227_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_227_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_228_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_228_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_229"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_236_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_236_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_236_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_236_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_236_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_4_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_53_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_236_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_237"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_55_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_238_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_55_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_7_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_57_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_33_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_33_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_59_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_35_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_35_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_61_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_37_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_37_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_39_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_63_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_65_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_65_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_65_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_65_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_65_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_65_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_281_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_281_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_281_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_282_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_282_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_283"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_290_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_290_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_290_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_290_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_290_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_5_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_67_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_290_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_291"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_69_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_292_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_69_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_9_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "input_71_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_41_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c1_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c1_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_41_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_73_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_43_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c2_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c2_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_43_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "input_75_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "out_45_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c3_r_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c3_r_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "out_45_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.015784381976936393,
+      "operator" : "ios18.tanh",
+      "outputs" : [
+        "out_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_77_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_79_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_79_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_79_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_79_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_79_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c5_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_c5_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0042247625448240131,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_79_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_335_axes_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_335_keep_dims_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0078922002931221171,
+      "operator" : "ios16.reduce_mean",
+      "outputs" : [
+        "var_335_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_336_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.squeeze",
+      "outputs" : [
+        "var_336_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_337"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_344_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_344_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_344_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_344_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_344_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_block_6_eca_conv_weight_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "input_81_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 3.9810485395433923e-09,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "var_344_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_345"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_83_axes_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.9204084361699041e-08,
+      "operator" : "ios18.transpose",
+      "outputs" : [
+        "var_346_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7456518863048144e-08,
+      "operator" : "ios18.expand_dims",
+      "outputs" : [
+        "input_83_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 1.7127150582613272e-08,
+      "operator" : "ios18.sigmoid",
+      "outputs" : [
+        "y_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.013401036336791969,
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "out_b6_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.032030875624021252,
+      "operator" : "ios18.add",
+      "outputs" : [
+        "input_85_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_87_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_87_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_87_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_87_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_87_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_2_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_conv_2_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.016714690903887264,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_87_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_pad_type_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_pad_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_strides_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_dilations_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "input_groups_0"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_upsampler_0_weight_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "network_upsampler_0_bias_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0038572363624355226,
+      "operator" : "ios18.conv",
+      "outputs" : [
+        "input_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0036425500163536012,
+      "operator" : "pixel_shuffle",
+      "outputs" : [
+        "var_366_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_367_promoted_to_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_368_promoted_to_fp16"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.0036425500163536012,
+      "operator" : "ios18.clip",
+      "outputs" : [
+        "clip_0_cast_fp16"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_370_to_fp16"
+      ]
+    },
+    {
+      "operator" : "ios18.mul",
+      "outputs" : [
+        "var_371_cast_fp16"
+      ]
+    },
+    {
+      "operator" : "const",
+      "outputs" : [
+        "var_371_cast_fp16_to_fp32_dtype_0"
+      ]
+    },
+    {
+      "estimated_cost_weight" : 0.003092543770962916,
+      "operator" : "ios18.cast",
+      "outputs" : [
+        "restored"
+      ],
+      "preferred" : "<MLNeuralEngineComputeDevice: 0x78a08e9a30>",
+      "supported" : [
+        "<MLCPUComputeDevice: 0x78a08e9cb0>",
+        "<MLNeuralEngineComputeDevice: 0x78a08e9a30>"
+      ]
+    }
+  ],
+  "scope" : "Core ML predicted placement and relative operation cost; not runtime utilization counters or milliseconds.",
+  "units" : "ne"
+}
