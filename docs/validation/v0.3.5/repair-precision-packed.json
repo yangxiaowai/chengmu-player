@@ -1,0 +1,63 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+
+      },
+      "name" : "10-bit SDR fixture allowed",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 877
+      },
+      "name" : "fixture really has more than 8-bit precision",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 877
+      },
+      "name" : "production SDR render preserves more than 8-bit gradation",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "rms" : 0.0002681781448267329
+      },
+      "name" : "production SDR render code-value RMS below half one 10-bit step",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "production SDR render remains monotonic and SDR bounded",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 1024
+      },
+      "name" : "detail scaling preserves more than 8-bit gradation",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "rms" : 0.00028431415044072517
+      },
+      "name" : "detail scaling code-value RMS below half one 10-bit step",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "detail scaling remains monotonic and SDR bounded",
+      "passed" : true
+    }
+  ],
+  "device" : "Apple M4",
+  "passed" : true,
+  "scope" : "Tagged 10-bit SDR synthetic ramp; production spatial output and DetailScaler GPU readback, not HDR, panel bit depth or end-to-end playback."
+}

@@ -1,0 +1,91 @@
+{
+  "checks" : [
+    {
+      "detail" : "unknown(\"片源色域未确认（COLORPRIMARIES#2），暂用原片等待后续帧\")",
+      "name" : "unspecified_709",
+      "passed" : false
+    },
+    {
+      "detail" : "unknown(\"片源色域未确认（COLORPRIMARIES#2），暂用原片等待后续帧\")",
+      "name" : "unspecified_srgb",
+      "passed" : false
+    },
+    {
+      "detail" : "sdr",
+      "name" : "missing_primaries_709",
+      "passed" : true
+    },
+    {
+      "detail" : "sdr",
+      "name" : "known_709",
+      "passed" : true
+    },
+    {
+      "detail" : "sdr",
+      "name" : "unknown_transfer",
+      "passed" : false
+    },
+    {
+      "detail" : "sdr",
+      "name" : "missing_transfer",
+      "passed" : false
+    },
+    {
+      "detail" : "sdr",
+      "name" : "no_colour_tags",
+      "passed" : false
+    },
+    {
+      "detail" : "hdr(\"片源为 HDR（SMPTE_ST_2084_PQ），使用系统原生杜比\/HDR 呈现\")",
+      "name" : "pq_unspecified",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源为 HDR（ITU_R_2100_HLG），使用系统原生杜比\/HDR 呈现\")",
+      "name" : "hlg_unspecified",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源色域为 ITU_R_2020，超出 SDR 增强范围，保留原片色彩\")",
+      "name" : "wide_2020",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源色域为 P3_D65，超出 SDR 增强范围，保留原片色彩\")",
+      "name" : "wide_p3",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源色域未确认（COLORPRIMARIES#99），暂用原片等待后续帧\")",
+      "name" : "other_primaries",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源色域未确认（COLORPRIMARIES#2），暂用原片等待后续帧\")",
+      "name" : "unspecified_wide_matrix",
+      "passed" : true
+    },
+    {
+      "detail" : "primaries=ITU_R_709_2 transfer=ITU_R_709_2 matrix=ITU_R_709_2 pixelFormat=2016686640",
+      "name" : "h264_sdr_decoded_metadata",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "h264_explicit_sdr_is_allowed",
+      "passed" : true
+    },
+    {
+      "detail" : "primaries=nil transfer=IEC_sRGB matrix=ITU_R_709_2 pixelFormat=875704438",
+      "name" : "hls_has_unspecified_primaries_and_sdr_transfer",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hls_explicit_sdr_is_allowed",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "scope" : "synthetic gates, small Core Image renders, one local H264 MP4 frame and one localhost HLS frame"
+}

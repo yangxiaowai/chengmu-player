@@ -24,7 +24,7 @@ struct CinemaApp: App {
         }
     }
     var body: some Scene {
-        WindowGroup("映川") {
+        WindowGroup("澄幕") {
             ContentView(app: model).task {
                 if CommandLine.arguments.contains("--validate") { PlaybackValidation.shared.start(model: model) }
                 else if model.results.isEmpty { model.discover() }

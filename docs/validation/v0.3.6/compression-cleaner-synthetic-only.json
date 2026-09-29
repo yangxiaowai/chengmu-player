@@ -1,0 +1,202 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+
+      },
+      "name" : "fixture and readback coordinates are bottom-left",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_after" : 4.5985779153076631,
+        "mse_before" : 6.6643361186076469
+      },
+      "name" : "flat residual noise reduced at least 15 percent",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_change_codes" : 0.0013822205322248132
+      },
+      "name" : "default bottom subtitle band has no extra filtering",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "max_delta_code" : 1.7607495188713074
+      },
+      "name" : "local correction is bounded to 2 code values plus storage tolerance",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_change_codes" : 0.0013738440905380774
+      },
+      "name" : "top-left normalized custom protection maps to correct image area",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_change_codes" : 0.0013822205322248132
+      },
+      "name" : "custom protection keeps the default subtitle band",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "protection does not accidentally disable the whole frame",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "constant gray stays unchanged",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "strong clean edge stays unchanged",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 1024
+      },
+      "name" : "SDR prepass retains more than 8-bit ramp levels",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_change_codes" : 0.0027579027584372705
+      },
+      "name" : "weak clean texture is not flattened",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "fine low-contrast caption protected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "caption disappearance leaves no old pixels",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "retained output is immutable after later frames",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "invalid protection fails safely",
+      "passed" : true
+    }
+  ],
+  "completed_prepass_timing" : [
+    {
+      "mean_ms" : 1.6785979270935059,
+      "p95_ms" : 2.0760297775268555,
+      "samples_ms" : [
+        1.2860298156738281,
+        1.5479326248168945,
+        1.8949508666992188,
+        2.1100044250488281,
+        1.4580488204956055,
+        1.4389753341674805,
+        1.4359951019287109,
+        1.9689798355102539,
+        2.0760297775268555,
+        1.4069080352783203,
+        1.462101936340332,
+        1.4309883117675781,
+        1.5839338302612305,
+        2.0680427551269531,
+        1.5360116958618164,
+        1.5549659729003906,
+        1.582026481628418,
+        1.6440153121948242,
+        1.6570091247558594,
+        1.6039609909057617,
+        1.5550851821899414,
+        1.5900135040283203,
+        1.6129016876220703,
+        1.8100738525390625,
+        2.0250082015991211,
+        1.7769336700439453,
+        1.7670392990112305,
+        1.7219781875610352,
+        1.9290447235107422,
+        1.8229484558105469
+      ],
+      "size" : [
+        1280,
+        720
+      ]
+    },
+    {
+      "mean_ms" : 2.2607008616129556,
+      "p95_ms" : 2.8090476989746094,
+      "samples_ms" : [
+        2.4179220199584961,
+        2.6470422744750977,
+        2.7469396591186523,
+        2.2830963134765625,
+        2.6679039001464844,
+        3.2269954681396484,
+        2.3930072784423828,
+        2.2549629211425781,
+        2.2820234298706055,
+        2.3180246353149414,
+        2.7350187301635742,
+        2.8090476989746094,
+        2.4489164352416992,
+        2.4820566177368164,
+        2.1159648895263672,
+        2.0580291748046875,
+        2.0740032196044922,
+        2.079010009765625,
+        2.0960569381713867,
+        1.9489526748657227,
+        2.0380020141601562,
+        2.1139383316040039,
+        1.9180774688720703,
+        1.9270181655883789,
+        1.9469261169433594,
+        2.0080804824829102,
+        1.9929409027099609,
+        1.8860101699829102,
+        1.994013786315918,
+        1.9110441207885742
+      ],
+      "size" : [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "film_post_temporal" : [
+
+  ],
+  "film_post_temporal_summary" : {
+    "reason" : "No film export directory supplied; pass it as the runner's third argument.",
+    "samples" : 0,
+    "status" : "skipped"
+  },
+  "passed" : true,
+  "scope" : "Synthetic SDR extra prepass (15 checks); film measurements skipped because no export directory was supplied; completed prepass timing only, not complete playback, whole-film or subjective display proof."
+}

@@ -1,0 +1,197 @@
+[
+  {
+    "path": ".build/restoration-lab/clean-film.mp4",
+    "size": 327472,
+    "sha256": "329160f1df8746f57c3567f085c23cec00ff950de3788a81ecd2e60ce5514ac5"
+  },
+  {
+    "path": ".build/restoration-lab/compressed-film.mp4",
+    "size": 16695,
+    "sha256": "c1480e63dd3dabe4678d1420247e74d05d27f3385dd05677284b0ff457f4b432"
+  },
+  {
+    "path": ".build/restoration-lab/noisy-film.mp4",
+    "size": 24142,
+    "sha256": "2e42ef75dd7e477099e629c896a3c185b47c6aa87d1fa9e1ba5d1f15c8e79d4f"
+  },
+  {
+    "path": ".build/restoration-lab/heavy-noisy-film.mp4",
+    "size": 116501,
+    "sha256": "855dfb5c4bbd47ff1c2e8c4ae9314b2b4432e195c92e52e4d4c78529047a6187"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/clean-12.rgba32f",
+    "size": 1536000,
+    "sha256": "78455f3bfb9dd92b1e85afbd7e717f79d81d5b1a2dfa5e04a3a61ab90f31684e"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/clean-24.rgba32f",
+    "size": 1536000,
+    "sha256": "5bb82f072eade8d759d922d4bf9dc16928f8585d3f1751a9aa6e57ef12f2ef9c"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/clean-48.rgba32f",
+    "size": 1536000,
+    "sha256": "1b55241665c942c84116f5169aba12c01803832e36523f068a62f688bd18cd70"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/clean-72.rgba32f",
+    "size": 1536000,
+    "sha256": "a3e604826372d918f8be48ff0259b4a5ee79594642816ef991e24411554e9c0c"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/clean-84.rgba32f",
+    "size": 1536000,
+    "sha256": "9b227e0b1c3e40f1e1f60b884b1bb6ffce314070b608865f860d4462292811aa"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-raw-12.rgba32f",
+    "size": 1536000,
+    "sha256": "04a96ca9632ccc9459a6d5541659ce399ccbad08789732233a17e33e1da2dbc6"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-raw-24.rgba32f",
+    "size": 1536000,
+    "sha256": "b027e6fdedeed9446704cfdc62624a6ea18faa6d1c11b1ca9c30daeef6d7b325"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-raw-48.rgba32f",
+    "size": 1536000,
+    "sha256": "97c7c63efd8b80cb6649640cf652133193b70507002711b3d7535518e2e9f606"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-raw-72.rgba32f",
+    "size": 1536000,
+    "sha256": "42f5b6656cfb9c0b52d4fda599fa8f0aa4342c3b2a9a0e20a69a2b88ac1a02a8"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-raw-84.rgba32f",
+    "size": 1536000,
+    "sha256": "c425a1e3cc087a3d748fa6a2b0f1f6b2df6067bd59a26d9e76b6d18ee2e7d8b7"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-temporal-12.rgba32f",
+    "size": 1536000,
+    "sha256": "e9ee0d7de2bde775e1eb16da4124c4aa8455a62b38cd029676f3658673f8fb6d"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-temporal-24.rgba32f",
+    "size": 1536000,
+    "sha256": "b823dee9f61d77c451b11cfc5123bcceec2c9313475929b504d13ade4eaf7edb"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-temporal-48.rgba32f",
+    "size": 1536000,
+    "sha256": "23a58ac73643754313ec1e40928278bb65dce52eddb099872bb0225a11bccaf9"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-temporal-72.rgba32f",
+    "size": 1536000,
+    "sha256": "851d62089f2b825820168249c3a9b15c83ce2f2bf46a8d0faca806fd927d37af"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/compressed-film-temporal-84.rgba32f",
+    "size": 1536000,
+    "sha256": "f479813307817ba098b582073dc3a70b9fadc6cce729e363e5e4fe38f8cbac89"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-raw-12.rgba32f",
+    "size": 1536000,
+    "sha256": "b0bc42319492123454eb62797ddbd309e79f44bccc361167e83aec8fdec8282a"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-raw-24.rgba32f",
+    "size": 1536000,
+    "sha256": "ffeb4ea2e4b2e4f00cf4565ea7f537698c0b8257d337bf16d6ca4d775ce11359"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-raw-48.rgba32f",
+    "size": 1536000,
+    "sha256": "546b5489f8da30935abdb90db4eef6a77b564b022a733d82fd9471fe07e4d959"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-raw-72.rgba32f",
+    "size": 1536000,
+    "sha256": "c10653dd963466d1e5d8f80cc21a195482736b276ed7c8686a2e6f0e33569ed0"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-raw-84.rgba32f",
+    "size": 1536000,
+    "sha256": "6000d19999425f81dc0644545e67741d703d0609aa7e730cf5360f5753ffcb97"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-temporal-12.rgba32f",
+    "size": 1536000,
+    "sha256": "e3fe4e54ffc23ad5d4605e2a69d9bf19453d6090c0f9ef93ed8c9bd55a266341"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-temporal-24.rgba32f",
+    "size": 1536000,
+    "sha256": "3fc4b649fe32a71f0b8e2873b5a172c7d124790b67ed1100d8871c3bc14c3ca7"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-temporal-48.rgba32f",
+    "size": 1536000,
+    "sha256": "de6128f9341d9f8594e1de618d19540805e87faa6a6dec3958f6ba4c846690b5"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-temporal-72.rgba32f",
+    "size": 1536000,
+    "sha256": "25a651d54f218c6a3048e9610fd8b74fc6887a344f4abfd0a5d9863a4fcbc46e"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/heavy-noisy-film-temporal-84.rgba32f",
+    "size": 1536000,
+    "sha256": "266f5b1f1eb0fd5717736fff80a0df3b9605c46b93fb283ee2ea47eccea97754"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-raw-12.rgba32f",
+    "size": 1536000,
+    "sha256": "438c926057f913b632e515e3062b2637a190b553f6f36c2477768476be606733"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-raw-24.rgba32f",
+    "size": 1536000,
+    "sha256": "78106ad9cd14c409ecfcd24d50c1031377be21d25e2011b5a670fb9018bc7b1d"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-raw-48.rgba32f",
+    "size": 1536000,
+    "sha256": "c461a979ffcee25440b1e9e2f689c8bd9d9d35b8a4921c639f85d722df37b591"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-raw-72.rgba32f",
+    "size": 1536000,
+    "sha256": "428613aba3d9654675108db11f3994b77ea173c073b093649e8f814c793c2f5d"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-raw-84.rgba32f",
+    "size": 1536000,
+    "sha256": "a48c6f3aaad4081fdde964f7d1a6233929c6792e33dd4c187de1ebaa8bb6bf38"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-temporal-12.rgba32f",
+    "size": 1536000,
+    "sha256": "ec9971dfd079deebb72ec42dcab79162fa226ad78342ead7166d395a4b39fbc2"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-temporal-24.rgba32f",
+    "size": 1536000,
+    "sha256": "0a118fc2cfc8876362de2f9fec1f999264d063bdd315011af49fb563b72df801"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-temporal-48.rgba32f",
+    "size": 1536000,
+    "sha256": "065ecc06795024eb78406b1aa7aa2fd5c0644e45a56354e12e02886c709b7a79"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-temporal-72.rgba32f",
+    "size": 1536000,
+    "sha256": "b2922dae746bc9bfe4ab262c090aa8b16eddcb3621fc1be8d0c2dd60f6da2318"
+  },
+  {
+    "path": ".build/repair-v036/post-temporal/noisy-film-temporal-84.rgba32f",
+    "size": 1536000,
+    "sha256": "c6e97426df768554db555f56b2bfef3f5089317c2721e7de2baaa3db5cd5dcf0"
+  }
+]

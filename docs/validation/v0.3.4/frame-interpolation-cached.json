@@ -1,0 +1,220 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+        "setup_ms" : 8543.5928750084713
+      },
+      "name" : "first reference reports priming",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "first FRC execution marked warmup",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "generated frame is neither source copy nor blend",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "blend_mse" : 241.61532738095238,
+        "duplicate_mse" : 423.76026785714288,
+        "motion_mse" : 2.4311607142857143
+      },
+      "name" : "motion-compensated midpoint improves analytic motion truth over blend",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "count" : 60,
+        "generated" : 48
+      },
+      "name" : "24fps inputs produce exactly 60 grid points before one second",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "all subsequent points on 60 grid",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "all timestamps unique increasing",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "all generated textures independent",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "retained interpolated output unchanged by later processing",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "stream change primes despite continuous PTS",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "backward seek primes",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "returned_frames" : 1
+      },
+      "name" : "hard scene cut does not morph",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "off-grid cut does not add source anchor",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "explicit reset primes",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "height" : 200,
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率",
+        "pts" : 1,
+        "scope" : "Same decoded source PTS and actual restoration output; not interpolation or clean-reference PSNR.",
+        "source" : "\/Users\/yangjun\/Downloads\/视频播放器\/.build\/restoration-lab\/noisy-film.mp4",
+        "used_temporal_history" : true,
+        "width" : 480
+      },
+      "name" : "film source and enhanced evidence share PTS and temporal history",
+      "passed" : true
+    }
+  ],
+  "film" : {
+    "height" : 200,
+    "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率",
+    "pts" : 1,
+    "scope" : "Same decoded source PTS and actual restoration output; not interpolation or clean-reference PSNR.",
+    "source" : "\/Users\/yangjun\/Downloads\/视频播放器\/.build\/restoration-lab\/noisy-film.mp4",
+    "used_temporal_history" : true,
+    "width" : 480
+  },
+  "generated_frames" : 48,
+  "grid_times" : [
+    0,
+    0.016666666666666666,
+    0.033333333333333333,
+    0.050000000000000003,
+    0.066666666666666666,
+    0.083333333333333329,
+    0.10000000000000001,
+    0.11666666666666667,
+    0.13333333333333333,
+    0.14999999999999999,
+    0.16666666666666666,
+    0.18333333333333332,
+    0.20000000000000001,
+    0.21666666666666667,
+    0.23333333333333334,
+    0.25,
+    0.26666666666666666,
+    0.28333333333333333,
+    0.29999999999999999,
+    0.31666666666666665,
+    0.33333333333333331,
+    0.34999999999999998,
+    0.36666666666666664,
+    0.38333333333333336,
+    0.40000000000000002,
+    0.41666666666666669,
+    0.43333333333333335,
+    0.45000000000000001,
+    0.46666666666666667,
+    0.48333333333333334,
+    0.5,
+    0.51666666666666672,
+    0.53333333333333333,
+    0.55000000000000004,
+    0.56666666666666665,
+    0.58333333333333337,
+    0.59999999999999998,
+    0.6166666666666667,
+    0.6333333333333333,
+    0.65000000000000002,
+    0.66666666666666663,
+    0.68333333333333335,
+    0.69999999999999996,
+    0.71666666666666667,
+    0.73333333333333328,
+    0.75,
+    0.76666666666666672,
+    0.78333333333333333,
+    0.80000000000000004,
+    0.81666666666666665,
+    0.83333333333333337,
+    0.84999999999999998,
+    0.8666666666666667,
+    0.8833333333333333,
+    0.90000000000000002,
+    0.91666666666666663,
+    0.93333333333333335,
+    0.94999999999999996,
+    0.96666666666666667,
+    0.98333333333333328,
+    1
+  ],
+  "passed" : true,
+  "scope" : "Real production helper, 640x360 original enhancement, one second synthetic24fps source; actual FRC\/output GPU completion; no AVPlayer scheduling proof.",
+  "steady_mean_ms" : 10.649673914050926,
+  "steady_ms" : [
+    15.996833331882954,
+    11.614041635766625,
+    10.240541654638946,
+    10.235375026240945,
+    10.147458408027887,
+    10.237666661851108,
+    9.9404583452269435,
+    10.016666725277901,
+    9.9772083340212703,
+    9.8050415981560946,
+    9.7532917279750109,
+    10.153874987736344,
+    9.9731249501928687,
+    10.054666665382683,
+    9.8067916696891189,
+    10.139541700482368,
+    9.905249928124249,
+    10.207958286628127,
+    10.578374960459769,
+    10.600124951452017,
+    10.829166742041707,
+    11.939666699618101,
+    12.789375032298267
+  ],
+  "steady_p95_ms" : 11.939666699618101
+}

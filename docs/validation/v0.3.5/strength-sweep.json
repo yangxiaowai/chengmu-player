@@ -1,0 +1,3776 @@
+{
+  "causality" : {
+    "frame_delivery" : "One degraded frame delivered to TemporalRestorer at a time; current frame is processed before the next degraded frame is decoded.",
+    "maximum_reference_history_frames" : 1,
+    "next_frames_supplied" : 0,
+    "note" : "The clean reference is used only for metrics and never supplied to the restorer. This harness checks the production API's sequential use; it does not audit Apple's internal implementation."
+  },
+  "device" : "Apple M4",
+  "metric_method" : {
+    "baseline" : "Unprocessed source. All four strengths use independent production TemporalRestorer sessions; strength is never changed inside a session.",
+    "color" : "Decoded SDR images explicitly rendered to 8-bit sRGB RGB; alpha excluded.",
+    "display_reference" : "Decoded clean 960x400 frame; all candidate outputs are materialized then fitted to 960x400 with the same positive cubic B-spline scale (B=1,C=0). Apple's chosen processing dimensions are recorded separately. Native-size fidelity is reported only for non-upscaling methods.",
+    "native_reference" : "960x400 clean reference downsampled once with CILanczosScaleTransform to 480x200. All candidates remain native size; no candidate upscale is involved in this score.",
+    "temporal" : "Mean squared ((output[t]-output[t-1])-(clean[t]-clean[t-1])) over RGB and 95 aligned pairs. Lower means better temporal fidelity to the moving clean reference, not simply a static picture.",
+    "temporal_strengths" : [
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "timing" : "Synchronous processing plus completed RGBA readback at the method's processing size. Excludes decode, metric loops, common display resampling, PNG IO and player work. Sequential modes are not a randomized performance study."
+  },
+  "operating_system" : "Version 27.0 (Build 26A428)",
+  "png_directory" : "\/Users\/yangjun\/Downloads\/视频播放器\/docs\/validation\/v0.3.5\/strength-sweep.frames",
+  "quality_acceptance" : "Informational measurements only. No hard-coded requirement that the candidate must beat the original.",
+  "results" : [
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 1.5785000286996365,
+            "mean" : 0.40338714582806762,
+            "p95" : 0.58404169976711273,
+            "warm_mean" : 0.39101753653468269
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.13853315791377,
+            "rgb_psnr_db" : 30.795738761503394,
+            "temporal_derivative_error_mse_8bit" : 8.4363192160087728,
+            "temporal_derivative_error_rmse_8bit" : 2.9045342511336947,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.712506033668873
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.384926649305555,
+            "rgb_psnr_db" : 31.374401481836763,
+            "temporal_derivative_error_mse_8bit" : 7.7032392909356728,
+            "temporal_derivative_error_rmse_8bit" : 2.7754710034398977,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.182758493387144
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.5" : {
+          "completed_processing_ms" : {
+            "first" : 2.5608750293031335,
+            "mean" : 3.2416002638152954,
+            "p95" : 3.6232083803042769,
+            "warm_mean" : 3.2487657925996341
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.389881872106479,
+            "rgb_psnr_db" : 30.775622452839958,
+            "temporal_derivative_error_mse_8bit" : 8.3829650310672523,
+            "temporal_derivative_error_rmse_8bit" : 2.8953350464267951,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.650043857477755
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.276301938657404,
+            "rgb_psnr_db" : 31.384368631818425,
+            "temporal_derivative_error_mse_8bit" : 7.458702960526316,
+            "temporal_derivative_error_rmse_8bit" : 2.7310626064823773,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.179677876895443
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.25" : {
+          "completed_processing_ms" : {
+            "first" : 4.1519167134538293,
+            "mean" : 3.3819309925699295,
+            "p95" : 3.5857916809618473,
+            "warm_mean" : 3.3738258797185203
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.548755009403934,
+            "rgb_psnr_db" : 30.762955179273458,
+            "temporal_derivative_error_mse_8bit" : 8.5155259868421052,
+            "temporal_derivative_error_rmse_8bit" : 2.9181374174020842,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.601208421785294
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.509948712384258,
+            "rgb_psnr_db" : 31.362957992750683,
+            "temporal_derivative_error_mse_8bit" : 7.6262645102339182,
+            "temporal_derivative_error_rmse_8bit" : 2.7615692115596016,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.122557720629171
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.75" : {
+          "completed_processing_ms" : {
+            "first" : 2.0005833357572556,
+            "mean" : 3.2238537290443978,
+            "p95" : 3.8450416177511215,
+            "warm_mean" : 3.2367302595000518
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.60212995515046,
+            "rgb_psnr_db" : 30.75870776593095,
+            "temporal_derivative_error_mse_8bit" : 8.4812244791666664,
+            "temporal_derivative_error_rmse_8bit" : 2.9122541920592484,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.56801415815443
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.469694082754629,
+            "rgb_psnr_db" : 31.366639279403586,
+            "temporal_derivative_error_mse_8bit" : 7.585580957602339,
+            "temporal_derivative_error_rmse_8bit" : 2.7541933406357546,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.083472198680621
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_1.0" : {
+          "completed_processing_ms" : {
+            "first" : 2.206583390943706,
+            "mean" : 3.212066841418467,
+            "p95" : 3.5830000415444374,
+            "warm_mean" : 3.222650877739254
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 54.655856580946178,
+            "rgb_psnr_db" : 30.7544365579882,
+            "temporal_derivative_error_mse_8bit" : 8.5301302631578952,
+            "temporal_derivative_error_rmse_8bit" : 2.9206386738447971,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 28.551388311563933
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 47.527034794560187,
+            "rgb_psnr_db" : 31.361396413034562,
+            "temporal_derivative_error_mse_8bit" : 7.644716739766082,
+            "temporal_derivative_error_rmse_8bit" : 2.7649080888460076,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.061312475141644
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "compressed-film"
+    },
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 0.38654159288853407,
+            "mean" : 0.41829383189906366,
+            "p95" : 0.62716659158468246,
+            "warm_mean" : 0.41862806599391134
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.5711979437934,
+            "rgb_psnr_db" : 31.267015459688231,
+            "temporal_derivative_error_mse_8bit" : 7.5314251918859645,
+            "temporal_derivative_error_rmse_8bit" : 2.7443442189138674,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.28348972262663
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.745358615451387,
+            "rgb_psnr_db" : 32.030022163195532,
+            "temporal_derivative_error_mse_8bit" : 6.36440807748538,
+            "temporal_derivative_error_rmse_8bit" : 2.5227778494123059,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.838268341681953
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.5" : {
+          "completed_processing_ms" : {
+            "first" : 1.6129583818838,
+            "mean" : 3.2748207474166215,
+            "p95" : 3.919249982573092,
+            "warm_mean" : 3.2923140354748619
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.140886167173029,
+            "rgb_psnr_db" : 31.305662804550501,
+            "temporal_derivative_error_mse_8bit" : 7.5414167763157893,
+            "temporal_derivative_error_rmse_8bit" : 2.7461640111828336,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.34850258432823
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 39.876580114293979,
+            "rgb_psnr_db" : 32.12362455490512,
+            "temporal_derivative_error_mse_8bit" : 6.2087202119883038,
+            "temporal_derivative_error_rmse_8bit" : 2.4917303650251372,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.948360649468533
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.25" : {
+          "completed_processing_ms" : {
+            "first" : 1.932916697114706,
+            "mean" : 3.3881276067404542,
+            "p95" : 3.99900006595999,
+            "warm_mean" : 3.4034456163154623
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.290643337673615,
+            "rgb_psnr_db" : 31.292173696704928,
+            "temporal_derivative_error_mse_8bit" : 7.678255710891813,
+            "temporal_derivative_error_rmse_8bit" : 2.7709665661808001,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.292646230603722
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.115273111979164,
+            "rgb_psnr_db" : 32.097706075645519,
+            "temporal_derivative_error_mse_8bit" : 6.3933606725146195,
+            "temporal_derivative_error_rmse_8bit" : 2.5285095753258715,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.895844410630197
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.75" : {
+          "completed_processing_ms" : {
+            "first" : 1.4379583299160004,
+            "mean" : 3.3108294228441082,
+            "p95" : 4.5326250838115811,
+            "warm_mean" : 3.3305438554012463
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.370148410373261,
+            "rgb_psnr_db" : 31.285029409653497,
+            "temporal_derivative_error_mse_8bit" : 7.6882965643274854,
+            "temporal_derivative_error_rmse_8bit" : 2.7727777704546548,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.317468957558873
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.08792545572917,
+            "rgb_psnr_db" : 32.100667787117075,
+            "temporal_derivative_error_mse_8bit" : 6.4063617690058479,
+            "temporal_derivative_error_rmse_8bit" : 2.5310791708292824,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.919816418047354
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_1.0" : {
+          "completed_processing_ms" : {
+            "first" : 1.4119166880846024,
+            "mean" : 3.405777348234551,
+            "p95" : 5.270124995149672,
+            "warm_mean" : 3.4267653551834978
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 48.417557662398728,
+            "rgb_psnr_db" : 31.280774824225666,
+            "temporal_derivative_error_mse_8bit" : 7.7437299981725145,
+            "temporal_derivative_error_rmse_8bit" : 2.7827558279828497,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.30018016397916
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 40.142632378472221,
+            "rgb_psnr_db" : 32.094745126476838,
+            "temporal_derivative_error_mse_8bit" : 6.4822853435672512,
+            "temporal_derivative_error_rmse_8bit" : 2.5460332565713375,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 29.910611960535846
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "noisy-film"
+    },
+    {
+      "first_pts_seconds" : 0,
+      "frames" : 96,
+      "last_pts_seconds" : 3.9583333333333335,
+      "modes" : {
+        "original" : {
+          "completed_processing_ms" : {
+            "first" : 0.36879163235425949,
+            "mean" : 0.45643316237449955,
+            "p95" : 0.77762501314282417,
+            "warm_mean" : 0.45735570479576526
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.887281150535301,
+            "rgb_psnr_db" : 32.345869201135287,
+            "temporal_derivative_error_mse_8bit" : 7.9457709429824561,
+            "temporal_derivative_error_rmse_8bit" : 2.8188243902347758,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.565227413391362
+          },
+          "frames_using_history" : 0,
+          "history_resets" : [
+
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 30.657786747685186,
+            "rgb_psnr_db" : 33.26539561881264,
+            "temporal_derivative_error_mse_8bit" : 7.4223164108187136,
+            "temporal_derivative_error_rmse_8bit" : 2.7243928517779357,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.5" : {
+          "completed_processing_ms" : {
+            "first" : 1.9180417293682694,
+            "mean" : 3.4019986960629467,
+            "p95" : 3.770958399400115,
+            "warm_mean" : 3.4176192957123646
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 36.855100251374424,
+            "rgb_psnr_db" : 32.465827639847191,
+            "temporal_derivative_error_mse_8bit" : 7.1797364126461991,
+            "temporal_derivative_error_rmse_8bit" : 2.6795030159800528,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.565227413391362
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 28.73592111545139,
+            "rgb_psnr_db" : 33.546552380845974,
+            "temporal_derivative_error_mse_8bit" : 5.9185433114035089,
+            "temporal_derivative_error_rmse_8bit" : 2.4328056460398781,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.25" : {
+          "completed_processing_ms" : {
+            "first" : 1.7380000790581107,
+            "mean" : 3.602988274603073,
+            "p95" : 4.5452916529029608,
+            "warm_mean" : 3.62261972929302
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.107456298828126,
+            "rgb_psnr_db" : 32.436191762104663,
+            "temporal_derivative_error_mse_8bit" : 7.3708635051169589,
+            "temporal_derivative_error_rmse_8bit" : 2.7149334255404787,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.565227413391362
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 29.117878110532409,
+            "rgb_psnr_db" : 33.489206371521519,
+            "temporal_derivative_error_mse_8bit" : 6.2094169590643276,
+            "temporal_derivative_error_rmse_8bit" : 2.4918701729954407,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_0.75" : {
+          "completed_processing_ms" : {
+            "first" : 1.9558332860469818,
+            "mean" : 3.4371414985798765,
+            "p95" : 4.4299582950770855,
+            "warm_mean" : 3.4527342166065385
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.149981743706597,
+            "rgb_psnr_db" : 32.431217561928356,
+            "temporal_derivative_error_mse_8bit" : 7.466826215277778,
+            "temporal_derivative_error_rmse_8bit" : 2.7325493985064164,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.420066899320283
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 29.023257776331018,
+            "rgb_psnr_db" : 33.503342017367189,
+            "temporal_derivative_error_mse_8bit" : 6.2971779605263158,
+            "temporal_derivative_error_rmse_8bit" : 2.509417852914559,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        },
+        "temporal_1.0" : {
+          "completed_processing_ms" : {
+            "first" : 5.1118750125169754,
+            "mean" : 3.433593319641659,
+            "p95" : 4.0699166711419821,
+            "warm_mean" : 3.4159271965587608
+          },
+          "display_960x400" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 37.200625533492477,
+            "rgb_psnr_db" : 32.425301182048308,
+            "temporal_derivative_error_mse_8bit" : 7.509087993421053,
+            "temporal_derivative_error_rmse_8bit" : 2.7402715181932344,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 30.39652675831168
+          },
+          "frames_using_history" : 94,
+          "history_resets" : [
+            {
+              "frame" : 0,
+              "reason" : "正在建立前帧参考"
+            },
+            {
+              "frame" : 59,
+              "reason" : "检测到切镜，重建前帧参考"
+            }
+          ],
+          "native_480x200" : {
+            "frames" : 96,
+            "rgb_mse_8bit" : 29.074690357349539,
+            "rgb_psnr_db" : 33.495652626371765,
+            "temporal_derivative_error_mse_8bit" : 6.3488881578947369,
+            "temporal_derivative_error_rmse_8bit" : 2.5197000134727818,
+            "temporal_pairs" : 95,
+            "worst_frame_rgb_psnr_db" : 31.019185818656695
+          },
+          "processing_output_sizes" : [
+            "480x200"
+          ]
+        }
+      },
+      "variant" : "heavy-noisy-film"
+    }
+  ],
+  "sample_frames" : [
+    24
+  ],
+  "schema_version" : 1,
+  "scope" : "3 aligned 4-second synthetic degradations of one real film excerpt; 96 frames at 24 FPS per variant. Fixed-strength sweep, no learned upscaler. Not a general film-quality claim, player performance test, or 4K benchmark.",
+  "source" : {
+    "attribution" : "(CC) Blender Foundation | mango.blender.org",
+    "audio" : "omitted",
+    "fixture_sha256" : {
+      "clean-film.mp4" : "329160f1df8746f57c3567f085c23cec00ff950de3788a81ecd2e60ce5514ac5",
+      "compressed-film.mp4" : "c1480e63dd3dabe4678d1420247e74d05d27f3385dd05677284b0ff457f4b432",
+      "heavy-noisy-film.mp4" : "855dfb5c4bbd47ff1c2e8c4ae9314b2b4432e195c92e52e4d4c78529047a6187",
+      "noisy-film.mp4" : "2e42ef75dd7e477099e629c896a3c185b47c6aa87d1fa9e1ba5d1f15c8e79d4f"
+    },
+    "generation" : "720p MOV excerpt -> clean 960x400,24fps,96 frames,H.264 CRF16; compressed=clean scaled480x200 bicubic,H.264 CRF34; noisy=480x200 plus noise alls=4:allf=t+u,H.264 CRF30. Original mild-noise command did not pin a seed; hashes identify actual inputs, not guaranteed bitwise regeneration. Optional heavy-noisy=scale480x200 bicubic,noise=alls=12:allf=t+u:all_seed=7,H.264 CRF24.",
+    "license" : "CC BY 3.0",
+    "license_url" : "https:\/\/mango.blender.org\/sharing\/",
+    "original_excerpt_duration_seconds" : 4,
+    "original_excerpt_start_seconds" : 62,
+    "original_url" : "https:\/\/download.blender.org\/demo\/movies\/ToS\/tears_of_steel_720p.mov",
+    "title" : "Tears of Steel"
+  },
+  "synthetic" : [
+    {
+      "frames" : [
+        {
+          "completed_ms" : 4.0787917096167803,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 13.595374999567866,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.4432916436344385,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7708333218470216,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8535417513921857,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7249583508819342,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7428333414718509,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8044166974723339,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7598749147728086,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9386666137725115,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.863833331502974,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.2355416333302855,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 0.0033611953942505931,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0.08017978831375959,
+        "texture" : 0
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 0,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0,
+        "texture" : 0
+      },
+      "strength" : 0.25,
+      "variant" : "synthetic_clean_motion_texture_subtitle",
+      "warm_mean_ms" : 2.9137791600078344,
+      "warm_p95_ms" : 3.4432916436344385
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 1.4674583217129111,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 14.853375032544136,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.0421667033806443,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8212083270773292,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8194166952744126,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8529167175292969,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8532083379104733,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.76404176838696,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7574582491070032,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8200000524520874,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7357916114851832,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6664999313652515,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 0.0033611953942505931,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0.08017978831375959,
+        "texture" : 0
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 0,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0,
+        "texture" : 0
+      },
+      "strength" : 0.5,
+      "variant" : "synthetic_clean_motion_texture_subtitle",
+      "warm_mean_ms" : 2.8132708393968642,
+      "warm_p95_ms" : 3.0421667033806443
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 1.4161249855533242,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 15.629708301275969,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.0254999874159694,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9021250084042549,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8403749456629157,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7854166692122817,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.774125081487,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8866250067949295,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7767916908487678,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6767916278913617,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7683333028107882,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7784999692812562,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 0.0033611953942505931,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0.08017978831375959,
+        "texture" : 0
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 0,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0,
+        "texture" : 0
+      },
+      "strength" : 0.75,
+      "variant" : "synthetic_clean_motion_texture_subtitle",
+      "warm_mean_ms" : 2.8214583289809525,
+      "warm_p95_ms" : 3.0254999874159694
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 1.3644583523273468,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 15.341083286330104,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9327083611860871,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9109999304637313,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7014167280867696,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9103750130161643,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033429610611895593,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.079744816586921854,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7824583230540156,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.776208333671093,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6577499229460955,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6749999960884452,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7876250678673387,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6637082919478416,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 0.0033763906718014547,
+              "source_mse" : 0
+            },
+            "flat" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "motion" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            },
+            "subtitle" : {
+              "processed_mse" : 0.080542264752791068,
+              "source_mse" : 0
+            },
+            "texture" : {
+              "processed_mse" : 0,
+              "source_mse" : 0
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 0.0033611953942505931,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0.08017978831375959,
+        "texture" : 0
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 0,
+        "flat" : 0,
+        "motion" : 0,
+        "subtitle" : 0,
+        "texture" : 0
+      },
+      "strength" : 1,
+      "variant" : "synthetic_clean_motion_texture_subtitle",
+      "warm_mean_ms" : 2.7798249968327582,
+      "warm_p95_ms" : 2.9327083611860871
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 1.6725416062399745,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 79.962585579803161,
+              "source_mse" : 79.962585579803161
+            },
+            "flat" : {
+              "processed_mse" : 79.687487097820636,
+              "source_mse" : 79.687487097820636
+            },
+            "motion" : {
+              "processed_mse" : 80.375783739336001,
+              "source_mse" : 80.375783739336001
+            },
+            "subtitle" : {
+              "processed_mse" : 80.818022328548651,
+              "source_mse" : 80.818022328548651
+            },
+            "texture" : {
+              "processed_mse" : 79.423645320197039,
+              "source_mse" : 79.423645320197039
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 14.913249993696809,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.619825096277278,
+              "source_mse" : 80.498214858793318
+            },
+            "flat" : {
+              "processed_mse" : 31.495266743342476,
+              "source_mse" : 80.230440296086584
+            },
+            "motion" : {
+              "processed_mse" : 21.63500873676637,
+              "source_mse" : 80.700174735327366
+            },
+            "subtitle" : {
+              "processed_mse" : 24.670015948963318,
+              "source_mse" : 80.79728867623605
+            },
+            "texture" : {
+              "processed_mse" : 25.754606823572342,
+              "source_mse" : 81.000182448458304
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7393749915063381,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.161705712451862,
+              "source_mse" : 79.716035515618316
+            },
+            "flat" : {
+              "processed_mse" : 36.04217169483028,
+              "source_mse" : 79.784658940104393
+            },
+            "motion" : {
+              "processed_mse" : 20.671754548257788,
+              "source_mse" : 79.376194881282757
+            },
+            "subtitle" : {
+              "processed_mse" : 26.485805422647527,
+              "source_mse" : 80.462679425837322
+            },
+            "texture" : {
+              "processed_mse" : 25.775588396278053,
+              "source_mse" : 78.964240102171132
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7872499777004123,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.229875374411638,
+              "source_mse" : 80.0613032199401
+            },
+            "flat" : {
+              "processed_mse" : 32.711315579934528,
+              "source_mse" : 80.391754401486338
+            },
+            "motion" : {
+              "processed_mse" : 20.447579401788467,
+              "source_mse" : 80.27243293246994
+            },
+            "subtitle" : {
+              "processed_mse" : 24.665231259968103,
+              "source_mse" : 81.442902711323768
+            },
+            "texture" : {
+              "processed_mse" : 27.757708447363619,
+              "source_mse" : 78.253238460135009
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7927083428949118,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 25.184063436029096,
+              "source_mse" : 80.24205712451861
+            },
+            "flat" : {
+              "processed_mse" : 26.34925830900351,
+              "source_mse" : 79.884661889173969
+            },
+            "motion" : {
+              "processed_mse" : 20.85281118306095,
+              "source_mse" : 81.536899989721448
+            },
+            "subtitle" : {
+              "processed_mse" : 24.058213716108455,
+              "source_mse" : 79.493779904306223
+            },
+            "texture" : {
+              "processed_mse" : 28.23499361430396,
+              "source_mse" : 79.350118591497903
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7578748995438218,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.995560547710742,
+              "source_mse" : 79.807599219084295
+            },
+            "flat" : {
+              "processed_mse" : 30.596685245804949,
+              "source_mse" : 80.273437730396054
+            },
+            "motion" : {
+              "processed_mse" : 21.476564909034845,
+              "source_mse" : 79.626785897831226
+            },
+            "subtitle" : {
+              "processed_mse" : 23.874800637958533,
+              "source_mse" : 78.834449760765551
+            },
+            "texture" : {
+              "processed_mse" : 31.207808794015691,
+              "source_mse" : 80.558657179346838
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7389583410695195,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.381324882327771,
+              "source_mse" : 79.970742404792475
+            },
+            "flat" : {
+              "processed_mse" : 26.828894983632665,
+              "source_mse" : 79.894098911793336
+            },
+            "motion" : {
+              "processed_mse" : 21.461198478774797,
+              "source_mse" : 78.803422756706752
+            },
+            "subtitle" : {
+              "processed_mse" : 31.488038277511961,
+              "source_mse" : 80.873524720893144
+            },
+            "texture" : {
+              "processed_mse" : 28.588396278051452,
+              "source_mse" : 80.226053639846739
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8335000388324261,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 22.711034445870773,
+              "source_mse" : 80.248482295678215
+            },
+            "flat" : {
+              "processed_mse" : 24.899112330059864,
+              "source_mse" : 81.047185113096816
+            },
+            "motion" : {
+              "processed_mse" : 20.698221811080277,
+              "source_mse" : 78.616147599958879
+            },
+            "subtitle" : {
+              "processed_mse" : 24.719617224880384,
+              "source_mse" : 80.335087719298244
+            },
+            "texture" : {
+              "processed_mse" : 29.011859149790183,
+              "source_mse" : 81.149425287356323
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9163332656025887,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 23.494564345314505,
+              "source_mse" : 80.109809584937949
+            },
+            "flat" : {
+              "processed_mse" : 25.261376035860685,
+              "source_mse" : 79.384381727564957
+            },
+            "motion" : {
+              "processed_mse" : 20.928512694007605,
+              "source_mse" : 80.425120772946855
+            },
+            "subtitle" : {
+              "processed_mse" : 24.343540669856459,
+              "source_mse" : 78.876555023923444
+            },
+            "texture" : {
+              "processed_mse" : 26.456121145776319,
+              "source_mse" : 81.022258711913878
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7850415790453553,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.910716195977749,
+              "source_mse" : 80.076333172871202
+            },
+            "flat" : {
+              "processed_mse" : 29.516853932584269,
+              "source_mse" : 80.297089268335839
+            },
+            "motion" : {
+              "processed_mse" : 21.000513927433445,
+              "source_mse" : 79.75490800698941
+            },
+            "subtitle" : {
+              "processed_mse" : 25.672567783094099,
+              "source_mse" : 80.402232854864437
+            },
+            "texture" : {
+              "processed_mse" : 26.14541142127349,
+              "source_mse" : 80.244298485677803
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7938333805650473,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.593188382541719,
+              "source_mse" : 80.029665436456995
+            },
+            "flat" : {
+              "processed_mse" : 27.528384794597304,
+              "source_mse" : 80.300952549470637
+            },
+            "motion" : {
+              "processed_mse" : 20.276595744680851,
+              "source_mse" : 79.196525850549904
+            },
+            "subtitle" : {
+              "processed_mse" : 26.907336523125998,
+              "source_mse" : 78.714194577352472
+            },
+            "texture" : {
+              "processed_mse" : 30.571246122970262,
+              "source_mse" : 80.673234811165841
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8005000203847885,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.988032199400941,
+              "source_mse" : 80.388866602481812
+            },
+            "flat" : {
+              "processed_mse" : 28.387389778524874,
+              "source_mse" : 79.9560293727329
+            },
+            "motion" : {
+              "processed_mse" : 20.860725665536027,
+              "source_mse" : 80.146829067735638
+            },
+            "subtitle" : {
+              "processed_mse" : 24.336523125996809,
+              "source_mse" : 80.847208931419459
+            },
+            "texture" : {
+              "processed_mse" : 35.078087940156905,
+              "source_mse" : 78.792920999817554
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 24.933626419846732,
+        "flat" : 29.05606449347049,
+        "motion" : 20.937226100038313,
+        "subtitle" : 25.565608235464694,
+        "texture" : 28.598348012141113
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 80.104464494106651,
+        "flat" : 80.131335472749257,
+        "motion" : 79.859585681047307,
+        "subtitle" : 80.098173118747283,
+        "texture" : 80.021329883398849
+      },
+      "strength" : 0.25,
+      "variant" : "synthetic_noisy_motion_texture_subtitle",
+      "warm_mean_ms" : 2.7945374837145209,
+      "warm_p95_ms" : 2.9163332656025887
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 2.0228750072419643,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 79.962585579803161,
+              "source_mse" : 79.962585579803161
+            },
+            "flat" : {
+              "processed_mse" : 79.687487097820636,
+              "source_mse" : 79.687487097820636
+            },
+            "motion" : {
+              "processed_mse" : 80.375783739336001,
+              "source_mse" : 80.375783739336001
+            },
+            "subtitle" : {
+              "processed_mse" : 80.818022328548651,
+              "source_mse" : 80.818022328548651
+            },
+            "texture" : {
+              "processed_mse" : 79.423645320197039,
+              "source_mse" : 79.423645320197039
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 15.281916712410748,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 27.8305453038083,
+              "source_mse" : 80.498214858793318
+            },
+            "flat" : {
+              "processed_mse" : 33.480904774543632,
+              "source_mse" : 80.230440296086584
+            },
+            "motion" : {
+              "processed_mse" : 21.752492548052214,
+              "source_mse" : 80.700174735327366
+            },
+            "subtitle" : {
+              "processed_mse" : 25.079904306220097,
+              "source_mse" : 80.79728867623605
+            },
+            "texture" : {
+              "processed_mse" : 26.435139573070607,
+              "source_mse" : 81.000182448458304
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.1115416204556823,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 27.039126016260163,
+              "source_mse" : 79.716035515618316
+            },
+            "flat" : {
+              "processed_mse" : 38.290955203633253,
+              "source_mse" : 79.784658940104393
+            },
+            "motion" : {
+              "processed_mse" : 20.859183883235687,
+              "source_mse" : 79.376194881282757
+            },
+            "subtitle" : {
+              "processed_mse" : 26.465709728867623,
+              "source_mse" : 80.462679425837322
+            },
+            "texture" : {
+              "processed_mse" : 23.879948914431672,
+              "source_mse" : 78.964240102171132
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9920416418462992,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 27.412280701754387,
+              "source_mse" : 80.0613032199401
+            },
+            "flat" : {
+              "processed_mse" : 35.525081836680528,
+              "source_mse" : 80.391754401486338
+            },
+            "motion" : {
+              "processed_mse" : 20.650529345256452,
+              "source_mse" : 80.27243293246994
+            },
+            "subtitle" : {
+              "processed_mse" : 25.383253588516748,
+              "source_mse" : 81.442902711323768
+            },
+            "texture" : {
+              "processed_mse" : 28.1767925561029,
+              "source_mse" : 78.253238460135009
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8282083803787827,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.177758611467695,
+              "source_mse" : 80.24205712451861
+            },
+            "flat" : {
+              "processed_mse" : 28.063906337550502,
+              "source_mse" : 79.884661889173969
+            },
+            "motion" : {
+              "processed_mse" : 21.146931853222323,
+              "source_mse" : 81.536899989721448
+            },
+            "subtitle" : {
+              "processed_mse" : 23.546730462519935,
+              "source_mse" : 79.493779904306223
+            },
+            "texture" : {
+              "processed_mse" : 29.025177887246851,
+              "source_mse" : 79.350118591497903
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9067500727251172,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.168117511767225,
+              "source_mse" : 79.807599219084295
+            },
+            "flat" : {
+              "processed_mse" : 33.229968444955617,
+              "source_mse" : 80.273437730396054
+            },
+            "motion" : {
+              "processed_mse" : 21.421985815602838,
+              "source_mse" : 79.626785897831226
+            },
+            "subtitle" : {
+              "processed_mse" : 23.153748006379587,
+              "source_mse" : 78.834449760765551
+            },
+            "texture" : {
+              "processed_mse" : 32.63327859879584,
+              "source_mse" : 80.558657179346838
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9280000599101186,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 25.771575470688916,
+              "source_mse" : 79.970742404792475
+            },
+            "flat" : {
+              "processed_mse" : 29.169217611843465,
+              "source_mse" : 79.894098911793336
+            },
+            "motion" : {
+              "processed_mse" : 22.468187891869668,
+              "source_mse" : 78.803422756706752
+            },
+            "subtitle" : {
+              "processed_mse" : 31.850239234449759,
+              "source_mse" : 80.873524720893144
+            },
+            "texture" : {
+              "processed_mse" : 29.251231527093594,
+              "source_mse" : 80.226053639846739
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8107082471251488,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 23.719986895592641,
+              "source_mse" : 80.248482295678215
+            },
+            "flat" : {
+              "processed_mse" : 26.88489781473945,
+              "source_mse" : 81.047185113096816
+            },
+            "motion" : {
+              "processed_mse" : 21.125655257477643,
+              "source_mse" : 78.616147599958879
+            },
+            "subtitle" : {
+              "processed_mse" : 24.275757575757577,
+              "source_mse" : 80.335087719298244
+            },
+            "texture" : {
+              "processed_mse" : 29.465790914066776,
+              "source_mse" : 81.149425287356323
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9709166847169399,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 24.500367725716732,
+              "source_mse" : 80.109809584937949
+            },
+            "flat" : {
+              "processed_mse" : 26.433188828924475,
+              "source_mse" : 79.384381727564957
+            },
+            "motion" : {
+              "processed_mse" : 21.52903689998972,
+              "source_mse" : 80.425120772946855
+            },
+            "subtitle" : {
+              "processed_mse" : 24.763476874003189,
+              "source_mse" : 78.876555023923444
+            },
+            "texture" : {
+              "processed_mse" : 26.469804780149609,
+              "source_mse" : 81.022258711913878
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8400833252817392,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 25.849526636713737,
+              "source_mse" : 80.076333172871202
+            },
+            "flat" : {
+              "processed_mse" : 30.848683240437641,
+              "source_mse" : 80.297089268335839
+            },
+            "motion" : {
+              "processed_mse" : 21.13814369411039,
+              "source_mse" : 79.75490800698941
+            },
+            "subtitle" : {
+              "processed_mse" : 26.345773524720894,
+              "source_mse" : 80.402232854864437
+            },
+            "texture" : {
+              "processed_mse" : 26.116949461777047,
+              "source_mse" : 80.244298485677803
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.0361666576936841,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 25.627293271287975,
+              "source_mse" : 80.029665436456995
+            },
+            "flat" : {
+              "processed_mse" : 29.308295732696333,
+              "source_mse" : 80.300952549470637
+            },
+            "motion" : {
+              "processed_mse" : 20.422551135779628,
+              "source_mse" : 79.196525850549904
+            },
+            "subtitle" : {
+              "processed_mse" : 27.518819776714512,
+              "source_mse" : 78.714194577352472
+            },
+            "texture" : {
+              "processed_mse" : 32.524356869184459,
+              "source_mse" : 80.673234811165841
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8930415865033865,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 26.242759146341463,
+              "source_mse" : 80.388866602481812
+            },
+            "flat" : {
+              "processed_mse" : 30.386033206523344,
+              "source_mse" : 79.9560293727329
+            },
+            "motion" : {
+              "processed_mse" : 21.601140918902249,
+              "source_mse" : 80.146829067735638
+            },
+            "subtitle" : {
+              "processed_mse" : 24.775119617224881,
+              "source_mse" : 80.847208931419459
+            },
+            "texture" : {
+              "processed_mse" : 36.772851669403394,
+              "source_mse" : 78.792920999817554
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 26.030848844672654,
+        "flat" : 31.056466639320742,
+        "motion" : 21.283258113045346,
+        "subtitle" : 25.741684790488623,
+        "texture" : 29.159211159211157
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 80.104464494106651,
+        "flat" : 80.131335472749257,
+        "motion" : 79.859585681047307,
+        "subtitle" : 80.098173118747283,
+        "texture" : 80.021329883398849
+      },
+      "strength" : 0.5,
+      "variant" : "synthetic_noisy_motion_texture_subtitle",
+      "warm_mean_ms" : 2.9317458276636899,
+      "warm_p95_ms" : 3.1115416204556823
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 2.1072083618491888,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 79.962585579803161,
+              "source_mse" : 79.962585579803161
+            },
+            "flat" : {
+              "processed_mse" : 79.687487097820636,
+              "source_mse" : 79.687487097820636
+            },
+            "motion" : {
+              "processed_mse" : 80.375783739336001,
+              "source_mse" : 80.375783739336001
+            },
+            "subtitle" : {
+              "processed_mse" : 80.818022328548651,
+              "source_mse" : 80.818022328548651
+            },
+            "texture" : {
+              "processed_mse" : 79.423645320197039,
+              "source_mse" : 79.423645320197039
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 14.438791666179895,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 19.679309745400086,
+              "source_mse" : 80.498214858793318
+            },
+            "flat" : {
+              "processed_mse" : 25.578813884219528,
+              "source_mse" : 80.230440296086584
+            },
+            "motion" : {
+              "processed_mse" : 14.111316682084489,
+              "source_mse" : 80.700174735327366
+            },
+            "subtitle" : {
+              "processed_mse" : 17.940191387559807,
+              "source_mse" : 80.79728867623605
+            },
+            "texture" : {
+              "processed_mse" : 18.903484765553731,
+              "source_mse" : 81.000182448458304
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9183332808315754,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 19.254606600342321,
+              "source_mse" : 79.716035515618316
+            },
+            "flat" : {
+              "processed_mse" : 31.690023297649592,
+              "source_mse" : 79.784658940104393
+            },
+            "motion" : {
+              "processed_mse" : 13.238924863809229,
+              "source_mse" : 79.376194881282757
+            },
+            "subtitle" : {
+              "processed_mse" : 19.226794258373207,
+              "source_mse" : 80.462679425837322
+            },
+            "texture" : {
+              "processed_mse" : 18.3258529465426,
+              "source_mse" : 78.964240102171132
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9119999380782247,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 19.408703733418914,
+              "source_mse" : 80.0613032199401
+            },
+            "flat" : {
+              "processed_mse" : 27.400336193930816,
+              "source_mse" : 80.391754401486338
+            },
+            "motion" : {
+              "processed_mse" : 12.549542604584232,
+              "source_mse" : 80.27243293246994
+            },
+            "subtitle" : {
+              "processed_mse" : 18.301754385964912,
+              "source_mse" : 81.442902711323768
+            },
+            "texture" : {
+              "processed_mse" : 20.826673964605,
+              "source_mse" : 78.253238460135009
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.2665416365489364,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 18.030287227214377,
+              "source_mse" : 80.24205712451861
+            },
+            "flat" : {
+              "processed_mse" : 20.271638797959245,
+              "source_mse" : 79.884661889173969
+            },
+            "motion" : {
+              "processed_mse" : 11.794840168568198,
+              "source_mse" : 81.536899989721448
+            },
+            "subtitle" : {
+              "processed_mse" : 17.440829346092503,
+              "source_mse" : 79.493779904306223
+            },
+            "texture" : {
+              "processed_mse" : 21.780696953110745,
+              "source_mse" : 79.350118591497903
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 3.1399166909977794,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 17.769369116388532,
+              "source_mse" : 79.807599219084295
+            },
+            "flat" : {
+              "processed_mse" : 25.263410893862986,
+              "source_mse" : 80.273437730396054
+            },
+            "motion" : {
+              "processed_mse" : 12.573697193956214,
+              "source_mse" : 79.626785897831226
+            },
+            "subtitle" : {
+              "processed_mse" : 16.995853269537481,
+              "source_mse" : 78.834449760765551
+            },
+            "texture" : {
+              "processed_mse" : 24.693669038496626,
+              "source_mse" : 80.558657179346838
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8577499324455857,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 16.924181643132222,
+              "source_mse" : 79.970742404792475
+            },
+            "flat" : {
+              "processed_mse" : 19.830487481199683,
+              "source_mse" : 79.894098911793336
+            },
+            "motion" : {
+              "processed_mse" : 13.875475382875939,
+              "source_mse" : 78.803422756706752
+            },
+            "subtitle" : {
+              "processed_mse" : 24.765071770334927,
+              "source_mse" : 80.873524720893144
+            },
+            "texture" : {
+              "processed_mse" : 21.276774311257071,
+              "source_mse" : 80.226053639846739
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8596249176189303,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 14.897056857081729,
+              "source_mse" : 80.248482295678215
+            },
+            "flat" : {
+              "processed_mse" : 17.253354566634226,
+              "source_mse" : 81.047185113096816
+            },
+            "motion" : {
+              "processed_mse" : 12.758968033713639,
+              "source_mse" : 78.616147599958879
+            },
+            "subtitle" : {
+              "processed_mse" : 17.728389154704946,
+              "source_mse" : 80.335087719298244
+            },
+            "texture" : {
+              "processed_mse" : 22.157635467980295,
+              "source_mse" : 81.149425287356323
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.897083293646574,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 16.003443249893024,
+              "source_mse" : 80.109809584937949
+            },
+            "flat" : {
+              "processed_mse" : 19.103187944203604,
+              "source_mse" : 79.384381727564957
+            },
+            "motion" : {
+              "processed_mse" : 13.563881179977388,
+              "source_mse" : 80.425120772946855
+            },
+            "subtitle" : {
+              "processed_mse" : 17.785007974481658,
+              "source_mse" : 78.876555023923444
+            },
+            "texture" : {
+              "processed_mse" : 18.061485130450649,
+              "source_mse" : 81.022258711913878
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7612915728241205,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 17.887068089430894,
+              "source_mse" : 80.076333172871202
+            },
+            "flat" : {
+              "processed_mse" : 24.063699902680703,
+              "source_mse" : 80.297089268335839
+            },
+            "motion" : {
+              "processed_mse" : 12.485455853633466,
+              "source_mse" : 79.75490800698941
+            },
+            "subtitle" : {
+              "processed_mse" : 18.97846889952153,
+              "source_mse" : 80.402232854864437
+            },
+            "texture" : {
+              "processed_mse" : 20.116584564860428,
+              "source_mse" : 80.244298485677803
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7807083679363132,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 17.246503262729995,
+              "source_mse" : 80.029665436456995
+            },
+            "flat" : {
+              "processed_mse" : 21.267244684302103,
+              "source_mse" : 80.300952549470637
+            },
+            "motion" : {
+              "processed_mse" : 12.258454106280194,
+              "source_mse" : 79.196525850549904
+            },
+            "subtitle" : {
+              "processed_mse" : 21.526634768740031,
+              "source_mse" : 78.714194577352472
+            },
+            "texture" : {
+              "processed_mse" : 23.48713738368911,
+              "source_mse" : 80.673234811165841
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7859166730195284,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 17.82404658750535,
+              "source_mse" : 80.388866602481812
+            },
+            "flat" : {
+              "processed_mse" : 22.392757085139639,
+              "source_mse" : 79.9560293727329
+            },
+            "motion" : {
+              "processed_mse" : 12.876349059512798,
+              "source_mse" : 80.146829067735638
+            },
+            "subtitle" : {
+              "processed_mse" : 17.34944178628389,
+              "source_mse" : 80.847208931419459
+            },
+            "texture" : {
+              "processed_mse" : 31.418719211822658,
+              "source_mse" : 78.792920999817554
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 17.720416010230679,
+        "flat" : 23.101359521071103,
+        "motion" : 12.916991375363251,
+        "subtitle" : 18.912585181963173,
+        "texture" : 21.913519430760811
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 80.104464494106651,
+        "flat" : 80.131335472749257,
+        "motion" : 79.859585681047307,
+        "subtitle" : 80.098173118747283,
+        "texture" : 80.021329883398849
+      },
+      "strength" : 0.75,
+      "variant" : "synthetic_noisy_motion_texture_subtitle",
+      "warm_mean_ms" : 2.9179166303947568,
+      "warm_p95_ms" : 3.2665416365489364
+    },
+    {
+      "frames" : [
+        {
+          "completed_ms" : 1.2958749430254102,
+          "frame" : 0,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 79.962585579803161,
+              "source_mse" : 79.962585579803161
+            },
+            "flat" : {
+              "processed_mse" : 79.687487097820636,
+              "source_mse" : 79.687487097820636
+            },
+            "motion" : {
+              "processed_mse" : 80.375783739336001,
+              "source_mse" : 80.375783739336001
+            },
+            "subtitle" : {
+              "processed_mse" : 80.818022328548651,
+              "source_mse" : 80.818022328548651
+            },
+            "texture" : {
+              "processed_mse" : 79.423645320197039,
+              "source_mse" : 79.423645320197039
+            }
+          },
+          "reset_reason" : "正在建立前帧参考",
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : false
+        },
+        {
+          "completed_ms" : 15.451333252713084,
+          "frame" : 1,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.893132220795891,
+              "source_mse" : 80.498214858793318
+            },
+            "flat" : {
+              "processed_mse" : 14.392875047922381,
+              "source_mse" : 80.230440296086584
+            },
+            "motion" : {
+              "processed_mse" : 12.546510432726899,
+              "source_mse" : 80.700174735327366
+            },
+            "subtitle" : {
+              "processed_mse" : 17.051355661881978,
+              "source_mse" : 80.79728867623605
+            },
+            "texture" : {
+              "processed_mse" : 17.531654807516876,
+              "source_mse" : 81.000182448458304
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8526666574180126,
+          "frame" : 2,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 13.20832664741121,
+              "source_mse" : 79.716035515618316
+            },
+            "flat" : {
+              "processed_mse" : 16.205373204753901,
+              "source_mse" : 79.784658940104393
+            },
+            "motion" : {
+              "processed_mse" : 12.363912015623393,
+              "source_mse" : 79.376194881282757
+            },
+            "subtitle" : {
+              "processed_mse" : 16.606698564593302,
+              "source_mse" : 80.462679425837322
+            },
+            "texture" : {
+              "processed_mse" : 17.713191023535853,
+              "source_mse" : 78.964240102171132
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.7935417601838708,
+          "frame" : 3,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.80418271287976,
+              "source_mse" : 80.0613032199401
+            },
+            "flat" : {
+              "processed_mse" : 13.171901265150845,
+              "source_mse" : 80.391754401486338
+            },
+            "motion" : {
+              "processed_mse" : 11.744732243807174,
+              "source_mse" : 80.27243293246994
+            },
+            "subtitle" : {
+              "processed_mse" : 16.7829346092504,
+              "source_mse" : 81.442902711323768
+            },
+            "texture" : {
+              "processed_mse" : 17.48713738368911,
+              "source_mse" : 78.253238460135009
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8072083368897438,
+          "frame" : 4,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.701105851519042,
+              "source_mse" : 80.24205712451861
+            },
+            "flat" : {
+              "processed_mse" : 12.072193223038131,
+              "source_mse" : 79.884661889173969
+            },
+            "motion" : {
+              "processed_mse" : 11.182392846130126,
+              "source_mse" : 81.536899989721448
+            },
+            "subtitle" : {
+              "processed_mse" : 17.115948963317383,
+              "source_mse" : 79.493779904306223
+            },
+            "texture" : {
+              "processed_mse" : 16.545338441890166,
+              "source_mse" : 79.350118591497903
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8150000143796206,
+          "frame" : 5,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 11.990312098844672,
+              "source_mse" : 79.807599219084295
+            },
+            "flat" : {
+              "processed_mse" : 12.509304314488778,
+              "source_mse" : 80.273437730396054
+            },
+            "motion" : {
+              "processed_mse" : 11.50154178230034,
+              "source_mse" : 79.626785897831226
+            },
+            "subtitle" : {
+              "processed_mse" : 16.733811802232854,
+              "source_mse" : 78.834449760765551
+            },
+            "texture" : {
+              "processed_mse" : 14.124429848567779,
+              "source_mse" : 80.558657179346838
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8180833905935287,
+          "frame" : 6,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 11.976512355584083,
+              "source_mse" : 79.970742404792475
+            },
+            "flat" : {
+              "processed_mse" : 11.545047037659618,
+              "source_mse" : 79.894098911793336
+            },
+            "motion" : {
+              "processed_mse" : 11.642100935347928,
+              "source_mse" : 78.803422756706752
+            },
+            "subtitle" : {
+              "processed_mse" : 18.604784688995217,
+              "source_mse" : 80.873524720893144
+            },
+            "texture" : {
+              "processed_mse" : 15.791643860609378,
+              "source_mse" : 80.226053639846739
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8141250368207693,
+          "frame" : 7,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 11.744925385109115,
+              "source_mse" : 80.248482295678215
+            },
+            "flat" : {
+              "processed_mse" : 11.460703647999056,
+              "source_mse" : 81.047185113096816
+            },
+            "motion" : {
+              "processed_mse" : 11.541062801932368,
+              "source_mse" : 78.616147599958879
+            },
+            "subtitle" : {
+              "processed_mse" : 16.980223285486442,
+              "source_mse" : 80.335087719298244
+            },
+            "texture" : {
+              "processed_mse" : 16.628534938879767,
+              "source_mse" : 81.149425287356323
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.8230417519807816,
+          "frame" : 8,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.007815842961062,
+              "source_mse" : 80.109809584937949
+            },
+            "flat" : {
+              "processed_mse" : 12.25615618272435,
+              "source_mse" : 79.384381727564957
+            },
+            "motion" : {
+              "processed_mse" : 12.392486380923014,
+              "source_mse" : 80.425120772946855
+            },
+            "subtitle" : {
+              "processed_mse" : 16.289792663476874,
+              "source_mse" : 78.876555023923444
+            },
+            "texture" : {
+              "processed_mse" : 16.915526363802226,
+              "source_mse" : 81.022258711913878
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.9474166221916676,
+          "frame" : 9,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.954789794608473,
+              "source_mse" : 80.076333172871202
+            },
+            "flat" : {
+              "processed_mse" : 14.865522427674069,
+              "source_mse" : 80.297089268335839
+            },
+            "motion" : {
+              "processed_mse" : 11.80892178024463,
+              "source_mse" : 79.75490800698941
+            },
+            "subtitle" : {
+              "processed_mse" : 16.823444976076555,
+              "source_mse" : 80.402232854864437
+            },
+            "texture" : {
+              "processed_mse" : 18.801496077358145,
+              "source_mse" : 80.244298485677803
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6670416118577123,
+          "frame" : 10,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.650446619597775,
+              "source_mse" : 80.029665436456995
+            },
+            "flat" : {
+              "processed_mse" : 13.170013860626971,
+              "source_mse" : 80.300952549470637
+            },
+            "motion" : {
+              "processed_mse" : 11.572412375372597,
+              "source_mse" : 79.196525850549904
+            },
+            "subtitle" : {
+              "processed_mse" : 18.016267942583731,
+              "source_mse" : 78.714194577352472
+            },
+            "texture" : {
+              "processed_mse" : 15.246852764094143,
+              "source_mse" : 80.673234811165841
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        },
+        {
+          "completed_ms" : 2.6404582895338535,
+          "frame" : 11,
+          "regions" : {
+            "all" : {
+              "processed_mse" : 12.64950390457852,
+              "source_mse" : 80.388866602481812
+            },
+            "flat" : {
+              "processed_mse" : 13.288477985195671,
+              "source_mse" : 79.9560293727329
+            },
+            "motion" : {
+              "processed_mse" : 11.487665741597286,
+              "source_mse" : 80.146829067735638
+            },
+            "subtitle" : {
+              "processed_mse" : 16.261244019138758,
+              "source_mse" : 80.847208931419459
+            },
+            "texture" : {
+              "processed_mse" : 20.057106367451194,
+              "source_mse" : 78.792920999817554
+            }
+          },
+          "reset_reason" : null,
+          "subtitle_background_leak" : 0,
+          "subtitle_recall" : 1,
+          "used_history" : true
+        }
+      ],
+      "history_frames" : 11,
+      "maximum_subtitle_background_leak" : 0,
+      "mean_region_mse_excluding_priming" : {
+        "all" : 12.507368493989963,
+        "flat" : 13.176142563384888,
+        "motion" : 11.798521757818706,
+        "subtitle" : 17.024227925184864,
+        "texture" : 16.98571926158133
+      },
+      "minimum_subtitle_recall" : 1,
+      "scope" : "Copied deterministic native-restoration fixture: RGB uniform noise +\/-15, moving rectangle, 3px low-contrast texture, coarse white glyph pattern moves at frame6; no guarantee for thin\/color subtitles or arbitrary content. No future frames.",
+      "size" : [
+        640,
+        360
+      ],
+      "source_region_mse_excluding_priming" : {
+        "all" : 80.104464494106651,
+        "flat" : 80.131335472749257,
+        "motion" : 79.859585681047307,
+        "subtitle" : 80.098173118747283,
+        "texture" : 80.021329883398849
+      },
+      "strength" : 1,
+      "variant" : "synthetic_noisy_motion_texture_subtitle",
+      "warm_mean_ms" : 2.7978583471849561,
+      "warm_p95_ms" : 2.9474166221916676
+    }
+  ],
+  "validation_completed" : true
+}

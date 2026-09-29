@@ -25,14 +25,10 @@ if not (library / "libCinemaCore.a").exists():
 if not (library / "libCinemaCore.a").exists():
     sys.exit("Existing CinemaCore build required; this script does not rebuild the product.")
 binary = root / ".build/headless-network-playback-smoke"
-# The renderer's permission value is the only thing the controller needs from VideoSurface; a
-# minimal stand-in keeps this smoke test independent of the Metal surface.
-stub = root / ".build/headless-permission-stub.swift"
-stub.write_text("import Foundation\nenum VideoProcessingPermission: Equatable { case inspectSDRFrames; case nativeOnly(String) }\n")
 command = ["swiftc", "-parse-as-library", "-target", f"{platform.machine()}-apple-macos15.0",
            "-I", str(library), "-L", str(library), "-lCinemaCore",
-           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift", "Sources/CinemaApp/DetailScaler.swift",
-           "Sources/CinemaApp/MediaExperienceInspector.swift", str(stub),
+           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/QualityPerformanceController.swift", "Sources/CinemaApp/FrameInterpolator.swift", "Sources/CinemaApp/InterpolatedFramePipeline.swift", "Sources/CinemaApp/VideoProcessingPolicy.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift", "Sources/CinemaApp/DetailScaler.swift",
+           "Sources/CinemaApp/MediaExperienceInspector.swift",
            "Sources/CinemaApp/AdSkipController.swift", "Sources/CinemaApp/AdFrameAnalyzer.swift",
            "Tests/AppModelSmoke/NetworkPlaybackSmoke.swift", "-o", str(binary)]
 subprocess.run(command, cwd=root, check=True, timeout=60)

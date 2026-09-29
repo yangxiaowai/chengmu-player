@@ -1,0 +1,78 @@
+Sources/CinemaApp/VideoSurface.swift:40:21: warning: class 'CinemaItemVideoOutput' must restate inherited '@unchecked Sendable' conformance
+ 38 | /// Identify this item's single reusable output across view recreation. The item owns its
+ 39 | /// lifetime: repeatedly removing/re-adding outputs can rewind AVFoundation to a keyframe.
+ 40 | private final class CinemaItemVideoOutput: AVPlayerItemVideoOutput {}
+    |                     `- warning: class 'CinemaItemVideoOutput' must restate inherited '@unchecked Sendable' conformance
+ 41 |
+ 42 | final class CinemaVideoView: NSView, MTKViewDelegate {
+scripts/validation/target-playback/main.swift:39:13: warning: capture of 'trace' with non-Sendable type 'JumpTrace' in a '@Sendable' closure [#SendableClosureCaptures]
+ 37 |         let trace = JumpTrace(phase: "warmup")
+ 38 |         let jumpObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemTimeJumped, object: item, queue: .main) { _ in
+ 39 |             trace.jumps.append(["phase": trace.phase, "clock": finite(player.currentTime().seconds), "wall": CACurrentMediaTime()])
+    |             `- warning: capture of 'trace' with non-Sendable type 'JumpTrace' in a '@Sendable' closure [#SendableClosureCaptures]
+ 40 |         }
+ 41 |         defer { NotificationCenter.default.removeObserver(jumpObserver) }
+    :
+321 |
+322 | // Mutated only on the main actor / NotificationCenter main queue.
+323 | private final class JumpTrace {
+    |                     `- note: class 'JumpTrace' does not conform to the 'Sendable' protocol
+324 |     var phase: String
+325 |     var jumps: [[String: Any]] = []
+
+scripts/validation/target-playback/main.swift:177:13: warning: capture of 'trace' with non-Sendable type 'JumpTrace' in a '@Sendable' closure [#SendableClosureCaptures]
+175 |         let trace = JumpTrace(phase: "source_fps")
+176 |         let jumpObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemTimeJumped, object: item, queue: .main) { _ in
+177 |             trace.jumps.append(["phase": trace.phase, "clock": finite(player.currentTime().seconds), "wall": CACurrentMediaTime()])
+    |             `- warning: capture of 'trace' with non-Sendable type 'JumpTrace' in a '@Sendable' closure [#SendableClosureCaptures]
+178 |         }
+179 |         defer { NotificationCenter.default.removeObserver(jumpObserver) }
+    :
+321 |
+322 | // Mutated only on the main actor / NotificationCenter main queue.
+323 | private final class JumpTrace {
+    |                     `- note: class 'JumpTrace' does not conform to the 'Sendable' protocol
+324 |     var phase: String
+325 |     var jumps: [[String: Any]] = []
+
+[#SendableClosureCaptures]: <https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures>
+PASS real_window_hosts_metal_view
+WARM 0 0 0
+WARM 1 0 0 正在预热运动插帧，暂用原片
+WARM 2 0 0 正在预热运动插帧，暂用原片
+WARM 3 0 0 正在预热运动插帧，暂用原片
+WARM 4 0 0 正在预热运动插帧，暂用原片
+WARM 5 0 0 正在预热运动插帧，暂用原片
+WARM 6 0 0 正在预热运动插帧，暂用原片
+WARM 7 0 0 正在预热运动插帧，暂用原片
+WARM 8 0 0 正在预热运动插帧，暂用原片
+WARM 9 0 0 正在预热运动插帧，暂用原片
+WARM 10 19 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 11 43 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 12 67 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 13 92 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 14 116 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 15 139 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 16 164 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 17 187 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 18 212 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 19 235 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 20 259 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 21 284 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 22 307 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 23 332 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 24 355 0 未来帧未及时就绪，已保留修复并跟随片源帧率
+FAIL interpolation_warms_within_25_seconds warmSeconds=25.00440045830328 ["timing": "未来帧未及时就绪，已保留修复并跟随片源帧率", "clock": 24.801504834, "fallback": "", "player": ["reasonForWaiting": "", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "clockValid": true, "error": "", "clockDescription": "CMTime(value: 24801578750, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "rate": 1.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)"], "selectedPTS": 24.75, "renderedFrames": 379, "mode": "自然降噪 + 平滑缩放", "output": [1920, 1080], "nativeVisible": false, "processedFrames": 380, "clockValid": true, "interpolatedFrames": 0]
+PASS startup_does_not_show_obsolete_frames obsolete sampled frames=0
+PASS primary_clock_advances_without_jump mediaSeconds=5.000916167 TimeJumped=0
+FAIL five_second_window_presents_near_60_unique_pts completed presentations=120 wallSeconds=5.0008343333611265 measuredFPS=23.99599586802277
+FAIL presented_pts_are_strictly_increasing
+FAIL presented_pts_follow_60hz_grid
+PASS completed_frame_clock_lag_is_bounded min=0.006671916666668665 max=0.023998000666669128
+PASS target_is_actual_1920x1080 ["nativeVisible": false, "renderedFrames": 499, "fallback": "", "player": ["loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "error": "", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "reasonForWaiting": "", "rate": 1.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "clockDescription": "CMTime(value: 29803798251, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "clockValid": true], "selectedPTS": 29.75, "processedFrames": 500, "clock": 29.803741667, "mode": "自然降噪 + 平滑缩放", "timing": "未来帧未及时就绪，已保留修复并跟随片源帧率", "clockValid": true, "interpolatedFrames": 0, "output": [1920, 1080]]
+PASS paused_split_uses_same_frame_reference ["player": ["rate": 0.0, "reasonForWaiting": "", "clockDescription": "CMTime(value: 29804656167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "error": "", "loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "clockValid": true], "processedFrames": 501, "interpolatedFrames": 0, "timing": "同帧对照 · 跟随片源帧率", "fallback": "", "clockValid": true, "renderedFrames": 500, "output": [1920, 1080], "nativeVisible": false, "mode": "自然降噪 + 平滑缩放", "selectedPTS": 29.791666666666668, "clock": 29.804656167]
+PASS paused_split_stays_on_one_pts
+PASS paused_seek_discards_future_revision ["nativeVisible": false, "renderedFrames": 501, "fallback": "", "player": ["loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "clockDescription": "CMTime(value: 1200, timescale: 600, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "rate": 0.0, "reasonForWaiting": "", "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "error": "", "itemStatus": "AVPlayerItemStatus(rawValue: 1)"], "selectedPTS": 2.0, "processedFrames": 502, "clock": 2.0, "mode": "自然降噪 + 平滑缩放", "timing": "同帧对照 · 跟随片源帧率", "clockValid": true, "interpolatedFrames": 0, "output": [1920, 1080]]
+PASS native_switch_reuses_output_and_rejects_late_results
+PASS native_switch_preserves_position_without_time_jump before=2.0 after=2.0 newTimeJumps=0
+PASS unsupported_4k60_explains_and_keeps_picture ["player": ["rate": 1.0, "reasonForWaiting": "", "clockDescription": "CMTime(value: 2470937935, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "error": "", "loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "clockValid": true], "processedFrames": 510, "interpolatedFrames": 0, "timing": "实时运动补偿插帧目前限制为1080p，请选择1080p输出；当前跟随片源帧率", "fallback": "", "clockValid": true, "renderedFrames": 509, "output": [3840, 2160], "nativeVisible": false, "mode": "自然降噪 + 平滑缩放", "selectedPTS": 2.4166666666666665, "clock": 2.470851643]

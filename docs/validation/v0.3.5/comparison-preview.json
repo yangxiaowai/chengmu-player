@@ -1,0 +1,12 @@
+{
+  "browser": "Codex in-app browser",
+  "url": "http://127.0.0.1:8769/画质对照.html",
+  "screenshot_visually_reviewed": true,
+  "sample_selection": true,
+  "keyboard_original_old_new_switch": true,
+  "pixel_size_toggle": true,
+  "console_errors": [],
+  "pointer_click_verified": false,
+  "native_mac_locked": true,
+  "scope": "Local comparison artifact only; no native player UI or physical display quality acceptance."
+}

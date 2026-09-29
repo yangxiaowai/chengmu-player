@@ -2,6 +2,13 @@ import Foundation
 import Metal
 import CoreImage
 
+/// Opaque SDR code-value storage shared by spatial and motion outputs. Packed 10-bit
+/// keeps decoder gradation without doubling queued-frame memory. This is NOT HDR:
+/// consumers still explicitly tag the texture as sRGB and HDR stays on the native layer.
+enum SDRTextureFormat {
+    static let output: MTLPixelFormat = .rgb10a2Unorm
+}
+
 /// SDR, contrast-gated cubic interpolation with a nearest-neighbour envelope.
 /// This is spatial interpolation, not a learned reconstruction network.
 /// Worker-owned: encode serially and finish the command before reusing the source texture.
@@ -39,7 +46,7 @@ final class DetailScaler {
             return device.makeTexture(descriptor: d)
         }
         if inputCache?.width != sourceWidth || inputCache?.height != sourceHeight { inputCache = allocate(sourceWidth, sourceHeight, .rgba16Float) }
-        guard let input = inputCache, let output = allocate(width, height, .bgra8Unorm) else { throw Failure.unavailable("细节缩放纹理分配失败") }
+        guard let input = inputCache, let output = allocate(width, height, SDRTextureFormat.output) else { throw Failure.unavailable("细节缩放纹理分配失败") }
         context.render(image, to: input, commandBuffer: command, bounds: image.extent, colorSpace: linear)
         guard let encoder = command.makeComputeCommandEncoder() else { throw Failure.unavailable("细节缩放计算提交失败") }
         encoder.setComputePipelineState(kernel); encoder.setTexture(input, index: 0); encoder.setTexture(output, index: 1)
@@ -58,6 +65,13 @@ final class DetailScaler {
     }
     float4 readClamp(texture2d<float, access::read> image, int2 p) {
         return image.read(uint2(clamp(p, int2(0), int2(image.get_width()-1,image.get_height()-1))));
+    }
+    // Measure contrast in code-value brightness so equal noise amplitudes are not
+    // sharpened more strongly in bright regions. Interpolation and clamping stay linear.
+    // This is OETF(linear luminance), a perceptual brightness proxy, not exact RGB luma Y'.
+    float perceptualBrightness(float value) {
+        float v=clamp(value,0.0,1.0);
+        return v<=0.0031308 ? 12.92*v : 1.055*pow(v,1.0/2.4)-0.055;
     }
     kernel void detailScale(texture2d<float, access::read> input [[texture(0)]],
                             texture2d<float, access::write> output [[texture(1)]], uint2 tid [[thread_position_in_grid]]) {
@@ -85,9 +99,9 @@ final class DetailScaler {
         float4 bilinear=mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
         // Restrict the cubic's negative lobes to the local 2x2 range. Low-contrast
         // regions use bilinear to avoid emphasizing residual noise after denoising.
-        float contrast=dot(hi.rgb-lo.rgb,float3(0.2126,0.7152,0.0722));
+        float contrast=perceptualBrightness(dot(hi.rgb,lumaWeights))-perceptualBrightness(dot(lo.rgb,lumaWeights));
         float coherence=max(gx*gx/(ax*ax+1e-12),gy*gy/(ay*ay+1e-12));
-        float confidence=0.8*smoothstep(0.012,0.07,contrast)*smoothstep(0.45,0.90,coherence);
+        float confidence=0.8*smoothstep(0.03,0.14,contrast)*smoothstep(0.45,0.90,coherence);
         float4 value=mix(bilinear,clamp(cubic,lo,hi),confidence);
         // Final SDR output is sRGB code values, matching the normal pipeline render.
         float3 rgb=clamp(value.rgb,0.0,1.0);

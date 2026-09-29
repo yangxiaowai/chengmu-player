@@ -1,0 +1,402 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "actual_config_n" : 0,
+      "n" : 1,
+      "pairs" : [
+        {
+          "completed_ms" : 2.5491249980404973,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 0,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 1.5333333285525441,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 1,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 2.0662916358560324,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 2,
+          "phases" : [
+            0.5
+          ],
+          "quality" : [
+            {
+              "actual_phase" : 0.50418149224652709,
+              "centroid_expected" : 316.77019748653498,
+              "centroid_output" : 316.83710136247942,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.5,
+              "roi_mse_blend" : 2308.602573529412,
+              "roi_mse_duplicate_left" : 2720.7522058823529,
+              "roi_mse_interpolation" : 1224.1066636029411
+            }
+          ]
+        },
+        {
+          "completed_ms" : 1.6952500445768237,
+          "gpu_ms" : 0,
+          "pair" : 3,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 1.4292916748672724,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 4,
+          "phases" : [
+            0.5
+          ]
+        }
+      ],
+      "phases" : [
+        0.5
+      ],
+      "setup_ms" : 66.752624930813909,
+      "size" : [
+        640,
+        360
+      ],
+      "warm_mean_pair_ms" : 1.6810416709631681,
+      "warm_p95_pair_ms" : 1.6952500445768237
+    },
+    {
+      "actual_config_n" : 0,
+      "n" : 2,
+      "pairs" : [
+        {
+          "completed_ms" : 6.0245416825637221,
+          "gpu_ms" : 0.00012503005564212799,
+          "pair" : 0,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 4.6642082743346691,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 1,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 4.1891250293701887,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 2,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ],
+          "quality" : [
+            {
+              "actual_phase" : 0.37559638445951293,
+              "centroid_expected" : 315.22980251346502,
+              "centroid_output" : 314.77973963788719,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.40000000596046448,
+              "roi_mse_blend" : 1817.3858455882353,
+              "roi_mse_duplicate_left" : 2085.7323529411765,
+              "roi_mse_interpolation" : 756.77780330882354
+            },
+            {
+              "actual_phase" : 0.76945896227030985,
+              "centroid_expected" : 321.5,
+              "centroid_output" : 321.08154088285994,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.80000001192092896,
+              "roi_mse_blend" : 978.97224264705881,
+              "roi_mse_duplicate_left" : 2007.0939338235294,
+              "roi_mse_interpolation" : 493.54039522058821
+            }
+          ]
+        },
+        {
+          "completed_ms" : 5.1581249572336674,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 3,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 4.9748750170692801,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 4,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        }
+      ],
+      "phases" : [
+        0.40000000596046448,
+        0.80000001192092896
+      ],
+      "setup_ms" : 29.08283332362771,
+      "size" : [
+        640,
+        360
+      ],
+      "warm_mean_pair_ms" : 4.7465833195019513,
+      "warm_p95_pair_ms" : 4.9748750170692801
+    },
+    {
+      "actual_config_n" : 0,
+      "n" : 2,
+      "pairs" : [
+        {
+          "completed_ms" : 13.960958342067897,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 0,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 13.111500069499016,
+          "gpu_ms" : 0,
+          "pair" : 1,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 13.080833363346756,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 2,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ],
+          "quality" : [
+            {
+              "actual_phase" : 0.36128793684540028,
+              "centroid_expected" : 631,
+              "centroid_output" : 629.81072664961812,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.40000000596046448,
+              "roi_mse_blend" : 2071.4049804687502,
+              "roi_mse_duplicate_left" : 2371.6134765625002,
+              "roi_mse_interpolation" : 1642.0355224609375
+            },
+            {
+              "actual_phase" : 0.78029463221096051,
+              "centroid_expected" : 643.75048732943469,
+              "centroid_output" : 643.21894090131605,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.80000001192092896,
+              "roi_mse_blend" : 1050.4599609375,
+              "roi_mse_duplicate_left" : 2147.8648437500001,
+              "roi_mse_interpolation" : 772.1278015136719
+            }
+          ]
+        },
+        {
+          "completed_ms" : 13.2748750038445,
+          "gpu_ms" : 0.00012503005564212799,
+          "pair" : 3,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 13.115458423271775,
+          "gpu_ms" : 0,
+          "pair" : 4,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        }
+      ],
+      "phases" : [
+        0.40000000596046448,
+        0.80000001192092896
+      ],
+      "setup_ms" : 2057.1421249769628,
+      "size" : [
+        1280,
+        720
+      ],
+      "warm_mean_pair_ms" : 13.145666714990512,
+      "warm_p95_pair_ms" : 13.115458423271775
+    },
+    {
+      "actual_config_n" : 0,
+      "n" : 1,
+      "pairs" : [
+        {
+          "completed_ms" : 16.501541715115309,
+          "gpu_ms" : 0,
+          "pair" : 0,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 11.617458309046924,
+          "gpu_ms" : 0,
+          "pair" : 1,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 11.658750008791685,
+          "gpu_ms" : 0.00037509016692638397,
+          "pair" : 2,
+          "phases" : [
+            0.5
+          ],
+          "quality" : [
+            {
+              "actual_phase" : 0.5,
+              "centroid_expected" : 951.5,
+              "centroid_output" : 951.5,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.5,
+              "roi_mse_blend" : 2531.8244680851062,
+              "roi_mse_duplicate_left" : 2989.7712765957449,
+              "roi_mse_interpolation" : 1057.0783798758864
+            }
+          ]
+        },
+        {
+          "completed_ms" : 12.618000037036836,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 3,
+          "phases" : [
+            0.5
+          ]
+        },
+        {
+          "completed_ms" : 11.519416701048613,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 4,
+          "phases" : [
+            0.5
+          ]
+        }
+      ],
+      "phases" : [
+        0.5
+      ],
+      "setup_ms" : 35.634666681289673,
+      "size" : [
+        1920,
+        1080
+      ],
+      "warm_mean_pair_ms" : 11.853406263981014,
+      "warm_p95_pair_ms" : 11.658750008791685
+    },
+    {
+      "actual_config_n" : 0,
+      "n" : 2,
+      "pairs" : [
+        {
+          "completed_ms" : 48.476541647687554,
+          "gpu_ms" : 0,
+          "pair" : 0,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 44.887958327308297,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 1,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 45.088666724041104,
+          "gpu_ms" : 8.3353370428085327e-05,
+          "pair" : 2,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ],
+          "quality" : [
+            {
+              "actual_phase" : 0.38363046140535317,
+              "centroid_expected" : 946.74451097804388,
+              "centroid_output" : 945.91426214745695,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.40000000596046448,
+              "roi_mse_blend" : 2080.984109042553,
+              "roi_mse_duplicate_left" : 2391.9854388297872,
+              "roi_mse_interpolation" : 874.41580507535457
+            },
+            {
+              "actual_phase" : 0.75144723257199308,
+              "centroid_expected" : 965.74451097804388,
+              "centroid_output" : 963.56946716345567,
+              "identical_to_blend" : false,
+              "identical_to_left" : false,
+              "phase" : 0.80000001192092896,
+              "roi_mse_blend" : 1170.8016622340426,
+              "roi_mse_duplicate_left" : 2286.9797207446809,
+              "roi_mse_interpolation" : 804.23701795212764
+            }
+          ]
+        },
+        {
+          "completed_ms" : 45.085291611030698,
+          "gpu_ms" : 4.1560269892215729e-05,
+          "pair" : 3,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "completed_ms" : 44.954749988391995,
+          "gpu_ms" : 4.1676685214042664e-05,
+          "pair" : 4,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        }
+      ],
+      "phases" : [
+        0.40000000596046448,
+        0.80000001192092896
+      ],
+      "setup_ms" : 34.92183331400156,
+      "size" : [
+        1920,
+        1080
+      ],
+      "warm_mean_pair_ms" : 45.004166662693024,
+      "warm_p95_pair_ms" : 45.085291611030698
+    }
+  ],
+  "scope" : "Low latency frame interpolation, grayscale 420v prepared inputs; completed GPU processing only, excludes conversion\/readback\/playback. Input pair previous\/current still needs buffering to display intermediates in time order."
+}

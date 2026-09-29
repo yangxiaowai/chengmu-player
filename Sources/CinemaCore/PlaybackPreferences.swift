@@ -12,11 +12,13 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     /// Whether the realtime pipeline may replace the picture at all. `original` keeps the system's
     /// own output for every source; it never changes what the source is.
     public private(set) var pipeline: String
+    public private(set) var targetResolution: EnhancementResolution
+    public private(set) var targetFrameRate: EnhancementFrameRate
 
     public static let pipelineEnhanced = "enhanced"
     public static let pipelineOriginal = "original"
 
-    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "clarity", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineOriginal) {
+    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "clarity", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineOriginal, targetResolution: EnhancementResolution = .automatic, targetFrameRate: EnhancementFrameRate = .source) {
         self.volume = Self.validVolume(volume)
         self.rate = Self.validRate(rate)
         self.enhancement = Self.validEnhancement(enhancement)
@@ -24,6 +26,8 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
         self.automaticAdSkipping = automaticAdSkipping
         self.keepsOriginalAudioLayout = keepsOriginalAudioLayout
         self.pipeline = Self.validPipeline(pipeline)
+        self.targetResolution = targetResolution
+        self.targetFrameRate = targetFrameRate
     }
 
     public mutating func setVolume(_ value: Double) {
@@ -35,6 +39,8 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public mutating func setEnhancement(_ value: String) { enhancement = Self.validEnhancement(value) }
     public mutating func setAutomaticAdSkipping(_ value: Bool) { automaticAdSkipping = value }
     public mutating func setKeepsOriginalAudioLayout(_ value: Bool) { keepsOriginalAudioLayout = value }
+    public mutating func setTargetResolution(_ value: EnhancementResolution) { targetResolution = value }
+    public mutating func setTargetFrameRate(_ value: EnhancementFrameRate) { targetFrameRate = value }
     public mutating func setPipeline(_ value: String) { pipeline = Self.validPipeline(value) }
     /// True when the realtime pipeline may replace the picture. It only ever affects SDR sources:
     /// Dolby Vision and HDR always keep the system's native presentation.
@@ -43,12 +49,12 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     private static func validVolume(_ value: Double) -> Double { value.isFinite ? min(1, max(0, value)) : 0.8 }
     private static func validRate(_ value: Double) -> Double { value.isFinite ? min(2, max(0.5, value)) : 1 }
     private static func validEnhancement(_ value: String) -> String {
-        ["original", "temporal", "restoration", "clarity", "upscale4K", "appleAI"].contains(value) ? value : "upscale4K"
+        ["original", "temporal", "restoration", "compression", "clarity", "upscale4K", "appleAI"].contains(value) ? value : "upscale4K"
     }
     private static func validPipeline(_ value: String) -> String {
         value == pipelineOriginal ? pipelineOriginal : pipelineEnhanced
     }
-    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume, automaticAdSkipping, keepsOriginalAudioLayout, pipeline }
+    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume, automaticAdSkipping, keepsOriginalAudioLayout, pipeline, targetResolution, targetFrameRate }
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(volume: try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.8,
@@ -57,7 +63,9 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
                   lastAudibleVolume: try container.decodeIfPresent(Double.self, forKey: .lastAudibleVolume) ?? 0.8,
                   automaticAdSkipping: try container.decodeIfPresent(Bool.self, forKey: .automaticAdSkipping) ?? true,
                   keepsOriginalAudioLayout: try container.decodeIfPresent(Bool.self, forKey: .keepsOriginalAudioLayout) ?? false,
-                  pipeline: try container.decodeIfPresent(String.self, forKey: .pipeline) ?? PlaybackPreferences.pipelineEnhanced)
+                  pipeline: try container.decodeIfPresent(String.self, forKey: .pipeline) ?? PlaybackPreferences.pipelineEnhanced,
+                  targetResolution: (try? container.decode(EnhancementResolution.self, forKey: .targetResolution)) ?? .automatic,
+                  targetFrameRate: (try? container.decode(EnhancementFrameRate.self, forKey: .targetFrameRate)) ?? .source)
     }
 }
 

@@ -1,0 +1,26 @@
+PASS real_window_hosts_metal_view
+WARM 0 0 0 processingMS 0.0 sourceFPS 0.0
+WARM 1 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 2 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 3 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 4 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 5 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 6 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 7 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 8 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 9 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+PASS interpolation_warms_within_25_seconds warmSeconds=9.997612666687928 ["drawablePresentedFrames": 0, "processedFrames": 22, "processingMS": 30.236250022426248, "timing": "运动插帧 · 目标 60 fps · 与原音频共用时钟", "output": [1920, 1080], "player": ["itemStatus": "AVPlayerItemStatus(rawValue: 1)", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "error": "", "rate": 1.0, "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "clockDescription": "CMTime(value: 9796346083, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "reasonForWaiting": ""], "clock": 9.796325416, "sourceFPS": 24.0, "fallback": "", "nativeVisible": false, "selectedPTS": 9.783333333333333, "renderedFrames": 40, "reportedDrawableFPS": <null>, "clockValid": true, "mode": "自然降噪 + 平滑缩放 · 运动补偿60fps", "interpolatedFrames": 45]
+PASS startup_does_not_show_obsolete_frames obsolete sampled frames=0
+PASS primary_clock_advances_without_jump mediaSeconds=5.001577584 TimeJumped=0
+PASS five_second_window_presents_near_60_unique_pts completed presentations=301 wallSeconds=5.001523875049315 measuredFPS=60.181658134548464
+PASS presented_pts_are_strictly_increasing
+PASS presented_pts_follow_60hz_grid
+PASS completed_frame_clock_lag_is_bounded min=0.005595708666666255 max=0.02398866666666777
+PASS target_is_actual_1920x1080 ["drawablePresentedFrames": 0, "processedFrames": 142, "processingMS": 33.10949995648116, "timing": "运动插帧 · 目标 60 fps · 与原音频共用时钟", "output": [1920, 1080], "player": ["error": "", "rate": 1.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "reasonForWaiting": "", "clockDescription": "CMTime(value: 14798488292, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "clockValid": true, "loadedTimeRanges": [["start": 0.0, "duration": 45.0]]], "clock": 14.798466459, "sourceFPS": 24.0, "fallback": "", "nativeVisible": false, "selectedPTS": 14.783333333333333, "renderedFrames": 341, "reportedDrawableFPS": <null>, "clockValid": true, "mode": "自然降噪 + 平滑缩放 · 运动补偿60fps", "interpolatedFrames": 285]
+DRAWABLE_PRESENTED 0 measuredFPS 0.0 reportedFPS unavailable
+PASS paused_split_uses_same_frame_reference ["drawablePresentedFrames": 0, "processedFrames": 143, "processingMS": 2.023333334363997, "timing": "同帧对照 · 跟随片源帧率", "output": [1920, 1080], "player": ["clockDescription": "CMTime(value: 14798777375, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "rate": 0.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "error": "", "reasonForWaiting": "", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "clockValid": true], "clock": 14.798777375, "sourceFPS": 24.0, "fallback": "", "nativeVisible": false, "selectedPTS": 14.791666666666666, "renderedFrames": 342, "reportedDrawableFPS": <null>, "clockValid": true, "mode": "自然降噪 + 平滑缩放", "interpolatedFrames": 285]
+PASS paused_split_stays_on_one_pts
+PASS paused_seek_discards_future_revision ["drawablePresentedFrames": 0, "processedFrames": 144, "processingMS": 2.467833342961967, "timing": "同帧对照 · 跟随片源帧率", "output": [1920, 1080], "player": ["clockDescription": "CMTime(value: 1200, timescale: 600, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "rate": 0.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "error": "", "reasonForWaiting": "", "loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "clockValid": true], "clock": 2.0, "sourceFPS": 24.0, "fallback": "", "nativeVisible": false, "selectedPTS": 2.0, "renderedFrames": 343, "reportedDrawableFPS": <null>, "clockValid": true, "mode": "自然降噪 + 平滑缩放", "interpolatedFrames": 285]
+PASS native_switch_reuses_output_and_rejects_late_results
+PASS native_switch_preserves_position_without_time_jump before=2.0 after=2.0 newTimeJumps=0
+PASS unsupported_4k60_explains_and_keeps_picture ["drawablePresentedFrames": 0, "processedFrames": 153, "processingMS": 5.079083377495408, "timing": "实时运动补偿插帧目前限制为1080p，请选择1080p输出；当前跟随片源帧率", "output": [3840, 2160], "player": ["clockDescription": "CMTime(value: 2439173401, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "rate": 1.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "error": "", "reasonForWaiting": "", "loadedTimeRanges": [["duration": 45.0, "start": 0.0]], "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "clockValid": true], "clock": 2.43915786, "sourceFPS": 24.0, "fallback": "", "nativeVisible": false, "selectedPTS": 2.4166666666666665, "renderedFrames": 352, "reportedDrawableFPS": <null>, "clockValid": true, "mode": "自然降噪 + 平滑缩放", "interpolatedFrames": 285]

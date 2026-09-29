@@ -1,0 +1,9 @@
+PASS 10-bit SDR fixture allowed: [:]
+PASS fixture really has more than 8-bit precision: ["distinct_levels": 877]
+FAIL production SDR render preserves more than 8-bit gradation: ["distinct_levels": 256]
+FAIL production SDR render code-value RMS below half one 10-bit step: ["rms": 0.001130847514736582]
+PASS production SDR render remains monotonic and SDR bounded: [:]
+FAIL detail scaling preserves more than 8-bit gradation: ["distinct_levels": 256]
+FAIL detail scaling code-value RMS below half one 10-bit step: ["rms": 0.001135530401490276]
+PASS detail scaling remains monotonic and SDR bounded: [:]
+Precision: 4/8; docs/validation/v0.3.5/repair-precision-red.json

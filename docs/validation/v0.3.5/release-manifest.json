@@ -1,0 +1,45 @@
+{
+  "version": "0.3.5",
+  "build": "17",
+  "installed_app": "/Users/yangjun/Downloads/视频播放器/dist/映川.app",
+  "installed": true,
+  "previous_app_backup": "/Users/yangjun/Downloads/视频播放器/dist/历史版本/映川-v0.3.3-build15-2.app",
+  "zip": "/Users/yangjun/Downloads/视频播放器/dist/映川-v0.3.5.zip",
+  "zip_bytes": 1923237,
+  "zip_sha256": "7c87e2544e974fc138e77308318d31c2aea116456aa33f45b671df8f22c712be",
+  "binary_sha256": "557bb631bfffdb05fe230f847358aa3f82b35431df6c4f490916ec2b5fa46eb2",
+  "codesign_strict": true,
+  "zip_crc": true,
+  "extracted_signature": true,
+  "extracted_binary_hash_match": true,
+  "extracted_executable": true,
+  "native_visible_ui_verified": false,
+  "native_ui_limitation": "Mac locked during current native UI check; no physical display/AV sync claim.",
+  "build_log": "release-build.log",
+  "test_reports": [
+    "repair-precision-green.json",
+    "detail-green.json",
+    "streaming-pipeline.json",
+    "hdr-render.json",
+    "frame-interpolation.json",
+    "restoration-playback-1920x1080.json",
+    "core-tests.log"
+  ],
+  "source_sha256": {
+    "Sources/CinemaApp/DetailScaler.swift": "ef257528b3ca97b21faafe470ecdbaf089d07c8a80908d9cc2fda59964a00f30",
+    "Sources/CinemaApp/EnhancementPipeline.swift": "04682e5b31a3754cee231b9449846e39804c730649f65da054b326ae7ce0b06f",
+    "Sources/CinemaApp/InterpolatedFramePipeline.swift": "b12fa55ac439b31981020b26ef5be78c6f3b811613cd13c2fb5f27c6a6d66e3f",
+    "Sources/CinemaApp/VideoProcessingPolicy.swift": "5c35a2b40d38069754a13f6158cfcbd507cc33b07a020e07cc09e9d355e6fed3",
+    "scripts/validation/repair-precision/main.swift": "b286c66c25d1a82c66050318efa24c800584aef19584a2d5a3d05caf86a8d264",
+    "scripts/validation/detail-scaling/main.swift": "39fbfe21760ba2619aa23182e78a1b39206ab90b84ebfc6bca9c301a424e09ad"
+  },
+  "report_sha256": {
+    "repair-precision-green.json": "1b7fcb71255ba5c5c3cdfaac9fbdbb6bddb76751d4349b5b1a6a88c40543099f",
+    "detail-green.json": "2c44fda87651a2426b2e9147ac0ac89586aaae48de334db66b6c79d29aeff7d5",
+    "streaming-pipeline.json": "07ac67d1048f864668ae301d8b38855b035b62e078a850f2261f8f75bdfdc01c",
+    "hdr-render.json": "e04f13e2e5ea0ba70dd268e4d1859be445d7a5b6937f1b57fd8910300498f632",
+    "frame-interpolation.json": "3487821c09c522540933a9ac4132325615aa25d5fb04e02af47b882c990942fc",
+    "restoration-playback-1920x1080.json": "121c09d168a2ae6e379c282fffc627f95af6eb13ec7c275d57c5312e9460a565",
+    "core-tests.log": "a886a622052024cb2913e725bd1812c37c1ad9ae84337e8b4005d11cf0492f4e"
+  }
+}

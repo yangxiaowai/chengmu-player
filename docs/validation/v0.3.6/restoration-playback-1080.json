@@ -1,0 +1,194 @@
+{
+  "checks" : [
+    {
+      "detail" : "sampledMeanMS=17.83695137904336 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "temporal_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=75 mediaAdvanced=3.12325125 fallback=none",
+      "name" : "temporal_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中）",
+      "name" : "temporal_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "outputs=1 positionBefore=2.0 positionAfter=2.0",
+      "name" : "temporal_comparison_preserves_stable_output_without_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪",
+      "name" : "temporal_resumes_after_comparison",
+      "passed" : true
+    },
+    {
+      "detail" : "sampledMeanMS=24.80774304907148 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "restoration_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=75 mediaAdvanced=3.110619708 fallback=none",
+      "name" : "restoration_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "input=1920x1080 completedOutput=3840x2160",
+      "name" : "restoration_outputs_actual_3840x2160",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "name" : "restoration_reports_non_ai_detail_scaling",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "name" : "restoration_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "outputs=1 positionBefore=2.0 positionAfter=2.0",
+      "name" : "restoration_comparison_preserves_stable_output_without_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "name" : "restoration_resumes_after_comparison",
+      "passed" : true
+    },
+    {
+      "detail" : "sampledMeanMS=28.216323636782665 nominalFrameBudgetMS=41.666666666666664",
+      "name" : "compression_sampled_processing_fits_frame_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=74 mediaAdvanced=3.1048054999999994 fallback=none",
+      "name" : "compression_keeps_processing_during_playback",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）",
+      "name" : "compression_reports_actual_restoration",
+      "passed" : true
+    },
+    {
+      "detail" : "input=1920x1080 completedOutput=3840x2160",
+      "name" : "compression_outputs_actual_3840x2160",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）",
+      "name" : "compression_reports_non_ai_detail_scaling",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）",
+      "name" : "compression_reports_extra_cleanup",
+      "passed" : true
+    },
+    {
+      "detail" : "原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）",
+      "name" : "compression_paused_seek_rebuilds_without_old_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "outputs=1 positionBefore=2.0 positionAfter=2.0",
+      "name" : "compression_comparison_preserves_stable_output_without_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）",
+      "name" : "compression_resumes_after_comparison",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "samples" : [
+    {
+      "completedFrames" : 99,
+      "completedFramesPerMediaSecond" : 24.016492928805732,
+      "droppedTicks" : 0,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1228539580000003,
+      "mode" : "temporal",
+      "note" : "Window counts use current main-actor counter snapshots at both boundaries, not throttled UI callbacks and not displayed FPS. Processing mean remains sampled from throttled metrics, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        1920,
+        1080
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.50155820900000014,
+      "sampledProcessingMeanMS" : 17.836951379043359,
+      "source" : [
+        1920,
+        1080
+      ],
+      "windowCompletedFrames" : 75,
+      "windowEndCompletedFrames" : 99,
+      "windowStartCompletedFrames" : 24
+    },
+    {
+      "completedFrames" : 99,
+      "completedFramesPerMediaSecond" : 24.112697601977469,
+      "droppedTicks" : 1,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1103944169999997,
+      "mode" : "restoration",
+      "note" : "Window counts use current main-actor counter snapshots at both boundaries, not throttled UI callbacks and not displayed FPS. Processing mean remains sampled from throttled metrics, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        3840,
+        2160
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.50712016666666671,
+      "sampledProcessingMeanMS" : 24.80774304907148,
+      "source" : [
+        1920,
+        1080
+      ],
+      "windowCompletedFrames" : 75,
+      "windowEndCompletedFrames" : 99,
+      "windowStartCompletedFrames" : 24
+    },
+    {
+      "completedFrames" : 98,
+      "completedFramesPerMediaSecond" : 23.835427005836742,
+      "droppedTicks" : 11,
+      "frameBudgetMS" : 41.666666666666664,
+      "mediaAdvancedSeconds" : 3.1046223749999999,
+      "mode" : "compression",
+      "note" : "Window counts use current main-actor counter snapshots at both boundaries, not throttled UI callbacks and not displayed FPS. Processing mean remains sampled from throttled metrics, not throughput. Metric age includes throttled metrics publication; not physical display or perceptual AV sync.",
+      "output" : [
+        3840,
+        2160
+      ],
+      "sampledMetricAgeMaxSeconds" : 0.58207612433333344,
+      "sampledProcessingMeanMS" : 28.216323636782665,
+      "source" : [
+        1920,
+        1080
+      ],
+      "windowCompletedFrames" : 74,
+      "windowEndCompletedFrames" : 98,
+      "windowStartCompletedFrames" : 24
+    }
+  ],
+  "scope" : "Headless real AVPlayer + CinemaVideoView on synthetic tagged SDR 1920x1080 at nominal 24.0 fps. Completed processing \/ reported completed-frame dimensions \/ frame routing \/ paused seek \/ original comparison. No visible screen, audible sync or long-film validation.",
+  "source" : {
+    "height" : 1080,
+    "nominalFrameRate" : 24,
+    "width" : 1920
+  }
+}

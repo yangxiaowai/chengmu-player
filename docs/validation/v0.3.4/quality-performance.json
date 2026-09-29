@@ -1,0 +1,162 @@
+{
+  "checks" : [
+    {
+      "detail" : "",
+      "name" : "original_mode_rejected_without_worker",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "oversized_input_rejected_without_downsampling",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "duplicate_run_rejected",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "cancel_enters_stopping_state",
+      "passed" : true
+    },
+    {
+      "detail" : "completionCount=1 status=检测已取消",
+      "name" : "cancel_finishes_once_without_report",
+      "passed" : true
+    },
+    {
+      "detail" : "60 fps 插帧自检目前限 1080p 以内，请选择 1080p 预设；不会暗中降低目标尺寸。",
+      "name" : "4k_fps60_explicitly_rejected",
+      "passed" : true
+    },
+    {
+      "detail" : "completionCount=1",
+      "name" : "clarity_1080p_motion60_completed",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "clarity_1080p_motion60_samples_and_pixels",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "clarity_1080p_motion60_source_interval_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "clarity_1080p_motion60_actual_1080p",
+      "passed" : true
+    },
+    {
+      "detail" : "grid=75 interpolated=60 sampledMediaSeconds=1.25",
+      "name" : "clarity_1080p_motion60_motion_grid",
+      "passed" : true
+    },
+    {
+      "detail" : "completionCount=1",
+      "name" : "restoration_4k_source24_completed",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_4k_source24_samples_and_pixels",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_4k_source24_source_interval_budget",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_4k_source24_actual_4k",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "restoration_4k_source24_source_frames_only",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "samples" : [
+    {
+      "algorithm" : "自然降噪 · 运动补偿60fps",
+      "assumedSourceFPS" : false,
+      "completedOutputFrames" : 75,
+      "completedSourceIntervals" : 30,
+      "device" : "Apple M4",
+      "firstFrameMS" : 8498.112624976784,
+      "frameGridValidated" : true,
+      "frameRateNote" : "按源帧间隔统计空间处理与运动插帧总耗时；60 Hz 格点已检查，未验证屏幕呈现。",
+      "includesFrameInterpolation" : true,
+      "interpolatedFrames" : 60,
+      "maximumMS" : 48.171333270147443,
+      "meanMS" : 32.375051383860409,
+      "mode" : "clarity",
+      "name" : "clarity_1080p_motion60",
+      "operatingSystem" : "Version 27.0 (Build 26A428)",
+      "outputSize" : [
+        1920,
+        1080
+      ],
+      "overBudgetIntervals" : 2,
+      "p95HeadroomMS" : -1.2072915754591449,
+      "p95MS" : 42.873958242125809,
+      "pixelsChecked" : true,
+      "requestedFrameRate" : "fps60",
+      "resolution" : "fullHD",
+      "sampledMediaSeconds" : 1.25,
+      "shortTestFitsBudget" : false,
+      "sourceFPS" : 24,
+      "sourceFrameBudgetMS" : 41.666666666666664,
+      "sourceSize" : [
+        1920,
+        1080
+      ],
+      "verdict" : "当前空间处理与插帧超过源帧预算",
+      "warmupFrames" : 3
+    },
+    {
+      "algorithm" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "assumedSourceFPS" : false,
+      "completedOutputFrames" : 30,
+      "completedSourceIntervals" : 30,
+      "device" : "Apple M4",
+      "firstFrameMS" : 39.745624992065132,
+      "frameGridValidated" : false,
+      "frameRateNote" : "跟随片源帧率，本次仅测空间处理。",
+      "includesFrameInterpolation" : false,
+      "interpolatedFrames" : 0,
+      "maximumMS" : 21.532875020056963,
+      "meanMS" : 18.377558320450287,
+      "mode" : "restoration",
+      "name" : "restoration_4k_source24",
+      "operatingSystem" : "Version 27.0 (Build 26A428)",
+      "outputSize" : [
+        3840,
+        2160
+      ],
+      "overBudgetIntervals" : 0,
+      "p95HeadroomMS" : 20.326250038730599,
+      "p95MS" : 21.340416627936065,
+      "pixelsChecked" : true,
+      "requestedFrameRate" : "source",
+      "resolution" : "ultraHD",
+      "sampledMediaSeconds" : 1.25,
+      "shortTestFitsBudget" : true,
+      "sourceFPS" : 24,
+      "sourceFrameBudgetMS" : 41.666666666666664,
+      "sourceSize" : [
+        1920,
+        1080
+      ],
+      "verdict" : "空间处理短测低于源帧预算",
+      "warmupFrames" : 3
+    }
+  ],
+  "scope" : "Headless QualityPerformanceController on deterministic synthetic moving noisy SDR 1920x1080 at 24 source fps. Tests start\/duplicate\/cancel\/invalid request, completed spatial + VT motion interpolation including final texture work, pixel sanity, 60 Hz timestamp grid and actual output size. Three warmup source frames, thirty measured source intervals. The complete test holds the production exclusive-processing lock so playback processing workers cannot overlap it; lock waiting, CPU fixture generation and correctness readback are excluded from timing. No AVPlayer, visible screen, decoded film, sound, AV sync or sustained real-time proof; P95 budget is reported, not asserted as a performance promise."
+}

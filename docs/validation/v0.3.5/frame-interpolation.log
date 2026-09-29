@@ -1,0 +1,25 @@
+scripts/validation/frame-interpolation/main.swift:90:21: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 88 | if FileManager.default.fileExists(atPath:filmURL.path) {
+ 89 |  let asset=AVURLAsset(url:filmURL)
+ 90 |  if let track=asset.tracks(withMediaType:.video).first {
+    |                     `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 91 |   let reader=try AVAssetReader(asset:asset)
+ 92 |   let output=AVAssetReaderTrackOutput(track:track,outputSettings:[kCVPixelBufferPixelFormatTypeKey as String:kCVPixelFormatType_32BGRA])
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS first reference reports priming ["setup_ms": 8636.126999976113]
+PASS first FRC execution marked warmup [:]
+PASS generated frame is neither source copy nor blend [:]
+PASS motion-compensated midpoint improves analytic motion truth over blend ["duplicate_mse": 423.7602678571429, "motion_mse": 2.460044642857143, "blend_mse": 241.61532738095238]
+PASS 24fps inputs produce exactly 60 grid points before one second ["count": 60, "generated": 48]
+PASS only actual generated motion frames carry readiness marker [:]
+PASS all subsequent points on 60 grid [:]
+PASS all timestamps unique increasing [:]
+PASS all generated textures independent [:]
+PASS retained interpolated output unchanged by later processing [:]
+PASS stream change primes despite continuous PTS [:]
+PASS backward seek primes [:]
+PASS hard scene cut does not morph ["returned_frames": 1]
+PASS off-grid cut does not add source anchor [:]
+PASS explicit reset primes [:]
+PASS film source and enhanced evidence share PTS and temporal history ["source": "/Users/yangjun/Downloads/视频播放器/.build/restoration-lab/noisy-film.mp4", "used_temporal_history": true, "height": 200, "scope": "Same decoded source PTS and actual restoration output; not interpolation or clean-reference PSNR.", "mode": "时域降噪 · 当前尺寸无 AI 超分倍率", "pts": 1.0, "width": 480]

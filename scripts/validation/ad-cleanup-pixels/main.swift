@@ -12,6 +12,8 @@ let checker = CIFilter(name: "CICheckerboardGenerator", parameters: ["inputWidth
 let caption = CIImage(color: CIColor(red: 1, green: 1, blue: 1)).cropped(to: CGRect(x: 55, y: 10, width: 210, height: 12))
 let source = caption.composited(over: checker)
 pipeline.context.render(source, to: buffer!, bounds: extent, colorSpace: pipeline.colorSpace)
+CVBufferSetAttachment(buffer!, kCVImageBufferColorPrimariesKey, kCVImageBufferColorPrimaries_ITU_R_709_2, .shouldPropagate)
+CVBufferSetAttachment(buffer!, kCVImageBufferTransferFunctionKey, kCVImageBufferTransferFunction_sRGB, .shouldPropagate)
 let region = NormalizedVideoRect(x: 0.1, y: 0.1, width: 0.3, height: 0.3)
 let settings = AdCleanupSettings(enabled: true, regions: [region])
 func bytes(_ frame: EnhancedFrame) -> [UInt8] {

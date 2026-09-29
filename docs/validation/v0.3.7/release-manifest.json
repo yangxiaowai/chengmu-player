@@ -1,0 +1,20 @@
+{
+  "name": "澄幕",
+  "version": "0.3.7",
+  "build": "19",
+  "installed_app": "/Users/yangjun/Downloads/视频播放器/dist/澄幕.app",
+  "previous_app_backup": "/Users/yangjun/Downloads/视频播放器/dist/历史版本/映川-v0.3.6-build18.app",
+  "archive": "/Users/yangjun/Downloads/视频播放器/dist/澄幕-v0.3.7.zip",
+  "archive_bytes": 1927958,
+  "archive_sha256": "731ba9821d4790044da15b6811a46f5eee7dfcf1791d746861851f4d25285acd",
+  "executable_sha256": "8a31e64429e699cf2aa0ca02fb7890464ceab929febf9a7955a873ba9eb8f63f",
+  "checks": {
+    "installed_signature": true,
+    "zip_crc": true,
+    "extracted_signature": true,
+    "executable_matches": true,
+    "version_and_visible_name": true,
+    "legacy_bundle_identity_preserved": true
+  },
+  "scope": "Local build and archive verification. Not notarized; no visible Mac UI validation."
+}

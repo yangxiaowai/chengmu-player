@@ -1,0 +1,167 @@
+{
+  "checks" : [
+    {
+      "different_components" : 0,
+      "name" : "full_pipeline_pixels_identical_to_uncached_baseline",
+      "passed" : true
+    },
+    {
+      "different_components" : 0,
+      "name" : "reset_repeated_run_pixels_identical",
+      "passed" : true
+    },
+    {
+      "name" : "all_continuous_pairs_hit_cache",
+      "passed" : true
+    },
+    {
+      "name" : "baseline_renders_both_pair_inputs",
+      "passed" : true
+    }
+  ],
+  "device" : "Apple M4",
+  "passed" : true,
+  "rounds" : [
+    {
+      "all_source_frames" : 21,
+      "cache_hits" : 0,
+      "full_resolution_input_conversions" : 40,
+      "generated_frames" : 40,
+      "implementation" : "baseline",
+      "mean_ms" : 46.563182866925168,
+      "mean_wall_ms" : 46.566733786474089,
+      "measured_source_intervals" : 18,
+      "over_24fps_budget" : 10,
+      "p95_ms" : 64.522916683927178,
+      "round" : 0,
+      "setup_ms" : 8441.6844999650493,
+      "times_ms" : [
+        35.548249958083034,
+        38.948958273977041,
+        49.921791651286185,
+        45.788750052452087,
+        38.787624915130436,
+        53.014999954029918,
+        57.645291672088206,
+        51.588875008746982,
+        55.474375025369227,
+        64.522916683927178,
+        63.644166686572134,
+        49.411125015467405,
+        44.115833356045187,
+        38.316916674375534,
+        39.982916670851409,
+        36.965374951250851,
+        37.217166740447283,
+        37.241958314552903
+      ]
+    },
+    {
+      "all_source_frames" : 21,
+      "cache_hits" : 19,
+      "full_resolution_input_conversions" : 21,
+      "generated_frames" : 40,
+      "implementation" : "candidate",
+      "mean_ms" : 39.764750005108198,
+      "mean_wall_ms" : 39.767752317453009,
+      "measured_source_intervals" : 18,
+      "over_24fps_budget" : 6,
+      "p95_ms" : 55.370416608639061,
+      "round" : 1,
+      "setup_ms" : 174.56249997485429,
+      "times_ms" : [
+        31.119624967686832,
+        30.236750026233494,
+        34.471291699446738,
+        32.141333329491317,
+        44.522833311930299,
+        31.547749997116625,
+        32.717916648834944,
+        36.007874994538724,
+        36.012624972499907,
+        44.035000028088689,
+        54.058708366937935,
+        55.370416608639061,
+        53.11550002079457,
+        41.318041738122702,
+        42.567416676320136,
+        37.616625078953803,
+        41.604291647672653,
+        37.301499978639185
+      ]
+    },
+    {
+      "all_source_frames" : 21,
+      "cache_hits" : 19,
+      "full_resolution_input_conversions" : 21,
+      "generated_frames" : 40,
+      "implementation" : "candidate",
+      "mean_ms" : 52.825905091594905,
+      "mean_wall_ms" : 52.829104165236153,
+      "measured_source_intervals" : 18,
+      "over_24fps_budget" : 18,
+      "p95_ms" : 60.850833309814334,
+      "round" : 2,
+      "setup_ms" : 0,
+      "times_ms" : [
+        43.576875003054738,
+        44.587499927729368,
+        48.358208267018199,
+        46.556666609831154,
+        47.226541675627232,
+        49.343499937094748,
+        55.08437508251518,
+        55.502166622318327,
+        56.652624974958599,
+        57.565958355553448,
+        58.676083339378238,
+        57.635291712358594,
+        56.823166669346392,
+        57.310000061988831,
+        52.198291756212711,
+        49.50854170601815,
+        53.409666637890041,
+        60.850833309814334
+      ]
+    },
+    {
+      "all_source_frames" : 21,
+      "cache_hits" : 0,
+      "full_resolution_input_conversions" : 40,
+      "generated_frames" : 40,
+      "implementation" : "baseline",
+      "mean_ms" : 45.561999981550294,
+      "mean_wall_ms" : 45.564967595661678,
+      "measured_source_intervals" : 18,
+      "over_24fps_budget" : 10,
+      "p95_ms" : 61.646333313547075,
+      "round" : 3,
+      "setup_ms" : 0,
+      "times_ms" : [
+        42.025499977171421,
+        54.256541654467583,
+        57.200666633434594,
+        57.745791622437537,
+        57.014666614122689,
+        61.646333313547075,
+        42.942166677676141,
+        40.003708330914378,
+        42.675749980844557,
+        41.313624940812588,
+        39.934333297424018,
+        37.79558336827904,
+        35.530208377167583,
+        38.320041610859334,
+        40.614916593767703,
+        42.650791699998081,
+        40.269291726872325,
+        48.176083248108625
+      ]
+    }
+  ],
+  "scope" : "ABBA full InterpolatedFramePipeline with 1080p natural denoise and 24-to-60 FRC. Production snapshots differ only in source-cache implementation and test-only counters; no test fields added to production. Each round 21 source frames\/20 pairs, first three source frames excluded from measurement. Includes spatial processing, scene preview, input conversion, FRC and final output texture completion; excludes fixture generation, correctness readback, decoder and VideoSurface.draw\/present. Setup is separately recorded. Short performance observation, not sustained displayed 60fps proof.",
+  "size" : [
+    1920,
+    1080
+  ]
+}

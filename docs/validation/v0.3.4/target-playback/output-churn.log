@@ -1,0 +1,36 @@
+scripts/validation/target-playback/main.swift:132:15: warning: 'phase' mutated after capture by sendable closure
+ 35 |         let generation = UUID()
+ 36 |         var checks: [[String: Any]] = [], warmup: [[String: Any]] = [], presentations: [[String: Any]] = []
+ 37 |         var jumps: [[String: Any]] = [], phase = "warmup"
+    |                                          `- note: variable defined here
+ 38 |         let jumpObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemTimeJumped, object: item, queue: .main) { _ in
+    |                                                                                                                                 `- note: variable captured by sendable closure
+ 39 |             jumps.append(["phase": phase, "clock": finite(player.currentTime().seconds), "wall": CACurrentMediaTime()])
+    |                                    `- note: capturing use
+ 40 |         }
+ 41 |         defer { NotificationCenter.default.removeObserver(jumpObserver) }
+    :
+130 |         try await Task.sleep(nanoseconds: 300_000_000)
+131 |         check("native_switch_detaches_and_rejects_late_results", view.diagnosticState.isNativeVisible && !view.diagnosticState.hasEnhancedFrame && item.outputs.compactMap { $0 as? AVPlayerItemVideoOutput }.isEmpty && view.diagnosticMetrics.renderedFrames == nativeCount)
+132 |         phase = "4k"; configure(resolution: .ultraHD)
+    |               `- warning: 'phase' mutated after capture by sendable closure
+133 |         player.playImmediately(atRate: 1)
+134 |         let largeDeadline = CACurrentMediaTime() + 8
+
+scripts/validation/target-playback/main.swift:170:19: warning: 'phase' mutated after capture by sendable closure
+162 |         defer { player.pause(); view.stop(); window.close() }
+163 |         let generation = UUID()
+164 |         var samples: [[String: Any]] = [], jumps: [[String: Any]] = [], phase = "source_fps"
+    |                                                                         `- note: variable defined here
+165 |         let jumpObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemTimeJumped, object: item, queue: .main) { _ in
+    |                                                                                                                                 `- note: variable captured by sendable closure
+166 |             jumps.append(["phase": phase, "clock": finite(player.currentTime().seconds), "wall": CACurrentMediaTime()])
+    |                                    `- note: capturing use
+167 |         }
+168 |         defer { NotificationCenter.default.removeObserver(jumpObserver) }
+169 |         for (name, target, seconds) in [("source_fps", EnhancementFrameRate.source, 5.0), ("fps60_after_clock_started", EnhancementFrameRate.fps60, 15.0)] {
+170 |             phase = name
+    |                   `- warning: 'phase' mutated after capture by sendable closure
+171 |             view.configure(player: player, mode: .clarity, generation: generation, permission: .inspectSDRFrames,
+172 |                            assessedItem: item, resolution: .fullHD, frameRate: target, onMetrics: { _ in })
+OUTPUT 0.0 clockAdvance 0.08517429000000004 copies 0 TimeJumped 18

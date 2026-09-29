@@ -1,0 +1,287 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+        "mse_after" : 6.6643361186076469,
+        "mse_before" : 6.6643361186076469
+      },
+      "name" : "flat residual noise reduced at least 15 percent",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "default bottom subtitle band has no extra filtering",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "max_delta_code" : 0
+      },
+      "name" : "local correction is bounded to 2 code values plus storage tolerance",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "top-left normalized custom protection maps to correct image area",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "custom protection keeps the default subtitle band",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "protection does not accidentally disable the whole frame",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "constant gray stays unchanged",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "strong clean edge stays unchanged",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mse_change_codes" : 0
+      },
+      "name" : "weak clean texture is not flattened",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "fine low-contrast caption protected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "caption disappearance leaves no old pixels",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "retained output is immutable after later frames",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "invalid protection fails safely",
+      "passed" : false
+    }
+  ],
+  "completed_prepass_timing" : [
+    {
+      "mean_ms" : 6.7551930745442704e-05,
+      "p95_ms" : 0.00095367431640625,
+      "samples_ms" : [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0010728836059570312,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.00095367431640625,
+        0,
+        0
+      ],
+      "size" : [
+        1280,
+        720
+      ]
+    },
+    {
+      "mean_ms" : 0,
+      "p95_ms" : 0,
+      "samples_ms" : [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "size" : [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "film_post_temporal" : [
+    {
+      "frame" : 12,
+      "mse_after" : 76.563862682633214,
+      "mse_before" : 76.563862682633214,
+      "psnr_gain_db" : 0,
+      "variant" : "compressed-film"
+    },
+    {
+      "frame" : 24,
+      "mse_after" : 73.483382840492894,
+      "mse_before" : 73.483382840492894,
+      "psnr_gain_db" : 0,
+      "variant" : "compressed-film"
+    },
+    {
+      "frame" : 48,
+      "mse_after" : 76.175620826147366,
+      "mse_before" : 76.175620826147366,
+      "psnr_gain_db" : 0,
+      "variant" : "compressed-film"
+    },
+    {
+      "frame" : 72,
+      "mse_after" : 10.242271619581611,
+      "mse_before" : 10.242271619581611,
+      "psnr_gain_db" : 0,
+      "variant" : "compressed-film"
+    },
+    {
+      "frame" : 84,
+      "mse_after" : 11.005739494307878,
+      "mse_before" : 11.005739494307878,
+      "psnr_gain_db" : 0,
+      "variant" : "compressed-film"
+    },
+    {
+      "frame" : 12,
+      "mse_after" : 62.497908360835062,
+      "mse_before" : 62.497908360835062,
+      "psnr_gain_db" : 0,
+      "variant" : "noisy-film"
+    },
+    {
+      "frame" : 24,
+      "mse_after" : 59.720755248160465,
+      "mse_before" : 59.720755248160465,
+      "psnr_gain_db" : 0,
+      "variant" : "noisy-film"
+    },
+    {
+      "frame" : 48,
+      "mse_after" : 65.196172895397822,
+      "mse_before" : 65.196172895397822,
+      "psnr_gain_db" : 0,
+      "variant" : "noisy-film"
+    },
+    {
+      "frame" : 72,
+      "mse_after" : 11.539073483702238,
+      "mse_before" : 11.539073483702238,
+      "psnr_gain_db" : 0,
+      "variant" : "noisy-film"
+    },
+    {
+      "frame" : 84,
+      "mse_after" : 9.5411046401661679,
+      "mse_before" : 9.5411046401661679,
+      "psnr_gain_db" : 0,
+      "variant" : "noisy-film"
+    },
+    {
+      "frame" : 12,
+      "mse_after" : 46.296869256445113,
+      "mse_before" : 46.296869256445113,
+      "psnr_gain_db" : 0,
+      "variant" : "heavy-noisy-film"
+    },
+    {
+      "frame" : 24,
+      "mse_after" : 42.75488487456289,
+      "mse_before" : 42.75488487456289,
+      "psnr_gain_db" : 0,
+      "variant" : "heavy-noisy-film"
+    },
+    {
+      "frame" : 48,
+      "mse_after" : 44.133759041043348,
+      "mse_before" : 44.133759041043348,
+      "psnr_gain_db" : 0,
+      "variant" : "heavy-noisy-film"
+    },
+    {
+      "frame" : 72,
+      "mse_after" : 10.741060747520674,
+      "mse_before" : 10.741060747520674,
+      "psnr_gain_db" : 0,
+      "variant" : "heavy-noisy-film"
+    },
+    {
+      "frame" : 84,
+      "mse_after" : 10.683061061019799,
+      "mse_before" : 10.683061061019799,
+      "psnr_gain_db" : 0,
+      "variant" : "heavy-noisy-film"
+    }
+  ],
+  "passed" : false,
+  "scope" : "Synthetic SDR extra prepass + 15 same-frame production temporal exports; completed GPU prepass only, not complete playback, whole-film or subjective display proof."
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.3.6",
+  "build": "18",
+  "installed_app": "/Users/yangjun/Downloads/视频播放器/dist/映川.app",
+  "previous_app_backup": "/Users/yangjun/Downloads/视频播放器/dist/历史版本/映川-v0.3.5-build17.app",
+  "zip": "/Users/yangjun/Downloads/视频播放器/dist/映川-v0.3.6.zip",
+  "zip_bytes": 1927927,
+  "zip_sha256": "3322c57d4228b7c5bfbd85b70ef0c3ddd4fbc1679abd6dccdb77ef27ce00cf19",
+  "executable_sha256": "0b32a5de9710841fbed977c24ed54cddc5481c2959057c5aaaaddb2eb0b3c4b9",
+  "checks": {
+    "installed_signature": true,
+    "zip_crc": true,
+    "extracted_signature": true,
+    "extracted_executable_matches": true,
+    "executable_permission": true,
+    "version_matches": true
+  },
+  "scope": "Local build, install, ad hoc signature and archive checks. No notarization or visible native UI acceptance."
+}

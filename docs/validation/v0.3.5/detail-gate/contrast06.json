@@ -1,0 +1,760 @@
+{
+  "benchmark": {
+    "completed_frames": 60,
+    "first_ms": 10.207416722550988,
+    "gpu_ms": {
+      "maximum": 4.347999929450452,
+      "mean": 2.2875652842534087,
+      "p50": 2.024958375841379,
+      "p95": 3.594916663132608
+    },
+    "gpu_samples_ms": [
+      4.347999929450452,
+      4.337625112384558,
+      3.594916663132608,
+      3.883125027641654,
+      3.510250011458993,
+      3.041958319954574,
+      2.804500050842762,
+      2.977500087581575,
+      2.795833395794034,
+      2.551125013269484,
+      2.45962489861995,
+      2.3777500027790666,
+      2.5392499519512057,
+      2.3268749937415123,
+      2.2047500824555755,
+      2.078499994240701,
+      2.216875087469816,
+      2.120874938555062,
+      2.1323333494365215,
+      2.2177500650286674,
+      2.1054584067314863,
+      2.043499960564077,
+      2.007249975576997,
+      2.0121249835938215,
+      2.011833363212645,
+      2.007375005632639,
+      2.013250021263957,
+      2.020416664890945,
+      2.0135416416451335,
+      2.012374927289784,
+      2.012375043705106,
+      2.026208443567157,
+      2.0114999497309327,
+      2.0077083026990294,
+      2.0187499467283487,
+      2.024958375841379,
+      2.0192500669509172,
+      2.0110416226089,
+      2.0062916446477175,
+      2.000208362005651,
+      1.9961666548624635,
+      1.9964167149737477,
+      1.9977083429694176,
+      1.9938333425670862,
+      2.005374990403652,
+      2.0267500076442957,
+      2.1092500537633896,
+      2.0071249455213547,
+      2.0113749196752906,
+      2.027875045314431,
+      2.0123333670198917,
+      2.019000006839633,
+      2.0178749691694975,
+      2.0253750262781978,
+      1.993041718378663,
+      1.9963749218732119,
+      2.052374999038875,
+      2.016250044107437,
+      2.0061666145920753,
+      2.038416685536504
+    ],
+    "scope": "Scaler only: encoding, input CI conversion, output allocation, completed GPU command. 3 warm-up frames after first. No decode, temporal DNR, readback or presentation in measured loop. Serialized one frame in flight.",
+    "wall_ms": {
+      "maximum": 5.805124994367361,
+      "mean": 3.4153124977213642,
+      "p50": 3.08533338829875,
+      "p95": 5.046750069595873
+    },
+    "wall_samples_ms": [
+      5.794791621156037,
+      5.805124994367361,
+      5.046750069595873,
+      5.335499998182058,
+      4.879416665062308,
+      4.277791595086455,
+      4.122083308175206,
+      4.279125016182661,
+      4.073708318173885,
+      3.7987083196640015,
+      3.78024997189641,
+      3.681708360090852,
+      3.9226249791681767,
+      3.665208350867033,
+      3.274124930612743,
+      3.2225833274424076,
+      3.2752082915976644,
+      3.173083416186273,
+      3.222250030376017,
+      3.254791721701622,
+      3.133916645310819,
+      3.0698749469593167,
+      3.0149166705086827,
+      3.034791676327586,
+      3.0517916893586516,
+      3.0582916224375367,
+      3.1129999551922083,
+      3.048416692763567,
+      2.986166742630303,
+      3.08533338829875,
+      3.0112917302176356,
+      2.9929582960903645,
+      2.9954167548567057,
+      2.9713750118389726,
+      3.0181249603629112,
+      3.0232915887609124,
+      3.0196249717846513,
+      3.023749915882945,
+      2.9973749769851565,
+      2.99537496175617,
+      2.9698750004172325,
+      3.0423334101215005,
+      3.0711250146850944,
+      2.989666652865708,
+      3.576291725039482,
+      3.1726666493341327,
+      3.596958238631487,
+      3.1552083091810346,
+      3.166500013321638,
+      3.0676666647195816,
+      3.032333333976567,
+      3.0917500844225287,
+      3.053541644476354,
+      3.0589166563004255,
+      3.0248750699684024,
+      3.033166634850204,
+      2.996416646055877,
+      3.072208375670016,
+      3.135374980047345,
+      3.0819582752883434
+    ]
+  },
+  "checks": [
+    {
+      "evidence": {
+        "bspline_range": [
+          64,
+          192
+        ],
+        "detail_range": [
+          64,
+          192
+        ],
+        "used_temporal_history": true
+      },
+      "name": "same post-temporal step has no overshoot",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bspline_10_90_width": 3,
+        "detail_10_90_width": 2
+      },
+      "name": "step transition narrower than B-spline",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 1.6564732142857144,
+        "bspline_mse": 1.0211867559523808,
+        "detail_mse": 1.6654947916666667,
+        "gray": 64,
+        "ratio": 1.0054462561200197,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 64 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 0.7971447172619047,
+        "bspline_mse": 0.6386532738095239,
+        "detail_mse": 0.8072916666666666,
+        "gray": 64,
+        "ratio": 1.0127291182956282,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 64 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 9.2765625,
+        "bspline_mse": 5.474088541666666,
+        "detail_mse": 9.26987537202381,
+        "gray": 64,
+        "ratio": 0.9992791372907592,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 64 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 3.1247116815476192,
+        "bspline_mse": 2.3621372767857145,
+        "detail_mse": 3.1429501488095237,
+        "gray": 64,
+        "ratio": 1.0058368480425277,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 64 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 1.5957217261904761,
+        "bspline_mse": 1.013783482142857,
+        "detail_mse": 1.6505766369047619,
+        "gray": 128,
+        "ratio": 1.0343762385470823,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 128 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 0.6560360863095238,
+        "bspline_mse": 0.5194847470238095,
+        "detail_mse": 0.6808035714285714,
+        "gray": 128,
+        "ratio": 1.0377532358903838,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 128 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 9.321233258928572,
+        "bspline_mse": 5.602492559523809,
+        "detail_mse": 9.465615699404761,
+        "gray": 128,
+        "ratio": 1.0154896285143267,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 128 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 2.8062779017857142,
+        "bspline_mse": 2.058491443452381,
+        "detail_mse": 2.8696893601190476,
+        "gray": 128,
+        "ratio": 1.0225962860958935,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 128 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 1.6592168898809523,
+        "bspline_mse": 0.9981026785714285,
+        "detail_mse": 1.6657645089285715,
+        "gray": 192,
+        "ratio": 1.003946210460821,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 192 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 3,
+        "bilinear_mse": 0.7802734375,
+        "bspline_mse": 0.5592261904761905,
+        "detail_mse": 0.7289527529761904,
+        "gray": 192,
+        "ratio": 0.9342273079444543,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 192 ±3 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 9.38993675595238,
+        "bspline_mse": 5.521558779761905,
+        "detail_mse": 9.338690476190477,
+        "gray": 192,
+        "ratio": 0.9945424254610216,
+        "stage": "raw_stress"
+      },
+      "name": "raw_stress flat 192 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "amplitude": 8,
+        "bilinear_mse": 2.886802455357143,
+        "bspline_mse": 2.1426990327380953,
+        "detail_mse": 2.890048363095238,
+        "gray": 192,
+        "ratio": 1.0011243955165936,
+        "stage": "post_temporal"
+      },
+      "name": "post_temporal flat 192 ±8 noise <= bilinear ×1.15 +0.1",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "psnr": 100
+      },
+      "name": "noisy original render texture matches direct CI orientation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "psnr": 49.16249499317284
+      },
+      "name": "noisy detail texture matches existing CI render orientation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "psnr": 100
+      },
+      "name": "compressed original render texture matches direct CI orientation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "psnr": 49.820180657970795
+      },
+      "name": "compressed detail texture matches existing CI render orientation",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "1080p to 4K completes all 60 frames",
+      "passed": true
+    }
+  ],
+  "device": "Apple M4",
+  "film": [
+    {
+      "bilinear_psnr_db": 32.30260978693379,
+      "bspline_psnr_db": 31.69222547315046,
+      "detail_psnr_db": 32.35878742125313,
+      "fixture": ".build/restoration-lab/noisy-film-24.png",
+      "input": [
+        480,
+        200
+      ],
+      "output": [
+        960,
+        400
+      ],
+      "scope": "Same raw degraded single input; no temporal history; RGB code-value full-frame PSNR, not native 4K reconstruction"
+    },
+    {
+      "bilinear_psnr_db": 30.89238839277218,
+      "bspline_psnr_db": 30.417593181630536,
+      "detail_psnr_db": 30.881013239458575,
+      "fixture": ".build/restoration-lab/compressed-film-24.png",
+      "input": [
+        480,
+        200
+      ],
+      "output": [
+        960,
+        400
+      ],
+      "scope": "Same raw degraded single input; no temporal history; RGB code-value full-frame PSNR, not native 4K reconstruction"
+    }
+  ],
+  "noise": [
+    {
+      "amplitude": 3,
+      "bilinear_mse": 1.6564732142857144,
+      "bspline_mse": 1.0211867559523808,
+      "detail_mse": 1.6654947916666667,
+      "gray": 64,
+      "ratio": 1.0054462561200197,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 3,
+      "bilinear_mse": 0.7971447172619047,
+      "bspline_mse": 0.6386532738095239,
+      "detail_mse": 0.8072916666666666,
+      "gray": 64,
+      "ratio": 1.0127291182956282,
+      "stage": "post_temporal"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 9.2765625,
+      "bspline_mse": 5.474088541666666,
+      "detail_mse": 9.26987537202381,
+      "gray": 64,
+      "ratio": 0.9992791372907592,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 3.1247116815476192,
+      "bspline_mse": 2.3621372767857145,
+      "detail_mse": 3.1429501488095237,
+      "gray": 64,
+      "ratio": 1.0058368480425277,
+      "stage": "post_temporal"
+    },
+    {
+      "amplitude": 3,
+      "bilinear_mse": 1.5957217261904761,
+      "bspline_mse": 1.013783482142857,
+      "detail_mse": 1.6505766369047619,
+      "gray": 128,
+      "ratio": 1.0343762385470823,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 3,
+      "bilinear_mse": 0.6560360863095238,
+      "bspline_mse": 0.5194847470238095,
+      "detail_mse": 0.6808035714285714,
+      "gray": 128,
+      "ratio": 1.0377532358903838,
+      "stage": "post_temporal"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 9.321233258928572,
+      "bspline_mse": 5.602492559523809,
+      "detail_mse": 9.465615699404761,
+      "gray": 128,
+      "ratio": 1.0154896285143267,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 2.8062779017857142,
+      "bspline_mse": 2.058491443452381,
+      "detail_mse": 2.8696893601190476,
+      "gray": 128,
+      "ratio": 1.0225962860958935,
+      "stage": "post_temporal"
+    },
+    {
+      "amplitude": 3,
+      "bilinear_mse": 1.6592168898809523,
+      "bspline_mse": 0.9981026785714285,
+      "detail_mse": 1.6657645089285715,
+      "gray": 192,
+      "ratio": 1.003946210460821,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 3,
+      "bilinear_mse": 0.7802734375,
+      "bspline_mse": 0.5592261904761905,
+      "detail_mse": 0.7289527529761904,
+      "gray": 192,
+      "ratio": 0.9342273079444543,
+      "stage": "post_temporal"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 9.38993675595238,
+      "bspline_mse": 5.521558779761905,
+      "detail_mse": 9.338690476190477,
+      "gray": 192,
+      "ratio": 0.9945424254610216,
+      "stage": "raw_stress"
+    },
+    {
+      "amplitude": 8,
+      "bilinear_mse": 2.886802455357143,
+      "bspline_mse": 2.1426990327380953,
+      "detail_mse": 2.890048363095238,
+      "gray": 192,
+      "ratio": 1.0011243955165936,
+      "stage": "post_temporal"
+    }
+  ],
+  "passed": true,
+  "source": ".build/quality-v035/DetailScalerContrastSRGB.swift",
+  "weakTexture": [
+    {
+      "bilinear": {
+        "modulation_ratio": 1.0521625836546196,
+        "mse_to_analytic_reference": 0.25
+      },
+      "bspline": {
+        "modulation_ratio": 0.9654725933219844,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 1.1388525739872555,
+        "mse_to_analytic_reference": 0.5
+      },
+      "gray": 64,
+      "peak_to_peak_codes": 8,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "bspline": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "gray": 64,
+      "peak_to_peak_codes": 12,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.898076940733776,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.8919803681707715,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.898076940733776,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 64,
+      "peak_to_peak_codes": 16,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9494388217073949,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.9164777765545121,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.9494388217073949,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 64,
+      "peak_to_peak_codes": 24,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.963622013499569,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.9248297888730566,
+        "mse_to_analytic_reference": 1.5
+      },
+      "detail": {
+        "modulation_ratio": 0.963622013499569,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 64,
+      "peak_to_peak_codes": 36,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9654725933219844,
+        "mse_to_analytic_reference": 0
+      },
+      "bspline": {
+        "modulation_ratio": 0.9654725933219844,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 1.05216258365462,
+        "mse_to_analytic_reference": 0.25
+      },
+      "gray": 128,
+      "peak_to_peak_codes": 8,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "bspline": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "gray": 128,
+      "peak_to_peak_codes": 12,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.8919803681707715,
+        "mse_to_analytic_reference": 0.75
+      },
+      "bspline": {
+        "modulation_ratio": 0.8919803681707715,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.898076940733776,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 128,
+      "peak_to_peak_codes": 16,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9164777765545121,
+        "mse_to_analytic_reference": 0.75
+      },
+      "bspline": {
+        "modulation_ratio": 0.9164777765545121,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.9494388217073949,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 128,
+      "peak_to_peak_codes": 24,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9416479833976504,
+        "mse_to_analytic_reference": 1
+      },
+      "bspline": {
+        "modulation_ratio": 0.9144039478308957,
+        "mse_to_analytic_reference": 1.75
+      },
+      "detail": {
+        "modulation_ratio": 0.963622013499569,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 128,
+      "peak_to_peak_codes": 36,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 1.05216258365462,
+        "mse_to_analytic_reference": 0.25
+      },
+      "bspline": {
+        "modulation_ratio": 0.9654725933219844,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 1.05216258365462,
+        "mse_to_analytic_reference": 0.25
+      },
+      "gray": 192,
+      "peak_to_peak_codes": 8,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "bspline": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "detail": {
+        "modulation_ratio": 0.9919883970839178,
+        "mse_to_analytic_reference": 0
+      },
+      "gray": 192,
+      "peak_to_peak_codes": 12,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.8980769407337761,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.8919803681707715,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.8980769407337761,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 192,
+      "peak_to_peak_codes": 16,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9494388217073942,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.9164777765545121,
+        "mse_to_analytic_reference": 0.75
+      },
+      "detail": {
+        "modulation_ratio": 0.9551867254424544,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 192,
+      "peak_to_peak_codes": 24,
+      "period_source_pixels": 8
+    },
+    {
+      "bilinear": {
+        "modulation_ratio": 0.9636220134995693,
+        "mse_to_analytic_reference": 0.625
+      },
+      "bspline": {
+        "modulation_ratio": 0.9144039478308957,
+        "mse_to_analytic_reference": 1.75
+      },
+      "detail": {
+        "modulation_ratio": 0.963622013499569,
+        "mse_to_analytic_reference": 0.625
+      },
+      "gray": 192,
+      "peak_to_peak_codes": 36,
+      "period_source_pixels": 8
+    }
+  ],
+  "weakTextureScope": "Single-frame 8-source-pixel-period grayscale sine, output-pixel-centre analytic reference; no temporal DNR. Compare matched fixtures, not a general image quality guarantee."
+}

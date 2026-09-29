@@ -1,0 +1,87 @@
+{
+  "note": "Only absolute workspace prefixes were removed from reports/logs; observations unchanged. Swift sources and measured harness are exact copies. This is the original 19-check harness, before the later stricter acceptance revision.",
+  "files": [
+    {
+      "file": "baseline.json",
+      "originalSHA256": "b51f24b1c1f1281dd62f89caf611cc57dac8ad6604fe6a0f2f6d756e860dba24",
+      "archivedSHA256": "9c883e45ffce021f2ebc3373d398d9bc6dac8db473da2ac484c7af62c4132663",
+      "bytes": 20350
+    },
+    {
+      "file": "baseline.log",
+      "originalSHA256": "9046f06e9e1f8df48b6efceaf662cd5031aa7f859235697540c4da8cf20dde34",
+      "archivedSHA256": "53c33be08bff45943d80d205e5fc2f1613e24bbaa7f32357805a9a32a638cd32",
+      "bytes": 4408
+    },
+    {
+      "file": "contrast06.json",
+      "originalSHA256": "7dd586c880a353b0643aa0858570b6f6ac181d0ce6d9369280c9298201441c50",
+      "archivedSHA256": "61d5f32627ee7f0a78ec007f85839baa95c12ec2dc05c77b3b73a0339ef22d51",
+      "bytes": 20333
+    },
+    {
+      "file": "contrast06.log",
+      "originalSHA256": "2d4b3d20158525c4de3c3473107c92d093ea90f0d726775bd906d8cea0ff165e",
+      "archivedSHA256": "a8d620a7981e55b1c3c30467f0c144bfa12876f86e32d8996964cdbfa2ae0f2d",
+      "bytes": 4410
+    },
+    {
+      "file": "contrast03.json",
+      "originalSHA256": "2c7c35acb4813f87ab293a2ba5dd3b923498e9c56359bd5abbafee50a45e9f56",
+      "archivedSHA256": "69305e0d6eb07396b38270b4390f0ffb6d0dbaaf7ec0d1215ea9c288c7ebb463",
+      "bytes": 20353
+    },
+    {
+      "file": "contrast03.log",
+      "originalSHA256": "ba7d6accc11264683e7769a2f31ecb7a62d87a82fed39920f6af2d252ed2e1d8",
+      "archivedSHA256": "11bc068b987f2146a39f1f873e99a4c70ebcd2169256e3b31187d4b2871f8bcd",
+      "bytes": 4409
+    },
+    {
+      "file": "DetailScalerBaseline.swift",
+      "originalSHA256": "14cd3a8f18cb9e4ed4ae1b317dd4a84738b13ada629609467f313e645c71f24f",
+      "archivedSHA256": "14cd3a8f18cb9e4ed4ae1b317dd4a84738b13ada629609467f313e645c71f24f",
+      "bytes": 5943
+    },
+    {
+      "file": "DetailScalerContrastSRGB.swift",
+      "originalSHA256": "8d42537b44ce82a33579d4f923c9a44046f15f0747a3b517f60e7f88dac42be6",
+      "archivedSHA256": "8d42537b44ce82a33579d4f923c9a44046f15f0747a3b517f60e7f88dac42be6",
+      "bytes": 6418
+    },
+    {
+      "file": "DetailScalerContrastSRGBLow03.swift",
+      "originalSHA256": "58dfb9de07d75ea7a3068a70c50e4b86d7cbb84f08e17b6f44cc458792025eda",
+      "archivedSHA256": "58dfb9de07d75ea7a3068a70c50e4b86d7cbb84f08e17b6f44cc458792025eda",
+      "bytes": 6418
+    },
+    {
+      "file": "detail-gate-main.swift",
+      "originalSHA256": "7af126172b228c0c331408f3b368a7485573a1c85ee346c873b57cc66efe5049",
+      "archivedSHA256": "7af126172b228c0c331408f3b368a7485573a1c85ee346c873b57cc66efe5049",
+      "bytes": 14916
+    }
+  ],
+  "reproductionDependencies": [
+    {
+      "path": "Sources/CinemaApp/TemporalRestorer.swift",
+      "sha256": "508bcaf6d607100b261912e20e50e75268149ab50ff3f5d02c341bfc9687b6c4",
+      "includedInThisFolder": false
+    },
+    {
+      "path": ".build/restoration-lab/clean-film-24.png",
+      "sha256": "cb70e2240e22147129f6a49781354ca698bd595f4481c5ac313adad25e07cd34",
+      "includedInThisFolder": false
+    },
+    {
+      "path": ".build/restoration-lab/noisy-film-24.png",
+      "sha256": "d8a41dc07f0e6cdbc0137091125098cad8cba6ec5bfcc12527514db0b1841359",
+      "includedInThisFolder": false
+    },
+    {
+      "path": ".build/restoration-lab/compressed-film-24.png",
+      "sha256": "9a705675287b05ef6556252233f9966f56d7f260659328fd4259b1d46e26713a",
+      "includedInThisFolder": false
+    }
+  ]
+}

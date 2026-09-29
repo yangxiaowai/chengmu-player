@@ -1,0 +1,70 @@
+{
+  "device" : "Apple M4",
+  "results" : [
+    {
+      "pairs" : [
+        {
+          "callback_completed_ms" : 271.10833337064832,
+          "generated_frames" : 2,
+          "pair" : 0,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ]
+        },
+        {
+          "callback_completed_ms" : 101.97166667785496,
+          "generated_frames" : 2,
+          "pair" : 1,
+          "phases" : [
+            0.20000000298023224,
+            0.60000002384185791
+          ]
+        },
+        {
+          "callback_completed_ms" : 95.686750020831823,
+          "generated_frames" : 2,
+          "pair" : 2,
+          "phases" : [
+            0.40000000596046448,
+            0.80000001192092896
+          ],
+          "pixel_quality" : {
+            "alpha" : {
+              "alpha_diagnostic_repaired" : true,
+              "nonfinite_alpha" : 0,
+              "nonfinite_rgb" : 0
+            },
+            "centroid_expected" : 1893.7387986868955,
+            "centroid_left" : 1855.5,
+            "centroid_output" : 1893.8048423492103,
+            "centroid_right" : 1951.5,
+            "identical_to_blend" : false,
+            "identical_to_left" : false,
+            "roi_mse_blend" : 2128.03515625,
+            "roi_mse_duplicate_left" : 2444.6113790760869,
+            "roi_mse_duplicate_right" : 2775.4398437499999,
+            "roi_mse_interpolation" : 10.244023154438405
+          }
+        },
+        {
+          "callback_completed_ms" : 91.812833328731358,
+          "generated_frames" : 2,
+          "pair" : 3,
+          "phases" : [
+            0.20000000298023224,
+            0.60000002384185791
+          ]
+        }
+      ],
+      "scope" : "Prepared source RGBAHalf; VT callback-completed including optical flow and two synthesized phases. Excludes input conversion, pixel sanitization\/readback, display\/decoding\/DNR. source 24fps, future1frame.",
+      "setup_ms" : 8002.4367083096877,
+      "size" : [
+        3840,
+        2160
+      ],
+      "warm_mean_pair_ms" : 96.490416675806046,
+      "warm_p95_pair_ms" : 95.686750020831823
+    }
+  ]
+}

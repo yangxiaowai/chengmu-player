@@ -6,25 +6,30 @@ import VideoToolbox
 import CinemaCore
 
 enum EnhancementMode: String, CaseIterable, Identifiable {
-    case original, temporal, restoration, clarity, upscale4K, appleAI
+    case original, temporal, restoration, compression, clarity, upscale4K, appleAI
     var id: String { rawValue }
+    var usesRestorationScaling: Bool { self == .restoration || self == .compression }
+    var automaticallyTargets4K: Bool { usesRestorationScaling || self == .upscale4K }
+    var usesTemporalRestoration: Bool { self == .temporal || usesRestorationScaling }
     var title: String {
         switch self {
         case .original: return "原片"
         case .temporal: return "时域降噪"
         case .restoration: return "流式修复"
+        case .compression: return "压缩抑噪"
         case .clarity: return "自然降噪"
-        case .upscale4K: return "平滑 4K 缩放"
+        case .upscale4K: return "平滑缩放"
         case .appleAI: return "Apple AI 超分"
         }
     }
     var detail: String {
         switch self {
         case .original: return "系统硬件解码与原始画面"
-        case .temporal: return "利用前帧减轻噪点，保留原始尺寸；需要 macOS 26"
-        case .restoration: return "先时域降噪，支持时使用 Apple AI；再以细节保护插值放大至最高 4K"
-        case .clarity: return "轻度降噪，不叠加锐化，保持原始尺寸"
-        case .upscale4K: return "降噪后平滑放大至最高 4K，不增加原片没有的细节"
+        case .temporal: return "利用前帧减轻噪点；需要 macOS 26"
+        case .restoration: return "先时域降噪，再使用可用的 Apple AI 与抑噪缩放；保留渐变，弱纹理可能稍柔和"
+        case .compression: return "实验：时域降噪后轻清理残噪，再放大；下方字幕区免额外清理，弱纹理可能稍软"
+        case .clarity: return "轻度降噪，不叠加锐化，可调整输出尺寸"
+        case .upscale4K: return "降噪后平滑缩放，不增加原片没有的细节"
         case .appleAI: return "按设备与输入尺寸查询真实 AI 倍率，不支持时回退"
         }
     }
@@ -35,6 +40,14 @@ struct EnhancementMetrics {
     var isEnhancedOutput = false
     var sourceWidth = 0
     var sourceHeight = 0
+    var sourceFPS: Double?
+    var sourceFPSIsEstimated = false
+    var timingNote: String?
+    var interpolatedFrames = 0
+    /// Completed unique-PTS draw commands, not physical display scanout.
+    var presentedFPS: Double?
+    var displayedFPS: Double?
+    var displayedFrames = 0
     var outputWidth = 0
     var outputHeight = 0
     var mode = EnhancementMode.original.title
@@ -50,6 +63,7 @@ struct EnhancementMetrics {
 }
 
 struct EnhancedFrame {
+    var originalImage: CIImage? = nil
     let texture: MTLTexture
     let width: Int
     let height: Int
@@ -60,6 +74,8 @@ struct EnhancedFrame {
     var cleanupAppliedRegions = 0
     var cleanupRejectedRegions = 0
     var cleanupReason: String?
+    /// True only for a generated motion-compensated frame, not a source-grid anchor.
+    var isInterpolated = false
 }
 
 enum EnhancementError: LocalizedError {
@@ -69,6 +85,13 @@ enum EnhancementError: LocalizedError {
 
 /// Worker-owned GPU context. The surface calls this serially, with at most one in-flight video frame.
 final class EnhancementPipeline {
+    // A short hardware test must wait for the previous playback job, including model loading.
+    // Recursive because a complete interpolation batch calls spatial processing internally.
+    private static let workloadLock = NSRecursiveLock()
+    static func withExclusiveProcessing<T>(_ work: () throws -> T) rethrows -> T {
+        workloadLock.lock(); defer { workloadLock.unlock() }
+        return try work()
+    }
     let device: MTLDevice
     let queue: MTLCommandQueue
     let context: CIContext
@@ -78,6 +101,7 @@ final class EnhancementPipeline {
     private var temporalSession: AnyObject?
     private var temporalKey = ""
     private var detailScaler: DetailScaler?
+    private var compressionCleaner: CompressionCleaner?
     init() throws {
         guard let device = MTLCreateSystemDefaultDevice(), let queue = device.makeCommandQueue() else {
             throw EnhancementError.unavailable("当前设备没有可用 Metal GPU")
@@ -86,23 +110,30 @@ final class EnhancementPipeline {
         context = CIContext(mtlDevice: device, options: [.cacheIntermediates: false, .workingColorSpace: CGColorSpace(name: CGColorSpace.extendedLinearSRGB)!])
     }
 
-    func process(_ buffer: CVPixelBuffer, mode: EnhancementMode, time: CMTime, displayTransform: CGAffineTransform = .identity, cleanup: AdCleanupSettings = .init(), streamID: UUID? = nil) throws -> EnhancedFrame {
+    func process(_ buffer: CVPixelBuffer, mode: EnhancementMode, time: CMTime, displayTransform: CGAffineTransform = .identity, cleanup: AdCleanupSettings = .init(), streamID: UUID? = nil, resolution: EnhancementResolution = .automatic) throws -> EnhancedFrame {
+        try Self.withExclusiveProcessing {
+            try processExclusively(buffer, mode: mode, time: time, displayTransform: displayTransform, cleanup: cleanup, streamID: streamID, resolution: resolution)
+        }
+    }
+    private func processExclusively(_ buffer: CVPixelBuffer, mode: EnhancementMode, time: CMTime, displayTransform: CGAffineTransform, cleanup: AdCleanupSettings, streamID: UUID?, resolution: EnhancementResolution) throws -> EnhancedFrame {
         let start = CACurrentMediaTime()
         if let transfer = CVBufferCopyAttachment(buffer, kCVImageBufferTransferFunctionKey, nil) as? String,
            transfer == kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ as String || transfer == kCVImageBufferTransferFunction_ITU_R_2100_HLG as String {
             throw EnhancementError.unavailable("HDR 增强尚未验证，使用系统原片保留色彩")
         }
-        var image = CIImage(cvPixelBuffer: buffer)
+        guard var image = ColorFrameGate.inputImage(for: buffer) else { throw EnhancementError.unavailable(ColorFrameGate.decision(for: buffer).reason ?? "无法确认片源色彩，保留原片") }
         if !displayTransform.isIdentity {
             image = image.transformed(by: displayTransform)
             image = image.transformed(by: CGAffineTransform(translationX: -image.extent.minX, y: -image.extent.minY))
         }
         let width = Int(image.extent.width.rounded()), height = Int(image.extent.height.rounded())
+        let originalImage = image
+        let desiredOutput = resolution.target(width: width, height: height, automatic4K: mode.automaticallyTargets4K)
         var output = PixelSize(width: width, height: height)
         var label = mode.title
         var usedTemporalHistory = false
         var temporalResetReason: String?
-        let usesTemporal = mode == .temporal || mode == .restoration
+        let usesTemporal = mode.usesTemporalRestoration
         if usesTemporal {
             guard #available(macOS 26.0, *) else { throw EnhancementError.unavailable("时域修复需要 macOS 26 或更新版本，已保留原片") }
             let key = "\(mode.rawValue):\(width)x\(height)"
@@ -119,9 +150,15 @@ final class EnhancementPipeline {
             // Re-entering a temporal mode must not reuse references from before an original comparison.
             temporalSession = nil; temporalKey = ""
         }
+        if mode == .compression {
+            if compressionCleaner == nil { compressionCleaner = try CompressionCleaner(device: device) }
+            // Keep temporal references raw. Cleanup has no history and runs before upscaling;
+            // originalImage above remains the unmodified input for same-frame comparison.
+            image = try compressionCleaner!.process(image, protectedRegions: cleanup.protectedRegions, context: context, queue: queue)
+        }
         var useScaler = mode == .appleAI
-        if mode == .restoration, #available(macOS 26.0, *) {
-            useScaler = VTLowLatencySuperResolutionScalerConfiguration.isSupported &&
+        if mode.usesRestorationScaling, #available(macOS 26.0, *) {
+            useScaler = desiredOutput.width > width && VTLowLatencySuperResolutionScalerConfiguration.isSupported &&
                 !VTLowLatencySuperResolutionScalerConfiguration.supportedScaleFactors(frameWidth: width, frameHeight: height).isEmpty
             if !useScaler { label += " · 当前尺寸无 AI 超分倍率" }
         }
@@ -142,30 +179,29 @@ final class EnhancementPipeline {
             // Core Image's denoiser also sharpens by default. Keep it disabled: adding another
             // luminance sharpen amplified residual compression noise, especially in midtones.
             image = image.applyingFilter("CINoiseReduction", parameters: ["inputNoiseLevel": 0.015, "inputSharpness": 0.0])
-            if mode == .upscale4K {
-                output = QualityPolicy.target4K(width: width, height: height)
-                // Cubic B-spline (B=1, C=0) has no negative lobes: it does not add the bright/dark
-                // halos that Lanczos produced around subtitle strokes and compressed edges.
-                // Even scale=1 changes pixels with this kernel; preserve native 4K/larger detail.
-                if output.width != width || output.height != height {
-                    image = image.clampedToExtent().applyingFilter("CIBicubicScaleTransform", parameters: [
-                        "inputScale": Double(output.width) / Double(width), "inputAspectRatio": 1.0,
-                        "inputB": 1.0, "inputC": 0.0
-                    ]).cropped(to: CGRect(x: 0, y: 0, width: output.width, height: output.height))
-                }
+        }
+        // Use the explicitly selected target for every processing mode. Automatic Apple AI
+        // keeps its native supported factor; explicit targets fit the result to the chosen size.
+        let finalTarget = mode == .appleAI && resolution == .automatic ? output : desiredOutput
+        let usesDetailScaling = mode.usesRestorationScaling && finalTarget.width > output.width
+        if finalTarget != output {
+            let currentWidth = image.extent.width
+            if usesDetailScaling {
+                label += " + 细节缩放（非 AI）"
+            } else {
+                image = image.clampedToExtent().applyingFilter("CIBicubicScaleTransform", parameters: [
+                    "inputScale": Double(finalTarget.width) / currentWidth, "inputAspectRatio": 1.0,
+                    "inputB": 1.0, "inputC": 0.0
+                ]).cropped(to: CGRect(x: 0, y: 0, width: finalTarget.width, height: finalTarget.height))
+                label += " + 平滑缩放"
             }
+            output = finalTarget
         }
-        let detailTarget = QualityPolicy.target4K(width: output.width, height: output.height)
-        let usesDetailScaling = mode == .restoration && detailTarget != output
-        if usesDetailScaling {
-            output = detailTarget
-            if !useScaler { label = usedTemporalHistory ? "时域降噪" : "原帧（时域参考建立中）" }
-            label += " + 细节缩放（非 AI）"
-        }
+        if mode == .compression { label += " + 压缩抑噪（下方字幕区免额外清理）" }
         // Finish the enhanced base before cleanup. Applying patches with bounded copies
         // preserves exact pixels outside the selection, regardless of the scaling path.
         let decision = AdCleanupPolicy.evaluate(cleanup, width: output.width, height: output.height)
-        let description = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: output.width, height: output.height, mipmapped: false)
+        let description = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: SDRTextureFormat.output, width: output.width, height: output.height, mipmapped: false)
         description.usage = [.shaderRead, .shaderWrite, .renderTarget]
         guard let command = queue.makeCommandBuffer() else { throw EnhancementError.unavailable("GPU 画面提交失败") }
         let texture: MTLTexture
@@ -196,7 +232,7 @@ final class EnhancementPipeline {
             let enhanced = baseImage
             for rectangle in decision.acceptedRects {
                 let patchWidth = Int(rectangle.width), patchHeight = Int(rectangle.height)
-                let patchDescription = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: patchWidth, height: patchHeight, mipmapped: false)
+                let patchDescription = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: SDRTextureFormat.output, width: patchWidth, height: patchHeight, mipmapped: false)
                 patchDescription.usage = [.shaderRead, .shaderWrite, .renderTarget]
                 guard let patchTexture = device.makeTexture(descriptor: patchDescription) else {
                     throw EnhancementError.unavailable("局部柔化选区缓冲分配失败")
@@ -221,7 +257,8 @@ final class EnhancementPipeline {
             resultTexture = cleanedTexture
             label += " + 局部柔化（\(decision.acceptedRects.count)框）"
         }
-        return EnhancedFrame(texture: resultTexture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label, usedTemporalHistory: usedTemporalHistory, temporalResetReason: temporalResetReason, cleanupAppliedRegions: decision.acceptedRects.count, cleanupRejectedRegions: decision.rejectedCount, cleanupReason: decision.reasons.isEmpty ? nil : decision.reasons.joined(separator: "；"))
+        if let assumption = ColorFrameGate.assumptionNote(for: buffer) { label += " · " + assumption }
+        return EnhancedFrame(originalImage: originalImage, texture: resultTexture, width: output.width, height: output.height, milliseconds: (CACurrentMediaTime() - start) * 1000, mode: label, usedTemporalHistory: usedTemporalHistory, temporalResetReason: temporalResetReason, cleanupAppliedRegions: decision.acceptedRects.count, cleanupRejectedRegions: decision.rejectedCount, cleanupReason: decision.reasons.isEmpty ? nil : decision.reasons.joined(separator: "；"))
     }
 
     /// Generated moving test card: real GPU command completion, not CPU submission time.
@@ -230,6 +267,8 @@ final class EnhancementPipeline {
         var buffer: CVPixelBuffer?
         let attrs: [String: Any] = [kCVPixelBufferMetalCompatibilityKey as String: true, kCVPixelBufferIOSurfacePropertiesKey as String: [:]]
         guard CVPixelBufferCreate(nil, 1280, 720, kCVPixelFormatType_32BGRA, attrs as CFDictionary, &buffer) == kCVReturnSuccess, let buffer else { throw EnhancementError.unavailable("测试帧创建失败") }
+        CVBufferSetAttachment(buffer, kCVImageBufferColorPrimariesKey, kCVImageBufferColorPrimaries_ITU_R_709_2, .shouldPropagate)
+        CVBufferSetAttachment(buffer, kCVImageBufferTransferFunctionKey, kCVImageBufferTransferFunction_sRGB, .shouldPropagate)
         var reports: [[String: Any]] = []
         for mode in [EnhancementMode.temporal, .restoration, .clarity, .upscale4K, .appleAI] {
             var times: [Double] = []; var size = [0, 0]; var actualMode = mode.title; var failure: String?

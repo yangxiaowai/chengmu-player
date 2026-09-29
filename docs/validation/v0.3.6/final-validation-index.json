@@ -1,0 +1,40 @@
+{
+  "compression-cleaner-repro": {
+    "passed": true,
+    "checks": 15
+  },
+  "compression-cleaner-synthetic-only": {
+    "passed": true,
+    "checks": 15
+  },
+  "repair-precision": {
+    "passed": true,
+    "checks": 19
+  },
+  "streaming-pipeline": {
+    "passed": true,
+    "checks": 47
+  },
+  "hdr-geometry": {
+    "passed": true,
+    "checks": 38
+  },
+  "quality-performance": {
+    "passed": true,
+    "checks": 28
+  },
+  "restoration-playback-1080": {
+    "passed": true,
+    "checks": 23
+  },
+  "core": {
+    "passed": true,
+    "tests": 160,
+    "suites": 20
+  },
+  "film": {
+    "completed": true,
+    "quality_acceptance": "Informational, fail only structural/numeric prerequisites. Negative quality results are reported unchanged.",
+    "note": "execution success is not a universally better restoration result"
+  }
+}

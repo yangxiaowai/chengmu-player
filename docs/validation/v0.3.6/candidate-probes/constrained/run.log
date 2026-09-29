@@ -1,0 +1,86 @@
+{
+  "film_psnr_gains_db": {
+    "compressed-film": {
+      "2": 0.004433,
+      "4": 0.011441,
+      "6": 0.016608
+    },
+    "noisy-film": {
+      "2": 0.008987,
+      "4": 0.018912,
+      "6": 0.023727
+    },
+    "heavy-noisy-film": {
+      "2": 0.035869,
+      "4": 0.09519,
+      "6": 0.141151
+    }
+  },
+  "timing": {
+    "480x200": {
+      "scope": "NumPy luma filter CPU wall with allocations; excludes RGB transform, decode, upscale and playback",
+      "samples_ms": [
+        4.139916971325874,
+        4.212292027659714,
+        4.104875028133392,
+        4.145125043578446,
+        4.0445830672979355,
+        4.156333045102656,
+        4.097832948900759
+      ],
+      "median_ms": 4.139916971325874,
+      "p95_ms": 4.195504332892597
+    },
+    "1280x720": {
+      "scope": "NumPy luma filter CPU wall with allocations; excludes RGB transform, decode, upscale and playback",
+      "samples_ms": [
+        41.451542056165636,
+        41.82295803911984,
+        41.74708400387317,
+        41.6317090857774,
+        41.0250419517979,
+        40.39329197257757,
+        41.0943339811638
+      ],
+      "median_ms": 41.451542056165636,
+      "p95_ms": 41.80019582854584
+    },
+    "1920x1080": {
+      "scope": "NumPy luma filter CPU wall with allocations; excludes RGB transform, decode, upscale and playback",
+      "samples_ms": [
+        99.71745905932039,
+        102.33445803169161,
+        101.06645803898573,
+        101.92225000355393,
+        105.70737498346716,
+        100.92708293814212,
+        101.5656670788303
+      ],
+      "median_ms": 101.5656670788303,
+      "p95_ms": 104.6954998979345
+    }
+  },
+  "invariants": [
+    {
+      "strength": 2.0,
+      "finite": true,
+      "max_delta": 0.0028228759765625,
+      "flat_exact": true,
+      "protected_exact": true
+    },
+    {
+      "strength": 4.0,
+      "finite": true,
+      "max_delta": 0.0032196044921875,
+      "flat_exact": true,
+      "protected_exact": true
+    },
+    {
+      "strength": 6.0,
+      "finite": true,
+      "max_delta": 0.0070343017578125,
+      "flat_exact": true,
+      "protected_exact": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+Synthetic noisy=false strength=0.25 allMSE=0.003361195394250593 recall=1.0 leak=0.0
+Synthetic noisy=false strength=0.5 allMSE=0.003361195394250593 recall=1.0 leak=0.0
+Synthetic noisy=false strength=0.75 allMSE=0.003361195394250593 recall=1.0 leak=0.0
+Synthetic noisy=false strength=1.0 allMSE=0.003361195394250593 recall=1.0 leak=0.0
+Synthetic noisy=true strength=0.25 allMSE=24.933626419846732 recall=1.0 leak=0.0
+Synthetic noisy=true strength=0.5 allMSE=26.030848844672654 recall=1.0 leak=0.0
+Synthetic noisy=true strength=0.75 allMSE=17.72041601023068 recall=1.0 leak=0.0
+Synthetic noisy=true strength=1.0 allMSE=12.507368493989963 recall=1.0 leak=0.0
+Film restoration assessment completed: /Users/yangjun/Downloads/视频播放器/docs/validation/v0.3.5/strength-sweep.json
+compressed-film / original: display PSNR 30.795738761503394, temporal error RMSE 2.9045342511336947
+compressed-film / temporal_0.25: display PSNR 30.762955179273458, temporal error RMSE 2.918137417402084
+compressed-film / temporal_0.5: display PSNR 30.775622452839958, temporal error RMSE 2.895335046426795
+compressed-film / temporal_0.75: display PSNR 30.75870776593095, temporal error RMSE 2.9122541920592484
+compressed-film / temporal_1.0: display PSNR 30.7544365579882, temporal error RMSE 2.920638673844797
+noisy-film / original: display PSNR 31.26701545968823, temporal error RMSE 2.7443442189138674
+noisy-film / temporal_0.25: display PSNR 31.29217369670493, temporal error RMSE 2.7709665661808
+noisy-film / temporal_0.5: display PSNR 31.3056628045505, temporal error RMSE 2.7461640111828336
+noisy-film / temporal_0.75: display PSNR 31.285029409653497, temporal error RMSE 2.772777770454655
+noisy-film / temporal_1.0: display PSNR 31.280774824225666, temporal error RMSE 2.7827558279828497
+heavy-noisy-film / original: display PSNR 32.34586920113529, temporal error RMSE 2.818824390234776
+heavy-noisy-film / temporal_0.25: display PSNR 32.43619176210466, temporal error RMSE 2.7149334255404787
+heavy-noisy-film / temporal_0.5: display PSNR 32.46582763984719, temporal error RMSE 2.679503015980053
+heavy-noisy-film / temporal_0.75: display PSNR 32.43121756192836, temporal error RMSE 2.7325493985064164
+heavy-noisy-film / temporal_1.0: display PSNR 32.42530118204831, temporal error RMSE 2.7402715181932344

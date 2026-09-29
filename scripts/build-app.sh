@@ -10,8 +10,8 @@ fi
 # Assemble a complete bundle away from the public entry point. Keep it for retry if
 # either released copy is running; install-app.py never terminates the player.
 mkdir -p "$PWD/.build"
-staging_dir="$(mktemp -d "$PWD/.build/app-stage-0.3.3.XXXXXX")"
-app_dir="$staging_dir/映川.app"
+staging_dir="$(mktemp -d "$PWD/.build/app-stage-0.3.7.XXXXXX")"
+app_dir="$staging_dir/澄幕.app"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
 cp "$product_dir/Cinema" "$app_dir/Contents/MacOS/Cinema.new"
 mv -f "$app_dir/Contents/MacOS/Cinema.new" "$app_dir/Contents/MacOS/Cinema"
@@ -21,13 +21,13 @@ cat > "$app_dir/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleName</key><string>映川</string>
-<key>CFBundleDisplayName</key><string>映川</string>
+<key>CFBundleName</key><string>澄幕</string>
+<key>CFBundleDisplayName</key><string>澄幕</string>
 <key>CFBundleIdentifier</key><string>local.yingchuan.cinema</string>
 <key>CFBundleExecutable</key><string>Cinema</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.3</string>
-<key>CFBundleVersion</key><string>15</string>
+<key>CFBundleShortVersionString</key><string>0.3.7</string>
+<key>CFBundleVersion</key><string>19</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>

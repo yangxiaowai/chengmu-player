@@ -14,8 +14,8 @@ import sys
 from collections.abc import Callable
 
 BUNDLE_ID = "local.yingchuan.cinema"
-APP_NAME = "映川.app"
-LEGACY_NAME = "映川-v0.3.0.app"
+APP_NAME = "澄幕.app"
+LEGACY_NAMES = ("映川.app", "映川-v0.3.0.app")
 
 
 class AppIsRunning(RuntimeError):
@@ -38,8 +38,8 @@ def verify_bundle(bundle: Path) -> None:
         info = plistlib.load(stream)
     if info.get("CFBundleIdentifier") != BUNDLE_ID:
         raise ValueError("暂存应用标识不匹配，未安装。")
-    if info.get("CFBundleShortVersionString") != "0.3.3" or info.get("CFBundleVersion") != "15":
-        raise ValueError("暂存应用版本不是 0.3.3 / build 15，未安装。")
+    if info.get("CFBundleShortVersionString") != "0.3.7" or info.get("CFBundleVersion") != "19":
+        raise ValueError("暂存应用版本不是 0.3.7 / build 19，未安装。")
     executable = bundle / "Contents/MacOS/Cinema"
     if not executable.is_file() or not os.access(executable, os.X_OK):
         raise ValueError("暂存应用缺少可执行程序，未安装。")
@@ -57,7 +57,7 @@ def archive_destination(bundle: Path, archive: Path) -> Path:
     # Version strings are data, never paths.
     version, build = [re.sub(r"[^A-Za-z0-9._-]", "_", value) or "unknown"
                       for value in (version, build)]
-    base = f"映川-v{version}-build{build}"
+    base = f"{bundle.stem}-v{version}-build{build}"
     destination = archive / f"{base}.app"
     index = 2
     while destination.exists() or destination.is_symlink():
@@ -74,8 +74,8 @@ def install_bundle(
 ) -> tuple[Path, list[Path]]:
     staged, distribution = staged.resolve(), distribution.resolve()
     target = distribution / APP_NAME
-    legacy = distribution / LEGACY_NAME
-    known_bundles = [target, legacy]
+    legacy = [distribution / name for name in LEGACY_NAMES]
+    known_bundles = [target, *legacy]
     if staged in known_bundles or staged.parent == distribution:
         raise ValueError("请从 .build 暂存目录安装，不能把发行入口作为暂存应用。")
     verify(staged)
@@ -90,14 +90,14 @@ def install_bundle(
         def ensure_stopped() -> None:
             active = probe(known_bundles)
             if active:
-                raise AppIsRunning("映川仍在运行，未替换应用。请正常退出后重新安装。\n" + "\n".join(active))
+                raise AppIsRunning("旧版映川或澄幕仍在运行，未替换应用。请正常退出后重新安装。\n" + "\n".join(active))
 
         ensure_stopped()
         archive = distribution / "历史版本"
         moved: list[tuple[Path, Path]] = []
         installed = False
         try:
-            for bundle in (target, legacy):
+            for bundle in (target, *legacy):
                 if not bundle.exists() and not bundle.is_symlink():
                     continue
                 ensure_stopped()

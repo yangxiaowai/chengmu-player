@@ -3,53 +3,18 @@ import CinemaCore
 
 struct QualityStudio: View {
     @ObservedObject var playback: PlaybackController
-    @LegacyState private var hoveredMode: EnhancementMode?
     var body: some View {
-        VStack(alignment: .leading, spacing: 26) {
-            Text("保留质感，按需调整。").font(.system(size: 30, weight: .medium, design: .serif))
-            Text("优先使用清晰片源。画面处理在这台 Mac 上进行，播放时可随时与原片对照。").font(.system(size: 13)).foregroundStyle(CinemaStyle.secondary)
-            ForEach(EnhancementMode.allCases) { mode in
-                Button { playback.selectEnhancementMode(mode) } label: {
-                    CinemaCard {
-                        HStack(spacing: 22) {
-                            Image(systemName: icon(mode)).font(.system(size: 26, weight: .light)).frame(width: 40)
-                                .foregroundStyle(playback.selectedPictureMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(mode.title).font(.system(size: 17, weight: .medium))
-                                Text(mode.detail).font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: playback.selectedPictureMode == mode ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(playback.selectedPictureMode == mode ? CinemaStyle.accent : CinemaStyle.secondary)
-                        }
-                    }
-                    .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous)
-                        .fill(playback.selectedPictureMode == mode ? CinemaStyle.accentSoft : (hoveredMode == mode ? CinemaStyle.panelHover : Color.clear)))
-                    .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius, style: .continuous)
-                        .strokeBorder(playback.selectedPictureMode == mode ? CinemaStyle.accent.opacity(0.45) : CinemaStyle.border, lineWidth: playback.selectedPictureMode == mode ? 1.5 : 1))
-                }.buttonStyle(.plain)
-                    .animation(CinemaStyle.quick, value: hoveredMode)
-                    .animation(CinemaStyle.quick, value: playback.selectedPictureMode)
-                    .onHover { hoveredMode = $0 ? mode : nil }
-                    .accessibilityLabel("\(mode.title)，\(playback.selectedPictureMode == mode ? "已选择" : "未选择")")
+        VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("画质与流畅度").font(.system(size: 30, weight: .medium, design: .serif))
+                Text("看清片源，选择目标，再用这台 Mac 的实际表现做判断。")
+                    .font(.system(size: 13)).foregroundStyle(CinemaStyle.secondary)
             }
-            if playback.player.currentItem != nil {
-                CinemaCard(title: "当前播放", icon: playback.pictureIsEnhanced ? "sparkles" : "film") {
-                    Text(playback.pictureStatusTitle).font(.system(size: 13, weight: .medium))
-                    Text(playback.pictureStatusDetail).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                    Button(playback.isComparingOriginal ? "结束对照，恢复所选模式" : "临时查看原片") {
-                        playback.toggleOriginalComparison()
-                    }.disabled(!playback.canCompareOriginal && !playback.isComparingOriginal)
-                }
-            }
-            HStack(alignment: .top, spacing: 13) {
-                Image(systemName: "info.circle").foregroundStyle(CinemaStyle.accent)
-                Text("噪点明显时可试时域降噪；需要放大时可试流式修复：先降噪，系统支持时使用 Apple AI，再用细节保护插值放大至最高 4K。插值部分不是 AI，也不等于恢复原生 4K 细节。切镜和拖动后会重新建立前帧参考。杜比视界与 HDR 保持原生呈现，处理跟不上时回到原片；播放页会显示实际使用的算法。").font(.system(size: 12)).lineSpacing(6).foregroundStyle(CinemaStyle.secondary)
-            }.padding(.top, 8)
+            QualityControlPanel(playback: playback, performance: playback.performance, allows60FPS: playback.supportsFrameInterpolation)
+            Text("更高的输出分辨率不等于原生细节。优先使用清晰片源；噪点明显时先降噪，再与原片比较。")
+                .font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
+                .fixedSize(horizontal: false, vertical: true)
         }
-    }
-    private func icon(_ mode: EnhancementMode) -> String {
-        switch mode { case .original: return "film"; case .temporal: return "square.3.layers.3d"; case .restoration: return "sparkles.tv"; case .clarity: return "viewfinder"; case .upscale4K: return "4k.tv"; case .appleAI: return "sparkles" }
     }
 }
 

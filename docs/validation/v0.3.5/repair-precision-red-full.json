@@ -1,0 +1,335 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+        "chroma_code" : 512,
+        "distinct_luma_codes" : 877,
+        "low_six_bits_zero" : true,
+        "maximum_luma_code" : 940,
+        "minimum_luma_code" : 64
+      },
+      "name" : "fixture uses legal 10-bit video range and neutral chroma",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "10-bit SDR fixture allowed",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 877
+      },
+      "name" : "fixture really has more than 8-bit precision",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "black" : -1.7004774477413775e-08,
+        "maximum_code_error" : 0.00020240151991038347,
+        "white" : 0.99998378753662109
+      },
+      "name" : "legal video range decodes to expected full-range SDR codes",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 256
+      },
+      "name" : "production SDR render preserves more than 8-bit gradation",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "rms" : 0.0011308476876611194
+      },
+      "name" : "production SDR render code-value RMS below half one 10-bit step",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "production SDR render remains monotonic and SDR bounded",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "distinct_levels" : 256
+      },
+      "name" : "detail scaling preserves more than 8-bit gradation",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "rms" : 0.001135530401490276
+      },
+      "name" : "detail scaling code-value RMS below half one 10-bit step",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "detail scaling remains monotonic and SDR bounded",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "chroma_code" : 512,
+        "distinct_luma_codes" : 877,
+        "low_six_bits_zero" : true,
+        "maximum_luma_code" : 940,
+        "minimum_luma_code" : 64
+      },
+      "name" : "fixture uses legal 10-bit video range and neutral chroma",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "y_cb_cr_codes" : [
+          [
+            304,
+            413,
+            828
+          ],
+          [
+            587,
+            311,
+            223
+          ],
+          [
+            274,
+            836,
+            438
+          ],
+          [
+            222,
+            512,
+            512
+          ]
+        ]
+      },
+      "name" : "color fixture codes stay within 10-bit video range",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "independent color fixture allowed as SDR",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "decoded_rgba" : [
+          [
+            0.82933622598648071,
+            0.12945562601089478,
+            0.068819843232631683,
+            1
+          ],
+          [
+            0.088965915143489838,
+            0.79000651836395264,
+            0.18065400421619415,
+            1
+          ],
+          [
+            0.10954451560974121,
+            0.21054363250732422,
+            0.91069835424423218,
+            1
+          ],
+          [
+            0.18025469779968262,
+            0.18025477230548859,
+            0.18025469779968262,
+            1
+          ]
+        ],
+        "intended_rgb" : [
+          [
+            0.82999998331069946,
+            0.12999999523162842,
+            0.070000000298023224
+          ],
+          [
+            0.090000003576278687,
+            0.79000002145767212,
+            0.18000000715255737
+          ],
+          [
+            0.10999999940395355,
+            0.20999999344348907,
+            0.9100000262260437
+          ],
+          [
+            0.18000000715255737,
+            0.18000000715255737,
+            0.18000000715255737
+          ]
+        ],
+        "maximum_rgb_error" : 0.0011801570653915405
+      },
+      "name" : "10-bit YCbCr fixture decodes to intended independent sRGB colors",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "decoded color fixture has opaque alpha",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "maximum_rgb_error" : 0.0018852353096008301,
+        "observed_rgba" : [
+          [
+            0.82745099067687988,
+            0.12941177189350128,
+            0.070588238537311554,
+            1
+          ],
+          [
+            0.090196080505847931,
+            0.78823530673980713,
+            0.18039216101169586,
+            1
+          ],
+          [
+            0.10980392247438431,
+            0.21176470816135406,
+            0.90980392694473267,
+            1
+          ],
+          [
+            0.18039216101169586,
+            0.18039216101169586,
+            0.18039216101169586,
+            1
+          ]
+        ],
+        "reference_rgba" : [
+          [
+            0.82933622598648071,
+            0.12945562601089478,
+            0.068819843232631683,
+            1
+          ],
+          [
+            0.088965915143489838,
+            0.79000651836395264,
+            0.18065400421619415,
+            1
+          ],
+          [
+            0.10954451560974121,
+            0.21054363250732422,
+            0.91069835424423218,
+            1
+          ],
+          [
+            0.18025469779968262,
+            0.18025477230548859,
+            0.18025469779968262,
+            1
+          ]
+        ],
+        "rgb_rms" : 0.0010730525928425451
+      },
+      "name" : "production SDR color render preserves independent RGB channels and sRGB code values",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "alpha" : [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "name" : "production SDR color render has opaque finite alpha",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "maximum_rgb_error" : 0.0018852353096008301,
+        "observed_rgba" : [
+          [
+            0.82745099067687988,
+            0.12941177189350128,
+            0.070588238537311554,
+            1
+          ],
+          [
+            0.090196080505847931,
+            0.78823530673980713,
+            0.18039216101169586,
+            1
+          ],
+          [
+            0.10980392247438431,
+            0.21176470816135406,
+            0.90980392694473267,
+            1
+          ],
+          [
+            0.18039216101169586,
+            0.18039216101169586,
+            0.18039216101169586,
+            1
+          ]
+        ],
+        "reference_rgba" : [
+          [
+            0.82933622598648071,
+            0.12945562601089478,
+            0.068819843232631683,
+            1
+          ],
+          [
+            0.088965915143489838,
+            0.79000651836395264,
+            0.18065400421619415,
+            1
+          ],
+          [
+            0.10954451560974121,
+            0.21054363250732422,
+            0.91069835424423218,
+            1
+          ],
+          [
+            0.18025469779968262,
+            0.18025477230548859,
+            0.18025469779968262,
+            1
+          ]
+        ],
+        "rgb_rms" : 0.0010730525928425451
+      },
+      "name" : "detail scaling color render preserves independent RGB channels and sRGB code values",
+      "passed" : false
+    },
+    {
+      "evidence" : {
+        "alpha" : [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "name" : "detail scaling color render has opaque finite alpha",
+      "passed" : true
+    }
+  ],
+  "device" : "Apple M4",
+  "passed" : false,
+  "scope" : "Tagged 10-bit SDR synthetic ramp and independent RGB\/gray color patches; production spatial output and DetailScaler GPU readback, including opaque alpha and sRGB roundtrip. Not HDR, panel bit depth, temporal\/FRC precision or end-to-end playback."
+}

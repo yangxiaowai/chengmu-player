@@ -1,0 +1,77 @@
+{
+  "reportsCopiedWithoutModification": true,
+  "personalPathMediaURLCredentialPatternScan": "no matches",
+  "allowedPublicDocumentationURLInCompilerWarning": "https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures",
+  "files": [
+    {
+      "file": "output-churn.json",
+      "bytes": 191491,
+      "sha256": "861d88d430e53449c0c75654b50199b169bebb2132f7395965db692420b6305c"
+    },
+    {
+      "file": "output-churn.log",
+      "bytes": 3225,
+      "sha256": "1f091375f2634ec95ebd75f3a9c2ce39e71fc66b289eb3a957f7bd351bee8a15"
+    },
+    {
+      "file": "report-stable-output.json",
+      "bytes": 46172,
+      "sha256": "7d0d805d1d1130566e6f24adc8fc45fcb9f87413a62a92e4e19984a0f2109b94"
+    },
+    {
+      "file": "run-stable-output.log",
+      "bytes": 8767,
+      "sha256": "1d35610872442f653912570b0d2f04d9a2497f8e6e84316ce0aab1278e575848"
+    },
+    {
+      "file": "report-display-queue.json",
+      "bytes": 62898,
+      "sha256": "90e24a127f0986e069c9281fc6fbe534f2378366e7f880f383ec6bf7b219e0c7"
+    },
+    {
+      "file": "run-display-queue.log",
+      "bytes": 5175,
+      "sha256": "1e6578dd6ca92c5cfa483dfd244e98399c374600f6e7902ac2f98ea612ccdd7d"
+    },
+    {
+      "file": "report-720p.json",
+      "bytes": 82108,
+      "sha256": "fcb85708b52f2b6d18eed4bb7e124747e88be97aebf34cf774e8aa0f94799d6f"
+    },
+    {
+      "file": "run-720p.log",
+      "bytes": 7656,
+      "sha256": "6f2c43fa58fe51b1ce452db8e6a380158995eea163ebd69e47438ff5555a7d9d"
+    },
+    {
+      "file": "report-1080p-fresh-motion-unplanned.json",
+      "bytes": 89839,
+      "sha256": "e1da797e6e68df4287dbb584b91a2b64e62109d7456e6e058bffd273907cfe64"
+    },
+    {
+      "file": "run-1080p-fresh-motion-unplanned.log",
+      "bytes": 5831,
+      "sha256": "a6c9d3f7b1409808a3052099a7c6244227da7c3aeb8175655d0a726e935d708c"
+    },
+    {
+      "file": "report-720p-fresh-motion.json",
+      "bytes": 87494,
+      "sha256": "ca4ae5387f30099e6db082ded1a094cc556aa8cee832e24de69b7b93ec29e4fc"
+    },
+    {
+      "file": "run-720p-fresh-motion.log",
+      "bytes": 8330,
+      "sha256": "27c90d2ca89fde35a33122829d96783e44e1e435b6b7636f4a27aaa974fde1e6"
+    },
+    {
+      "file": "report-1080p-final.json",
+      "bytes": 63110,
+      "sha256": "cbf0551d3e8763a36d200c8df76b0475b0979730e8a7efd730eee1b72dbd04b2"
+    },
+    {
+      "file": "run-1080p-final.log",
+      "bytes": 5170,
+      "sha256": "221b5227309e2930eadcbc568ac092925e55219868fe462b80c550584e40352f"
+    }
+  ]
+}

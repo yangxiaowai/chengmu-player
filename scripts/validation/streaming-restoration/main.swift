@@ -32,6 +32,29 @@ import CinemaCore
     }
     static func time(_ frame: Int) -> CMTime { CMTime(value:Int64(frame),timescale:30) }
     @available(macOS 26.0, *)
+    static func compressionMode() throws {
+        let base=try EnhancementPipeline(),cleaner=try EnhancementPipeline(),id=UUID()
+        let a=try fixture(base,w:640,h:360),b=try fixture(base,w:640,h:360,index:1)
+        let reference=try base.process(a,mode:.temporal,time:time(0),streamID:id,resolution:.source)
+        let first=try cleaner.process(a,mode:.compression,time:time(0),streamID:id,resolution:.source)
+        let warm=try cleaner.process(b,mode:.compression,time:time(1),streamID:id,resolution:.source)
+        check("compression respects source target without forced upscaling",first.width==640 && first.height==360 && warm.width==640 && warm.height==360)
+        check("compression runs actual temporal stage and reports extra cleanup",!first.usedTemporalHistory && warm.usedTemporalHistory && warm.mode.contains("压缩抑噪") && warm.mode.contains("时域降噪"),["mode":warm.mode])
+        func rawPixels(_ image:CIImage)->[UInt8] {
+            var data=[UInt8](repeating:0,count:640*360*4)
+            base.context.render(image,toBitmap:&data,rowBytes:640*4,bounds:image.extent,format:.RGBA8,colorSpace:base.colorSpace)
+            return data
+        }
+        check("compression comparison image remains original decoded input",first.originalImage != nil && rawPixels(first.originalImage!)==rawPixels(reference.originalImage!))
+        check("compression shares automatic 4K and temporal/scaling policies",EnhancementMode.compression.automaticallyTargets4K && EnhancementMode.compression.usesTemporalRestoration && EnhancementMode.compression.usesRestorationScaling)
+        let switched=try cleaner.process(b,mode:.restoration,time:time(2),streamID:id,resolution:.source)
+        check("switch from compression resets temporal reference",!switched.usedTemporalHistory)
+        let back=try cleaner.process(b,mode:.compression,time:time(3),streamID:id,resolution:.source)
+        check("switch back to compression resets temporal reference",!back.usedTemporalHistory)
+        let rotated=try cleaner.process(b,mode:.compression,time:time(4),displayTransform:CGAffineTransform(a:0,b:1,c:-1,d:0,tx:360,ty:0),streamID:id,resolution:.source)
+        check("compression follows rotated source geometry",rotated.width==360 && rotated.height==640 && !rotated.usedTemporalHistory)
+    }
+    @available(macOS 26.0, *)
     static func lifecycle() throws {
         let p=try EnhancementPipeline(),b=try fixture(p,w:640,h:360),id=UUID()
         let raw=try p.process(b,mode:.original,time:time(0),streamID:id)
@@ -108,7 +131,7 @@ import CinemaCore
         let p=try EnhancementPipeline(),b=try fixture(p,w:640,h:360)
         for transfer in [kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ,kCVImageBufferTransferFunction_ITU_R_2100_HLG] {
             CVBufferSetAttachment(b,kCVImageBufferTransferFunctionKey,transfer,.shouldPropagate)
-            for mode in [EnhancementMode.temporal,.restoration] {
+            for mode in [EnhancementMode.temporal,.restoration,.compression] {
                 var reason:String?
                 do{_=try p.process(b,mode:mode,time:.zero,streamID:UUID())}catch{reason=error.localizedDescription}
                 check("HDR \(transfer) \(mode.rawValue) rejected",reason?.contains("HDR")==true,["reason":reason ?? "not rejected"])
@@ -118,7 +141,7 @@ import CinemaCore
     @available(macOS 26.0, *)
     static func cleanup() throws -> [[String:Any]] {
         var cases:[[String:Any]]=[]
-        for mode in [EnhancementMode.temporal,.restoration] {
+        for mode in [EnhancementMode.temporal,.restoration,.compression] {
             let baseline=try EnhancementPipeline(),changed=try EnhancementPipeline(),rejected=try EnhancementPipeline(),id=UUID()
             let first=try fixture(baseline,w:640,h:360,index:0),next=try fixture(baseline,w:640,h:360,index:1)
             let region=NormalizedVideoRect(x:0.10,y:0.10,width:0.3,height:0.3)
@@ -152,7 +175,7 @@ import CinemaCore
     static func main() throws {
         guard #available(macOS 26.0,*),VTTemporalNoiseFilterConfiguration.isSupported else{throw NSError(domain:"streaming",code:1,userInfo:[NSLocalizedDescriptionKey:"Native temporal unavailable; no passing report"])}
         let path=CommandLine.arguments.count>1 ? CommandLine.arguments[1]:"/tmp/streaming-restoration.json"
-        try lifecycle();let scales=try scalerAndGeometry();try hdrRejection();let cleanup=try cleanup()
+        try lifecycle();try compressionMode();let scales=try scalerAndGeometry();try hdrRejection();let cleanup=try cleanup()
         let failed=checks.filter{($0["passed"] as? Bool) != true}
         let report:[String:Any]=["scope":"Real production EnhancementPipeline and TemporalRestorer on synthetic SDR CVPixelBuffers; native/GPU completion and pixel readback. No app UI, network decoding, audio sync, real-film or sustained-playback validation.","device":MTLCreateSystemDefaultDevice()?.name ?? "unknown","os":ProcessInfo.processInfo.operatingSystemVersionString,"checks":checks,"scaling_cases":scales,"cleanup_cases":cleanup,"passed":failed.isEmpty,"failed_checks":failed.count]
         try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:path))

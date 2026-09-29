@@ -9,6 +9,14 @@ cleanup() { if [[ -n "$server_pid" ]]; then kill "$server_pid" 2>/dev/null || tr
 trap cleanup EXIT
 mkdir -p "$(dirname "$report")" "$fixture_dir/hls"
 ffmpeg -hide_banner -loglevel error -f lavfi -i 'testsrc2=size=320x180:rate=24:duration=4' -c:v libx264 -preset ultrafast -x264-params 'colorprim=bt709:transfer=bt709:colormatrix=bt709' -pix_fmt yuv420p -movflags +write_colr -y "$fixture_dir/sdr709.mp4"
+if [[ "$mode" != red ]]; then
+  # Keep the coded raster identical; only the sample aspect ratio changes. The longer
+  # clip leaves time for the real surface and its independent lookahead decoder to start.
+  for sar in 1 2; do
+    ffmpeg -hide_banner -loglevel error -f lavfi -i 'testsrc2=size=640x360:rate=24:duration=30' -vf "setsar=$sar/1" -c:v libx264 -preset ultrafast -x264-params 'colorprim=bt709:transfer=bt709:colormatrix=bt709' -pix_fmt yuv420p -movflags +write_colr -y "$fixture_dir/compression-sar$sar.mp4"
+    ffprobe -v error -select_streams v:0 -show_entries stream=width,height,sample_aspect_ratio,display_aspect_ratio,color_transfer,color_primaries,color_space -of json "$fixture_dir/compression-sar$sar.mp4" > "$fixture_dir/compression-sar$sar.json"
+  done
+fi
 for format in pq hlg; do
   transfer=smpte2084
   [[ "$format" == hlg ]] && transfer=arib-std-b67
@@ -33,9 +41,7 @@ surface="Sources/CinemaApp/VideoSurface.swift"
 policy="Sources/CinemaApp/VideoProcessingPolicy.swift"
 if [[ "$mode" == red ]]; then
   surface="$fixture_dir/VideoSurfaceBaseline.swift"
-  policy="$fixture_dir/VideoProcessingPolicyBaseline.swift"
   git show HEAD:Sources/CinemaApp/VideoSurface.swift > "$surface"
-  : > "$policy"
 fi
-swiftc "${flags[@]}" -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$fixture_dir" -L "$fixture_dir" -lCinemaCore -Xlinker -rpath -Xlinker "$fixture_dir" $policy "$surface" Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift scripts/validation/hdr-render/main.swift -o "$fixture_dir/check"
+swiftc "${flags[@]}" -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$fixture_dir" -L "$fixture_dir" -lCinemaCore -Xlinker -rpath -Xlinker "$fixture_dir" "$policy" "$surface" Sources/CinemaApp/LookaheadVideoDecoder.swift Sources/CinemaApp/FrameInterpolator.swift Sources/CinemaApp/InterpolatedFramePipeline.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/CompressionCleaner.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift scripts/validation/hdr-render/main.swift -o "$fixture_dir/check"
 "$fixture_dir/check" "$fixture_dir" "$report" "http://127.0.0.1:$(cat "$fixture_dir/port")/sdr.m3u8"

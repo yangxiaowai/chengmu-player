@@ -1,0 +1,14 @@
+PASS temporal_sampled_processing_fits_frame_budget sampledMeanMS=11.48049304417024 nominalFrameBudgetMS=41.666666666666664
+PASS temporal_keeps_processing_during_playback frames=75 mediaAdvanced=3.1168903749999997 fallback=none
+PASS temporal_reports_actual_restoration 时域降噪
+PASS temporal_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中）
+PASS temporal_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS temporal_resumes_after_comparison 时域降噪
+PASS restoration_sampled_processing_fits_frame_budget sampledMeanMS=23.08601385448128 nominalFrameBudgetMS=41.666666666666664
+PASS restoration_keeps_processing_during_playback frames=76 mediaAdvanced=3.1359068330000004 fallback=none
+PASS restoration_reports_actual_restoration 时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）
+PASS restoration_outputs_actual_3840x2160 input=1280x720 completedOutput=3840x2160
+PASS restoration_reports_non_ai_detail_scaling 时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）
+PASS restoration_paused_seek_rebuilds_without_old_reference Apple AI ×1.5（时域参考建立中） + 细节缩放（非 AI）
+PASS restoration_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS restoration_resumes_after_comparison 时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）

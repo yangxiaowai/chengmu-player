@@ -12,6 +12,7 @@ import CinemaCore
   let folder = URL(fileURLWithPath: CommandLine.arguments[1])
   let reportURL = URL(fileURLWithPath: CommandLine.arguments[2])
   var checks: [[String:Any]] = []
+  var compressionGeometrySamples: [[String:Any]] = []
   func check(_ name:String, _ passed:Bool, _ detail:String = "") { checks.append(["name":name,"passed":passed,"detail":detail]); print(passed ? "PASS" : "FAIL",name,detail) }
   let item = AVPlayerItem(url: folder.appendingPathComponent("sdr709.mp4"))
   let player = AVPlayer(playerItem: item); player.isMuted = true
@@ -47,9 +48,13 @@ import CinemaCore
    CVBufferSetAttachment(untagged, kCVImageBufferColorPrimariesKey, "ColorPrimaries#2" as CFString, .shouldPropagate)
    CVBufferSetAttachment(untagged, kCVImageBufferTransferFunctionKey, "IEC_sRGB" as CFString, .shouldPropagate)
    let decision = ColorFrameGate.decision(for: untagged)
-   check("unspecified_primaries_are_not_mislabeled_hdr", decision.blocksEnhancement && decision.reason?.contains("未确认") == true,
+   check("unspecified_primaries_with_explicit_sdr_are_compatible", !decision.blocksEnhancement && ColorFrameGate.inputImage(for: untagged) != nil && ColorFrameGate.assumptionNote(for: untagged)?.contains("709") == true,
          "decision=\(decision)")
-  } else { check("unspecified_primaries_are_not_mislabeled_hdr", false, "buffer creation failed") }
+   CVBufferSetAttachment(untagged, kCVImageBufferTransferFunctionKey, "TransferFunction#2" as CFString, .shouldPropagate)
+   check("unknown_transfer_preserves_native", ColorFrameGate.decision(for: untagged).blocksEnhancement && ColorFrameGate.inputImage(for: untagged) == nil)
+   CVBufferRemoveAttachment(untagged, kCVImageBufferTransferFunctionKey)
+   check("missing_transfer_preserves_native", ColorFrameGate.decision(for: untagged).blocksEnhancement && ColorFrameGate.inputImage(for: untagged) == nil)
+  } else { check("unspecified_primaries_with_explicit_sdr_are_compatible", false, "buffer creation failed") }
   let before = player.currentTime().seconds
   view.configure(player:player,mode:.upscale4K,generation:UUID(),permission:.nativeOnly("HDR 原生播放"),assessedItem:item,onMetrics:{latest=$0})
   check("permission_revocation_removes_output_and_shows_native_layer", item.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.isEmpty && view.diagnosticState.isNativeVisible)
@@ -133,7 +138,8 @@ import CinemaCore
          "reason=\(noVideoMetrics.fallbackReason ?? "none")")
    noVideoView.stop()
   }
-  // 切回原片 must drop the conversion output, and re-enabling must restore it, without rebuilding.
+  // SDR comparison keeps one stable item-owned output: removing/re-adding it rewinds some
+  // AVFoundation clocks. Enhancement stops, while HDR/native-only still removes every owned output.
   do {
    let switchItem = AVPlayerItem(url: folder.appendingPathComponent("sdr709.mp4"))
    let switchPlayer = AVPlayer(playerItem:switchItem); switchPlayer.isMuted = true
@@ -145,11 +151,15 @@ import CinemaCore
    while switchMetrics.processedFrames == 0, Date() < onDeadline { try await Task.sleep(nanoseconds:50_000_000) }
    check("enhancement_runs_before_the_switch", switchMetrics.processedFrames > 0 && switchItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.count == 1,
          "frames=\(switchMetrics.processedFrames) outputs=\(switchItem.outputs.count)")
+   let stableOutput = switchItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.first
+   let beforeComparison = switchPlayer.currentTime().seconds
    switchView.configure(player:switchPlayer,mode:.original,generation:UUID(),permission:.inspectSDRFrames,assessedItem:switchItem,onMetrics:{switchMetrics=$0})
    try await Task.sleep(nanoseconds:250_000_000)
-   switchPlayer.playImmediately(atRate:1)
-   check("original_switch_detaches_the_conversion_output", switchItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}.isEmpty && switchView.diagnosticState.isNativeVisible,
-         "outputs=\(switchItem.outputs.count) native=\(switchView.diagnosticState.isNativeVisible)")
+   let comparisonOutputs = switchItem.outputs.compactMap{$0 as? AVPlayerItemVideoOutput}
+   check("original_switch_keeps_one_stable_sdr_output_without_enhancement", stableOutput != nil && comparisonOutputs.count == 1 && comparisonOutputs.first === stableOutput && switchView.diagnosticState.isNativeVisible && !switchView.diagnosticState.hasEnhancedFrame && switchView.diagnosticMetrics.processedFrames == 0,
+         "outputs=\(comparisonOutputs.count) native=\(switchView.diagnosticState.isNativeVisible) enhanced=\(switchView.diagnosticState.hasEnhancedFrame)")
+   check("original_switch_preserves_media_clock", switchPlayer.currentTime().seconds >= beforeComparison - 0.002 && switchPlayer.currentItem === switchItem,
+         "before=\(beforeComparison) after=\(switchPlayer.currentTime().seconds)")
    let previousClock = switchPlayer.currentItem
    switchView.configure(player:switchPlayer,mode:.clarity,generation:UUID(),permission:.inspectSDRFrames,assessedItem:switchItem,onMetrics:{switchMetrics=$0})
    var restored = false
@@ -158,11 +168,34 @@ import CinemaCore
     if switchItem.outputs.compactMap({ $0 as? AVPlayerItemVideoOutput }).count == 1, switchMetrics.processedFrames > 0, switchView.diagnosticState.hasEnhancedFrame { restored = true }
     try await Task.sleep(nanoseconds:50_000_000)
    }
-   // The player was paused by the harness earlier, so the switch is verified by the resumed item,
-   // a re-attached conversion output and a new processed frame rather than by the raw clock.
-   check("enhancement_switch_restores_processing_without_rebuilding", restored && switchPlayer.currentItem === previousClock && switchMetrics.processedFrames > 0,
+   check("enhancement_switch_restores_processing_without_rebuilding", restored && switchPlayer.currentItem === previousClock && switchMetrics.processedFrames > 0 && switchItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).first === stableOutput,
          "restored=\(restored) sameItem=\(switchPlayer.currentItem === previousClock) frames=\(switchMetrics.processedFrames)")
-   switchPlayer.pause(); switchView.stop()
+   switchView.stop()
+   check("view_stop_preserves_the_item_owned_sdr_output", stableOutput != nil && switchItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).count == 1 && switchItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).first === stableOutput)
+   // The new view has not claimed the existing output. Native-only authorization must still
+   // remove it synchronously rather than leaving an orphan SDR conversion on an HDR route.
+   let revokedView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   var revokedMetrics = EnhancementMetrics()
+   revokedView.configure(player:switchPlayer,mode:.clarity,generation:UUID(),permission:.nativeOnly("重建视图时保留 HDR 原生通路"),assessedItem:switchItem,onMetrics:{revokedMetrics=$0})
+   check("recreated_native_only_view_removes_unclaimed_sdr_output_immediately", switchItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).isEmpty && revokedView.diagnosticState.isNativeVisible && !revokedView.diagnosticState.hasEnhancedFrame)
+   try await Task.sleep(nanoseconds:200_000_000)
+   check("recreated_native_only_view_never_submits_enhancement", switchItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).isEmpty && revokedMetrics.processedFrames == 0 && !revokedView.diagnosticState.hasEnhancedFrame)
+   switchPlayer.pause(); revokedView.stop()
+  }
+  do {
+   // Stop before the first main-actor suspension, while attachItem's asset-load task is queued.
+   // The old view stays alive through the assertion, so a weak capture cannot hide a stale callback.
+   let pendingItem = AVPlayerItem(url:folder.appendingPathComponent("sdr709.mp4"))
+   let pendingPlayer = AVPlayer(playerItem:pendingItem); pendingPlayer.isMuted = true
+   let stoppedView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   stoppedView.configure(player:pendingPlayer,mode:.clarity,generation:UUID(),permission:.inspectSDRFrames,assessedItem:pendingItem,onMetrics:{_ in})
+   stoppedView.stop()
+   let replacementView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   replacementView.configure(player:pendingPlayer,mode:.clarity,generation:UUID(),permission:.nativeOnly("停止后的加载任务不得恢复 SDR 输出"),assessedItem:pendingItem,onMetrics:{_ in})
+   try await Task.sleep(nanoseconds:700_000_000)
+   check("stopped_view_asset_load_cannot_reattach_output_after_native_revocation", pendingItem.outputs.compactMap({$0 as? AVPlayerItemVideoOutput}).isEmpty && !stoppedView.diagnosticState.hasEnhancedFrame && replacementView.diagnosticState.isNativeVisible,
+         "outputs=\(pendingItem.outputs.count)")
+   replacementView.stop()
   }
   if CommandLine.arguments.count > 3 {
    let hlsItem = AVPlayerItem(url:URL(string:CommandLine.arguments[3])!)
@@ -176,10 +209,99 @@ import CinemaCore
    check("ordinary_sdr_hls_retains_enhancement",hlsMetrics.processedFrames>0,"frames=\(hlsMetrics.processedFrames) reason=\(hlsMetrics.fallbackReason ?? "none")")
    hlsPlayer.pause(); hlsView.stop()
   }
+  // Real encoded SDR clips, no injected buffers or private surface state. A malformed fixture,
+  // a decoder that does not expose the tested geometry, or an unrelated fallback must fail.
+  for sar in [1, 2] {
+   let metadata = try JSONSerialization.jsonObject(with: Data(contentsOf: folder.appendingPathComponent("compression-sar\(sar).json"))) as? [String:Any]
+   let stream = (metadata?["streams"] as? [[String:Any]])?.first ?? [:]
+   check("compression_sar\(sar)_fixture_has_expected_encoded_geometry_and_sdr_tags",
+         stream["width"] as? Int == 640 && stream["height"] as? Int == 360 &&
+         stream["sample_aspect_ratio"] as? String == "\(sar):1" &&
+         stream["color_primaries"] as? String == "bt709" &&
+         stream["color_transfer"] as? String == "bt709" && stream["color_space"] as? String == "bt709",
+         String(describing: stream))
+  }
+  let inactiveCleanup = AdCleanupSettings(enabled:false, protectedRegions:[
+   AdCleanupSettings.defaultProtection, NormalizedVideoRect(x:0.1,y:0.1,width:0.2,height:0.15)
+  ])
+  func rejectsNonSquareGeometry(_ reason: String?) -> Bool {
+   // AVFoundation may expose SAR as a buffer attachment or only as a mismatch between
+   // the decoded raster and presentation size. Both are real, explicit mapping failures.
+   reason?.contains("特殊像素比例") == true || reason?.contains("显示比例与处理画面不一致") == true
+  }
+  do {
+   let compressionItem = AVPlayerItem(url:folder.appendingPathComponent("compression-sar1.mp4"))
+   let compressionPlayer = AVPlayer(playerItem:compressionItem); compressionPlayer.isMuted = true
+   let compressionView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   compressionView.configure(player:compressionPlayer,mode:.compression,generation:UUID(),cleanup:inactiveCleanup,
+                             permission:.inspectSDRFrames,assessedItem:compressionItem,resolution:.source,frameRate:.source,onMetrics:{_ in})
+   compressionPlayer.playImmediately(atRate:1)
+   let deadline = Date().addingTimeInterval(12)
+   while Date() < deadline {
+    let metrics = compressionView.diagnosticMetrics
+    if metrics.processedFrames >= 3 && compressionView.diagnosticState.hasEnhancedFrame { break }
+    try await Task.sleep(nanoseconds:30_000_000)
+   }
+   let metrics = compressionView.diagnosticMetrics
+   check("compression_square_pixels_process_with_softening_disabled",
+         !inactiveCleanup.isActive && metrics.processedFrames >= 3 && metrics.fallbackReason == nil &&
+         metrics.mode.contains("压缩抑噪") && metrics.outputWidth == 640 && metrics.outputHeight == 360 &&
+         metrics.cleanupAppliedRegions == 0 && compressionView.diagnosticState.hasEnhancedFrame &&
+         !compressionView.diagnosticState.isNativeVisible && !compressionView.diagnosticState.isHDRSticky,
+         "frames=\(metrics.processedFrames) output=\(metrics.outputWidth)x\(metrics.outputHeight) mode=\(metrics.mode) reason=\(metrics.fallbackReason ?? "none")")
+   compressionGeometrySamples.append(["fixture":"compression-sar1.mp4","requestedFrameRate":"source",
+                                     "cleanupActive":inactiveCleanup.isActive,"protectedRegions":inactiveCleanup.protectedRegions.count,
+                                     "processedFrames":metrics.processedFrames,"output":[metrics.outputWidth,metrics.outputHeight],
+                                     "mode":metrics.mode,"fallback":metrics.fallbackReason ?? "",
+                                     "nativeVisible":compressionView.diagnosticState.isNativeVisible])
+   compressionPlayer.pause(); compressionView.stop()
+  }
+  for requestedRate in [EnhancementFrameRate.source, .fps60] {
+   let geometryItem = AVPlayerItem(url:folder.appendingPathComponent("compression-sar2.mp4"))
+   let geometryPlayer = AVPlayer(playerItem:geometryItem); geometryPlayer.isMuted = true
+   let geometryView = CinemaVideoView(frame:CGRect(x:0,y:0,width:640,height:360))
+   geometryView.configure(player:geometryPlayer,mode:.compression,generation:UUID(),cleanup:inactiveCleanup,
+                          permission:.inspectSDRFrames,assessedItem:geometryItem,resolution:.source,frameRate:requestedRate,onMetrics:{_ in})
+   geometryPlayer.playImmediately(atRate:1)
+   var everEnhanced = false
+   let deadline = Date().addingTimeInterval(12)
+   while Date() < deadline {
+    everEnhanced = everEnhanced || geometryView.diagnosticState.hasEnhancedFrame
+    if rejectsNonSquareGeometry(geometryView.diagnosticMetrics.fallbackReason) { break }
+    try await Task.sleep(nanoseconds:30_000_000)
+   }
+   // Observe beyond the rejection so a queued or late enhanced result cannot hide behind it.
+   for _ in 0..<10 {
+    try await Task.sleep(nanoseconds:30_000_000)
+    everEnhanced = everEnhanced || geometryView.diagnosticState.hasEnhancedFrame
+   }
+   let metrics = geometryView.diagnosticMetrics
+   check("compression_sar2_\(requestedRate.rawValue)_preserves_native_without_softening",
+         !inactiveCleanup.isActive && rejectsNonSquareGeometry(metrics.fallbackReason) &&
+         metrics.processedFrames == 0 && metrics.interpolatedFrames == 0 && metrics.cleanupAppliedRegions == 0 &&
+         !everEnhanced && !geometryView.diagnosticState.hasEnhancedFrame && geometryView.diagnosticState.isNativeVisible &&
+         !geometryView.diagnosticState.isHDRSticky && geometryItem.status == .readyToPlay &&
+         geometryPlayer.currentTime().isNumeric && geometryPlayer.currentTime().seconds > 0,
+         "frames=\(metrics.processedFrames) generated=\(metrics.interpolatedFrames) everEnhanced=\(everEnhanced) reason=\(metrics.fallbackReason ?? "none") timing=\(metrics.timingNote ?? "none")")
+   if requestedRate == .fps60 {
+    // This diagnostic is assigned by the real lookahead geometry rejection, before the
+    // main decoder is checked on the ordinary path. Mere absence of interpolation is insufficient.
+    check("compression_sar2_fps60_rejects_lookahead_geometry_before_returning_to_source_rate",
+          rejectsNonSquareGeometry(metrics.timingNote) && metrics.timingNote?.contains("跟随片源帧率") == true,
+          metrics.timingNote ?? "no lookahead geometry rejection observed")
+   }
+   compressionGeometrySamples.append(["fixture":"compression-sar2.mp4","requestedFrameRate":requestedRate.rawValue,
+                                     "cleanupActive":inactiveCleanup.isActive,"protectedRegions":inactiveCleanup.protectedRegions.count,
+                                     "processedFrames":metrics.processedFrames,"interpolatedFrames":metrics.interpolatedFrames,
+                                     "everEnhanced":everEnhanced,"fallback":metrics.fallbackReason ?? "",
+                                     "timing":metrics.timingNote ?? "","presentationSize":[geometryItem.presentationSize.width,geometryItem.presentationSize.height],
+                                     "nativeVisible":geometryView.diagnosticState.isNativeVisible])
+   geometryPlayer.pause(); geometryView.stop()
+  }
 #endif
   player.pause(); view.stop()
   let passed = checks.allSatisfy{$0["passed"] as? Bool == true}
-  try JSONSerialization.data(withJSONObject:["passed":passed,"checks":checks,"scope":"Headless real AVPlayer/CinemaVideoView; tagged synthetic SDR/PQ/HLG, not actual Dolby mastering or display output certification"],options:[.prettyPrinted,.sortedKeys]).write(to:reportURL)
+  try JSONSerialization.data(withJSONObject:["passed":passed,"checks":checks,"compressionGeometrySamples":compressionGeometrySamples,"scope":"Headless real AVPlayer/CinemaVideoView; tagged synthetic SDR/PQ/HLG and encoded square/non-square pixel SDR compression-mode geometry checks, including the real lookahead decoder at a requested 60 fps. No RGBA screenshot, physical display, sustained 60 fps, audio sync or Dolby mastering certification."],options:[.prettyPrinted,.sortedKeys]).write(to:reportURL)
   if !passed { exit(1) }
  }
 }

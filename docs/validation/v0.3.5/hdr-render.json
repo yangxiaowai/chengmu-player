@@ -1,0 +1,166 @@
+{
+  "checks" : [
+    {
+      "detail" : "drawable=Optional(kCGColorSpaceSRGB) render=Optional(kCGColorSpaceSRGB)",
+      "name" : "drawable_color_tag_matches_pipeline_srgb_encoding",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unknown_item_never_attaches_conversion_output",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=1 reason=none",
+      "name" : "verified_sdr_still_runs_enhancement",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "sdr_output_is_ten_bit",
+      "passed" : true
+    },
+    {
+      "detail" : "decision=sdr",
+      "name" : "unspecified_primaries_with_explicit_sdr_are_compatible",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unknown_transfer_preserves_native",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "missing_transfer_preserves_native",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "permission_revocation_removes_output_and_shows_native_layer",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "route_change_preserves_clock_and_player_item",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "revocation_rejects_late_gpu_results",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "old_item_authorization_cannot_enable_new_item_output",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "pq_native_from_first_frame_without_video_output",
+      "passed" : true
+    },
+    {
+      "detail" : "src=320x180 reason=杜比\/HDR 或原生播放期间不叠加柔化，选区保留",
+      "name" : "pq_reports_native_dimensions_and_cleanup_disabled",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "pq_raw_frame_gate_blocks_before_sdr_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "pq_mode_switch_preserves_hdr_sticky",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hlg_native_from_first_frame_without_video_output",
+      "passed" : true
+    },
+    {
+      "detail" : "src=320x180 reason=杜比\/HDR 或原生播放期间不叠加柔化，选区保留",
+      "name" : "hlg_reports_native_dimensions_and_cleanup_disabled",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hlg_raw_frame_gate_blocks_before_sdr_processing",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hlg_mode_switch_preserves_hdr_sticky",
+      "passed" : true
+    },
+    {
+      "detail" : "reason=Apple AI 不支持当前 128×72 输入；没有可用倍率，回退原片",
+      "name" : "unsupported_ai_falls_back_before_mode_recovery",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=1 reason=none",
+      "name" : "processing_failure_recovers_after_mode_switch_with_same_generation",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "mode_switch_preserves_native_only_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "reason=媒体没有提供可读取的视频方向轨道，暂用原片播放",
+      "name" : "mode_switch_preserves_geometry_failure",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=1 outputs=1",
+      "name" : "enhancement_runs_before_the_switch",
+      "passed" : true
+    },
+    {
+      "detail" : "outputs=1 native=true enhanced=false",
+      "name" : "original_switch_keeps_one_stable_sdr_output_without_enhancement",
+      "passed" : true
+    },
+    {
+      "detail" : "before=0.031765667 after=0.287464625",
+      "name" : "original_switch_preserves_media_clock",
+      "passed" : true
+    },
+    {
+      "detail" : "restored=true sameItem=true frames=1",
+      "name" : "enhancement_switch_restores_processing_without_rebuilding",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "view_stop_preserves_the_item_owned_sdr_output",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "recreated_native_only_view_removes_unclaimed_sdr_output_immediately",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "recreated_native_only_view_never_submits_enhancement",
+      "passed" : true
+    },
+    {
+      "detail" : "outputs=0",
+      "name" : "stopped_view_asset_load_cannot_reattach_output_after_native_revocation",
+      "passed" : true
+    },
+    {
+      "detail" : "frames=1 reason=none",
+      "name" : "ordinary_sdr_hls_retains_enhancement",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Headless real AVPlayer\/CinemaVideoView; tagged synthetic SDR\/PQ\/HLG, not actual Dolby mastering or display output certification"
+}

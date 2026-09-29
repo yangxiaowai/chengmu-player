@@ -1,0 +1,446 @@
+{
+  "checks" : [
+    {
+      "evidence" : {
+        "mode" : "原帧（时域参考建立中）"
+      },
+      "name" : "temporal first frame is priming",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "temporal priming equals original rendered pixels",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪"
+      },
+      "name" : "temporal warm frame uses history with truthful label",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "continuous PTS new stream clears old reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "new stream warms normally",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "forward seek primes",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "forward seek new reference works",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "backward seek primes",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "explicit original mode discards temporal session",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "spatial mode discards temporal session",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "temporal to combined mode has fresh reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "combined to temporal mode has fresh reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "native comparison return uses new revision",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression respects source target without forced upscaling",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 压缩抑噪（下方字幕区保留）"
+      },
+      "name" : "compression runs actual temporal stage and reports extra cleanup",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression comparison image remains original decoded input",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression shares automatic 4K and temporal\/scaling policies",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "switch from compression resets temporal reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "switch back to compression resets temporal reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression follows rotated source geometry",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "1280x720 combined warm temporal active",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "AI_intermediate" : [
+          1920,
+          1080
+        ],
+        "expected" : [
+          3840,
+          2160
+        ],
+        "factors" : [
+          1.5
+        ],
+        "output" : [
+          3840,
+          2160
+        ]
+      },
+      "name" : "1280x720 combined reaches aspect-preserving 4K target",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）"
+      },
+      "name" : "1280x720 combined identifies spatial scaling",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "first_mode" : "Apple AI ×1.5（时域参考建立中） + 细节缩放（非 AI）",
+        "warm_mode" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）"
+      },
+      "name" : "1280x720 combined label has actual factor",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "1920x1080 combined warm temporal active",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "AI_intermediate" : [
+          1920,
+          1080
+        ],
+        "expected" : [
+          3840,
+          2160
+        ],
+        "factors" : [
+
+        ],
+        "output" : [
+          3840,
+          2160
+        ]
+      },
+      "name" : "1920x1080 combined reaches aspect-preserving 4K target",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）"
+      },
+      "name" : "1920x1080 combined identifies spatial scaling",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "mode" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）"
+      },
+      "name" : "1920x1080 no AI factor retains temporal denoising without false AI label",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "quarter rotation initializes correct native dimensions",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "dimension change drops old rotated reference",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "ci_extent" : [
+          692,
+          461
+        ],
+        "output" : [
+          692,
+          461
+        ]
+      },
+      "name" : "non-quarter rotation follows actual raster extent",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "arbitrary rotation does not contaminate next landscape session",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR SMPTE_ST_2084_PQ temporal rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR SMPTE_ST_2084_PQ restoration rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR SMPTE_ST_2084_PQ compression rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR ITU_R_2100_HLG temporal rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR ITU_R_2100_HLG restoration rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "reason" : "HDR 增强尚未验证，使用系统原片保留色彩"
+      },
+      "name" : "HDR ITU_R_2100_HLG compression rejected",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "temporal cleanup retains temporal result",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "inside_changed" : 20736,
+        "outside_changed" : 0,
+        "protected_changed" : 0
+      },
+      "name" : "temporal actual blur is confined to selection",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "temporal subtitle-overlap cleanup rejected after enhancement",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "restoration cleanup retains temporal result",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "inside_changed" : 746478,
+        "outside_changed" : 0,
+        "protected_changed" : 0
+      },
+      "name" : "restoration actual blur is confined to selection",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "restoration subtitle-overlap cleanup rejected after enhancement",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression cleanup retains temporal result",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+        "inside_changed" : 746431,
+        "outside_changed" : 0,
+        "protected_changed" : 0
+      },
+      "name" : "compression actual blur is confined to selection",
+      "passed" : true
+    },
+    {
+      "evidence" : {
+
+      },
+      "name" : "compression subtitle-overlap cleanup rejected after enhancement",
+      "passed" : true
+    }
+  ],
+  "cleanup_cases" : [
+    {
+      "inside_changed" : 20736,
+      "mode" : "temporal",
+      "output" : [
+        640,
+        360
+      ],
+      "outside_changed" : 0,
+      "protected_changed" : 0
+    },
+    {
+      "inside_changed" : 746478,
+      "mode" : "restoration",
+      "output" : [
+        3840,
+        2160
+      ],
+      "outside_changed" : 0,
+      "protected_changed" : 0
+    },
+    {
+      "inside_changed" : 746431,
+      "mode" : "compression",
+      "output" : [
+        3840,
+        2160
+      ],
+      "outside_changed" : 0,
+      "protected_changed" : 0
+    }
+  ],
+  "device" : "Apple M4",
+  "failed_checks" : 0,
+  "os" : "Version 27.0 (Build 26A428)",
+  "passed" : true,
+  "scaling_cases" : [
+    {
+      "first_mode" : "Apple AI ×1.5（时域参考建立中） + 细节缩放（非 AI）",
+      "input" : [
+        1280,
+        720
+      ],
+      "output" : [
+        3840,
+        2160
+      ],
+      "queried_factors" : [
+        1.5
+      ],
+      "warm_completed_ms" : 38.860458298586309,
+      "warm_mode" : "时域降噪 + Apple AI ×1.5 + 细节缩放（非 AI）"
+    },
+    {
+      "first_mode" : "原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）",
+      "input" : [
+        1920,
+        1080
+      ],
+      "output" : [
+        3840,
+        2160
+      ],
+      "queried_factors" : [
+
+      ],
+      "warm_completed_ms" : 29.997416655533016,
+      "warm_mode" : "时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）"
+    }
+  ],
+  "scope" : "Real production EnhancementPipeline and TemporalRestorer on synthetic SDR CVPixelBuffers; native\/GPU completion and pixel readback. No app UI, network decoding, audio sync, real-film or sustained-playback validation."
+}

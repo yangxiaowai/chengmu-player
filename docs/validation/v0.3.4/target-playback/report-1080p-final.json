@@ -1,0 +1,1900 @@
+{
+  "checks" : [
+    {
+      "detail" : "",
+      "name" : "real_window_hosts_metal_view",
+      "passed" : true
+    },
+    {
+      "detail" : "warmSeconds=1.456784833339043 [\"mode\": \"自然降噪 + 平滑缩放 · 60fps源帧落点\", \"sourceFPS\": 24.0, \"selectedPTS\": 1.25, \"reportedDrawableFPS\": <null>, \"clockValid\": true, \"player\": [\"clockDescription\": \"CMTime(value: 1257999333, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"clockValid\": true, \"reasonForWaiting\": \"\", \"rate\": 1.0, \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\", \"error\": \"\"], \"interpolatedFrames\": 34, \"processedFrames\": 19, \"drawablePresentedFrames\": 0, \"nativeVisible\": false, \"processingMS\": 50.15720834489912, \"renderedFrames\": 40, \"timing\": \"运动插帧 · 目标 60 fps · 与原音频共用时钟\", \"fallback\": \"\", \"clock\": 1.257967958, \"output\": [1920, 1080]]",
+      "name" : "interpolation_warms_within_25_seconds",
+      "passed" : true
+    },
+    {
+      "detail" : "obsolete sampled frames=0",
+      "name" : "startup_does_not_show_obsolete_frames",
+      "passed" : true
+    },
+    {
+      "detail" : "mediaSeconds=5.003524834 TimeJumped=0",
+      "name" : "primary_clock_advances_without_jump",
+      "passed" : true
+    },
+    {
+      "detail" : "completed presentations=123 wallSeconds=5.003388416720554 measuredFPS=24.583340279749805",
+      "name" : "five_second_window_presents_near_60_unique_pts",
+      "passed" : false
+    },
+    {
+      "detail" : "",
+      "name" : "presented_pts_are_strictly_increasing",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "presented_pts_follow_60hz_grid",
+      "passed" : false
+    },
+    {
+      "detail" : "min=0.001381541666666486 max=0.027105166333333264",
+      "name" : "completed_frame_clock_lag_is_bounded",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"mode\": \"自然降噪 + 平滑缩放\", \"sourceFPS\": 24.0, \"selectedPTS\": 6.25, \"reportedDrawableFPS\": <null>, \"clockValid\": true, \"player\": [\"clockDescription\": \"CMTime(value: 6262490500, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"clockValid\": true, \"reasonForWaiting\": \"\", \"rate\": 1.0, \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\", \"error\": \"\"], \"interpolatedFrames\": 38, \"processedFrames\": 140, \"drawablePresentedFrames\": 0, \"nativeVisible\": false, \"processingMS\": 3.8817499298602343, \"renderedFrames\": 163, \"timing\": \"完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试\", \"fallback\": \"\", \"clock\": 6.262428166, \"output\": [1920, 1080]]",
+      "name" : "target_is_actual_1920x1080",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"mode\": \"自然降噪 + 平滑缩放\", \"sourceFPS\": 24.0, \"selectedPTS\": 6.25, \"reportedDrawableFPS\": <null>, \"clockValid\": true, \"player\": [\"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 0)\", \"clockValid\": true, \"error\": \"\", \"reasonForWaiting\": \"\", \"clockDescription\": \"CMTime(value: 6263542083, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"rate\": 0.0, \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"loadedTimeRanges\": [[\"duration\": 45.0, \"start\": 0.0]]], \"interpolatedFrames\": 38, \"processedFrames\": 141, \"drawablePresentedFrames\": 0, \"nativeVisible\": false, \"processingMS\": 4.087124951183796, \"renderedFrames\": 164, \"timing\": \"同帧对照 · 跟随片源帧率\", \"fallback\": \"\", \"clock\": 6.263542083, \"output\": [1920, 1080]]",
+      "name" : "paused_split_uses_same_frame_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "paused_split_stays_on_one_pts",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"mode\": \"自然降噪 + 平滑缩放\", \"sourceFPS\": 24.0, \"selectedPTS\": 2.0, \"reportedDrawableFPS\": <null>, \"clockValid\": true, \"player\": [\"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 0)\", \"clockValid\": true, \"error\": \"\", \"reasonForWaiting\": \"\", \"clockDescription\": \"CMTime(value: 1200, timescale: 600, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"rate\": 0.0, \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]]], \"interpolatedFrames\": 38, \"processedFrames\": 142, \"drawablePresentedFrames\": 0, \"nativeVisible\": false, \"processingMS\": 5.583291640505195, \"renderedFrames\": 164, \"timing\": \"同帧对照 · 跟随片源帧率\", \"fallback\": \"\", \"clock\": 2.0, \"output\": [1920, 1080]]",
+      "name" : "paused_seek_discards_future_revision",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "native_switch_reuses_output_and_rejects_late_results",
+      "passed" : true
+    },
+    {
+      "detail" : "before=2.0 after=2.0 newTimeJumps=0",
+      "name" : "native_switch_preserves_position_without_time_jump",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"mode\": \"自然降噪 + 平滑缩放\", \"sourceFPS\": 24.0, \"selectedPTS\": 2.4166666666666665, \"reportedDrawableFPS\": <null>, \"clockValid\": true, \"player\": [\"clockValid\": true, \"reasonForWaiting\": \"\", \"clockDescription\": \"CMTime(value: 2456479889, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"rate\": 1.0, \"error\": \"\", \"loadedTimeRanges\": [[\"duration\": 45.0, \"start\": 0.0]], \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\"], \"interpolatedFrames\": 38, \"processedFrames\": 150, \"drawablePresentedFrames\": 0, \"nativeVisible\": false, \"processingMS\": 6.589208263903856, \"renderedFrames\": 172, \"timing\": \"实时运动补偿插帧目前限制为1080p，请选择1080p输出；当前跟随片源帧率\", \"fallback\": \"\", \"clock\": 2.456413889, \"output\": [3840, 2160]]",
+      "name" : "unsupported_4k60_explains_and_keeps_picture",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "presentations" : [
+    {
+      "clock" : 1.27044,
+      "counter" : 41,
+      "elapsed" : 0.012098291656002402,
+      "pts" : 1.2666666666666666
+    },
+    {
+      "clock" : 1.2847148749999999,
+      "counter" : 42,
+      "elapsed" : 0.02637945837341249,
+      "pts" : 1.2833333333333334
+    },
+    {
+      "clock" : 1.3047536660000001,
+      "counter" : 43,
+      "elapsed" : 0.046419166726991534,
+      "pts" : 1.3
+    },
+    {
+      "clock" : 1.319916791,
+      "counter" : 44,
+      "elapsed" : 0.061581791727803648,
+      "pts" : 1.3166666666666667
+    },
+    {
+      "clock" : 1.3412873750000001,
+      "counter" : 45,
+      "elapsed" : 0.082952041644603014,
+      "pts" : 1.3333333333333333
+    },
+    {
+      "clock" : 1.393484291,
+      "counter" : 46,
+      "elapsed" : 0.13511962501797825,
+      "pts" : 1.375
+    },
+    {
+      "clock" : 1.4267256660000001,
+      "counter" : 47,
+      "elapsed" : 0.16837058332748711,
+      "pts" : 1.4166666666666667
+    },
+    {
+      "clock" : 1.477309,
+      "counter" : 48,
+      "elapsed" : 0.21895920834504068,
+      "pts" : 1.4583333333333333
+    },
+    {
+      "clock" : 1.5108609159999999,
+      "counter" : 49,
+      "elapsed" : 0.25251316663343459,
+      "pts" : 1.5
+    },
+    {
+      "clock" : 1.5569131249999999,
+      "counter" : 50,
+      "elapsed" : 0.2985687917098403,
+      "pts" : 1.5416666666666667
+    },
+    {
+      "clock" : 1.5929123329999999,
+      "counter" : 51,
+      "elapsed" : 0.33456741669215262,
+      "pts" : 1.5833333333333333
+    },
+    {
+      "clock" : 1.6448929160000001,
+      "counter" : 52,
+      "elapsed" : 0.38654295832384378,
+      "pts" : 1.625
+    },
+    {
+      "clock" : 1.693771833,
+      "counter" : 53,
+      "elapsed" : 0.43541270832065493,
+      "pts" : 1.6666666666666667
+    },
+    {
+      "clock" : 1.7267082499999999,
+      "counter" : 54,
+      "elapsed" : 0.46836629172321409,
+      "pts" : 1.7083333333333333
+    },
+    {
+      "clock" : 1.760044291,
+      "counter" : 55,
+      "elapsed" : 0.50169408333022147,
+      "pts" : 1.75
+    },
+    {
+      "clock" : 1.810993375,
+      "counter" : 56,
+      "elapsed" : 0.55264858331065625,
+      "pts" : 1.7916666666666667
+    },
+    {
+      "clock" : 1.844109625,
+      "counter" : 57,
+      "elapsed" : 0.58576512499712408,
+      "pts" : 1.8333333333333333
+    },
+    {
+      "clock" : 1.8954200409999999,
+      "counter" : 58,
+      "elapsed" : 0.63706737500615418,
+      "pts" : 1.875
+    },
+    {
+      "clock" : 1.9260856660000001,
+      "counter" : 59,
+      "elapsed" : 0.66773262503556907,
+      "pts" : 1.9166666666666667
+    },
+    {
+      "clock" : 1.9757122490000001,
+      "counter" : 60,
+      "elapsed" : 0.71736108337063342,
+      "pts" : 1.9583333333333333
+    },
+    {
+      "clock" : 2.0121333739999998,
+      "counter" : 61,
+      "elapsed" : 0.75378270831424743,
+      "pts" : 2
+    },
+    {
+      "clock" : 2.059449624,
+      "counter" : 62,
+      "elapsed" : 0.80107124999631196,
+      "pts" : 2.0416666666666665
+    },
+    {
+      "clock" : 2.0916683329999999,
+      "counter" : 63,
+      "elapsed" : 0.83330204163212329,
+      "pts" : 2.0833333333333335
+    },
+    {
+      "clock" : 2.1437624990000002,
+      "counter" : 64,
+      "elapsed" : 0.88540529168676585,
+      "pts" : 2.125
+    },
+    {
+      "clock" : 2.1787597490000001,
+      "counter" : 65,
+      "elapsed" : 0.92038904165383428,
+      "pts" : 2.1666666666666665
+    },
+    {
+      "clock" : 2.2282408739999999,
+      "counter" : 66,
+      "elapsed" : 0.96986720839049667,
+      "pts" : 2.2083333333333335
+    },
+    {
+      "clock" : 2.2584790410000002,
+      "counter" : 67,
+      "elapsed" : 1.0001305832993239,
+      "pts" : 2.25
+    },
+    {
+      "clock" : 2.3090625829999998,
+      "counter" : 68,
+      "elapsed" : 1.0507029166910797,
+      "pts" : 2.2916666666666665
+    },
+    {
+      "clock" : 2.3452982489999998,
+      "counter" : 69,
+      "elapsed" : 1.0869332083966583,
+      "pts" : 2.3333333333333335
+    },
+    {
+      "clock" : 2.392586874,
+      "counter" : 70,
+      "elapsed" : 1.1342484166380018,
+      "pts" : 2.375
+    },
+    {
+      "clock" : 2.427891791,
+      "counter" : 71,
+      "elapsed" : 1.1695621666731313,
+      "pts" : 2.4166666666666665
+    },
+    {
+      "clock" : 2.4760135409999999,
+      "counter" : 72,
+      "elapsed" : 1.2176864166976884,
+      "pts" : 2.4583333333333335
+    },
+    {
+      "clock" : 2.5102414990000002,
+      "counter" : 73,
+      "elapsed" : 1.2519069167319685,
+      "pts" : 2.5
+    },
+    {
+      "clock" : 2.5610315830000001,
+      "counter" : 74,
+      "elapsed" : 1.3027014166582376,
+      "pts" : 2.5416666666666665
+    },
+    {
+      "clock" : 2.6092519159999998,
+      "counter" : 75,
+      "elapsed" : 1.3509192500496283,
+      "pts" : 2.5833333333333335
+    },
+    {
+      "clock" : 2.6415606660000002,
+      "counter" : 76,
+      "elapsed" : 1.38322950003203,
+      "pts" : 2.625
+    },
+    {
+      "clock" : 2.6786782489999998,
+      "counter" : 77,
+      "elapsed" : 1.4203467500628904,
+      "pts" : 2.6666666666666665
+    },
+    {
+      "clock" : 2.7264316659999999,
+      "counter" : 78,
+      "elapsed" : 1.4680935000069439,
+      "pts" : 2.7083333333333335
+    },
+    {
+      "clock" : 2.7624041240000001,
+      "counter" : 79,
+      "elapsed" : 1.5040473750559613,
+      "pts" : 2.75
+    },
+    {
+      "clock" : 2.8071100410000001,
+      "counter" : 80,
+      "elapsed" : 1.5487819584086537,
+      "pts" : 2.7916666666666665
+    },
+    {
+      "clock" : 2.8429930410000002,
+      "counter" : 81,
+      "elapsed" : 1.5846373749664053,
+      "pts" : 2.8333333333333335
+    },
+    {
+      "clock" : 2.892148916,
+      "counter" : 82,
+      "elapsed" : 1.6337850416311994,
+      "pts" : 2.875
+    },
+    {
+      "clock" : 2.926004958,
+      "counter" : 83,
+      "elapsed" : 1.6676450417144224,
+      "pts" : 2.9166666666666665
+    },
+    {
+      "clock" : 2.9778275000000001,
+      "counter" : 84,
+      "elapsed" : 1.7194796249968931,
+      "pts" : 2.9583333333333335
+    },
+    {
+      "clock" : 3.0114432080000002,
+      "counter" : 85,
+      "elapsed" : 1.7530830416362733,
+      "pts" : 3
+    },
+    {
+      "clock" : 3.0600098330000001,
+      "counter" : 86,
+      "elapsed" : 1.8016537083312869,
+      "pts" : 3.0416666666666665
+    },
+    {
+      "clock" : 3.0955637500000002,
+      "counter" : 87,
+      "elapsed" : 1.8372060833498836,
+      "pts" : 3.0833333333333335
+    },
+    {
+      "clock" : 3.1466942499999999,
+      "counter" : 88,
+      "elapsed" : 1.8883419167250395,
+      "pts" : 3.125
+    },
+    {
+      "clock" : 3.1780688330000002,
+      "counter" : 89,
+      "elapsed" : 1.919708541710861,
+      "pts" : 3.1666666666666665
+    },
+    {
+      "clock" : 3.228062875,
+      "counter" : 90,
+      "elapsed" : 1.9697045417269692,
+      "pts" : 3.2083333333333335
+    },
+    {
+      "clock" : 3.2578331660000002,
+      "counter" : 91,
+      "elapsed" : 1.9994697916554287,
+      "pts" : 3.25
+    },
+    {
+      "clock" : 3.3097965409999999,
+      "counter" : 92,
+      "elapsed" : 2.0514344583498314,
+      "pts" : 3.2916666666666665
+    },
+    {
+      "clock" : 3.344121458,
+      "counter" : 93,
+      "elapsed" : 2.0857677083695307,
+      "pts" : 3.3333333333333335
+    },
+    {
+      "clock" : 3.391766708,
+      "counter" : 94,
+      "elapsed" : 2.1330807083286345,
+      "pts" : 3.375
+    },
+    {
+      "clock" : 3.4252705830000001,
+      "counter" : 95,
+      "elapsed" : 2.1669303750386462,
+      "pts" : 3.4166666666666665
+    },
+    {
+      "clock" : 3.4784979159999998,
+      "counter" : 96,
+      "elapsed" : 2.2201564583228901,
+      "pts" : 3.4583333333333335
+    },
+    {
+      "clock" : 3.5094275000000001,
+      "counter" : 97,
+      "elapsed" : 2.2510782916797325,
+      "pts" : 3.5
+    },
+    {
+      "clock" : 3.560799625,
+      "counter" : 98,
+      "elapsed" : 2.3024604166857898,
+      "pts" : 3.5416666666666665
+    },
+    {
+      "clock" : 3.5953256250000001,
+      "counter" : 99,
+      "elapsed" : 2.336988625000231,
+      "pts" : 3.5833333333333335
+    },
+    {
+      "clock" : 3.6424933749999999,
+      "counter" : 100,
+      "elapsed" : 2.3841399583034217,
+      "pts" : 3.625
+    },
+    {
+      "clock" : 3.6760322909999998,
+      "counter" : 101,
+      "elapsed" : 2.4176920000463724,
+      "pts" : 3.6666666666666665
+    },
+    {
+      "clock" : 3.7280178749999999,
+      "counter" : 102,
+      "elapsed" : 2.4696784999687225,
+      "pts" : 3.7083333333333335
+    },
+    {
+      "clock" : 3.758102708,
+      "counter" : 103,
+      "elapsed" : 2.4997634583851323,
+      "pts" : 3.75
+    },
+    {
+      "clock" : 3.8110090410000002,
+      "counter" : 104,
+      "elapsed" : 2.552670625038445,
+      "pts" : 3.7916666666666665
+    },
+    {
+      "clock" : 3.8449857500000002,
+      "counter" : 105,
+      "elapsed" : 2.5866355000762269,
+      "pts" : 3.8333333333333335
+    },
+    {
+      "clock" : 3.8933659989999998,
+      "counter" : 106,
+      "elapsed" : 2.6350077500101179,
+      "pts" : 3.875
+    },
+    {
+      "clock" : 3.9287296239999998,
+      "counter" : 107,
+      "elapsed" : 2.6703793749911711,
+      "pts" : 3.9166666666666665
+    },
+    {
+      "clock" : 3.9760306660000002,
+      "counter" : 108,
+      "elapsed" : 2.7176845000358298,
+      "pts" : 3.9583333333333335
+    },
+    {
+      "clock" : 4.0085368739999998,
+      "counter" : 109,
+      "elapsed" : 2.7501918750349432,
+      "pts" : 4
+    },
+    {
+      "clock" : 4.0612436660000002,
+      "counter" : 110,
+      "elapsed" : 2.8028904583770782,
+      "pts" : 4.041666666666667
+    },
+    {
+      "clock" : 4.093355582,
+      "counter" : 111,
+      "elapsed" : 2.8349937916500494,
+      "pts" : 4.083333333333333
+    },
+    {
+      "clock" : 4.1413672909999999,
+      "counter" : 112,
+      "elapsed" : 2.8830172083107755,
+      "pts" : 4.125
+    },
+    {
+      "clock" : 4.1789653319999998,
+      "counter" : 113,
+      "elapsed" : 2.9206116666318849,
+      "pts" : 4.166666666666667
+    },
+    {
+      "clock" : 4.2284132489999999,
+      "counter" : 114,
+      "elapsed" : 2.9700588750420138,
+      "pts" : 4.208333333333333
+    },
+    {
+      "clock" : 4.2625589159999997,
+      "counter" : 115,
+      "elapsed" : 3.0042094583623111,
+      "pts" : 4.25
+    },
+    {
+      "clock" : 4.3073674569999998,
+      "counter" : 116,
+      "elapsed" : 3.0490202916553244,
+      "pts" : 4.291666666666667
+    },
+    {
+      "clock" : 4.342844124,
+      "counter" : 117,
+      "elapsed" : 3.0844828750705346,
+      "pts" : 4.333333333333333
+    },
+    {
+      "clock" : 4.3940392079999997,
+      "counter" : 118,
+      "elapsed" : 3.1352702917065471,
+      "pts" : 4.375
+    },
+    {
+      "clock" : 4.4259029160000001,
+      "counter" : 119,
+      "elapsed" : 3.167567583383061,
+      "pts" : 4.416666666666667
+    },
+    {
+      "clock" : 4.4746995409999997,
+      "counter" : 120,
+      "elapsed" : 3.2163698750082403,
+      "pts" : 4.458333333333333
+    },
+    {
+      "clock" : 4.508284958,
+      "counter" : 121,
+      "elapsed" : 3.2499414583435282,
+      "pts" : 4.5
+    },
+    {
+      "clock" : 4.5586020830000002,
+      "counter" : 122,
+      "elapsed" : 3.3002683334052563,
+      "pts" : 4.541666666666667
+    },
+    {
+      "clock" : 4.5923347080000001,
+      "counter" : 123,
+      "elapsed" : 3.3339940416626632,
+      "pts" : 4.583333333333333
+    },
+    {
+      "clock" : 4.6450964580000003,
+      "counter" : 124,
+      "elapsed" : 3.3867609166773036,
+      "pts" : 4.625
+    },
+    {
+      "clock" : 4.6779931660000003,
+      "counter" : 125,
+      "elapsed" : 3.4196497083175927,
+      "pts" : 4.666666666666667
+    },
+    {
+      "clock" : 4.7275445410000003,
+      "counter" : 126,
+      "elapsed" : 3.4691962084034458,
+      "pts" : 4.708333333333333
+    },
+    {
+      "clock" : 4.7594247909999998,
+      "counter" : 127,
+      "elapsed" : 3.5010892084101215,
+      "pts" : 4.75
+    },
+    {
+      "clock" : 4.812694499,
+      "counter" : 128,
+      "elapsed" : 3.5543538333149627,
+      "pts" : 4.791666666666667
+    },
+    {
+      "clock" : 4.8448466239999997,
+      "counter" : 129,
+      "elapsed" : 3.5865098333451897,
+      "pts" : 4.833333333333333
+    },
+    {
+      "clock" : 4.8912819580000004,
+      "counter" : 130,
+      "elapsed" : 3.6329452500212938,
+      "pts" : 4.875
+    },
+    {
+      "clock" : 4.9274442079999998,
+      "counter" : 131,
+      "elapsed" : 3.6690948333125561,
+      "pts" : 4.916666666666667
+    },
+    {
+      "clock" : 4.9786165420000001,
+      "counter" : 132,
+      "elapsed" : 3.72027154173702,
+      "pts" : 4.958333333333333
+    },
+    {
+      "clock" : 5.0105704170000003,
+      "counter" : 133,
+      "elapsed" : 3.7522245417349041,
+      "pts" : 5
+    },
+    {
+      "clock" : 5.0588349170000004,
+      "counter" : 134,
+      "elapsed" : 3.8004705416969955,
+      "pts" : 5.041666666666667
+    },
+    {
+      "clock" : 5.0957631670000003,
+      "counter" : 135,
+      "elapsed" : 3.8374159999657422,
+      "pts" : 5.083333333333333
+    },
+    {
+      "clock" : 5.144300833,
+      "counter" : 136,
+      "elapsed" : 3.8859532083151862,
+      "pts" : 5.125
+    },
+    {
+      "clock" : 5.1755345000000004,
+      "counter" : 137,
+      "elapsed" : 3.9171907916897908,
+      "pts" : 5.166666666666667
+    },
+    {
+      "clock" : 5.2249969170000004,
+      "counter" : 138,
+      "elapsed" : 3.9666536666918546,
+      "pts" : 5.208333333333333
+    },
+    {
+      "clock" : 5.2742832919999998,
+      "counter" : 139,
+      "elapsed" : 4.0159469583304599,
+      "pts" : 5.25
+    },
+    {
+      "clock" : 5.3118905420000004,
+      "counter" : 140,
+      "elapsed" : 4.0535481666447595,
+      "pts" : 5.291666666666667
+    },
+    {
+      "clock" : 5.3439033330000001,
+      "counter" : 141,
+      "elapsed" : 4.085540791740641,
+      "pts" : 5.333333333333333
+    },
+    {
+      "clock" : 5.3944187079999999,
+      "counter" : 142,
+      "elapsed" : 4.1360626249806955,
+      "pts" : 5.375
+    },
+    {
+      "clock" : 5.4288248320000001,
+      "counter" : 143,
+      "elapsed" : 4.1704745833994821,
+      "pts" : 5.416666666666667
+    },
+    {
+      "clock" : 5.4765288319999996,
+      "counter" : 144,
+      "elapsed" : 4.2181808750610799,
+      "pts" : 5.458333333333333
+    },
+    {
+      "clock" : 5.5076746659999998,
+      "counter" : 145,
+      "elapsed" : 4.2493287083925679,
+      "pts" : 5.5
+    },
+    {
+      "clock" : 5.5609624569999996,
+      "counter" : 146,
+      "elapsed" : 4.3026174583937973,
+      "pts" : 5.541666666666667
+    },
+    {
+      "clock" : 5.5951528740000001,
+      "counter" : 147,
+      "elapsed" : 4.336804166669026,
+      "pts" : 5.583333333333333
+    },
+    {
+      "clock" : 5.640908166,
+      "counter" : 148,
+      "elapsed" : 4.3825629167258739,
+      "pts" : 5.625
+    },
+    {
+      "clock" : 5.6765106239999996,
+      "counter" : 149,
+      "elapsed" : 4.4181637916481122,
+      "pts" : 5.666666666666667
+    },
+    {
+      "clock" : 5.7245883739999996,
+      "counter" : 150,
+      "elapsed" : 4.4662486250745133,
+      "pts" : 5.708333333333333
+    },
+    {
+      "clock" : 5.7608726240000001,
+      "counter" : 151,
+      "elapsed" : 4.502524874988012,
+      "pts" : 5.75
+    },
+    {
+      "clock" : 5.811322541,
+      "counter" : 152,
+      "elapsed" : 4.5529692500131205,
+      "pts" : 5.791666666666667
+    },
+    {
+      "clock" : 5.8441280820000001,
+      "counter" : 153,
+      "elapsed" : 4.5857786666601896,
+      "pts" : 5.833333333333333
+    },
+    {
+      "clock" : 5.8929353320000004,
+      "counter" : 154,
+      "elapsed" : 4.634589166729711,
+      "pts" : 5.875
+    },
+    {
+      "clock" : 5.9267219579999999,
+      "counter" : 155,
+      "elapsed" : 4.6683736250270158,
+      "pts" : 5.916666666666667
+    },
+    {
+      "clock" : 5.9743797499999998,
+      "counter" : 156,
+      "elapsed" : 4.7160325417062268,
+      "pts" : 5.958333333333333
+    },
+    {
+      "clock" : 6.0103946659999998,
+      "counter" : 157,
+      "elapsed" : 4.7520437916973606,
+      "pts" : 6
+    },
+    {
+      "clock" : 6.0620972909999997,
+      "counter" : 158,
+      "elapsed" : 4.8037353333784267,
+      "pts" : 6.041666666666667
+    },
+    {
+      "clock" : 6.0940787079999996,
+      "counter" : 159,
+      "elapsed" : 4.8357219166355208,
+      "pts" : 6.083333333333333
+    },
+    {
+      "clock" : 6.1434889579999998,
+      "counter" : 160,
+      "elapsed" : 4.8851268750149757,
+      "pts" : 6.125
+    },
+    {
+      "clock" : 6.1764472909999997,
+      "counter" : 161,
+      "elapsed" : 4.9180978334043175,
+      "pts" : 6.166666666666667
+    },
+    {
+      "clock" : 6.2291023330000002,
+      "counter" : 162,
+      "elapsed" : 4.970746083301492,
+      "pts" : 6.208333333333333
+    },
+    {
+      "clock" : 6.2586290409999998,
+      "counter" : 163,
+      "elapsed" : 5.0002823750255629,
+      "pts" : 6.25
+    }
+  ],
+  "processingSamples" : [
+    {
+      "elapsed" : 0.023557291715405881,
+      "interpolatedFrames" : 36,
+      "processedFrames" : 20,
+      "processingMS" : 55.762000032700598,
+      "sourceFPS" : 24,
+      "timing" : "运动插帧 · 目标 60 fps · 与原音频共用时钟"
+    },
+    {
+      "elapsed" : 0.079741708352230489,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 21,
+      "processingMS" : 53.474499960429966,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.08283916674554348,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 22,
+      "processingMS" : 3.0183333437889814,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.13174112502019852,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 23,
+      "processingMS" : 3.5165416775271297,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.16500183334574103,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 24,
+      "processingMS" : 4.9031666712835431,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.2156257500173524,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 25,
+      "processingMS" : 5.8062500320374966,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.25222604174632579,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 26,
+      "processingMS" : 5.84779167547822,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.29829887498635799,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 27,
+      "processingMS" : 3.8719583535566926,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.33125970838591456,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 28,
+      "processingMS" : 3.5807499662041664,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.38348604168277234,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 29,
+      "processingMS" : 5.1304999506101012,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.43511841667350382,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 30,
+      "processingMS" : 5.9922082582488656,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.46813470835331827,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 31,
+      "processingMS" : 5.9365832712501287,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.4982256666989997,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 32,
+      "processingMS" : 3.9404999697580934,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.550217124982737,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 33,
+      "processingMS" : 4.950125003233552,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.58553754165768623,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 34,
+      "processingMS" : 5.2301250398159027,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.63370120839681476,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 35,
+      "processingMS" : 4.8333751037716866,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.66516299999784678,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 36,
+      "processingMS" : 5.5864166934043169,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.7149852083530277,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 37,
+      "processingMS" : 5.728416726924479,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.75043675000779331,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 38,
+      "processingMS" : 5.8977499138563871,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.79776170838158578,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 39,
+      "processingMS" : 3.867874969728291,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.83307337504811585,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 40,
+      "processingMS" : 4.2078333208337426,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.88201620837207884,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 41,
+      "processingMS" : 5.6108750868588686,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.91689200000837445,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 42,
+      "processingMS" : 5.5461250012740493,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.96648308332078159,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 43,
+      "processingMS" : 4.6109165996313095,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 0.99987308331765234,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 44,
+      "processingMS" : 4.0106250671669841,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.0472740833647549,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 45,
+      "processingMS" : 4.363791667856276,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.0835217500571162,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 46,
+      "processingMS" : 4.1959166992455721,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.1314051250228658,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 47,
+      "processingMS" : 5.0844167126342654,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.1662055000197142,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 48,
+      "processingMS" : 4.5472916681319475,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.2174109583720565,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 49,
+      "processingMS" : 4.2110832873731852,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.2484408334130421,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 50,
+      "processingMS" : 4.7165417345240712,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.3024190000724047,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 51,
+      "processingMS" : 5.4669583914801478,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.3506677499972284,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 52,
+      "processingMS" : 4.6704583801329136,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.3807745833182707,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 53,
+      "processingMS" : 4.8870834289118648,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.41690108331386,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 54,
+      "processingMS" : 4.3703332776203752,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.465410333359614,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 55,
+      "processingMS" : 4.8428750596940517,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.5005697916494682,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 56,
+      "processingMS" : 5.8846250176429749,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.5486096666427329,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 57,
+      "processingMS" : 3.6612499970942736,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.5843800833681598,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 58,
+      "processingMS" : 4.1135416831821203,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.6335168333025649,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 59,
+      "processingMS" : 4.4805000070482492,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.6674338333541527,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 60,
+      "processingMS" : 4.2454999638721347,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.716130124987103,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 61,
+      "processingMS" : 4.7992500476539135,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.749585458310321,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 62,
+      "processingMS" : 4.1259583085775375,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.7983845416456461,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 63,
+      "processingMS" : 5.2189582493156195,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.8339030833449215,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 64,
+      "processingMS" : 5.1519583212211728,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.8848590416600928,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 65,
+      "processingMS" : 6.051291711628437,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.9194229583954439,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 66,
+      "processingMS" : 5.9197082882747054,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.9663357500685379,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 67,
+      "processingMS" : 4.7294166870415211,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 1.9992277916753665,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 68,
+      "processingMS" : 4.1194165823981166,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.0510731249814853,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 69,
+      "processingMS" : 4.7578749945387244,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.0855803750455379,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 70,
+      "processingMS" : 5.4442083928734064,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.1328285416821018,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 71,
+      "processingMS" : 4.477374954149127,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.166676125023514,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 72,
+      "processingMS" : 3.6842082627117634,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.2167320000007749,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 73,
+      "processingMS" : 5.1332500297576189,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.2508000833913684,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 74,
+      "processingMS" : 5.4955834057182074,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.2991160833043978,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 75,
+      "processingMS" : 5.2955832798033953,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.3340703750727698,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 76,
+      "processingMS" : 5.3787917131558061,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.3838834166526794,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 77,
+      "processingMS" : 4.2341249063611031,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.4174103749683127,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 78,
+      "processingMS" : 3.782541723921895,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.4662711666896939,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 79,
+      "processingMS" : 3.9236667798832059,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.496391125023365,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 80,
+      "processingMS" : 3.7896666908636689,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.5501855832990259,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 81,
+      "processingMS" : 4.9925000639632344,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.5831567500717938,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 82,
+      "processingMS" : 5.240333266556263,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.6316682916367427,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 83,
+      "processingMS" : 5.4651249665766954,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.6669491666834801,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 84,
+      "processingMS" : 5.8429166674613953,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.7174411250744015,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 85,
+      "processingMS" : 3.8609165931120515,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.749938958324492,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 86,
+      "processingMS" : 3.6469583865255117,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.8002384999999776,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 87,
+      "processingMS" : 5.0786250503733754,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.8316924166865647,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 88,
+      "processingMS" : 5.4750833660364151,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.8828042083187029,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 89,
+      "processingMS" : 4.7883749939501286,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.9173424583859742,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 90,
+      "processingMS" : 5.5990415858104825,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 2.9665629166411236,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 91,
+      "processingMS" : 5.3672916255891323,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.0007938750786707,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 92,
+      "processingMS" : 5.8634167071431875,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.0488018332980573,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 93,
+      "processingMS" : 3.9349583676084876,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.0841862499946728,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 94,
+      "processingMS" : 4.0490417741239071,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.1318225833820179,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 95,
+      "processingMS" : 4.2476250091567636,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.1672806249698624,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 96,
+      "processingMS" : 3.7902917247265577,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.2161450833082199,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 97,
+      "processingMS" : 3.656500019133091,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.2497387500479817,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 98,
+      "processingMS" : 3.9427500450983644,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.3000164583791047,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 99,
+      "processingMS" : 4.823500057682395,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.3306377499829978,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 100,
+      "processingMS" : 3.8681667065247893,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.3836229166481644,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 101,
+      "processingMS" : 4.8379165818914771,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.4162462083622813,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 102,
+      "processingMS" : 5.2747500594705343,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.4661210000049323,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 103,
+      "processingMS" : 5.0068332348018885,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.4985282083507627,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 104,
+      "processingMS" : 4.7270416980609298,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.5508210833650082,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 105,
+      "processingMS" : 5.8179583866149187,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.5841282500186935,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 106,
+      "processingMS" : 5.9033334255218506,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.6327003333717585,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 107,
+      "processingMS" : 3.9081249851733446,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.6656777916941792,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 108,
+      "processingMS" : 3.5616250243037939,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.7168720833724365,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 109,
+      "processingMS" : 5.1818749634549022,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.7518321666866541,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 110,
+      "processingMS" : 5.2185417152941227,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.8002697083866224,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 111,
+      "processingMS" : 5.214291624724865,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.8339925833279267,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 112,
+      "processingMS" : 6.068583345040679,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.88268500007689,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 113,
+      "processingMS" : 4.3983749346807599,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.9169111667433754,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 114,
+      "processingMS" : 4.0346250170841813,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 3.9663745833095163,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 115,
+      "processingMS" : 4.1583749698475003,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.015727375051938,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 116,
+      "processingMS" : 4.5248749665915966,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.0501127917086706,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 117,
+      "processingMS" : 5.2788750035688281,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.0830761666875333,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 118,
+      "processingMS" : 4.9951249966397882,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.1327245000284165,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 119,
+      "processingMS" : 6.091125076636672,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.167050666641444,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 120,
+      "processingMS" : 5.9547499986365438,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.2148201250238344,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 121,
+      "processingMS" : 3.5951250465586782,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.2490355833433568,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 122,
+      "processingMS" : 3.5957082873210311,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.2992107917089015,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 123,
+      "processingMS" : 4.971791640855372,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.3336018749978393,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 124,
+      "processingMS" : 5.9145833365619183,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.3822206667391583,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 125,
+      "processingMS" : 3.6292499862611294,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.4147402083035558,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 126,
+      "processingMS" : 3.6237917374819517,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.4660312084015459,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 127,
+      "processingMS" : 3.6356666823849082,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.4990997083950788,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 128,
+      "processingMS" : 3.5871666623279452,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.5496391666820273,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 129,
+      "processingMS" : 4.4314166298136115,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.5832658333238214,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 130,
+      "processingMS" : 4.1078333742916584,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.6315862500341609,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 131,
+      "processingMS" : 4.1377083398401737,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.6652676250087097,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 132,
+      "processingMS" : 4.1369167156517506,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.7158259999705479,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 133,
+      "processingMS" : 5.0565000856295228,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.7494650833541527,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 134,
+      "processingMS" : 4.8796250484883785,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.8008037500549108,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 135,
+      "processingMS" : 5.2843333687633276,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.8355246667051688,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 136,
+      "processingMS" : 5.2907082717865705,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.8818876666482538,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 137,
+      "processingMS" : 5.1794999744743109,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.9177780416794121,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 138,
+      "processingMS" : 5.4002082906663418,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.967402333393693,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 139,
+      "processingMS" : 6.1075000558048487,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    },
+    {
+      "elapsed" : 4.9999922083225101,
+      "interpolatedFrames" : 38,
+      "processedFrames" : 140,
+      "processingMS" : 3.8817499298602343,
+      "sourceFPS" : 24,
+      "timing" : "完整处理持续超预算，已保留修复并跟随片源帧率；可降低目标分辨率后重试"
+    }
+  ],
+  "requestedTarget" : {
+    "fps" : 60,
+    "height" : 1080,
+    "mode" : "clarity",
+    "width" : 1920
+  },
+  "scope" : "NSWindow isVisible, MTKView, 24fps local tagged H264 and AVPlayer audio clock. GPU present-command completions and CAMetalDrawable presented callbacks are recorded separately; zero callbacks do not prove physical display presentation. Not physical display scanout or perceptual audio sync; no network or personal profile.",
+  "timeJumps" : [
+    {
+      "clock" : 0,
+      "phase" : "warmup",
+      "wall" : 976252.40102058358
+    },
+    {
+      "clock" : 0,
+      "phase" : "warmup",
+      "wall" : 976252.49110570853
+    },
+    {
+      "clock" : 2,
+      "phase" : "seek",
+      "wall" : 976259.11280266684
+    },
+    {
+      "clock" : 2,
+      "phase" : "4k",
+      "wall" : 976259.72393712518
+    }
+  ],
+  "warmup" : [
+    {
+      "clock" : 0,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原生（杜比\/HDR 保真）",
+      "nativeVisible" : true,
+      "output" : [
+        0,
+        0
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 0)",
+        "loadedTimeRanges" : [
+
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "AVPlayerWaitingWhileEvaluatingBufferingRateReason",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 1)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 0,
+      "timing" : ""
+    },
+    {
+      "clock" : 0.8210655,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 18,
+      "mode" : "自然降噪 + 平滑缩放 · 运动补偿60fps",
+      "nativeVisible" : false,
+      "output" : [
+        1920,
+        1080
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 821093125, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 11,
+      "processingMS" : 36.357333301566541,
+      "renderedFrames" : 14,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0.81666666666666665,
+      "sourceFPS" : 24,
+      "timing" : "运动插帧 · 目标 60 fps · 与原音频共用时钟"
+    }
+  ],
+  "window" : {
+    "completedPresentations" : 123,
+    "drawablePresentedFrames" : 0,
+    "maxClockMinusPTS" : 0.027105166333333264,
+    "measuredCompletedFPS" : 24.583340279749805,
+    "measuredDrawablePresentedFPS" : 0,
+    "mediaSeconds" : 5.0035248340000003,
+    "minClockMinusPTS" : 0.0013815416666664859,
+    "reportedDrawableFPS" : null,
+    "sampledUniquePTS" : 123,
+    "wallSeconds" : 5.0033884167205542
+  }
+}

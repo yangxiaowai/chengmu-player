@@ -34,6 +34,8 @@ import CinemaCore
                                 [kCVPixelBufferMetalCompatibilityKey as String: true, kCVPixelBufferIOSurfacePropertiesKey as String: [:]] as CFDictionary, &buffer)
             guard let buffer else { continue }
             pipeline.context.render(CIImage(cgImage: cg), to: buffer, bounds: CGRect(x: 0, y: 0, width: width, height: height), colorSpace: pipeline.colorSpace)
+            CVBufferSetAttachment(buffer, kCVImageBufferColorPrimariesKey, kCVImageBufferColorPrimaries_ITU_R_709_2, .shouldPropagate)
+            CVBufferSetAttachment(buffer, kCVImageBufferTransferFunctionKey, kCVImageBufferTransferFunction_sRGB, .shouldPropagate)
 
             /// Mean luminance and mean |horizontal neighbour difference| at a given resample width.
             func measure(_ image: CIImage, sampleWidth: Int) -> (luma: Double, acutance: Double) {
@@ -103,5 +105,5 @@ import CinemaCore
 SWIFT
 
 swiftc -emit-module -emit-library -module-name CinemaCore -swift-version 5 -target arm64-apple-macos15.0 Sources/CinemaCore/*.swift -o "$work/libCinemaCore.dylib" -emit-module-path "$work/CinemaCore.swiftmodule"
-swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$work" -L "$work" -lCinemaCore -Xlinker -rpath -Xlinker "$work" Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift "$work/main.swift" -o "$work/check"
+swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$work" -L "$work" -lCinemaCore -Xlinker -rpath -Xlinker "$work" Sources/CinemaApp/VideoProcessingPolicy.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/CompressionCleaner.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift "$work/main.swift" -o "$work/check"
 "$work/check" "$report" "$fixture/bars.png" "$fixture/gradient.png"

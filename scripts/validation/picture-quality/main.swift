@@ -96,6 +96,8 @@ private func makeBuffer(_ rgba: [UInt8]) throws -> CVPixelBuffer {
     } }
     CVPixelBufferUnlockBaseAddress(buffer, [])
     CVBufferSetAttachment(buffer, kCVImageBufferCGColorSpaceKey, CGColorSpace(name: CGColorSpace.sRGB)!, .shouldPropagate)
+    CVBufferSetAttachment(buffer, kCVImageBufferColorPrimariesKey, kCVImageBufferColorPrimaries_ITU_R_709_2, .shouldPropagate)
+    CVBufferSetAttachment(buffer, kCVImageBufferTransferFunctionKey, kCVImageBufferTransferFunction_sRGB, .shouldPropagate)
     return buffer
 }
 
@@ -190,6 +192,8 @@ private func nativeSizeChecks(_ pipeline: EnhancementPipeline) throws -> [[Strin
             "inputColor1": CIColor(red: 0.8, green: 0.8, blue: 0.8)])!.outputImage!.cropped(to: bounds)
         pipeline.context.render(checker, to: buffer, bounds: bounds, colorSpace: pipeline.colorSpace)
         CVBufferSetAttachment(buffer, kCVImageBufferCGColorSpaceKey, pipeline.colorSpace, .shouldPropagate)
+        CVBufferSetAttachment(buffer, kCVImageBufferColorPrimariesKey, kCVImageBufferColorPrimaries_ITU_R_709_2, .shouldPropagate)
+        CVBufferSetAttachment(buffer, kCVImageBufferTransferFunctionKey, kCVImageBufferTransferFunction_sRGB, .shouldPropagate)
         let clarity = try pipeline.process(buffer, mode: .clarity, time: .zero)
         let scaled = try pipeline.process(buffer, mode: .upscale4K, time: .zero)
         func patch(_ frame: EnhancedFrame) -> [UInt8] {

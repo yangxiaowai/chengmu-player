@@ -1,0 +1,5444 @@
+{
+  "outputChurnWithoutReads" : true,
+  "runs" : [
+    {
+      "clockAdvance" : 0.085174290000000041,
+      "copiedFrames" : 0,
+      "lookaheadSeconds" : 0,
+      "outputTransitions" : 9,
+      "samples" : [
+        {
+          "clock" : 0.26870116700000002,
+          "clockDescription" : "CMTime(value: 268568792, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.00025904166977852583,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26843333333333336,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28679837499999999,
+          "clockDescription" : "CMTime(value: 286778959, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.01837166678160429,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28676666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.30486991699999999,
+          "clockDescription" : "CMTime(value: 304850250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.03644341672770679,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.30483333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.32302820900000001,
+          "clockDescription" : "CMTime(value: 322987292, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.054600833333097398,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.32293333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33949525000000003,
+          "clockDescription" : "CMTime(value: 339452750, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.071067583397962153,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33941666666666664,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.35761375000000001,
+          "clockDescription" : "CMTime(value: 357578292, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.089186458382755518,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35754999999999998,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.37534287500000002,
+          "clockDescription" : "CMTime(value: 375305042, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.10691475006751716,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.37524999999999997,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.39347383400000002,
+          "clockDescription" : "CMTime(value: 393441584, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.12504641676787287,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.39340000000000003,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.411607375,
+          "clockDescription" : "CMTime(value: 411569250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.14317983342334628,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.41153333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.42873033399999999,
+          "clockDescription" : "CMTime(value: 428659917, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.16030195844359696,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.42859999999999998,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.44613320899999998,
+          "clockDescription" : "CMTime(value: 446083542, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.17770541668869555,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.44605,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.46427908400000001,
+          "clockDescription" : "CMTime(value: 464235042, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.19585154170636088,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.4642,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.48133904199999999,
+          "clockDescription" : "CMTime(value: 481310250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.21291170839685947,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.48128333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.499457875,
+          "clockDescription" : "CMTime(value: 499430709, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.23103054170496762,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.49940000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.51761274999999995,
+          "clockDescription" : "CMTime(value: 517569667, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.249184750020504,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.51753333333333329,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.53448212500000003,
+          "clockDescription" : "CMTime(value: 534446750, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.26605433342047036,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.53441666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.55107712499999995,
+          "clockDescription" : "CMTime(value: 551045792, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.28264970844611526,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.55101666666666671,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.56727712500000005,
+          "clockDescription" : "CMTime(value: 567247459, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.29884941678028554,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.5672166666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.58538458400000004,
+          "clockDescription" : "CMTime(value: 585357250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.31695733335800469,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.58533333333333337,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.60350512499999998,
+          "clockDescription" : "CMTime(value: 603477167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.33507770835421979,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.60345000000000004,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.62000837499999994,
+          "clockDescription" : "CMTime(value: 619981625, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.35158112505450845,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.61995,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.63675979199999999,
+          "clockDescription" : "CMTime(value: 636732667, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.36833237507380545,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.63670000000000004,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.65501879200000002,
+          "clockDescription" : "CMTime(value: 654974709, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.38659100001677871,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.65493333333333337,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.67231108399999995,
+          "clockDescription" : "CMTime(value: 672264167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.40388295834418386,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.67223333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.68895062500000004,
+          "clockDescription" : "CMTime(value: 688908542, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.42052291671279818,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.68886666666666663,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.70708141700000005,
+          "clockDescription" : "CMTime(value: 707044500, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.43865375011228025,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.70701666666666663,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.72410095900000004,
+          "clockDescription" : "CMTime(value: 724050334, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.45567350008059293,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.72401666666666664,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.74130029200000003,
+          "clockDescription" : "CMTime(value: 741260250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.4728726667817682,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.7412333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.75933595899999995,
+          "clockDescription" : "CMTime(value: 759290084, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.49090837500989437,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 0,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.75924999999999998,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 777858250, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.50953616667538881,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.77778333333333338,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.58005504170432687,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.59808320843148977,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.61620533338282257,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.63433316675946116,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.0035320550000000001,
+          "clockDescription" : "CMTime(value: 3508847, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.65245725004933774,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.0034833333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.021821597000000002,
+          "clockDescription" : "CMTime(value: 21746222, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.67074633343145251,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.021683333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.040094097000000002,
+          "clockDescription" : "CMTime(value: 40009680, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.68901829177048057,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.039949999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.057214637999999998,
+          "clockDescription" : "CMTime(value: 57164763, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.70613962505012751,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.05711666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.075346137999999993,
+          "clockDescription" : "CMTime(value: 75306930, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.72427137510385364,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.075266666666666662,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.093478555000000005,
+          "clockDescription" : "CMTime(value: 93442555, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.74240358336828649,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.093416666666666662,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.11160443,
+          "clockDescription" : "CMTime(value: 111569555, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.76052975002676249,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.11153333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.129219097,
+          "clockDescription" : "CMTime(value: 129178972, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.77814445842523128,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12914999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.14740230500000001,
+          "clockDescription" : "CMTime(value: 147349430, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.79632733343169093,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.14729999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.16422363800000001,
+          "clockDescription" : "CMTime(value: 164181805, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.81314862507861108,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.16414999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.181723097,
+          "clockDescription" : "CMTime(value: 181693513, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.83064850000664592,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.18166666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19986893,
+          "clockDescription" : "CMTime(value: 199825930, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.848793416749686,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19978333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.21816772200000001,
+          "clockDescription" : "CMTime(value: 218090472, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.86708925000857562,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.21803333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.23648697199999999,
+          "clockDescription" : "CMTime(value: 236405805, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.88541204167995602,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.23635,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.25467168000000001,
+          "clockDescription" : "CMTime(value: 254630388, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.90359691670164466,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.25459999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.27117680500000002,
+          "clockDescription" : "CMTime(value: 271134805, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.92010216671042144,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.27110000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28752713800000002,
+          "clockDescription" : "CMTime(value: 287471180, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.93645187502261251,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28743333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.30587880499999998,
+          "clockDescription" : "CMTime(value: 305786222, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.95480212511029094,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.30571666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.32422793,
+          "clockDescription" : "CMTime(value: 324124888, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.97315133339725435,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.32405,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.34132826300000002,
+          "clockDescription" : "CMTime(value: 341264263, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 0.99025279167108238,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 1,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.34121666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.0598336667753756,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35916666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.0775931250536814,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.0957786666695029,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.1140702917473391,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.1310307084349915,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.1473467083415017,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.015265921,
+          "clockDescription" : "CMTime(value: 15227462, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.1655066250823438,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.0152,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.033439462000000003,
+          "clockDescription" : "CMTime(value: 33406962, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.1836811250541359,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.033383333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.051651836999999999,
+          "clockDescription" : "CMTime(value: 51617962, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.2018935000523925,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.051583333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.069799462000000007,
+          "clockDescription" : "CMTime(value: 69767337, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.2200408333446831,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.069733333333333328,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.086425670999999996,
+          "clockDescription" : "CMTime(value: 86404837, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.2366670001065359,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.08638333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.104553337,
+          "clockDescription" : "CMTime(value: 104526421, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.2547944167163223,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.1045,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.122805546,
+          "clockDescription" : "CMTime(value: 122736296, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.273046416696161,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12268333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.140981087,
+          "clockDescription" : "CMTime(value: 140920629, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.2912217084085569,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.14088333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.15845625399999999,
+          "clockDescription" : "CMTime(value: 158413837, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.3086972917662933,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15838333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.175976296,
+          "clockDescription" : "CMTime(value: 175935212, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.3262172500835732,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.1759,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19411212899999999,
+          "clockDescription" : "CMTime(value: 194075796, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.3443530417280272,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19405,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.210955962,
+          "clockDescription" : "CMTime(value: 210923879, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.3611971667269245,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.2109,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22907133700000001,
+          "clockDescription" : "CMTime(value: 229040337, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.3793125416850671,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22901666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.24740567099999999,
+          "clockDescription" : "CMTime(value: 247316546, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.397645250079222,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24725,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26570692099999998,
+          "clockDescription" : "CMTime(value: 265626254, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.4159472084138542,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26556666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.283940254,
+          "clockDescription" : "CMTime(value: 283877129, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.4341807500459254,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28383333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.300314629,
+          "clockDescription" : "CMTime(value: 300261587, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.4505550417816266,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.30021666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31854000399999999,
+          "clockDescription" : "CMTime(value: 318477629, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.4687804584391415,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31843333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33677704600000002,
+          "clockDescription" : "CMTime(value: 336702337, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.4870165000902489,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 2,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 355073004, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.5053861250635237,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35501666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.5780973334331065,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.5962732083862647,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.6145325000397861,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.6323184584034607,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.6505097084445879,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.016268838000000001,
+          "clockDescription" : "CMTime(value: 16228755, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.6678559583378956,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.016199999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.033971380000000002,
+          "clockDescription" : "CMTime(value: 33925172, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.6855579584371299,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.033883333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.052106504999999997,
+          "clockDescription" : "CMTime(value: 52071755, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.7036932084010914,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.052033333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.068405088000000003,
+          "clockDescription" : "CMTime(value: 68367088, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.7199922084109858,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.068333333333333329,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.086255087999999994,
+          "clockDescription" : "CMTime(value: 86228338, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.7378422083565965,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.086199999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.102385922,
+          "clockDescription" : "CMTime(value: 102349505, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.7539684583898634,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10231666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.12066788000000001,
+          "clockDescription" : "CMTime(value: 120587463, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.7722545000724494,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12051666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.138711005,
+          "clockDescription" : "CMTime(value: 138640422, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.790297583444044,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.13858333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.156894755,
+          "clockDescription" : "CMTime(value: 156841672, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8084812083980069,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15679999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.17503846300000001,
+          "clockDescription" : "CMTime(value: 174998130, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8266255001071841,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17496666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.193150713,
+          "clockDescription" : "CMTime(value: 193119630, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8447377500124276,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19309999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.21068271299999999,
+          "clockDescription" : "CMTime(value: 210650630, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8622698333347216,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.21061666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.228779755,
+          "clockDescription" : "CMTime(value: 228755088, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8803670833585784,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22873333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.24563017200000001,
+          "clockDescription" : "CMTime(value: 245605255, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.8972174166701734,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24558333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26377075500000002,
+          "clockDescription" : "CMTime(value: 263729088, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.9153578750556335,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26369999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28072662999999998,
+          "clockDescription" : "CMTime(value: 280682547, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.9323135417653248,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28065000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29885408800000002,
+          "clockDescription" : "CMTime(value: 298820047, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.9504407084314153,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29878333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31697488000000001,
+          "clockDescription" : "CMTime(value: 316942672, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.9685620417585596,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31691666666666668,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33514846300000001,
+          "clockDescription" : "CMTime(value: 335097172, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 1.9867352084256709,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 3,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33505000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.0622159583726898,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35285,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.0802670000120997,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.0984352501109242,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.116789250052534,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.1336141667561606,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.1518352500861511,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.017100585000000001,
+          "clockDescription" : "CMTime(value: 17048418, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.1700225000968203,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.017000000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.035045334999999997,
+          "clockDescription" : "CMTime(value: 34956960, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.1879662084393203,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.034883333333333336,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.052743377000000001,
+          "clockDescription" : "CMTime(value: 52660585, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2056648751022294,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.052600000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.070791542999999998,
+          "clockDescription" : "CMTime(value: 70732877, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2237126667750999,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.070683333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.088969751999999999,
+          "clockDescription" : "CMTime(value: 88911543, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2418909167172387,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.088866666666666663,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.105895252,
+          "clockDescription" : "CMTime(value: 105832085, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2588159167207778,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10580000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.124081835,
+          "clockDescription" : "CMTime(value: 124028877, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2770037500886247,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12398333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.14223712699999999,
+          "clockDescription" : "CMTime(value: 142192335, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.2951591250021011,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.14215,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.159905085,
+          "clockDescription" : "CMTime(value: 159856752, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.3128269583685324,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15981666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.17644145999999999,
+          "clockDescription" : "CMTime(value: 176384252, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.3293632917338982,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17633333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19265262699999999,
+          "clockDescription" : "CMTime(value: 192591793, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.3455742500955239,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19255,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.21098762700000001,
+          "clockDescription" : "CMTime(value: 210917543, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.3639086250914261,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.21086666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22919012699999999,
+          "clockDescription" : "CMTime(value: 229132543, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.3821118751075119,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22906666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.247433668,
+          "clockDescription" : "CMTime(value: 247351627, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.4003548750188202,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24728333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26492283500000002,
+          "clockDescription" : "CMTime(value: 264840918, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.4178434583591297,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26478333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28319591799999999,
+          "clockDescription" : "CMTime(value: 283121252, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.43611700006295,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28306666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29999525199999999,
+          "clockDescription" : "CMTime(value: 299922377, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.4529162500984967,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29986666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31692700200000001,
+          "clockDescription" : "CMTime(value: 316855418, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.4698486666893587,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31680000000000003,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33520504299999998,
+          "clockDescription" : "CMTime(value: 335121710, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.4881259583635256,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 4,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33505000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 352079460, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.5050616250373423,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35203333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.5808718333719298,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.5990455833962187,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.6173220000928268,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.6355590834282339,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.6537542083533481,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.017662852999999999,
+          "clockDescription" : "CMTime(value: 17617228, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.6719119166955352,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.017583333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.034014852999999998,
+          "clockDescription" : "CMTime(value: 33951603, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.6882633334025741,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.0339,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.050299936000000003,
+          "clockDescription" : "CMTime(value: 50246270, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7045485416892916,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.050216666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.067825769999999994,
+          "clockDescription" : "CMTime(value: 67758020, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7220739583717659,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.067716666666666661,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.084991811,
+          "clockDescription" : "CMTime(value: 84942186, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7392408334417269,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.084900000000000003,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.101139853,
+          "clockDescription" : "CMTime(value: 101100353, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7553888750262558,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10106666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.117847061,
+          "clockDescription" : "CMTime(value: 117791770, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7720957917626947,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.11774999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.13603997800000001,
+          "clockDescription" : "CMTime(value: 135980728, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.7902881667250767,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.13593333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.152874228,
+          "clockDescription" : "CMTime(value: 152821020, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8071225000312552,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15278333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.17102327000000001,
+          "clockDescription" : "CMTime(value: 170979853, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8252720000455156,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17094999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.18769827,
+          "clockDescription" : "CMTime(value: 187655978, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8419471667148173,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.18761666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.20481727,
+          "clockDescription" : "CMTime(value: 204712436, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8590654167346656,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.20463333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22301643600000001,
+          "clockDescription" : "CMTime(value: 222955061, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8772649167804047,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22291666666666668,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.239969186,
+          "clockDescription" : "CMTime(value: 239925186, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.8942178334109485,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.2399,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.25797006099999997,
+          "clockDescription" : "CMTime(value: 257927020, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.9122182917781174,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.25790000000000002,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.27614135299999998,
+          "clockDescription" : "CMTime(value: 276090395, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.930389791727066,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.27605000000000002,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29431202000000001,
+          "clockDescription" : "CMTime(value: 294264270, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.9485600834013894,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29421666666666668,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31132797800000001,
+          "clockDescription" : "CMTime(value: 311274353, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.9655765000497922,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31123333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.32949568600000001,
+          "clockDescription" : "CMTime(value: 329435270, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 2.9837444584118202,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 5,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.32940000000000003,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.0540100834332407,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.3473,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.0711758333491161,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.0893339583417401,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1076375000411645,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1256098333979025,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1437656250782311,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.017622288999999999,
+          "clockDescription" : "CMTime(value: 17534289, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1625426250975579,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.017466666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.034050581000000003,
+          "clockDescription" : "CMTime(value: 33978873, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1789710416924208,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.033916666666666664,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.051487873000000003,
+          "clockDescription" : "CMTime(value: 51445206, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.1964086251100525,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.051416666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.069667373000000005,
+          "clockDescription" : "CMTime(value: 69615373, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.2145883333869278,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.06958333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.086383414000000006,
+          "clockDescription" : "CMTime(value: 86343331, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.2313045000191778,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.086300000000000002,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.104550748,
+          "clockDescription" : "CMTime(value: 104488956, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.2494711250765249,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10445,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.12140812300000001,
+          "clockDescription" : "CMTime(value: 121369414, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.2663287500618026,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12133333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.138676039,
+          "clockDescription" : "CMTime(value: 138646081, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.2835968333529308,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.13861666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.15618491400000001,
+          "clockDescription" : "CMTime(value: 156158914, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3011060417629778,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15613333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.173690331,
+          "clockDescription" : "CMTime(value: 173660748, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3186112917028368,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17363333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19119678900000001,
+          "clockDescription" : "CMTime(value: 191174748, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3361180417705327,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19114999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.20871733100000001,
+          "clockDescription" : "CMTime(value: 208692664, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3536386250052601,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.20866666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22624999800000001,
+          "clockDescription" : "CMTime(value: 226223164, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3711711250944063,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22620000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.243279789,
+          "clockDescription" : "CMTime(value: 243192081, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.3881972500821576,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24313333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26135428900000002,
+          "clockDescription" : "CMTime(value: 261277039, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4062739167129621,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26121666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.279645539,
+          "clockDescription" : "CMTime(value: 279570831, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4245656250277534,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.27951666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29792037300000002,
+          "clockDescription" : "CMTime(value: 297846664, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4428397917654365,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29778333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31455366400000001,
+          "clockDescription" : "CMTime(value: 314473498, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4594737917650491,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31441666666666668,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33276383100000001,
+          "clockDescription" : "CMTime(value: 332679914, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4776839583646506,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33261666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.35097891399999998,
+          "clockDescription" : "CMTime(value: 350922873, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.4958996250061318,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 6,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35086666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 369343039, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.5143447500886396,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.36928333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.5949480833951384,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.613119333400391,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.6314137500012293,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.648303541704081,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.6657265000976622,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.016293169,
+          "clockDescription" : "CMTime(value: 16247919, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.6838824583683163,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.016216666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.033984210000000001,
+          "clockDescription" : "CMTime(value: 33932085, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.7015740417409688,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.033883333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.052119293999999997,
+          "clockDescription" : "CMTime(value: 52081585, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.7197092917049304,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.052049999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.069548544000000004,
+          "clockDescription" : "CMTime(value: 69512210, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.73713866667822,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.069483333333333328,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.087683293999999995,
+          "clockDescription" : "CMTime(value: 87651460, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.7552736250218004,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.087616666666666662,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.10579946,
+          "clockDescription" : "CMTime(value: 105766919, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.7733894584234804,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10573333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.12199846,
+          "clockDescription" : "CMTime(value: 121970544, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.7895889166975394,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12195,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.14012337699999999,
+          "clockDescription" : "CMTime(value: 140088377, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8077135416679084,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.14005000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.15708533499999999,
+          "clockDescription" : "CMTime(value: 157040085, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8246752917766571,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.157,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.175216502,
+          "clockDescription" : "CMTime(value: 175177085, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8428065417101607,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17515,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19294054399999999,
+          "clockDescription" : "CMTime(value: 192909127, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8605307083344087,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19288333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.21105112700000001,
+          "clockDescription" : "CMTime(value: 211020002, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8786412917543203,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.21099999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22904512699999999,
+          "clockDescription" : "CMTime(value: 228989502, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.8966349583351985,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22894999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.246435502,
+          "clockDescription" : "CMTime(value: 246404544, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.9140257083345205,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24638333333333334,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26398950199999999,
+          "clockDescription" : "CMTime(value: 263943919, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.9315792917041108,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26390000000000002,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28146312699999998,
+          "clockDescription" : "CMTime(value: 281428710, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.9490532083436847,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28139999999999998,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29957029400000001,
+          "clockDescription" : "CMTime(value: 299541835, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.9671606667106971,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29951666666666665,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31768587700000001,
+          "clockDescription" : "CMTime(value: 317655919, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 3.9852760001085699,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 7,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31763333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 334230294, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.0018514167750254,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.3342,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.0743342083878815,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.092458916711621,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1107498750789091,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1274115000851452,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1454324166988954,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.015111539,
+          "clockDescription" : "CMTime(value: 15060997, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1626985834445804,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.015016666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.032612080000000002,
+          "clockDescription" : "CMTime(value: 32569414, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1801992916734889,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.032533333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.050129871999999999,
+          "clockDescription" : "CMTime(value: 50093122, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.1977172917686403,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.050066666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.068256330000000004,
+          "clockDescription" : "CMTime(value: 68224622, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.2158437083708122,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.068199999999999997,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.086027913999999997,
+          "clockDescription" : "CMTime(value: 85997080, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.2336152917705476,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.085966666666666663,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.10262733,
+          "clockDescription" : "CMTime(value: 102593039, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.2502147500636056,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10256666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.120154914,
+          "clockDescription" : "CMTime(value: 120119372, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.2677423333516344,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.12008333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.13765270499999999,
+          "clockDescription" : "CMTime(value: 137621539, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.2852398750837892,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.1376,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.15577083,
+          "clockDescription" : "CMTime(value: 155743497, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3033582083880901,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15571666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.172621414,
+          "clockDescription" : "CMTime(value: 172581830, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3202085000229999,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17255000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19011420500000001,
+          "clockDescription" : "CMTime(value: 190086539, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3377016250742599,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19006666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.20751916400000001,
+          "clockDescription" : "CMTime(value: 207494664, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3551065834471956,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.20746666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22507237199999999,
+          "clockDescription" : "CMTime(value: 225030955, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3726594584295526,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22500000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.243363247,
+          "clockDescription" : "CMTime(value: 243277997, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.3909472500672564,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24321666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26152587199999999,
+          "clockDescription" : "CMTime(value: 261444872, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.4091121667297557,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26138333333333336,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.27983787199999999,
+          "clockDescription" : "CMTime(value: 279756705, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.4274219167418778,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.2797,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.29682995499999998,
+          "clockDescription" : "CMTime(value: 296767205, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.4444168333429843,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29671666666666668,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31509458000000001,
+          "clockDescription" : "CMTime(value: 315026164, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.4626809584442526,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31496666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.332343414,
+          "clockDescription" : "CMTime(value: 332268789, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.479929166729562,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33221666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.35011391400000003,
+          "clockDescription" : "CMTime(value: 350059664, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.4977008750429377,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : true,
+          "outputTransitions" : 8,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.35001666666666664,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.5698072917293757,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.36843333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.5880787917412817,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 12288, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6054102500202134,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6236951667815447,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6404404584318399,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0,
+          "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6568505833856761,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.015425790999999999,
+          "clockDescription" : "CMTime(value: 15385416, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6750047917012125,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.015350000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.032353749000000001,
+          "clockDescription" : "CMTime(value: 32316332, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.6919331250246614,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.032283333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.050162374000000003,
+          "clockDescription" : "CMTime(value: 50097374, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.7097409584093839,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.050049999999999997,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.068339416,
+          "clockDescription" : "CMTime(value: 68286874, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.7279186251107603,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.068250000000000005,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.084903957000000002,
+          "clockDescription" : "CMTime(value: 84867374, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.744483333430253,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.08483333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.10134291600000001,
+          "clockDescription" : "CMTime(value: 101294124, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.7609222917817533,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.10125000000000001,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.119488291,
+          "clockDescription" : "CMTime(value: 119449374, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.7790676667355001,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.11941666666666667,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.13752399900000001,
+          "clockDescription" : "CMTime(value: 137488291, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.7971035001100972,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.13744999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.15563312400000001,
+          "clockDescription" : "CMTime(value: 155607332, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.8152128750225529,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.15558333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.17377933200000001,
+          "clockDescription" : "CMTime(value: 173736291, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.8333588750101626,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.17369999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.19191987399999999,
+          "clockDescription" : "CMTime(value: 191883124, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.8514994167489931,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.19184999999999999,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.210049707,
+          "clockDescription" : "CMTime(value: 210012541, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.8696289584040642,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.20998333333333333,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.22817795699999999,
+          "clockDescription" : "CMTime(value: 228142666, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.8877576667582616,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.22811666666666666,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.24635474900000001,
+          "clockDescription" : "CMTime(value: 246296957, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.9059340833919123,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.24625,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.26451154100000002,
+          "clockDescription" : "CMTime(value: 264458207, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.9240907917264849,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.26441666666666669,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.28265491599999998,
+          "clockDescription" : "CMTime(value: 282617624, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.942234416725114,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.28258333333333335,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.299131166,
+          "clockDescription" : "CMTime(value: 299075582, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.9587104166857898,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.29903333333333332,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.31732458200000002,
+          "clockDescription" : "CMTime(value: 317271999, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.9769035417120904,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.31723333333333331,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        },
+        {
+          "clock" : 0.33549633200000001,
+          "clockDescription" : "CMTime(value: 335445582, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+          "clockValid" : true,
+          "copiedPTS" : -1,
+          "elapsed" : 4.9950754584278911,
+          "error" : "",
+          "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+          "loadedTimeRanges" : [
+            {
+              "duration" : 45,
+              "start" : 0
+            }
+          ],
+          "outputAttached" : false,
+          "outputTransitions" : 9,
+          "rate" : 1,
+          "reasonForWaiting" : "",
+          "requestedPTS" : 0.33539999999999998,
+          "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+        }
+      ],
+      "timeJumpCount" : 18,
+      "timeJumps" : [
+        {
+          "clock" : 0,
+          "wall" : 0.56212120840791613
+        },
+        {
+          "clock" : 0,
+          "wall" : 0.59816491673700511
+        },
+        {
+          "clock" : 0,
+          "wall" : 1.0600312916794792
+        },
+        {
+          "clock" : 0,
+          "wall" : 1.099918375024572
+        },
+        {
+          "clock" : 0,
+          "wall" : 1.5602130834013224
+        },
+        {
+          "clock" : 0,
+          "wall" : 1.6012273334199563
+        },
+        {
+          "clock" : 0,
+          "wall" : 2.0623951250454411
+        },
+        {
+          "clock" : 0,
+          "wall" : 2.1024978334316984
+        },
+        {
+          "clock" : 0,
+          "wall" : 2.5630687084048986
+        },
+        {
+          "clock" : 0,
+          "wall" : 2.6038720416836441
+        },
+        {
+          "clock" : 0,
+          "wall" : 3.0541999583365396
+        },
+        {
+          "clock" : 0,
+          "wall" : 3.0944721667328849
+        },
+        {
+          "clock" : 0,
+          "wall" : 3.5772378750843927
+        },
+        {
+          "clock" : 0,
+          "wall" : 3.6171688750619069
+        },
+        {
+          "clock" : 0,
+          "wall" : 4.0566033750073984
+        },
+        {
+          "clock" : 0,
+          "wall" : 4.09712066676002
+        },
+        {
+          "clock" : 0,
+          "wall" : 4.570746666751802
+        },
+        {
+          "clock" : 0,
+          "wall" : 4.6092341666808352
+        }
+      ]
+    }
+  ],
+  "scope" : "AVPlayerLayer + one AVPlayerItemVideoOutput only; no EnhancementPipeline, FrameInterpolator, frame scheduling or playback controller. Same tagged local H264, each starts from fresh item and advances before 5s observation."
+}

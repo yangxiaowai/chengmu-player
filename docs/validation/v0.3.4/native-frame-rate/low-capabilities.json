@@ -1,0 +1,165 @@
+{
+  "max_dim1" : 1920,
+  "max_dim2" : 640,
+  "max_pixels1" : 2073600,
+  "max_pixels2" : 230400,
+  "rows" : [
+    {
+      "destination" : "[\"ExtendedPixelsRight\": 0, \"Width\": 640, \"PixelFormatType\": 875704438, \"ExtendedPixelsBottom\": 8, \"Height\": 360, \"IOSurfaceProperties\": {\n}]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 1,
+      "size" : [
+        640,
+        360
+      ],
+      "source" : "[\"Width\": 640, \"ExtendedPixelsBottom\": 8, \"Height\": 360, \"PixelFormatType\": 875704438, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 640, \"IOSurfaceProperties\": {\n}, \"Height\": 360, \"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 8, \"PixelFormatType\": 875704438]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 2,
+      "size" : [
+        640,
+        360
+      ],
+      "source" : "[\"Width\": 640, \"IOSurfaceProperties\": {\n}, \"Height\": 360, \"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 8, \"PixelFormatType\": 875704438]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 640, \"ExtendedPixelsBottom\": 8, \"IOSurfaceProperties\": {\n}, \"PixelFormatType\": 875704438, \"ExtendedPixelsRight\": 0, \"Height\": 360]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 3,
+      "size" : [
+        640,
+        360
+      ],
+      "source" : "[\"IOSurfaceProperties\": {\n}, \"Height\": 360, \"ExtendedPixelsBottom\": 8, \"PixelFormatType\": 875704438, \"Width\": 640, \"ExtendedPixelsRight\": 0]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"ExtendedPixelsBottom\": 0, \"Height\": 720, \"Width\": 1280, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 1,
+      "size" : [
+        1280,
+        720
+      ],
+      "source" : "[\"ExtendedPixelsBottom\": 0, \"Height\": 720, \"Width\": 1280, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"IOSurfaceProperties\": {\n}, \"Width\": 1280, \"ExtendedPixelsBottom\": 0, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"Height\": 720]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 2,
+      "size" : [
+        1280,
+        720
+      ],
+      "source" : "[\"IOSurfaceProperties\": {\n}, \"Width\": 1280, \"ExtendedPixelsBottom\": 0, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"Height\": 720]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 1280, \"ExtendedPixelsBottom\": 0, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"Height\": 720]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 3,
+      "size" : [
+        1280,
+        720
+      ],
+      "source" : "[\"Width\": 1280, \"ExtendedPixelsBottom\": 0, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"Height\": 720]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"PixelFormatType\": 875704438, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 0, \"Width\": 1920, \"ExtendedPixelsRight\": 0, \"Height\": 1080]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 1,
+      "size" : [
+        1920,
+        1080
+      ],
+      "source" : "[\"PixelFormatType\": 875704438, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 0, \"Width\": 1920, \"ExtendedPixelsRight\": 0, \"Height\": 1080]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Height\": 1080, \"PixelFormatType\": 875704438, \"ExtendedPixelsRight\": 0, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 0, \"Width\": 1920]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 2,
+      "size" : [
+        1920,
+        1080
+      ],
+      "source" : "[\"Height\": 1080, \"PixelFormatType\": 875704438, \"ExtendedPixelsRight\": 0, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 0, \"Width\": 1920]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"PixelFormatType\": 875704438, \"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 0, \"IOSurfaceProperties\": {\n}, \"Width\": 1920, \"Height\": 1080]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 3,
+      "size" : [
+        1920,
+        1080
+      ],
+      "source" : "[\"PixelFormatType\": 875704438, \"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 0, \"IOSurfaceProperties\": {\n}, \"Width\": 1920, \"Height\": 1080]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"ExtendedPixelsRight\": 0, \"Width\": 3840, \"Height\": 2160, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 16, \"PixelFormatType\": 875704438]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 1,
+      "size" : [
+        3840,
+        2160
+      ],
+      "source" : "[\"ExtendedPixelsRight\": 0, \"Width\": 3840, \"Height\": 2160, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsBottom\": 16, \"PixelFormatType\": 875704438]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 3840, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"ExtendedPixelsBottom\": 16, \"Height\": 2160]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 2,
+      "size" : [
+        3840,
+        2160
+      ],
+      "source" : "[\"Width\": 3840, \"IOSurfaceProperties\": {\n}, \"ExtendedPixelsRight\": 0, \"PixelFormatType\": 875704438, \"ExtendedPixelsBottom\": 16, \"Height\": 2160]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 16, \"IOSurfaceProperties\": {\n}, \"Width\": 3840, \"PixelFormatType\": 875704438, \"Height\": 2160]",
+      "formats" : [
+        "420v"
+      ],
+      "n" : 3,
+      "size" : [
+        3840,
+        2160
+      ],
+      "source" : "[\"ExtendedPixelsRight\": 0, \"ExtendedPixelsBottom\": 16, \"IOSurfaceProperties\": {\n}, \"Width\": 3840, \"PixelFormatType\": 875704438, \"Height\": 2160]",
+      "valid" : true
+    }
+  ],
+  "supported" : true
+}

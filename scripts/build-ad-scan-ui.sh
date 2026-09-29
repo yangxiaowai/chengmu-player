@@ -24,12 +24,12 @@ import sys
 app = Path(sys.argv[1])
 metadata = {
     'CFBundleName': 'AdSkip Native QA',
-    'CFBundleDisplayName': '映川 · 广告跳过隔离验收',
+    'CFBundleDisplayName': '澄幕 · 广告跳过隔离验收',
     'CFBundleIdentifier': 'local.yingchuan.adskipnativeqa',
     'CFBundleExecutable': 'AdSkipUINativeQA',
     'CFBundlePackageType': 'APPL',
-    'CFBundleShortVersionString': '0.3.3',
-    'CFBundleVersion': '15',
+    'CFBundleShortVersionString': '0.3.6',
+    'CFBundleVersion': '18',
     'LSMinimumSystemVersion': '15.0',
     'NSHighResolutionCapable': True,
     'NSPrincipalClass': 'NSApplication',

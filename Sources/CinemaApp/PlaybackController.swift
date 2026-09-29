@@ -1,6 +1,7 @@
 import AVFoundation
 import AppKit
 import Combine
+import VideoToolbox
 import CinemaCore
 
 struct MediaTrack: Identifiable {
@@ -19,6 +20,38 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     let player = AVPlayer()
     let adSkip = AdSkipController()
     let experience = MediaExperienceInspector()
+    let performance = QualityPerformanceController()
+    /// Hardware/framework availability permits an experimental target, not a stable-FPS promise.
+    var supportsFrameInterpolation: Bool {
+        if #available(macOS 26.0, *) { return VTFrameRateConversionConfiguration.isSupported }
+        return false
+    }
+    @Published var targetResolution: EnhancementResolution = .automatic {
+        didSet { guard oldValue != targetResolution else { return }; preferences.setTargetResolution(targetResolution); qualityTargetChanged() }
+    }
+    @Published var targetFrameRate: EnhancementFrameRate = .source {
+        didSet { guard oldValue != targetFrameRate else { return }; preferences.setTargetFrameRate(targetFrameRate); qualityTargetChanged() }
+    }
+    @Published var isSplitComparison = false
+    @Published private(set) var isTestingQuality = false
+    var sourceFormatLabel: String {
+        let measuredWidth = metrics?.sourceWidth ?? 0, measuredHeight = metrics?.sourceHeight ?? 0
+        let width = measuredWidth > 0 ? measuredWidth : Int(player.currentItem?.presentationSize.width ?? 0)
+        let height = measuredHeight > 0 ? measuredHeight : Int(player.currentItem?.presentationSize.height ?? 0)
+        let size = width > 0 && height > 0 ? "\(width)×\(height)" : "分辨率待识别"
+        let fps = metrics?.sourceFPS.map { String(format: "%.2f fps%@", $0, metrics?.sourceFPSIsEstimated == true ? "（估计）" : "（轨道）") } ?? "帧率待识别"
+        return "\(size) · \(fps)"
+    }
+    var outputTimingLabel: String {
+        if surfaceMode == .original || videoPermission != .inspectSDRFrames { return "原生呈现 · 跟随片源帧率" }
+        if let note = metrics?.timingNote { return note }
+        return targetFrameRate == .fps60 ? "等待运动插帧；实际状态以播放检测为准" : "跟随片源帧率"
+    }
+    private func qualityTargetChanged() {
+        preferencesStore.save(preferences)
+        generation = UUID(); metrics = nil
+    }
+
     /// What the enhancement pipeline may do for the current item; the inspector lowers it when the
     /// source is Dolby Vision or HDR.
     @Published private(set) var videoPermission = VideoProcessingPermission.inspectSDRFrames
@@ -37,7 +70,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
     /// The picture mode actually handed to the surface: 原片 when the user switched the pipeline off.
-    var surfaceMode: EnhancementMode { isComparingOriginal ? .original : selectedPictureMode }
+    var surfaceMode: EnhancementMode { isComparingOriginal || isTestingQuality ? .original : selectedPictureMode }
     var selectedPictureMode: EnhancementMode { pipelineProcessesFrames ? enhancementMode : .original }
     @Published private(set) var isComparingOriginal = false
     var canCompareOriginal: Bool { isComparingOriginal || pictureIsEnhanced }
@@ -72,6 +105,28 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         enhancementMode = mode
         pipelineProcessesFrames = mode != .original
     }
+    func startPerformanceTest() {
+        guard !performance.isRunning else { return }
+        let resume = wantsPlay
+        isTestingQuality = true
+        let testItem = itemID
+        if resume { pause() }
+        let intent = playbackIntentID
+        let size = PixelSize(width: metrics?.sourceWidth ?? 0, height: metrics?.sourceHeight ?? 0)
+        let started = performance.run(mode: selectedPictureMode == .original ? .restoration : selectedPictureMode,
+                        resolution: targetResolution, frameRate: targetFrameRate,
+                        sourceSize: size, sourceFPS: metrics?.sourceFPS ?? 0) { [weak self] in
+            guard let self else { return }
+            self.isTestingQuality = false
+            guard self.itemID == testItem, resume else { return }
+            self.resumeAfterEditing(ifUnchanged: intent)
+        }
+        if !started {
+            isTestingQuality = false
+            if resume { resumeAfterEditing(ifUnchanged: intent) }
+        }
+    }
+    func cancelPerformanceTest() { performance.cancel() }
     func toggleOriginalComparison() {
         guard canCompareOriginal else { return }
         isComparingOriginal.toggle()
@@ -193,6 +248,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         automaticAdSkipping = saved.automaticAdSkipping
         keepsOriginalAudioLayout = saved.keepsOriginalAudioLayout
         pipelineProcessesFrames = saved.pipelineProcessesFrames
+        targetResolution = saved.targetResolution; targetFrameRate = saved.targetFrameRate
         super.init()
         experience.$videoPermission.sink { [weak self] permission in
             guard let self, self.videoPermission != permission else { return }

@@ -1,0 +1,26 @@
+{
+  "version": "0.3.4",
+  "build": "16",
+  "staged_app": "/Users/yangjun/Downloads/视频播放器/.build/app-stage-0.3.4.BIUg1f/映川.app",
+  "archive": "/Users/yangjun/Downloads/视频播放器/dist/映川-v0.3.4.zip",
+  "archive_sha256": "a918b04e7a7f7ff4d20a66551f23a43397e46234729b1a2399fcf6be4843c997",
+  "archive_bytes": 1912503,
+  "files_sha256": {
+    "Contents/Info.plist": "3dd3d9e6e2986c64ded4d1e82a963987a8b033b3a9508d4450c06acf5effce2c",
+    "Contents/MacOS/Cinema": "ca13368246b62628d5babcacd728dc4b36b6e78ec5785e523cce6cf1b534302e",
+    "Contents/Resources/AppIcon.icns": "c4cdb5b669fee8d87de725d31fa614278702faf4306cc4a9d3d994a9c07f720f",
+    "Contents/_CodeSignature/CodeResources": "e5133b46d39878e12cff29054b8ba89744ffcf4d8c9d92b4b7d486bf63c4a4c8"
+  },
+  "checks": {
+    "strict_signature": true,
+    "zip_crc": true,
+    "zip_bytes_match_bundle": true,
+    "utf8_member_names": true,
+    "ditto_extract_bytes_match": true,
+    "executable_permissions": true,
+    "extracted_signature": true
+  },
+  "installed": false,
+  "installation_reason": "Existing dist app is running; installer preserved staging bundle and did not replace it.",
+  "scope": "Local ad-hoc signed Apple Silicon bundle. No notarization, visible locked-screen UI acceptance or stable 60fps claim."
+}

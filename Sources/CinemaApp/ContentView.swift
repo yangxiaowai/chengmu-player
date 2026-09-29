@@ -48,7 +48,7 @@ struct ContentView: View {
                 HStack { Button("取消") { showLink = false }; Spacer(); Button("打开播放") { if let url = URL(string: link.trimmingCharacters(in: .whitespacesAndNewlines)) { app.openURL(url); showLink = false } else { app.message = "链接格式不正确。" } }.buttonStyle(.borderedProminent) }
             }.padding(28)
         }
-        .alert("映川", isPresented: Binding(get: {app.message != nil}, set: {if !$0 {app.message = nil}})) { Button("知道了") { app.message = nil } } message: { Text(app.message ?? "") }
+        .alert("澄幕", isPresented: Binding(get: {app.message != nil}, set: {if !$0 {app.message = nil}})) { Button("知道了") { app.message = nil } } message: { Text(app.message ?? "") }
     }
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -58,8 +58,8 @@ struct ContentView: View {
                     Image(systemName: "play.rectangle.fill").font(.system(size: 17, weight: .regular)).foregroundStyle(CinemaStyle.accent)
                 }.frame(width: 36, height: 36)
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("映川").font(.system(size: 21, weight: .semibold, design: .serif))
-                    Text("Y I N G C H U A N").font(.system(size: 7.5, weight: .medium)).tracking(1.4).foregroundStyle(CinemaStyle.tertiary)
+                    Text("澄幕").font(.system(size: 21, weight: .semibold, design: .serif))
+                    Text("C H E N G M U").font(.system(size: 7.5, weight: .medium)).tracking(1.4).foregroundStyle(CinemaStyle.tertiary)
                 }
             }.padding(.top, 30).padding(.bottom, 34).padding(.horizontal, 20)
             Text("你的放映室").font(.system(size: 9.5, weight: .semibold)).tracking(1.1).foregroundStyle(CinemaStyle.tertiary).padding(.horizontal, 24).padding(.bottom, 11)

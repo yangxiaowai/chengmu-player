@@ -3,6 +3,27 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func compressionChoiceSurvivesStoreReloadWithoutChangingOtherPreferences() throws {
+        let suite = "CinemaCompressionPreferences.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+        var chosen = PlaybackPreferences(volume: 0, rate: 1.5, enhancement: "clarity", lastAudibleVolume: 0.37,
+                                         automaticAdSkipping: false, keepsOriginalAudioLayout: true,
+                                         pipeline: PlaybackPreferences.pipelineOriginal,
+                                         targetResolution: .fullHD, targetFrameRate: .fps60)
+        let previous = chosen
+        chosen.setEnhancement("compression")
+        #expect(chosen.enhancement == "compression")
+        store.save(chosen)
+        let restored = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"]).load()
+        #expect(restored.enhancement == "compression")
+        #expect(restored == chosen)
+        var otherPreferences = restored
+        otherPreferences.setEnhancement(previous.enhancement)
+        #expect(otherPreferences == previous)
+    }
+
     @Test func temporalRestorationChoicesSurviveRestart() throws {
         for mode in ["temporal", "restoration"] {
             let chosen = PlaybackPreferences(enhancement: mode, pipeline: PlaybackPreferences.pipelineEnhanced)

@@ -1,0 +1,276 @@
+{
+  "checks" : [
+    {
+      "detail" : "sdr",
+      "name" : "unspecified_709",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unspecified_709_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "sdr",
+      "name" : "unspecified_srgb",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unspecified_srgb_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "sdr",
+      "name" : "missing_primaries_709",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "missing_primaries_709_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "sdr",
+      "name" : "known_709",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "known_709_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源传输函数未验证（TRANSFERFUNCTION#2），保留原片色彩\")",
+      "name" : "unknown_transfer",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unknown_transfer_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源未标记传输函数，保留原片色彩\")",
+      "name" : "missing_transfer",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "missing_transfer_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源未标记传输函数，保留原片色彩\")",
+      "name" : "no_colour_tags",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "no_colour_tags_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源为 HDR（SMPTE_ST_2084_PQ），使用系统原生杜比\/HDR 呈现\")",
+      "name" : "pq_unspecified",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "pq_unspecified_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源为 HDR（ITU_R_2100_HLG），使用系统原生杜比\/HDR 呈现\")",
+      "name" : "hlg_unspecified",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hlg_unspecified_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源色域为 ITU_R_2020，超出 SDR 增强范围，保留原片色彩\")",
+      "name" : "wide_2020",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "wide_2020_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源色域为 P3_D65，超出 SDR 增强范围，保留原片色彩\")",
+      "name" : "wide_p3",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "wide_p3_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "unknown(\"片源色域未确认（COLORPRIMARIES#99），保留原片色彩\")",
+      "name" : "other_primaries",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "other_primaries_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "hdr(\"片源色彩矩阵为 ITU_R_2020，超出 SDR 增强范围，保留原片色彩\")",
+      "name" : "unspecified_wide_matrix",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "unspecified_wide_matrix_image_permission",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "ITU_R_709_2_source_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "ITU_R_709_2_assumption_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "ITU_R_709_2_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "ITU_R_709_2_known_has_no_assumption",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "IEC_sRGB_source_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "IEC_sRGB_assumption_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "IEC_sRGB_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "IEC_sRGB_known_has_no_assumption",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "Linear_source_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "Linear_assumption_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "Linear_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "Linear_known_has_no_assumption",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "SMPTE_240M_1995_source_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "SMPTE_240M_1995_assumption_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "SMPTE_240M_1995_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "SMPTE_240M_1995_known_has_no_assumption",
+      "passed" : true
+    },
+    {
+      "detail" : "primaries=ITU_R_709_2 transfer=ITU_R_709_2 matrix=ITU_R_709_2 pixelFormat=2016686640",
+      "name" : "h264_sdr_decoded_metadata",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "h264_explicit_sdr_is_allowed",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "h264_yuv_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "h264_source_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "ten_bit_yuv_unspecified_render_matches_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "ten_bit_yuv_unspecified_attachments_unchanged",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "ten_bit_yuv_assumption_visible",
+      "passed" : true
+    },
+    {
+      "detail" : "primaries=nil transfer=nil matrix=ITU_R_709_2 pixelFormat=2016686640",
+      "name" : "decoder_missing_transfer_stays_native",
+      "passed" : true
+    },
+    {
+      "detail" : "primaries=nil transfer=IEC_sRGB matrix=ITU_R_709_2 pixelFormat=875704438",
+      "name" : "hls_has_unspecified_primaries_and_sdr_transfer",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hls_explicit_sdr_is_allowed",
+      "passed" : true
+    },
+    {
+      "detail" : "max channel difference=0\/255",
+      "name" : "hls_yuv_render_matches_tagged_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "hls_source_attachments_unchanged",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "synthetic gates, small Core Image renders, one local H264 MP4 frame and one localhost HLS frame"
+}

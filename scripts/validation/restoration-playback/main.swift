@@ -34,7 +34,7 @@ import CinemaCore
             checks.append(["name": name, "passed": passed, "detail": detail])
             print(passed ? "PASS" : "FAIL", name, detail)
         }
-        for mode in [EnhancementMode.temporal, .restoration] {
+        for mode in [EnhancementMode.temporal, .restoration, .compression] {
             let item = AVPlayerItem(url: url), generation = UUID()
             let player = AVPlayer(playerItem: item); player.isMuted = true
             let view = CinemaVideoView(frame: CGRect(x: 0, y: 0, width: 960, height: 540))
@@ -67,10 +67,13 @@ import CinemaCore
             check(mode.rawValue + "_keeps_processing_during_playback", windowEnd.processedFrames - frameStart >= 45 && windowEnd.fallbackReason == nil && player.rate == 1,
                   "frames=\(windowEnd.processedFrames - frameStart) mediaAdvanced=\(player.currentTime().seconds - start) fallback=\(windowEnd.fallbackReason ?? "none")")
             check(mode.rawValue + "_reports_actual_restoration", windowEnd.mode.contains("时域降噪") && windowEnd.outputWidth > 0 && view.diagnosticState.hasEnhancedFrame, windowEnd.mode)
-            if mode == .restoration {
-                check("restoration_outputs_actual_3840x2160", windowEnd.outputWidth == 3840 && windowEnd.outputHeight == 2160 && view.diagnosticState.hasEnhancedFrame,
+            if mode.usesRestorationScaling {
+                check(mode.rawValue + "_outputs_actual_3840x2160", windowEnd.outputWidth == 3840 && windowEnd.outputHeight == 2160 && view.diagnosticState.hasEnhancedFrame,
                       "input=\(actualSize) completedOutput=\(windowEnd.outputWidth)x\(windowEnd.outputHeight)")
-                check("restoration_reports_non_ai_detail_scaling", windowEnd.mode.contains("细节缩放") && windowEnd.mode.contains("非 AI"), windowEnd.mode)
+                check(mode.rawValue + "_reports_non_ai_detail_scaling", windowEnd.mode.contains("细节缩放") && windowEnd.mode.contains("非 AI"), windowEnd.mode)
+            }
+            if mode == .compression {
+                check("compression_reports_extra_cleanup", windowEnd.mode.contains("压缩抑噪"), windowEnd.mode)
             }
             samples.append(["mode": mode.rawValue, "source": [sourceWidth, sourceHeight], "completedFrames": windowEnd.processedFrames, "output": [windowEnd.outputWidth, windowEnd.outputHeight], "droppedTicks": windowEnd.droppedFrames,
                             "windowStartCompletedFrames": frameStart, "windowEndCompletedFrames": windowEnd.processedFrames,
@@ -86,13 +89,15 @@ import CinemaCore
             while !view.diagnosticState.hasEnhancedFrame && Date() < pausedDeadline { try await Task.sleep(nanoseconds: 30_000_000) }
             let pausedMetrics = view.diagnosticMetrics
             check(mode.rawValue + "_paused_seek_rebuilds_without_old_reference", pausedMetrics.mode.contains("参考建立中") && player.rate == 0 && abs(player.currentTime().seconds - 2) < 0.1, pausedMetrics.mode)
+            let stableOutput = item.outputs.compactMap({ $0 as? AVPlayerItemVideoOutput }).first
+            let comparisonPosition = player.currentTime().seconds
             configure(.original, UUID())
-            // The surface detaches on its next 60 Hz tick; configure already restores the native layer.
-            let comparisonDeadline = Date().addingTimeInterval(1)
-            while !item.outputs.compactMap({ $0 as? AVPlayerItemVideoOutput }).isEmpty && Date() < comparisonDeadline {
-                try await Task.sleep(nanoseconds: 20_000_000)
-            }
-            check(mode.rawValue + "_comparison_detaches_processing", item.outputs.compactMap({ $0 as? AVPlayerItemVideoOutput }).isEmpty && view.diagnosticState.isNativeVisible && player.currentItem === item)
+            // SDR retains one item-owned output to avoid AVFoundation time jumps; no processing
+            // work may be submitted or displayed, including a late result from the prior mode.
+            try await Task.sleep(nanoseconds: 250_000_000)
+            let comparisonOutputs = item.outputs.compactMap({ $0 as? AVPlayerItemVideoOutput })
+            check(mode.rawValue + "_comparison_preserves_stable_output_without_processing", stableOutput != nil && comparisonOutputs.count == 1 && comparisonOutputs.first === stableOutput && view.diagnosticState.isNativeVisible && !view.diagnosticState.hasEnhancedFrame && view.diagnosticMetrics.processedFrames == 0 && player.currentItem === item && abs(player.currentTime().seconds - comparisonPosition) < 0.02,
+                  "outputs=\(comparisonOutputs.count) positionBefore=\(comparisonPosition) positionAfter=\(player.currentTime().seconds)")
             configure(mode, UUID())
             player.playImmediately(atRate: 1)
             let resumeDeadline = Date().addingTimeInterval(4)

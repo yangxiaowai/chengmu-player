@@ -1,0 +1,421 @@
+Building for debugging...
+[1 / 1]
+[2 / 5] Cinema-product
+[12 / 15] Cinema-product
+[13 / 15] Cinema-product
+[23 / 32] Cinema-product
+[25 / 32] Cinema-product
+[28 / 32] Cinema-product
+[30 / 32] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:358:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+356 |             }.frame(width: 460, height: 600)
+357 |         }
+358 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+359 |     }
+360 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[32 / 34] Cinema-product
+Build complete! (3.95 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite LibraryTests started.
+◇ Suite SourceMatchingTests started.
+◇ Suite PlaybackControlsPolicyTests started.
+◇ Suite CatalogLibraryTests started.
+◇ Suite SourceTests started.
+◇ Suite HistoryContextTests started.
+◇ Suite CatalogPageTests started.
+◇ Suite PlaybackCanvasClickPolicyTests started.
+◇ Suite VideoSelectionTests started.
+◇ Suite PlaybackStabilityTests started.
+◇ Suite PlaybackPreferencesTests started.
+◇ Suite DolbyMetadataTests started.
+◇ Suite PlaybackTimecodeTests started.
+◇ Suite HLSDolbyDeclarationsTests started.
+◇ Suite AdCleanupTests started.
+◇ Suite AdSkipPolicyTests started.
+◇ Suite QualityTests started.
+◇ Suite SourceAccessTests started.
+◇ Suite SeekTimelineGeometryTests started.
+◇ Suite EnhancementTargetTests started.
+◇ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() started.
+◇ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() started.
+◇ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() started.
+◇ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() started.
+◇ Test episodeRequiresSameNumberAndEquivalentNameAndRejectsAmbiguity() started.
+◇ Test testBadSubtitleTimesAreRejected() started.
+◇ Test bufferingOrPlaybackErrorKeepsRecoveryControlsVisible() started.
+◇ Test candidatesRetainDifferentProvidersAndRemoveDuplicatesAndCurrentVersion() started.
+◇ Test pausingBringsControlsBackEvenAfterLongInactivity() started.
+◇ Test namedEpisodeMustMatchExactlyWithoutNumberGuessing() started.
+◇ Test exactSeasonTitleAcceptsNotationButRejectsDifferentSeasonAndUnknownSeason() started.
+◇ Test interactingOrSwitchingAwayPreventsHidingControls() started.
+◇ Test invalidOrReversedClockValuesFailVisible() started.
+◇ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() started.
+◇ Test playingKeepsControlsUntilThreeSecondsOfInactivity() started.
+◇ Test legacyHistoryWithoutContextStillLoads() started.
+◇ Test historyRestoresExactSeriesLineAndEpisode() started.
+◇ Test legacyHistoryWithoutCategoryStillDecodes() started.
+◇ Test ignoredPageAndMalformedPaginationAreErrorsRatherThanRepeatedFirstPage() started.
+◇ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() started.
+◇ Test emptyResultsStopPaginationAndMissingMetadataDoesNotInventMorePages() started.
+◇ Test unnumberedEpisodeSwitchRequiresExactLabel() started.
+◇ Test browseKeepsSuccessfulOptionalCategories() started.
+◇ Test invalidGeometryAndAccidentalClicksDoNotCreateRegions() started.
+◇ Test browseDoesNotSuppressPrimaryRequestFailure() started.
+◇ Test browsePreservesSuccessfulDetailPageWhenOptionalCategoriesFail(mode:) started.
+◇ Test aStaleTimerCannotTogglePlaybackForANewerClick() started.
+◇ Test successfulExplicitlyEmptyNullListIsNotAProviderFailure() started.
+◇ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test mixedStringAndNumericPaginationPreservesProviderCategories() started.
+◇ Test searchCategorySurvivesPersistence() started.
+◇ Test reverseDragClampsToVideoEdges() started.
+◇ Test nullListWithoutExplicitSuccessfulEmptyMetadataRemainsInvalid() started.
+◇ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() started.
+◇ Test endRequiresActualEOFAndLatestSeekWithoutPendingTarget() started.
+◇ Test recoveryIsSuggestedOnlyAfterContinuousFifteenSecondWait() started.
+◇ Test draggingAwayAndBackIsNotAClick() started.
+◇ Test browseDoesNotSuppressOptionalRequestCancellation() started.
+◇ Test draggingTheSecondClickDoesNotToggleFullscreen() started.
+◇ Test releaseOutsideCanvasCannotTogglePlayback() started.
+◇ Test preparationDoesNotDisappearWhenTransportIsPaused() started.
+◇ Test searchPagesKeepsProviderErrorsSeparateAndSkipsDisabledAndDuplicateIDs() started.
+◇ Test letterboxBarsAreExcludedFromSelectionCoordinates() started.
+◇ Test releaseMovementIsCheckedEvenWithoutDragEvents() started.
+◇ Test playingAndFatalFailuresClearLoadingWhilePendingSeekHasItsOwnMessage() started.
+◇ Test preferencesSurviveReloadIncludingMutedVolume() started.
+◇ Test portraitFitAndRetinaPointsYieldTheSameNormalizedRegion() started.
+◇ Test doubleClickSwitchesFullscreenWithoutPausing() started.
+◇ Test temporalRestorationChoicesSurviveRestart() started.
+◇ Test newProfilesStartWithOriginalAndRememberGentleEnhancement() started.
+◇ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() started.
+◇ Test invalidValuesCannotReachPlayback() started.
+◇ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() started.
+◇ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() started.
+◇ Test smallPointerJitterStillCountsAsASingleClick() started.
+◇ Test acceptsSupportedFormats() started.
+◇ Test pipelineSwitchDefaultsToEnhancedAndSurvivesRoundTrip() started.
+◇ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() started.
+◇ Test rejectsBeyondDurationAndUnavailableTimeline() started.
+◇ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() started.
+◇ Test hevc4KUnknownRangeAndCodecLookalikesDoNotInventDolby() started.
+◇ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() started.
+◇ Test pausedReadyItemDoesNotShowStaleBuffering() started.
+◇ Test topLeftDisplayCoordinatesConvertToBottomLeftPixels() started.
+◇ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() started.
+◇ Test inspectorKeepsOuterMixedMasterDeclarationsWhileFollowingSDRProbeBranch() started.
+◇ Test supplementalDolbyVisionRequiresMatchingBaseRangeAndCompatibilityBrand() started.
+◇ Test missingAudioURIAndDefaultArePreservedWithoutInventedDefaults() started.
+◇ Test decodingValidatesOutOfRangeStoredValues() started.
+◇ Test nonSquarePixelsCropAndUnknownDisplayGeometryCannotReceiveMask() started.
+◇ Test rejectsMalformedTime(input:) started.
+◇ Test testHLSRelativeSegmentsAndEncryptionAndDuration() started.
+◇ Test malformedOrDuplicatedAttributesCannotTurnIntoTrustedDeclarations() started.
+◇ Test leafPlaylistContainsNoAssumedVideoOrAudioDeclarations() started.
+◇ Test theDeclaredSubstreamCountIsAnUpperBound() started.
+◇ Test testHLSRejectsHTMLAndMetadataOnly() started.
+◇ Test boundsAndNonFiniteValuesAreRejected() started.
+◇ Test smallWatermarksAndCornerBrandsDoNotQualify() started.
+◇ Test directDolbyVisionCodecAndExplicitHDRRangesAreDeclarations() started.
+◇ Test invalidProtectionFailsClosedAndLimitsAreEnforced() started.
+◇ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() started.
+◇ Test mainBrandWithIndependentPromotionIsAnAdvertisement() started.
+◇ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() started.
+◇ Test multichannelEAC3NamesAndMalformedJOCNeverInventAtmos() started.
+◇ Test linkedEAC3RenditionWithJOCIsAnAtmosDeclaration() started.
+◇ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() started.
+◇ Test oldHLSInfoJSONDecodesWithoutDeclarationsAndNewValuesRoundTrip() started.
+◇ Test unsupportedFramingBitstreamIdentifiersAndReservedBitsDoNotQualify() started.
+◇ Test theSamePayloadWithTheFlagClearedIsNotAtmos() started.
+◇ Test subtitleProtectionRejectsWholeRegionIncludingFourPixelMargin() started.
+◇ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() started.
+◇ Test unrelatedAudioGroupsAndSubtitleRenditionsDoNotLeakAtmos() started.
+◇ Test mergesSourcesButNotSeasonsOrRemakes() started.
+◇ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() started.
+◇ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() started.
+◇ Test ordinaryFrameSplitsTwoIndependentAdRuns() started.
+◇ Test disabledSettingsHaveNoActiveRegionAndOverlappingProtectionRejectsRatherThanCrops() started.
+◇ Test savedKnownYearDoesNotFollowAnUnknownSourceAfterPaginationSplitsTheGroup() started.
+◇ Test manualSourceChoiceWinsAndDisabledPreferredSourceIsSkipped() started.
+◇ Test testPlaybackRateTightensBudget() started.
+◇ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() started.
+◇ Test invalidDolbyVisionConfigurationBoxesAreRejected() started.
+◇ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() started.
+◇ Test everyTruncatedPrefixIsRejected() started.
+◇ Test realNonJOCEAC3PayloadsAreNotAtmos() started.
+◇ Test representativeUsesAvailableArtworkWithoutChangingSourceIdentity() started.
+◇ Test emptySuccessfulOCRIsOrdinary() started.
+◇ Test testHTMLSharePagesAreNotPlayableEpisodeLines() started.
+◇ Test savedUnknownSourcesDoNotFollowConflictingYearEnrichment() started.
+◇ Test detailUsesActualCatalogTitleToRejectChangedSeasonAndFallsBackOnEmptyFields() started.
+◇ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() started.
+◇ Test trailingBoxPaddingAndSlicedPayloadsDoNotChangeTheResult() started.
+◇ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() started.
+◇ Test savedUnknownYearFollowsUnambiguousMetadataEnrichment() started.
+◇ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() started.
+◇ Test testPortraitAndExisting4KPreservePixels() started.
+◇ Test watchlistRoundTripAndCorruptionIsPreserved() started.
+◇ Test testWideFrameFills4KWithoutStretching() started.
+◇ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() started.
+◇ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() started.
+◇ Test partialSubtitleOverlapRejectsTheWholeTextBox() started.
+◇ Test missingYearJoinsOnlyAnUnambiguousYear() started.
+◇ Test completeExtensionFlagIdentifiesAtmosMetadata() started.
+◇ Test dependentSubstreamChannelMapsAreNeverClaimed() started.
+◇ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() started.
+◇ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test reusedSourceIdentityDoesNotMergeKnownYearsOrDifferentSeasons() started.
+◇ Test twoFramesOrInsufficientSpanAreNotEnough() started.
+◇ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() started.
+◇ Test cancelledChecksPropagateCancellation() started.
+◇ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() started.
+◇ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() started.
+◇ Test longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() started.
+◇ Test invalidTextOrProtectionGeometryIsUnknown() started.
+◇ Test malformedSeekInputsNeverProduceATarget() started.
+◇ Test htmlErrorPageIsNotAReadableVideoSegment() started.
+◇ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() started.
+◇ Test pausedOrBusyPlaybackNeverSkips() started.
+◇ Test providerUpgradePreservesRemovedAndDisabledBuiltins() started.
+◇ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() started.
+◇ Test pointsBeyondTrackClampToMediaBounds() started.
+◇ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() started.
+◇ Test additionalProtectionExcludesEitherEvidenceBox() started.
+◇ Test apiSuccessDoesNotMaskAnUnavailableVideo() started.
+◇ Test previewCardRemainsInsideNarrowAndWideControls() started.
+◇ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() started.
+◇ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() started.
+◇ Test thumbCentersMapToStartMiddleAndEnd() started.
+◇ Test segmentOverNinetySecondsIsRejectedAsAWhole() started.
+◇ Test unknownDurationAndInvalidGeometryCannotSeek() started.
+◇ Test missingRepresentativeFilmIsNotAConnectivityCertification() started.
+◇ Test traditionalCharactersWhitespaceAndPunctuationNormalize() started.
+◇ Test testTimingCountsCompletedTailLatencyAndHeadroom() started.
+◇ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() started.
+◇ Test testExplicitTargetsAndAspectRatio() started.
+◇ Test testOldPreferencesMigrateWithoutChangingMode() started.
+◇ Test registrationOfferRecognizedByActualOCRIsSupported() started.
+◇ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() started.
+◇ Test case passing 1 argument mode → "category-malformed" to browsePreservesSuccessfulDetailPageWhenOptionalCategoriesFail(mode:) started.
+◇ Test case passing 1 argument mode → "category-http-error" to browsePreservesSuccessfulDetailPageWhenOptionalCategoriesFail(mode:) started.
+◇ Test case passing 1 argument button → 1 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test case passing 1 argument button → 2 to secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) started.
+◇ Test case passing 1 argument input → "" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "-1" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "+1" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "NaN" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "inf" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1e3" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1::2" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → ":20" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1:60:00" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1:60" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1:2:60" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1.5:02" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1:02:03:04" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "１:２０" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1 :02" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "1." to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument input → "9999999999999999999999999999999999999999" to rejectsMalformedTime(input:) started.
+◇ Test case passing 1 argument mode → "encrypted-angle" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-bracket" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "encrypted-readable-brace" to encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) started.
+◇ Test case passing 1 argument mode → "html-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "json-object-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+◇ Test case passing 1 argument mode → "json-array-bom" to longTextErrorDocumentsAreNotReadableSegments(mode:) started.
+✔ Test bufferingOrPlaybackErrorKeepsRecoveryControlsVisible() passed after 0.007 seconds.
+✔ Test pausingBringsControlsBackEvenAfterLongInactivity() passed after 0.007 seconds.
+✔ Test interactingOrSwitchingAwayPreventsHidingControls() passed after 0.007 seconds.
+✔ Test testBadSubtitleTimesAreRejected() passed after 0.007 seconds.
+✔ Test invalidOrReversedClockValuesFailVisible() passed after 0.007 seconds.
+✔ Test playingKeepsControlsUntilThreeSecondsOfInactivity() passed after 0.007 seconds.
+✔ Test replacedMediaOrRenamedEpisodeCannotUseOldResumePosition() passed after 0.007 seconds.
+✔ Test legacyHistoryWithoutCategoryStillDecodes() passed after 0.007 seconds.
+✔ Test legacyHistoryWithoutContextStillLoads() passed after 0.007 seconds.
+✔ Test testSRTParsesBOMMultilineAndMixedTimestampPunctuation() passed after 0.007 seconds.
+✔ Test lineSwitchDoesNotMatchDifferentEpisodeOrInventMissingContext() passed after 0.007 seconds.
+✔ Test testASSParsesCommasAndStyleOverridesWithoutShowingMarkup() passed after 0.007 seconds.
+✔ Test namedEpisodeMustMatchExactlyWithoutNumberGuessing() passed after 0.007 seconds.
+✔ Test candidatesRetainDifferentProvidersAndRemoveDuplicatesAndCurrentVersion() passed after 0.007 seconds.
+✔ Test emptyResultsStopPaginationAndMissingMetadataDoesNotInventMorePages() passed after 0.007 seconds.
+✔ Test invalidGeometryAndAccidentalClicksDoNotCreateRegions() passed after 0.007 seconds.
+✔ Test aStaleTimerCannotTogglePlaybackForANewerClick() passed after 0.007 seconds.
+✔ Test successfulExplicitlyEmptyNullListIsNotAProviderFailure() passed after 0.007 seconds.
+✔ Test exactSeasonTitleAcceptsNotationButRejectsDifferentSeasonAndUnknownSeason() passed after 0.007 seconds.
+✔ Test reverseDragClampsToVideoEdges() passed after 0.007 seconds.
+✔ Test episodeRequiresSameNumberAndEquivalentNameAndRejectsAmbiguity() passed after 0.008 seconds.
+✔ Test historyRestoresExactSeriesLineAndEpisode() passed after 0.007 seconds.
+✔ Test secondaryButtonsCannotTogglePlaybackOrFullscreen(button:) with 2 test cases passed after 0.007 seconds.
+✔ Test nullListWithoutExplicitSuccessfulEmptyMetadataRemainsInvalid() passed after 0.007 seconds.
+✔ Test endRequiresActualEOFAndLatestSeekWithoutPendingTarget() passed after 0.007 seconds.
+✔ Test draggingAwayAndBackIsNotAClick() passed after 0.007 seconds.
+✔ Test draggingTheSecondClickDoesNotToggleFullscreen() passed after 0.007 seconds.
+✔ Test aThirdClickDoesNotAddPlaybackOrFullscreenActions() passed after 0.007 seconds.
+✔ Test recoveryIsSuggestedOnlyAfterContinuousFifteenSecondWait() passed after 0.007 seconds.
+✔ Test releaseOutsideCanvasCannotTogglePlayback() passed after 0.007 seconds.
+✔ Test unnumberedEpisodeSwitchRequiresExactLabel() passed after 0.007 seconds.
+✔ Test ignoredPageAndMalformedPaginationAreErrorsRatherThanRepeatedFirstPage() passed after 0.007 seconds.
+✔ Test preparationDoesNotDisappearWhenTransportIsPaused() passed after 0.007 seconds.
+✔ Test testResumePersistsByEpisodeAndDoesNotOverwriteAnotherEpisode() passed after 0.008 seconds.
+✔ Test letterboxBarsAreExcludedFromSelectionCoordinates() passed after 0.007 seconds.
+✔ Test playingAndFatalFailuresClearLoadingWhilePendingSeekHasItsOwnMessage() passed after 0.007 seconds.
+✔ Test doubleClickSwitchesFullscreenWithoutPausing() passed after 0.007 seconds.
+✔ Test releaseMovementIsCheckedEvenWithoutDragEvents() passed after 0.007 seconds.
+✔ Test testCorruptHistoryIsReportedRatherThanSilentlyDestroyed() passed after 0.008 seconds.
+✔ Test temporalRestorationChoicesSurviveRestart() passed after 0.007 seconds.
+✔ Test invalidValuesCannotReachPlayback() passed after 0.007 seconds.
+✔ Test newProfilesStartWithOriginalAndRememberGentleEnhancement() passed after 0.007 seconds.
+✔ Test portraitFitAndRetinaPointsYieldTheSameNormalizedRegion() passed after 0.007 seconds.
+✔ Test aClickSequenceStartedOnAnotherControlCannotToggleFullscreen() passed after 0.007 seconds.
+✔ Test timerRoundsRemainingTimeUpAndExpiresOnlyOnce() passed after 0.007 seconds.
+✔ Test smallPointerJitterStillCountsAsASingleClick() passed after 0.007 seconds.
+✔ Test acceptsSupportedFormats() passed after 0.007 seconds.
+✔ Test unmutingRestoresLastAudibleVolumeAfterMultipleChanges() passed after 0.007 seconds.
+✔ Test rejectsBeyondDurationAndUnavailableTimeline() passed after 0.007 seconds.
+✔ Test preferencesSurviveReloadIncludingMutedVolume() passed after 0.007 seconds.
+✔ Test leavingOrDeactivatingTheCanvasCancelsPendingAndPressedClicks() passed after 0.007 seconds.
+✔ Test pausedReadyItemDoesNotShowStaleBuffering() passed after 0.007 seconds.
+✔ Test pipelineSwitchDefaultsToEnhancedAndSurvivesRoundTrip() passed after 0.007 seconds.
+✔ Test timerReplacementCancellationAndDelayedWakeCannotLeakOldDeadline() passed after 0.007 seconds.
+✔ Test topLeftDisplayCoordinatesConvertToBottomLeftPixels() passed after 0.007 seconds.
+✔ Test oldPreferencesEnableLocalAdSkippingAndDisabledChoiceSurvivesRoundTrip() passed after 0.007 seconds.
+✔ Test supplementalDolbyVisionRequiresMatchingBaseRangeAndCompatibilityBrand() passed after 0.007 seconds.
+✔ Test hevc4KUnknownRangeAndCodecLookalikesDoNotInventDolby() passed after 0.007 seconds.
+✔ Test searchCategorySurvivesPersistence() passed after 0.008 seconds.
+✔ Test decodingValidatesOutOfRangeStoredValues() passed after 0.007 seconds.
+✔ Test testHLSRelativeSegmentsAndEncryptionAndDuration() passed after 0.007 seconds.
+✔ Test leafPlaylistContainsNoAssumedVideoOrAudioDeclarations() passed after 0.007 seconds.
+✔ Test nonSquarePixelsCropAndUnknownDisplayGeometryCannotReceiveMask() passed after 0.007 seconds.
+✔ Test testHLSRejectsHTMLAndMetadataOnly() passed after 0.007 seconds.
+✔ Test mixedStringAndNumericPaginationPreservesProviderCategories() passed after 0.008 seconds.
+✔ Test rejectsMalformedTime(input:) with 17 test cases passed after 0.007 seconds.
+✔ Test missingAudioURIAndDefaultArePreservedWithoutInventedDefaults() passed after 0.007 seconds.
+✔ Test theDeclaredSubstreamCountIsAnUpperBound() passed after 0.007 seconds.
+✔ Test malformedOrDuplicatedAttributesCannotTurnIntoTrustedDeclarations() passed after 0.007 seconds.
+✔ Test boundsAndNonFiniteValuesAreRejected() passed after 0.007 seconds.
+✔ Test diagnosticSessionsNeitherReadNorWriteDailyPreferences() passed after 0.007 seconds.
+✔ Test directDolbyVisionCodecAndExplicitHDRRangesAreDeclarations() passed after 0.007 seconds.
+✔ Test smallWatermarksAndCornerBrandsDoNotQualify() passed after 0.007 seconds.
+✔ Test invalidProtectionFailsClosedAndLimitsAreEnforced() passed after 0.007 seconds.
+✔ Test mainBrandWithIndependentPromotionIsAnAdvertisement() passed after 0.007 seconds.
+✔ Test linkedEAC3RenditionWithJOCIsAnAtmosDeclaration() passed after 0.007 seconds.
+✔ Test unclosedRunAndUnknownEndingCannotManufactureAnEnd() passed after 0.007 seconds.
+✔ Test theSamePayloadWithTheFlagClearedIsNotAtmos() passed after 0.007 seconds.
+✔ Test testQueryUsesURLComponentsWithoutLosingExistingParameters() passed after 0.007 seconds.
+✔ Test subtitleProtectionRejectsWholeRegionIncludingFourPixelMargin() passed after 0.007 seconds.
+✔ Test partialOrUnrelatedNamesAndBrandAloneDoNotQualify() passed after 0.007 seconds.
+✔ Test unsupportedFramingBitstreamIdentifiersAndReservedBitsDoNotQualify() passed after 0.007 seconds.
+✔ Test subtitleBandDoesNotSupplyBrandOrPromotionEvenWhenCallerOmitsProtection() passed after 0.007 seconds.
+✔ Test aSingleClickWaitsForDoubleClickWindowAndTogglesOnlyOnce() passed after 0.008 seconds.
+✔ Test oldHLSInfoJSONDecodesWithoutDeclarationsAndNewValuesRoundTrip() passed after 0.007 seconds.
+✔ Test testProviderErrorPayloadDoesNotPretendToBeEmptyCatalog() passed after 0.007 seconds.
+✔ Test unrelatedAudioGroupsAndSubtitleRenditionsDoNotLeakAtmos() passed after 0.007 seconds.
+✔ Test ordinaryFrameSplitsTwoIndependentAdRuns() passed after 0.007 seconds.
+✔ Test testPlaybackRateTightensBudget() passed after 0.007 seconds.
+✔ Test manualSourceChoiceWinsAndDisabledPreferredSourceIsSkipped() passed after 0.007 seconds.
+✔ Test testMasterSelectsHighestResolutionAndResolvesRelativeVariant() passed after 0.007 seconds.
+✔ Test emptySuccessfulOCRIsOrdinary() passed after 0.007 seconds.
+✔ Test realNonJOCEAC3PayloadsAreNotAtmos() passed after 0.007 seconds.
+✔ Test disabledSettingsHaveNoActiveRegionAndOverlappingProtectionRejectsRatherThanCrops() passed after 0.007 seconds.
+✔ Test everyTruncatedPrefixIsRejected() passed after 0.007 seconds.
+✔ Test longSamplingGapDiscardsRunIncludingWhenNextFrameIsOrdinary() passed after 0.007 seconds.
+✔ Test invalidDolbyVisionConfigurationBoxesAreRejected() passed after 0.007 seconds.
+✔ Test trailingBoxPaddingAndSlicedPayloadsDoNotChangeTheResult() passed after 0.007 seconds.
+✔ Test invalidOrUnorderedTimesRejectTheBatchWithoutSorting() passed after 0.007 seconds.
+✔ Test multichannelEAC3NamesAndMalformedJOCNeverInventAtmos() passed after 0.007 seconds.
+✔ Test testPortraitAndExisting4KPreservePixels() passed after 0.007 seconds.
+✔ Test testHTMLSharePagesAreNotPlayableEpisodeLines() passed after 0.007 seconds.
+✔ Test skipOnlyInsideConfirmedSegmentWithAtLeastOneSecondRemaining() passed after 0.007 seconds.
+✔ Test testTransientSpikeDoesNotDisableButSustainedOverloadDoes() passed after 0.007 seconds.
+✔ Test mergesSourcesButNotSeasonsOrRemakes() passed after 0.007 seconds.
+✔ Test partialSubtitleOverlapRejectsTheWholeTextBox() passed after 0.007 seconds.
+✔ Test testWideFrameFills4KWithoutStretching() passed after 0.007 seconds.
+✔ Test completeExtensionFlagIdentifiesAtmosMetadata() passed after 0.007 seconds.
+✔ Test savedUnknownYearFollowsUnambiguousMetadataEnrichment() passed after 0.007 seconds.
+✔ Test threeConfirmedFramesClosedByOrdinaryUseOnlyConfirmedInterior() passed after 0.007 seconds.
+✔ Test dependentSubstreamChannelMapsAreNeverClaimed() passed after 0.007 seconds.
+✔ Test representativeUsesAvailableArtworkWithoutChangingSourceIdentity() passed after 0.007 seconds.
+✔ Test savedKnownYearDoesNotFollowAnUnknownSourceAfterPaginationSplitsTheGroup() passed after 0.007 seconds.
+✔ Test testSearchPreservesProviderAndHandlesMixedIDsAndHTMLSummary() passed after 0.007 seconds.
+✔ Test missingYearJoinsOnlyAnUnambiguousYear() passed after 0.007 seconds.
+✔ Test twoFramesOrInsufficientSpanAreNotEnough() passed after 0.007 seconds.
+✔ Test savedUnknownSourcesDoNotFollowConflictingYearEnrichment() passed after 0.007 seconds.
+✔ Test testProviderEndpointRejectsCredentialsAndNonHTTPS() passed after 0.007 seconds.
+✔ Test detailUsesActualCatalogTitleToRejectChangedSeasonAndFallsBackOnEmptyFields() passed after 0.007 seconds.
+✔ Test malformedSeekInputsNeverProduceATarget() passed after 0.007 seconds.
+✔ Test maximumSamplingGapIsAcceptedWithoutExpandingEdges() passed after 0.007 seconds.
+✔ Test pointsBeyondTrackClampToMediaBounds() passed after 0.007 seconds.
+✔ Test anyIgnoredOverlapPreventsJumpingButAdjacentSegmentsDoNot() passed after 0.007 seconds.
+✔ Test reusedSourceIdentityDoesNotMergeKnownYearsOrDifferentSeasons() passed after 0.007 seconds.
+✔ Test invalidTextOrProtectionGeometryIsUnknown() passed after 0.007 seconds.
+✔ Test limitedWelcomeAffixesDoNotTurnDialogueIntoBrandEvidence() passed after 0.007 seconds.
+✔ Test testMultipleLinesPreserveAlignmentAndSortEpisodesWithoutRenumberingGaps() passed after 0.007 seconds.
+✔ Test previewCardRemainsInsideNarrowAndWideControls() passed after 0.007 seconds.
+✔ Test thumbCentersMapToStartMiddleAndEnd() passed after 0.007 seconds.
+✔ Test httpProxyBypassIsExplicitAndSystemDefaultIsPreserved() passed after 0.007 seconds.
+✔ Test additionalProtectionExcludesEitherEvidenceBox() passed after 0.007 seconds.
+✔ Test unknownDurationAndInvalidGeometryCannotSeek() passed after 0.007 seconds.
+✔ Test oneTextBoxCannotProvideBothBrandAndPromotionEvidence() passed after 0.007 seconds.
+✔ Test pausedOrBusyPlaybackNeverSkips() passed after 0.007 seconds.
+✔ Test providerUpgradePreservesRemovedAndDisabledBuiltins() passed after 0.007 seconds.
+✔ Test lowConfidenceCannotTriggerAndMalformedConfidenceIsUnknown() passed after 0.007 seconds.
+✔ Test segmentOverNinetySecondsIsRejectedAsAWhole() passed after 0.007 seconds.
+✔ Test testExplicitTargetsAndAspectRatio() passed after 0.007 seconds.
+✔ Test testTimingCountsCompletedTailLatencyAndHeadroom() passed after 0.007 seconds.
+✔ Test registrationOfferRecognizedByActualOCRIsSupported() passed after 0.006 seconds.
+✔ Test unknownInsideRunPreventsBridgingAcrossUnobservedContent() passed after 0.006 seconds.
+✔ Test testStableIdentitySurvivesLineAndEpisodeReorderingButNotMediaReplacement() passed after 0.008 seconds.
+✔ Test testOldPreferencesMigrateWithoutChangingMode() passed after 0.007 seconds.
+✔ Test traditionalCharactersWhitespaceAndPunctuationNormalize() passed after 0.007 seconds.
+✔ Test watchlistRoundTripAndCorruptionIsPreserved() passed after 0.008 seconds.
+✔ Suite LibraryTests passed after 0.009 seconds.
+✔ Suite HistoryContextTests passed after 0.009 seconds.
+✔ Suite SourceMatchingTests passed after 0.009 seconds.
+✔ Suite PlaybackCanvasClickPolicyTests passed after 0.009 seconds.
+✔ Suite PlaybackPreferencesTests passed after 0.009 seconds.
+✔ Suite VideoSelectionTests passed after 0.009 seconds.
+✔ Suite PlaybackStabilityTests passed after 0.009 seconds.
+✔ Suite PlaybackTimecodeTests passed after 0.009 seconds.
+✔ Suite AdCleanupTests passed after 0.009 seconds.
+✔ Suite QualityTests passed after 0.009 seconds.
+✔ Test cancelledChecksPropagateCancellation() passed after 0.008 seconds.
+✔ Suite DolbyMetadataTests passed after 0.009 seconds.
+✔ Suite SeekTimelineGeometryTests passed after 0.009 seconds.
+✔ Suite PlaybackControlsPolicyTests passed after 0.009 seconds.
+✔ Suite CatalogLibraryTests passed after 0.009 seconds.
+✔ Suite EnhancementTargetTests passed after 0.009 seconds.
+✔ Suite SourceTests passed after 0.009 seconds.
+✔ Test searchPagesKeepsProviderErrorsSeparateAndSkipsDisabledAndDuplicateIDs() passed after 0.008 seconds.
+✔ Suite AdSkipPolicyTests passed after 0.009 seconds.
+✔ Test browseDoesNotSuppressPrimaryRequestFailure() passed after 0.009 seconds.
+✔ Test missingRepresentativeFilmIsNotAConnectivityCertification() passed after 0.008 seconds.
+✔ Test browseKeepsSuccessfulOptionalCategories() passed after 0.010 seconds.
+✔ Test browseDoesNotSuppressOptionalRequestCancellation() passed after 0.010 seconds.
+✔ Test browsePreservesSuccessfulDetailPageWhenOptionalCategoriesFail(mode:) with 2 test cases passed after 0.010 seconds.
+✔ Suite CatalogPageTests passed after 0.010 seconds.
+✔ Test inspectorKeepsOuterMixedMasterDeclarationsWhileFollowingSDRProbeBranch() passed after 0.010 seconds.
+✔ Suite HLSDolbyDeclarationsTests passed after 0.011 seconds.
+✔ Test htmlErrorPageIsNotAReadableVideoSegment() passed after 0.011 seconds.
+✔ Test apiSuccessDoesNotMaskAnUnavailableVideo() passed after 0.011 seconds.
+✔ Test cancellationDuringSegmentTransferPropagatesInsteadOfReturningAReport() passed after 0.011 seconds.
+✔ Test longTextErrorDocumentsAreNotReadableSegments(mode:) with 3 test cases passed after 0.011 seconds.
+✔ Test encryptedBinaryPrefixesAreNotMistakenForTextDocuments(mode:) with 4 test cases passed after 0.012 seconds.
+✔ Test followsRealCatalogToPlaylistAndBoundedSegmentPrefix() passed after 0.014 seconds.
+✔ Suite SourceAccessTests passed after 0.016 seconds.
+✔ Test run with 159 tests in 20 suites passed after 0.016 seconds.

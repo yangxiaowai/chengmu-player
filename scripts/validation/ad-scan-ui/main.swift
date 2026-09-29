@@ -32,7 +32,7 @@ struct AdSkipQAApp: App {
     @NSApplicationDelegateAdaptor(AdSkipQADelegate.self) private var delegate
     @StateObject private var model = AppModel()
     var body: some Scene {
-        WindowGroup("映川 · 广告跳过隔离验收") {
+        WindowGroup("澄幕 · 广告跳过隔离验收") {
             AdSkipQAView(model: model)
         }
         // Match the production window's minimum width when inspecting crowded controls.

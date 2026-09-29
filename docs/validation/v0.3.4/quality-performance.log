@@ -1,0 +1,20 @@
+PASS original_mode_rejected_without_worker
+PASS oversized_input_rejected_without_downsampling
+PASS duplicate_run_rejected
+PASS cancel_enters_stopping_state
+PASS cancel_finishes_once_without_report completionCount=1 status=检测已取消
+PASS 4k_fps60_explicitly_rejected 60 fps 插帧自检目前限 1080p 以内，请选择 1080p 预设；不会暗中降低目标尺寸。
+RUN clarity_1080p_motion60
+PASS clarity_1080p_motion60_completed completionCount=1
+PASS clarity_1080p_motion60_samples_and_pixels
+PASS clarity_1080p_motion60_source_interval_budget
+PASS clarity_1080p_motion60_actual_1080p
+PASS clarity_1080p_motion60_motion_grid grid=75 interpolated=60 sampledMediaSeconds=1.25
+RESULT clarity_1080p_motion60 meanMS=32.37505138386041 p95MS=42.87395824212581 budgetMS=41.666666666666664 generated=60
+RUN restoration_4k_source24
+PASS restoration_4k_source24_completed completionCount=1
+PASS restoration_4k_source24_samples_and_pixels
+PASS restoration_4k_source24_source_interval_budget
+PASS restoration_4k_source24_actual_4k
+PASS restoration_4k_source24_source_frames_only
+RESULT restoration_4k_source24 meanMS=18.377558320450287 p95MS=21.340416627936065 budgetMS=41.666666666666664 generated=0

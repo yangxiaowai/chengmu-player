@@ -1,0 +1,41 @@
+PASS real_window_hosts_metal_view
+WARM 0 0 0 processingMS 0.0 sourceFPS 0.0
+WARM 1 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 2 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 3 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 4 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 5 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 6 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 7 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 8 0 0 processingMS 0.0 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 9 0 2 processingMS 103.29720843583345 sourceFPS 24.0 正在预热运动插帧，暂用原片
+WARM 10 36 28 processingMS 4.4589166063815355 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 11 60 28 processingMS 3.65004176273942 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 12 84 28 processingMS 3.7864582845941186 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 13 108 28 processingMS 3.2971666660159826 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 14 133 28 processingMS 1.716333325020969 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 15 157 28 processingMS 1.2438333360478282 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 16 180 28 processingMS 1.1917083756998181 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 17 205 28 processingMS 1.4107916504144669 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 18 229 28 processingMS 1.2172500137239695 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 19 253 28 processingMS 1.270458335056901 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 20 277 28 processingMS 1.5449583297595382 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 21 300 28 processingMS 4.60254168137908 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 22 324 28 processingMS 2.931708237156272 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 23 348 28 processingMS 4.198958398774266 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+WARM 24 372 28 processingMS 4.6357084065675735 sourceFPS 24.0 未来帧未及时就绪，已保留修复并跟随片源帧率
+FAIL interpolation_warms_within_25_seconds warmSeconds=25.018975708284415 ["selectedPTS": 24.791666666666668, "processingMS": 4.196083289571106, "sourceFPS": 24.0, "fallback": "", "renderedFrames": 397, "drawablePresentedFrames": 0, "reportedDrawableFPS": <null>, "interpolatedFrames": 28, "output": [1280, 720], "processedFrames": 385, "timing": "未来帧未及时就绪，已保留修复并跟随片源帧率", "mode": "自然降噪", "nativeVisible": false, "player": ["reasonForWaiting": "", "rate": 1.0, "clockValid": true, "clockDescription": "CMTime(value: 24818310001, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "error": "", "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]]], "clock": 24.818240334, "clockValid": true]
+PASS startup_does_not_show_obsolete_frames obsolete sampled frames=0
+PASS primary_clock_advances_without_jump mediaSeconds=5.003189040999999 TimeJumped=0
+FAIL five_second_window_presents_near_60_unique_pts completed presentations=120 wallSeconds=5.003050499944948 measuredFPS=23.985366528145267
+PASS presented_pts_are_strictly_increasing
+FAIL presented_pts_follow_60hz_grid
+PASS completed_frame_clock_lag_is_bounded min=0.005668000333333367 max=0.020888167666669233
+PASS target_is_actual_1280x720 ["selectedPTS": 29.791666666666668, "processingMS": 3.2899583457037807, "sourceFPS": 24.0, "fallback": "", "renderedFrames": 517, "drawablePresentedFrames": 0, "reportedDrawableFPS": <null>, "interpolatedFrames": 28, "output": [1280, 720], "processedFrames": 505, "timing": "未来帧未及时就绪，已保留修复并跟随片源帧率", "mode": "自然降噪", "nativeVisible": false, "player": ["reasonForWaiting": "", "error": "", "clockDescription": "CMTime(value: 29823026167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "rate": 1.0, "itemStatus": "AVPlayerItemStatus(rawValue: 1)", "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)"], "clock": 29.822958417, "clockValid": true]
+DRAWABLE_PRESENTED 0 measuredFPS 0.0 reportedFPS unavailable
+PASS paused_split_uses_same_frame_reference ["selectedPTS": 29.791666666666668, "processingMS": 2.4283749517053366, "sourceFPS": 24.0, "fallback": "", "renderedFrames": 518, "drawablePresentedFrames": 0, "reportedDrawableFPS": <null>, "interpolatedFrames": 28, "output": [1280, 720], "processedFrames": 506, "timing": "同帧对照 · 跟随片源帧率", "mode": "自然降噪", "nativeVisible": false, "player": ["itemStatus": "AVPlayerItemStatus(rawValue: 1)", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "clockDescription": "CMTime(value: 29824338375, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "error": "", "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "reasonForWaiting": "", "rate": 0.0], "clock": 29.824338375, "clockValid": true]
+PASS paused_split_stays_on_one_pts
+PASS paused_seek_discards_future_revision ["selectedPTS": 2.0, "processingMS": 2.561999950557947, "sourceFPS": 24.0, "fallback": "", "renderedFrames": 519, "drawablePresentedFrames": 0, "reportedDrawableFPS": <null>, "interpolatedFrames": 28, "output": [1280, 720], "processedFrames": 507, "timing": "同帧对照 · 跟随片源帧率", "mode": "自然降噪", "nativeVisible": false, "player": ["itemStatus": "AVPlayerItemStatus(rawValue: 1)", "loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "clockDescription": "CMTime(value: 1200, timescale: 600, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "error": "", "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 0)", "reasonForWaiting": "", "rate": 0.0], "clock": 2.0, "clockValid": true]
+PASS native_switch_reuses_output_and_rejects_late_results
+PASS native_switch_preserves_position_without_time_jump before=2.0 after=2.0 newTimeJumps=0
+PASS unsupported_4k60_explains_and_keeps_picture ["processingMS": 10.05420833826065, "reportedDrawableFPS": <null>, "processedFrames": 515, "output": [3840, 2160], "timing": "实时运动补偿插帧目前限制为1080p，请选择1080p输出；当前跟随片源帧率", "fallback": "", "mode": "自然降噪 + 平滑缩放", "sourceFPS": 24.0, "selectedPTS": 2.4166666666666665, "player": ["loadedTimeRanges": [["start": 0.0, "duration": 45.0]], "reasonForWaiting": "", "rate": 1.0, "error": "", "clockDescription": "CMTime(value: 2456729545, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)", "clockValid": true, "timeControlStatus": "AVPlayerTimeControlStatus(rawValue: 2)", "itemStatus": "AVPlayerItemStatus(rawValue: 1)"], "drawablePresentedFrames": 0, "renderedFrames": 527, "interpolatedFrames": 28, "nativeVisible": false, "clockValid": true, "clock": 2.456637712]

@@ -1,0 +1,2679 @@
+{
+  "checks" : [
+    {
+      "detail" : "",
+      "name" : "real_window_hosts_metal_view",
+      "passed" : true
+    },
+    {
+      "detail" : "warmSeconds=25.018975708284415 [\"selectedPTS\": 24.791666666666668, \"processingMS\": 4.196083289571106, \"sourceFPS\": 24.0, \"fallback\": \"\", \"renderedFrames\": 397, \"drawablePresentedFrames\": 0, \"reportedDrawableFPS\": <null>, \"interpolatedFrames\": 28, \"output\": [1280, 720], \"processedFrames\": 385, \"timing\": \"未来帧未及时就绪，已保留修复并跟随片源帧率\", \"mode\": \"自然降噪\", \"nativeVisible\": false, \"player\": [\"reasonForWaiting\": \"\", \"rate\": 1.0, \"clockValid\": true, \"clockDescription\": \"CMTime(value: 24818310001, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"error\": \"\", \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]]], \"clock\": 24.818240334, \"clockValid\": true]",
+      "name" : "interpolation_warms_within_25_seconds",
+      "passed" : false
+    },
+    {
+      "detail" : "obsolete sampled frames=0",
+      "name" : "startup_does_not_show_obsolete_frames",
+      "passed" : true
+    },
+    {
+      "detail" : "mediaSeconds=5.003189040999999 TimeJumped=0",
+      "name" : "primary_clock_advances_without_jump",
+      "passed" : true
+    },
+    {
+      "detail" : "completed presentations=120 wallSeconds=5.003050499944948 measuredFPS=23.985366528145267",
+      "name" : "five_second_window_presents_near_60_unique_pts",
+      "passed" : false
+    },
+    {
+      "detail" : "",
+      "name" : "presented_pts_are_strictly_increasing",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "presented_pts_follow_60hz_grid",
+      "passed" : false
+    },
+    {
+      "detail" : "min=0.005668000333333367 max=0.020888167666669233",
+      "name" : "completed_frame_clock_lag_is_bounded",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"selectedPTS\": 29.791666666666668, \"processingMS\": 3.2899583457037807, \"sourceFPS\": 24.0, \"fallback\": \"\", \"renderedFrames\": 517, \"drawablePresentedFrames\": 0, \"reportedDrawableFPS\": <null>, \"interpolatedFrames\": 28, \"output\": [1280, 720], \"processedFrames\": 505, \"timing\": \"未来帧未及时就绪，已保留修复并跟随片源帧率\", \"mode\": \"自然降噪\", \"nativeVisible\": false, \"player\": [\"reasonForWaiting\": \"\", \"error\": \"\", \"clockDescription\": \"CMTime(value: 29823026167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"rate\": 1.0, \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"clockValid\": true, \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\"], \"clock\": 29.822958417, \"clockValid\": true]",
+      "name" : "target_is_actual_1280x720",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"selectedPTS\": 29.791666666666668, \"processingMS\": 2.4283749517053366, \"sourceFPS\": 24.0, \"fallback\": \"\", \"renderedFrames\": 518, \"drawablePresentedFrames\": 0, \"reportedDrawableFPS\": <null>, \"interpolatedFrames\": 28, \"output\": [1280, 720], \"processedFrames\": 506, \"timing\": \"同帧对照 · 跟随片源帧率\", \"mode\": \"自然降噪\", \"nativeVisible\": false, \"player\": [\"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"clockDescription\": \"CMTime(value: 29824338375, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"error\": \"\", \"clockValid\": true, \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 0)\", \"reasonForWaiting\": \"\", \"rate\": 0.0], \"clock\": 29.824338375, \"clockValid\": true]",
+      "name" : "paused_split_uses_same_frame_reference",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "paused_split_stays_on_one_pts",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"selectedPTS\": 2.0, \"processingMS\": 2.561999950557947, \"sourceFPS\": 24.0, \"fallback\": \"\", \"renderedFrames\": 519, \"drawablePresentedFrames\": 0, \"reportedDrawableFPS\": <null>, \"interpolatedFrames\": 28, \"output\": [1280, 720], \"processedFrames\": 507, \"timing\": \"同帧对照 · 跟随片源帧率\", \"mode\": \"自然降噪\", \"nativeVisible\": false, \"player\": [\"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\", \"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"clockDescription\": \"CMTime(value: 1200, timescale: 600, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"error\": \"\", \"clockValid\": true, \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 0)\", \"reasonForWaiting\": \"\", \"rate\": 0.0], \"clock\": 2.0, \"clockValid\": true]",
+      "name" : "paused_seek_discards_future_revision",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "native_switch_reuses_output_and_rejects_late_results",
+      "passed" : true
+    },
+    {
+      "detail" : "before=2.0 after=2.0 newTimeJumps=0",
+      "name" : "native_switch_preserves_position_without_time_jump",
+      "passed" : true
+    },
+    {
+      "detail" : "[\"processingMS\": 10.05420833826065, \"reportedDrawableFPS\": <null>, \"processedFrames\": 515, \"output\": [3840, 2160], \"timing\": \"实时运动补偿插帧目前限制为1080p，请选择1080p输出；当前跟随片源帧率\", \"fallback\": \"\", \"mode\": \"自然降噪 + 平滑缩放\", \"sourceFPS\": 24.0, \"selectedPTS\": 2.4166666666666665, \"player\": [\"loadedTimeRanges\": [[\"start\": 0.0, \"duration\": 45.0]], \"reasonForWaiting\": \"\", \"rate\": 1.0, \"error\": \"\", \"clockDescription\": \"CMTime(value: 2456729545, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)\", \"clockValid\": true, \"timeControlStatus\": \"AVPlayerTimeControlStatus(rawValue: 2)\", \"itemStatus\": \"AVPlayerItemStatus(rawValue: 1)\"], \"drawablePresentedFrames\": 0, \"renderedFrames\": 527, \"interpolatedFrames\": 28, \"nativeVisible\": false, \"clockValid\": true, \"clock\": 2.456637712]",
+      "name" : "unsupported_4k60_explains_and_keeps_picture",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "presentations" : [
+    {
+      "clock" : 24.845853042000002,
+      "counter" : 398,
+      "elapsed" : 0.026684083277359605,
+      "pts" : 24.833333333333332
+    },
+    {
+      "clock" : 24.892939000999998,
+      "counter" : 399,
+      "elapsed" : 0.073783708270639181,
+      "pts" : 24.875
+    },
+    {
+      "clock" : 24.929219250999999,
+      "counter" : 400,
+      "elapsed" : 0.11004583328031003,
+      "pts" : 24.916666666666668
+    },
+    {
+      "clock" : 24.979221501000001,
+      "counter" : 401,
+      "elapsed" : 0.16004866664297879,
+      "pts" : 24.958333333333332
+    },
+    {
+      "clock" : 25.010029959000001,
+      "counter" : 402,
+      "elapsed" : 0.19086812494788319,
+      "pts" : 25
+    },
+    {
+      "clock" : 25.061341751,
+      "counter" : 403,
+      "elapsed" : 0.24218745832331479,
+      "pts" : 25.041666666666668
+    },
+    {
+      "clock" : 25.094308751,
+      "counter" : 404,
+      "elapsed" : 0.2751635416643694,
+      "pts" : 25.083333333333332
+    },
+    {
+      "clock" : 25.144450668000001,
+      "counter" : 405,
+      "elapsed" : 0.32530504162423313,
+      "pts" : 25.125
+    },
+    {
+      "clock" : 25.175213959000001,
+      "counter" : 406,
+      "elapsed" : 0.35607408336363733,
+      "pts" : 25.166666666666668
+    },
+    {
+      "clock" : 25.223993500999999,
+      "counter" : 407,
+      "elapsed" : 0.40485045837704092,
+      "pts" : 25.208333333333332
+    },
+    {
+      "clock" : 25.259856375999998,
+      "counter" : 408,
+      "elapsed" : 0.44070899998769164,
+      "pts" : 25.25
+    },
+    {
+      "clock" : 25.307737167999999,
+      "counter" : 409,
+      "elapsed" : 0.48859241663012654,
+      "pts" : 25.291666666666668
+    },
+    {
+      "clock" : 25.343637917999999,
+      "counter" : 410,
+      "elapsed" : 0.52449341665487736,
+      "pts" : 25.333333333333332
+    },
+    {
+      "clock" : 25.393811543000002,
+      "counter" : 411,
+      "elapsed" : 0.57466949999798089,
+      "pts" : 25.375
+    },
+    {
+      "clock" : 25.423945458999999,
+      "counter" : 412,
+      "elapsed" : 0.60480674996506423,
+      "pts" : 25.416666666666668
+    },
+    {
+      "clock" : 25.474154042999999,
+      "counter" : 413,
+      "elapsed" : 0.65501333330757916,
+      "pts" : 25.458333333333332
+    },
+    {
+      "clock" : 25.510956500999999,
+      "counter" : 414,
+      "elapsed" : 0.69180933327879757,
+      "pts" : 25.5
+    },
+    {
+      "clock" : 25.558952334000001,
+      "counter" : 415,
+      "elapsed" : 0.73981974995695055,
+      "pts" : 25.541666666666668
+    },
+    {
+      "clock" : 25.595886959000001,
+      "counter" : 416,
+      "elapsed" : 0.77673375001177192,
+      "pts" : 25.583333333333332
+    },
+    {
+      "clock" : 25.642821042000001,
+      "counter" : 417,
+      "elapsed" : 0.82366887503303587,
+      "pts" : 25.625
+    },
+    {
+      "clock" : 25.676167499999998,
+      "counter" : 418,
+      "elapsed" : 0.85700924997217953,
+      "pts" : 25.666666666666668
+    },
+    {
+      "clock" : 25.725631834000001,
+      "counter" : 419,
+      "elapsed" : 0.9064740416361019,
+      "pts" : 25.708333333333332
+    },
+    {
+      "clock" : 25.762215375,
+      "counter" : 420,
+      "elapsed" : 0.94307391671463847,
+      "pts" : 25.75
+    },
+    {
+      "clock" : 25.810790833999999,
+      "counter" : 421,
+      "elapsed" : 0.99165729165542871,
+      "pts" : 25.791666666666668
+    },
+    {
+      "clock" : 25.844432874999999,
+      "counter" : 422,
+      "elapsed" : 1.0252880416810513,
+      "pts" : 25.833333333333332
+    },
+    {
+      "clock" : 25.891326625000001,
+      "counter" : 423,
+      "elapsed" : 1.0721840832848102,
+      "pts" : 25.875
+    },
+    {
+      "clock" : 25.928468334000002,
+      "counter" : 424,
+      "elapsed" : 1.109330958337523,
+      "pts" : 25.916666666666668
+    },
+    {
+      "clock" : 25.976024584000001,
+      "counter" : 425,
+      "elapsed" : 1.156883875024505,
+      "pts" : 25.958333333333332
+    },
+    {
+      "clock" : 26.009135042,
+      "counter" : 426,
+      "elapsed" : 1.1899941666051745,
+      "pts" : 26
+    },
+    {
+      "clock" : 26.060824624999999,
+      "counter" : 427,
+      "elapsed" : 1.2416790833231062,
+      "pts" : 26.041666666666668
+    },
+    {
+      "clock" : 26.094404583999999,
+      "counter" : 428,
+      "elapsed" : 1.2752570416778326,
+      "pts" : 26.083333333333332
+    },
+    {
+      "clock" : 26.143373084,
+      "counter" : 429,
+      "elapsed" : 1.3242289166664705,
+      "pts" : 26.125
+    },
+    {
+      "clock" : 26.176419459000002,
+      "counter" : 430,
+      "elapsed" : 1.3572757500223815,
+      "pts" : 26.166666666666668
+    },
+    {
+      "clock" : 26.22555075,
+      "counter" : 431,
+      "elapsed" : 1.4064034166513011,
+      "pts" : 26.208333333333332
+    },
+    {
+      "clock" : 26.259052624999999,
+      "counter" : 432,
+      "elapsed" : 1.4399075832916424,
+      "pts" : 26.25
+    },
+    {
+      "clock" : 26.306300959000001,
+      "counter" : 433,
+      "elapsed" : 1.4871557500446215,
+      "pts" : 26.291666666666668
+    },
+    {
+      "clock" : 26.342538334,
+      "counter" : 434,
+      "elapsed" : 1.5233931667171419,
+      "pts" : 26.333333333333332
+    },
+    {
+      "clock" : 26.392499084000001,
+      "counter" : 435,
+      "elapsed" : 1.5733555000042543,
+      "pts" : 26.375
+    },
+    {
+      "clock" : 26.425384542,
+      "counter" : 436,
+      "elapsed" : 1.6062359582865611,
+      "pts" : 26.416666666666668
+    },
+    {
+      "clock" : 26.475846209,
+      "counter" : 437,
+      "elapsed" : 1.6567017083289102,
+      "pts" : 26.458333333333332
+    },
+    {
+      "clock" : 26.507483375,
+      "counter" : 438,
+      "elapsed" : 1.6883299583569169,
+      "pts" : 26.5
+    },
+    {
+      "clock" : 26.559724207999999,
+      "counter" : 439,
+      "elapsed" : 1.7405750416219234,
+      "pts" : 26.541666666666668
+    },
+    {
+      "clock" : 26.592397250000001,
+      "counter" : 440,
+      "elapsed" : 1.7732598750153556,
+      "pts" : 26.583333333333332
+    },
+    {
+      "clock" : 26.640508958000002,
+      "counter" : 441,
+      "elapsed" : 1.8213732916628942,
+      "pts" : 26.625
+    },
+    {
+      "clock" : 26.672334667000001,
+      "counter" : 442,
+      "elapsed" : 1.8532025000313297,
+      "pts" : 26.666666666666668
+    },
+    {
+      "clock" : 26.721994375000001,
+      "counter" : 443,
+      "elapsed" : 1.9028619583696127,
+      "pts" : 26.708333333333332
+    },
+    {
+      "clock" : 26.758796125,
+      "counter" : 444,
+      "elapsed" : 1.9396607916569337,
+      "pts" : 26.75
+    },
+    {
+      "clock" : 26.806036583000001,
+      "counter" : 445,
+      "elapsed" : 1.9869102917145938,
+      "pts" : 26.791666666666668
+    },
+    {
+      "clock" : 26.841417792000001,
+      "counter" : 446,
+      "elapsed" : 2.0222862916998565,
+      "pts" : 26.833333333333332
+    },
+    {
+      "clock" : 26.894658582999998,
+      "counter" : 447,
+      "elapsed" : 2.0754969166591763,
+      "pts" : 26.875
+    },
+    {
+      "clock" : 26.927644666999999,
+      "counter" : 448,
+      "elapsed" : 2.1085027083754539,
+      "pts" : 26.916666666666668
+    },
+    {
+      "clock" : 26.977681624999999,
+      "counter" : 449,
+      "elapsed" : 2.1585434583248571,
+      "pts" : 26.958333333333332
+    },
+    {
+      "clock" : 27.010849374999999,
+      "counter" : 450,
+      "elapsed" : 2.1917125416221097,
+      "pts" : 27
+    },
+    {
+      "clock" : 27.058292375000001,
+      "counter" : 451,
+      "elapsed" : 2.2388357917079702,
+      "pts" : 27.041666666666668
+    },
+    {
+      "clock" : 27.090967291999998,
+      "counter" : 452,
+      "elapsed" : 2.2718239583773538,
+      "pts" : 27.083333333333332
+    },
+    {
+      "clock" : 27.143966625000001,
+      "counter" : 453,
+      "elapsed" : 2.3248237916268408,
+      "pts" : 27.125
+    },
+    {
+      "clock" : 27.178763499999999,
+      "counter" : 454,
+      "elapsed" : 2.3596240832703188,
+      "pts" : 27.166666666666668
+    },
+    {
+      "clock" : 27.224477749999998,
+      "counter" : 455,
+      "elapsed" : 2.4053450833307579,
+      "pts" : 27.208333333333332
+    },
+    {
+      "clock" : 27.257084458000001,
+      "counter" : 456,
+      "elapsed" : 2.4379492916632444,
+      "pts" : 27.25
+    },
+    {
+      "clock" : 27.308376708000001,
+      "counter" : 457,
+      "elapsed" : 2.4892444583820179,
+      "pts" : 27.291666666666668
+    },
+    {
+      "clock" : 27.341137750000001,
+      "counter" : 458,
+      "elapsed" : 2.5220072499942034,
+      "pts" : 27.333333333333332
+    },
+    {
+      "clock" : 27.394255874999999,
+      "counter" : 459,
+      "elapsed" : 2.5751190832816064,
+      "pts" : 27.375
+    },
+    {
+      "clock" : 27.426277667000001,
+      "counter" : 460,
+      "elapsed" : 2.6071417916100472,
+      "pts" : 27.416666666666668
+    },
+    {
+      "clock" : 27.478655332999999,
+      "counter" : 461,
+      "elapsed" : 2.6595136666437611,
+      "pts" : 27.458333333333332
+    },
+    {
+      "clock" : 27.509136832999999,
+      "counter" : 462,
+      "elapsed" : 2.6899932499509305,
+      "pts" : 27.5
+    },
+    {
+      "clock" : 27.557781708,
+      "counter" : 463,
+      "elapsed" : 2.7386494167149067,
+      "pts" : 27.541666666666668
+    },
+    {
+      "clock" : 27.594748333999998,
+      "counter" : 464,
+      "elapsed" : 2.7756094583310187,
+      "pts" : 27.583333333333332
+    },
+    {
+      "clock" : 27.641309292999999,
+      "counter" : 465,
+      "elapsed" : 2.8221703750314191,
+      "pts" : 27.625
+    },
+    {
+      "clock" : 27.674732668000001,
+      "counter" : 466,
+      "elapsed" : 2.8555938750505447,
+      "pts" : 27.666666666666668
+    },
+    {
+      "clock" : 27.724203125999999,
+      "counter" : 467,
+      "elapsed" : 2.9050709583098069,
+      "pts" : 27.708333333333332
+    },
+    {
+      "clock" : 27.758310626,
+      "counter" : 468,
+      "elapsed" : 2.939168291632086,
+      "pts" : 27.75
+    },
+    {
+      "clock" : 27.809247709000001,
+      "counter" : 469,
+      "elapsed" : 2.990112041705288,
+      "pts" : 27.791666666666668
+    },
+    {
+      "clock" : 27.842162293000001,
+      "counter" : 470,
+      "elapsed" : 3.0230280417017639,
+      "pts" : 27.833333333333332
+    },
+    {
+      "clock" : 27.893065084,
+      "counter" : 471,
+      "elapsed" : 3.0739260832779109,
+      "pts" : 27.875
+    },
+    {
+      "clock" : 27.928755584000001,
+      "counter" : 472,
+      "elapsed" : 3.1096048332983628,
+      "pts" : 27.916666666666668
+    },
+    {
+      "clock" : 27.976037251000001,
+      "counter" : 473,
+      "elapsed" : 3.156898416695185,
+      "pts" : 27.958333333333332
+    },
+    {
+      "clock" : 28.010397084000001,
+      "counter" : 474,
+      "elapsed" : 3.1912584583042189,
+      "pts" : 28
+    },
+    {
+      "clock" : 28.059081543000001,
+      "counter" : 475,
+      "elapsed" : 3.2399483333574608,
+      "pts" : 28.041666666666668
+    },
+    {
+      "clock" : 28.093837790999999,
+      "counter" : 476,
+      "elapsed" : 3.2746987083228305,
+      "pts" : 28.083333333333332
+    },
+    {
+      "clock" : 28.141305458000001,
+      "counter" : 477,
+      "elapsed" : 3.3221675417153165,
+      "pts" : 28.125
+    },
+    {
+      "clock" : 28.174393958,
+      "counter" : 478,
+      "elapsed" : 3.3552530416054651,
+      "pts" : 28.166666666666668
+    },
+    {
+      "clock" : 28.224935625000001,
+      "counter" : 479,
+      "elapsed" : 3.4058011249871925,
+      "pts" : 28.208333333333332
+    },
+    {
+      "clock" : 28.258690957999999,
+      "counter" : 480,
+      "elapsed" : 3.4395518749952316,
+      "pts" : 28.25
+    },
+    {
+      "clock" : 28.305778415999999,
+      "counter" : 481,
+      "elapsed" : 3.4866419583559036,
+      "pts" : 28.291666666666668
+    },
+    {
+      "clock" : 28.343979915999999,
+      "counter" : 482,
+      "elapsed" : 3.5248352916678414,
+      "pts" : 28.333333333333332
+    },
+    {
+      "clock" : 28.390219083000002,
+      "counter" : 483,
+      "elapsed" : 3.5710806666174904,
+      "pts" : 28.375
+    },
+    {
+      "clock" : 28.424538250000001,
+      "counter" : 484,
+      "elapsed" : 3.6054006667109206,
+      "pts" : 28.416666666666668
+    },
+    {
+      "clock" : 28.475439832999999,
+      "counter" : 485,
+      "elapsed" : 3.6563009166857228,
+      "pts" : 28.458333333333332
+    },
+    {
+      "clock" : 28.508507125000001,
+      "counter" : 486,
+      "elapsed" : 3.6893702499801293,
+      "pts" : 28.5
+    },
+    {
+      "clock" : 28.559619874999999,
+      "counter" : 487,
+      "elapsed" : 3.7404829999431968,
+      "pts" : 28.541666666666668
+    },
+    {
+      "clock" : 28.595864834,
+      "counter" : 488,
+      "elapsed" : 3.7766502916347235,
+      "pts" : 28.583333333333332
+    },
+    {
+      "clock" : 28.640794667000002,
+      "counter" : 489,
+      "elapsed" : 3.8216409583110362,
+      "pts" : 28.625
+    },
+    {
+      "clock" : 28.675134374999999,
+      "counter" : 490,
+      "elapsed" : 3.8559811250306666,
+      "pts" : 28.666666666666668
+    },
+    {
+      "clock" : 28.725705584,
+      "counter" : 491,
+      "elapsed" : 3.9065470000496134,
+      "pts" : 28.708333333333332
+    },
+    {
+      "clock" : 28.758621999999999,
+      "counter" : 492,
+      "elapsed" : 3.9394824999617413,
+      "pts" : 28.75
+    },
+    {
+      "clock" : 28.811319916999999,
+      "counter" : 493,
+      "elapsed" : 3.9921808750368655,
+      "pts" : 28.791666666666668
+    },
+    {
+      "clock" : 28.841984834000002,
+      "counter" : 494,
+      "elapsed" : 4.0228504999540746,
+      "pts" : 28.833333333333332
+    },
+    {
+      "clock" : 28.892433708999999,
+      "counter" : 495,
+      "elapsed" : 4.0732902917079628,
+      "pts" : 28.875
+    },
+    {
+      "clock" : 28.926567792,
+      "counter" : 496,
+      "elapsed" : 4.1074141666758806,
+      "pts" : 28.916666666666668
+    },
+    {
+      "clock" : 28.975835750000002,
+      "counter" : 497,
+      "elapsed" : 4.1567009999416769,
+      "pts" : 28.958333333333332
+    },
+    {
+      "clock" : 29.010099416999999,
+      "counter" : 498,
+      "elapsed" : 4.1909576250473037,
+      "pts" : 29
+    },
+    {
+      "clock" : 29.058843,
+      "counter" : 499,
+      "elapsed" : 4.2397009166888893,
+      "pts" : 29.041666666666668
+    },
+    {
+      "clock" : 29.093012459000001,
+      "counter" : 500,
+      "elapsed" : 4.2738660416798666,
+      "pts" : 29.083333333333332
+    },
+    {
+      "clock" : 29.143920874999999,
+      "counter" : 501,
+      "elapsed" : 4.324773708358407,
+      "pts" : 29.125
+    },
+    {
+      "clock" : 29.175388999999999,
+      "counter" : 502,
+      "elapsed" : 4.3562440833775327,
+      "pts" : 29.166666666666668
+    },
+    {
+      "clock" : 29.225286833999998,
+      "counter" : 503,
+      "elapsed" : 4.4061452916357666,
+      "pts" : 29.208333333333332
+    },
+    {
+      "clock" : 29.260895542,
+      "counter" : 504,
+      "elapsed" : 4.4417482916032895,
+      "pts" : 29.25
+    },
+    {
+      "clock" : 29.309077459000001,
+      "counter" : 505,
+      "elapsed" : 4.489932750002481,
+      "pts" : 29.291666666666668
+    },
+    {
+      "clock" : 29.342575750000002,
+      "counter" : 506,
+      "elapsed" : 4.5234314582776278,
+      "pts" : 29.333333333333332
+    },
+    {
+      "clock" : 29.391861959,
+      "counter" : 507,
+      "elapsed" : 4.5727150833699852,
+      "pts" : 29.375
+    },
+    {
+      "clock" : 29.424531292000001,
+      "counter" : 508,
+      "elapsed" : 4.6053775832988322,
+      "pts" : 29.416666666666668
+    },
+    {
+      "clock" : 29.477596542000001,
+      "counter" : 509,
+      "elapsed" : 4.6584464166080579,
+      "pts" : 29.458333333333332
+    },
+    {
+      "clock" : 29.507704292,
+      "counter" : 510,
+      "elapsed" : 4.6885613750200719,
+      "pts" : 29.5
+    },
+    {
+      "clock" : 29.560000083999999,
+      "counter" : 511,
+      "elapsed" : 4.7408548332750797,
+      "pts" : 29.541666666666668
+    },
+    {
+      "clock" : 29.593216708,
+      "counter" : 512,
+      "elapsed" : 4.7740769583033398,
+      "pts" : 29.583333333333332
+    },
+    {
+      "clock" : 29.641989375000001,
+      "counter" : 513,
+      "elapsed" : 4.8228274583816528,
+      "pts" : 29.625
+    },
+    {
+      "clock" : 29.676236207999999,
+      "counter" : 514,
+      "elapsed" : 4.8570942917140201,
+      "pts" : 29.666666666666668
+    },
+    {
+      "clock" : 29.724905499999998,
+      "counter" : 515,
+      "elapsed" : 4.9057644166750833,
+      "pts" : 29.708333333333332
+    },
+    {
+      "clock" : 29.759096667000001,
+      "counter" : 516,
+      "elapsed" : 4.939961583353579,
+      "pts" : 29.75
+    },
+    {
+      "clock" : 29.810088624999999,
+      "counter" : 517,
+      "elapsed" : 4.9909489583224058,
+      "pts" : 29.791666666666668
+    }
+  ],
+  "processingSamples" : [
+    {
+      "elapsed" : 0.023187583312392235,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 386,
+      "processingMS" : 4.2214998975396156,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.070306666661053896,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 387,
+      "processingMS" : 4.3103332864120603,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.10664004168938845,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 388,
+      "processingMS" : 4.0277916705235839,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.15657362504862249,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 389,
+      "processingMS" : 4.5838749501854181,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.18739620829001069,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 390,
+      "processingMS" : 4.4154999777674675,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.23910783336032182,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 391,
+      "processingMS" : 4.2749999556690454,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.27175683330278844,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 392,
+      "processingMS" : 4.1367916855961084,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.32186549995094538,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 393,
+      "processingMS" : 4.2853750055655837,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.355822250014171,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 394,
+      "processingMS" : 3.6639166064560413,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.40451679169200361,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 395,
+      "processingMS" : 3.8508333964273334,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.43740054161753505,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 396,
+      "processingMS" : 2.7979167643934488,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.48514204169623554,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 397,
+      "processingMS" : 2.9124582652002573,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.52107766666449606,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 398,
+      "processingMS" : 2.8736250242218375,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.57117524999193847,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 399,
+      "processingMS" : 3.2769166864454746,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.60457458335440606,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 400,
+      "processingMS" : 3.6030833143740892,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.65477262495551258,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 401,
+      "processingMS" : 2.9804999940097332,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.68837095831986517,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 402,
+      "processingMS" : 2.9243750032037497,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.73951616662088782,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 403,
+      "processingMS" : 3.5150832263752818,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.77333762496709824,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 404,
+      "processingMS" : 4.3181666405871511,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.82034974999260157,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 405,
+      "processingMS" : 3.8949999725446105,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.85410504171159118,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 406,
+      "processingMS" : 3.6939999554306269,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.90399104170501232,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 407,
+      "processingMS" : 4.5239166356623173,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.93977691663894802,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 408,
+      "processingMS" : 4.4524166733026505,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 0.9882538749370724,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 409,
+      "processingMS" : 4.4950000010430813,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.0218182499520481,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 410,
+      "processingMS" : 3.9283334044739604,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.0718898749910295,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 411,
+      "processingMS" : 4.0968750836327672,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.1058415833394974,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 412,
+      "processingMS" : 4.0824167663231492,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.1541371250059456,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 413,
+      "processingMS" : 4.2076667305082083,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.1897274166112766,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 414,
+      "processingMS" : 3.745541675016284,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.2381863333284855,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 415,
+      "processingMS" : 4.6589584089815617,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.2720670832786709,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 416,
+      "processingMS" : 3.9104999741539359,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.3209024167153984,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 417,
+      "processingMS" : 3.9002499543130398,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.3569752499461174,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 418,
+      "processingMS" : 3.9971666410565376,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.4029808749910444,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 419,
+      "processingMS" : 3.7370834033936262,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.439570749993436,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 420,
+      "processingMS" : 3.156958264298737,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.4867997500114143,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 421,
+      "processingMS" : 2.7445834130048752,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.5199586666421965,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 422,
+      "processingMS" : 2.641583327203989,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.573090041638352,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 423,
+      "processingMS" : 3.4742499701678753,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.6059630833333358,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 424,
+      "processingMS" : 3.839708399027586,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.6533714999677613,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 425,
+      "processingMS" : 4.0019999723881483,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.684895999962464,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 426,
+      "processingMS" : 2.5617916835471988,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.7380332499742508,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 427,
+      "processingMS" : 3.7190417060628533,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.7699842916335911,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 428,
+      "processingMS" : 2.4050415959209204,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.8180762500269338,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 429,
+      "processingMS" : 2.1035833051428199,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.8530478333123028,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 430,
+      "processingMS" : 1.762083382345736,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.9025268333498389,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 431,
+      "processingMS" : 2.3285833885893226,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.9362977916607633,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 432,
+      "processingMS" : 2.1675416501238942,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 1.9867370832944289,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 433,
+      "processingMS" : 2.1566250361502171,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.022144875023514,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 434,
+      "processingMS" : 2.4657916510477662,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.0720585417002439,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 435,
+      "processingMS" : 4.2397499782964587,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.1050501250429079,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 436,
+      "processingMS" : 4.3150832643732429,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.1550785832805559,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 437,
+      "processingMS" : 4.0872916579246521,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.1888766250340268,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 438,
+      "processingMS" : 3.9913749787956476,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.2385563333518803,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 439,
+      "processingMS" : 3.9592083776369691,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.271607166621834,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 440,
+      "processingMS" : 2.6169166667386889,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.3214294166537002,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 441,
+      "processingMS" : 3.7492499686777592,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.3561334583209828,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 442,
+      "processingMS" : 4.0051667019724846,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.4051086666295305,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 443,
+      "processingMS" : 3.7660415982827544,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.4346081666881219,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 444,
+      "processingMS" : 2.1867916220799088,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.488981333328411,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 445,
+      "processingMS" : 3.4597916528582573,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.521782916621305,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 446,
+      "processingMS" : 3.7114584119990468,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.5725089999614283,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 447,
+      "processingMS" : 4.0820416761562228,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.6038424583384767,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 448,
+      "processingMS" : 3.2320832833647728,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.656025041709654,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 449,
+      "processingMS" : 4.4476666953414679,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.689754958380945,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 450,
+      "processingMS" : 3.8660416612401605,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.7383737083291635,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 451,
+      "processingMS" : 4.2987082852050662,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.7721686250297353,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 452,
+      "processingMS" : 3.7803750019520521,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.8189468333730474,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 453,
+      "processingMS" : 3.1878750305622816,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.8552490416914225,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 454,
+      "processingMS" : 2.799333306029439,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.9048340832814574,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 455,
+      "processingMS" : 3.4004165790975094,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.9388503333320841,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 456,
+      "processingMS" : 3.3608333906158805,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 2.9898295416496694,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 457,
+      "processingMS" : 3.2540000975131989,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.0227938332827762,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 458,
+      "processingMS" : 3.08254174888134,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.0735575000289828,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 459,
+      "processingMS" : 3.9863333804532886,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.1061695417156443,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 460,
+      "processingMS" : 4.2144582839682698,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.1565022083232179,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 461,
+      "processingMS" : 4.7262083971872926,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.1877632916439325,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 462,
+      "processingMS" : 3.967791679315269,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.2396963749779388,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 463,
+      "processingMS" : 3.731083357706666,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.2712922500213608,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 464,
+      "processingMS" : 3.8227499462664127,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.3218847083626315,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 465,
+      "processingMS" : 3.7292916094884276,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.3549305000342429,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 466,
+      "processingMS" : 2.5787500198930502,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.4055224583717063,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 467,
+      "processingMS" : 3.6610834067687392,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.4392645832849666,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 468,
+      "processingMS" : 3.6199999740347266,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.48645891668275,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 469,
+      "processingMS" : 3.5805415827780962,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.522090999991633,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 470,
+      "processingMS" : 3.3897500252351165,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.5707498750416562,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 471,
+      "processingMS" : 2.9064583359286189,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.6050308332778513,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 472,
+      "processingMS" : 2.6454166509211063,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.6560562083031982,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 473,
+      "processingMS" : 2.8927084058523178,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.6891361250309274,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 474,
+      "processingMS" : 2.7914999518543482,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.7381141249788925,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 475,
+      "processingMS" : 3.6235833540558815,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.7732450832845643,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 476,
+      "processingMS" : 4.406458348967135,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.8214020417071879,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 477,
+      "processingMS" : 3.5663333255797625,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.8558097917120904,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 478,
+      "processingMS" : 2.6740001048892736,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.9062812499469146,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 479,
+      "processingMS" : 3.9307917468249798,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.939184166607447,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 480,
+      "processingMS" : 4.5126249315217137,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 3.9890711666084826,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 481,
+      "processingMS" : 4.4298750581219792,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.022601249977015,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 482,
+      "processingMS" : 3.9911250350996852,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.0730414167046547,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 483,
+      "processingMS" : 3.6349999718368053,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.1040569166652858,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 484,
+      "processingMS" : 3.1301666749641299,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.1564395000459626,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 485,
+      "processingMS" : 4.2461249977350235,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.1906806250335649,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 486,
+      "processingMS" : 4.1124166455119848,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.2394081249367446,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 487,
+      "processingMS" : 4.0312916971743107,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.2735250416444615,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 488,
+      "processingMS" : 3.8239583373069763,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.3213444167049602,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 489,
+      "processingMS" : 3.9457499515265226,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.3559279999462888,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 490,
+      "processingMS" : 3.4983749501407146,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.4058836250333115,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 491,
+      "processingMS" : 3.9632499683648348,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.4382764166221023,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 492,
+      "processingMS" : 4.0531250415369868,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.4896872083190829,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 493,
+      "processingMS" : 4.0963750798255205,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.5230958750471473,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 494,
+      "processingMS" : 4.1176667436957359,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.5692602499620989,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 495,
+      "processingMS" : 3.6168332444503903,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.6050659583415836,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 496,
+      "processingMS" : 2.5940417544916272,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.6549424999393523,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 497,
+      "processingMS" : 3.9528749184682965,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.6882897916948423,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 498,
+      "processingMS" : 3.9043750148266554,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.7382559583056718,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 499,
+      "processingMS" : 3.9998750435188413,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.7737970416201279,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 500,
+      "processingMS" : 3.9210416143760085,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.819431749987416,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 501,
+      "processingMS" : 3.5835000453516841,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.8536677916999906,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 502,
+      "processingMS" : 2.8528333641588688,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.9021354999858886,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 503,
+      "processingMS" : 3.0734166502952576,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.9396907082991675,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 504,
+      "processingMS" : 3.3844166900962591,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "elapsed" : 4.9874892916996032,
+      "interpolatedFrames" : 28,
+      "processedFrames" : 505,
+      "processingMS" : 3.2899583457037807,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    }
+  ],
+  "requestedTarget" : {
+    "fps" : 60,
+    "height" : 720,
+    "mode" : "clarity",
+    "width" : 1280
+  },
+  "scope" : "NSWindow isVisible, MTKView, 24fps local tagged H264 and AVPlayer audio clock. GPU present-command completions and CAMetalDrawable presented callbacks are recorded separately; zero callbacks do not prove physical display presentation. Not physical display scanout or perceptual audio sync; no network or personal profile.",
+  "timeJumps" : [
+    {
+      "clock" : 0,
+      "phase" : "warmup",
+      "wall" : 975748.8271532919
+    },
+    {
+      "clock" : 0,
+      "phase" : "warmup",
+      "wall" : 975748.91619820858
+    },
+    {
+      "clock" : 2,
+      "phase" : "seek",
+      "wall" : 975779.10017362516
+    },
+    {
+      "clock" : 2,
+      "phase" : "4k",
+      "wall" : 975779.7014592085
+    }
+  ],
+  "warmup" : [
+    {
+      "clock" : 0,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原生（杜比\/HDR 保真）",
+      "nativeVisible" : true,
+      "output" : [
+        0,
+        0
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 0, timescale: 1, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 0)",
+        "loadedTimeRanges" : [
+
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "AVPlayerWaitingWhileEvaluatingBufferingRateReason",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 1)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 0,
+      "timing" : ""
+    },
+    {
+      "clock" : 0.81621229200000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 816238625, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 1.81433925,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 1814359917, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 2.8202490839999999,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 2820268334, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 3.8098957090000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 3809916042, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 4.8072260839999998,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 4807246876, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 5.8192310000000003,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 5819256917, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 6.8093523749999996,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 6809372667, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 7.8011614590000002,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 0,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 7801180792, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 0,
+      "processingMS" : 0,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 8.8171346249999996,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 2,
+      "mode" : "原片",
+      "nativeVisible" : true,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 8817156917, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 3,
+      "processingMS" : 103.29720843583345,
+      "renderedFrames" : 0,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 0,
+      "sourceFPS" : 24,
+      "timing" : "正在预热运动插帧，暂用原片"
+    },
+    {
+      "clock" : 9.8080401669999997,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 9808119833, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 25,
+      "processingMS" : 4.4589166063815355,
+      "renderedFrames" : 36,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 9.7916666666666661,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 10.805858083,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 10805957958, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 49,
+      "processingMS" : 3.6500417627394199,
+      "renderedFrames" : 60,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 10.791666666666666,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 11.807104459,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 11807255459, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 73,
+      "processingMS" : 3.7864582845941186,
+      "renderedFrames" : 84,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 11.791666666666666,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 12.805890249999999,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 12805963667, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 96,
+      "processingMS" : 3.2971666660159826,
+      "renderedFrames" : 108,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 12.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 13.815252666999999,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 13815274417, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 121,
+      "processingMS" : 1.7163333250209689,
+      "renderedFrames" : 133,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 13.791666666666666,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 14.821304042,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 14821326167, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 145,
+      "processingMS" : 1.2438333360478282,
+      "renderedFrames" : 157,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 14.791666666666666,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 15.802745334000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 15802765584, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 168,
+      "processingMS" : 1.1917083756998181,
+      "renderedFrames" : 180,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 15.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 16.806019542000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 16806038251, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 193,
+      "processingMS" : 1.4107916504144669,
+      "renderedFrames" : 205,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 16.791666666666668,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 17.811089542000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 17811111042, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 217,
+      "processingMS" : 1.2172500137239695,
+      "renderedFrames" : 229,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 17.791666666666668,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 18.815365792000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 18815386751, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 241,
+      "processingMS" : 1.270458335056901,
+      "renderedFrames" : 253,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 18.791666666666668,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 19.819676042000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 19819695000, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 265,
+      "processingMS" : 1.5449583297595382,
+      "renderedFrames" : 277,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 19.791666666666668,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 20.805717916999999,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 20805773417, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 288,
+      "processingMS" : 4.6025416813790798,
+      "renderedFrames" : 300,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 20.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 21.804217083000001,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 21804369458, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 312,
+      "processingMS" : 2.9317082371562719,
+      "renderedFrames" : 324,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 21.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 22.802321291999998,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 22802408917, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 336,
+      "processingMS" : 4.1989583987742662,
+      "renderedFrames" : 348,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 22.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    },
+    {
+      "clock" : 23.799289917999999,
+      "clockValid" : true,
+      "drawablePresentedFrames" : 0,
+      "fallback" : "",
+      "interpolatedFrames" : 28,
+      "mode" : "自然降噪",
+      "nativeVisible" : false,
+      "output" : [
+        1280,
+        720
+      ],
+      "player" : {
+        "clockDescription" : "CMTime(value: 23799368751, timescale: 1000000000, flags: __C.CMTimeFlags(rawValue: 1), epoch: 0)",
+        "clockValid" : true,
+        "error" : "",
+        "itemStatus" : "AVPlayerItemStatus(rawValue: 1)",
+        "loadedTimeRanges" : [
+          {
+            "duration" : 45,
+            "start" : 0
+          }
+        ],
+        "rate" : 1,
+        "reasonForWaiting" : "",
+        "timeControlStatus" : "AVPlayerTimeControlStatus(rawValue: 2)"
+      },
+      "processedFrames" : 360,
+      "processingMS" : 4.6357084065675735,
+      "renderedFrames" : 372,
+      "reportedDrawableFPS" : null,
+      "selectedPTS" : 23.75,
+      "sourceFPS" : 24,
+      "timing" : "未来帧未及时就绪，已保留修复并跟随片源帧率"
+    }
+  ],
+  "window" : {
+    "completedPresentations" : 120,
+    "drawablePresentedFrames" : 0,
+    "maxClockMinusPTS" : 0.020888167666669233,
+    "measuredCompletedFPS" : 23.985366528145267,
+    "measuredDrawablePresentedFPS" : 0,
+    "mediaSeconds" : 5.0031890409999988,
+    "minClockMinusPTS" : 0.0056680003333333673,
+    "reportedDrawableFPS" : null,
+    "sampledUniquePTS" : 120,
+    "wallSeconds" : 5.0030504999449477
+  }
+}

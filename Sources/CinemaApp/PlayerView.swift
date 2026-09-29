@@ -15,6 +15,7 @@ struct PlayerView: View {
     @LegacyState private var slider = 0.0
     @LegacyState private var showStats = false
     @LegacyState private var showExperience = false
+    @LegacyState private var showQuality = false
     @LegacyState private var showJump = false
     @LegacyState private var showShortcuts = false
     @LegacyState private var controlHeight: CGFloat = 165
@@ -32,9 +33,12 @@ struct PlayerView: View {
                 VStack(spacing: 0) {
                     ZStack {
                         Color.black
-                        VideoSurface(player: playback.player, mode: playback.surfaceMode, generation: playback.generation, cleanup: playback.adCleanup,
+                        VideoSurface(player: playback.player, mode: playback.surfaceMode, generation: playback.generation, cleanup: playback.adCleanup, resolution: playback.targetResolution, frameRate: playback.targetFrameRate, splitComparison: playback.isSplitComparison,
                                      permission: playback.videoPermission, assessedItem: playback.player.currentItem,
                                      onScanFrame: { image, time in _ = playback.harvestScanFrame(image, time: time) }) { metrics in playback.metrics = metrics }
+                        if playback.isSplitComparison && playback.pictureIsEnhanced {
+                            VStack { HStack { Text("原片"); Spacer(); Text("修复") }.font(.system(size: 12, weight: .medium)).padding(10).background(.black.opacity(0.5)); Spacer() }.allowsHitTesting(false)
+                        }
                         if !editingAds { PlaybackKeyboardSurface(playback: playback, presentation: presentation) }
                         if !playback.subtitleText.isEmpty {
                             VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
@@ -98,7 +102,7 @@ struct PlayerView: View {
         .background(PlayerWindowAttachment(presentation: presentation).frame(width: 0, height: 0))
         .ignoresSafeArea(.container, edges: presentation.isFullscreen ? .all : [])
         .onAppear { updatePresentation() }
-        .onDisappear { abandonAdEditing(); presentation.detach() }
+        .onDisappear { abandonAdEditing(); playback.setAdSkipInteraction("quality", active: false); presentation.detach() }
         .onChange(of: playback.isPlaying) { _, _ in updatePresentation() }
         .onChange(of: playback.isLoading) { _, _ in updatePresentation() }
         .onChange(of: playback.error) { _, _ in updatePresentation() }
@@ -109,7 +113,7 @@ struct PlayerView: View {
         .onChange(of: playback.subtitleNotice) { _, value in
             if value == nil { presentation.interact("subtitle-notice", active: false) }
         }
-        .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts || showExperience ? nil : commandContext)
+        .focusedSceneValue(\.playerCommands, editingAds || showJump || showShortcuts || showExperience || showQuality ? nil : commandContext)
         .sheet(isPresented: $showJump) {
             JumpToTimeDialog(current: playback.position, duration: playback.duration) { target in playback.seek(to: target) }
         }
@@ -119,7 +123,7 @@ struct PlayerView: View {
         .onChange(of: showShortcuts) { _, value in playback.setAdSkipInteraction("shortcuts", active: value) }
         .onChange(of: showExperience) { _, value in playback.setAdSkipInteraction("experience", active: value) }
         .onExitCommand { if editingAds { finishAdEditing(apply: false) } else if presentation.isFullscreen { presentation.leaveFullscreen() } }
-        .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false; showExperience = false }
+        .onChange(of: playback.itemID) { _, _ in abandonAdEditing(); showJump = false; showShortcuts = false; showExperience = false; showQuality = false }
         .onChange(of: playback.position) { _, value in if !dragging { slider = value } }
         .onPreferenceChange(PlaybackControlHeightKey.self) { height in
             if height.isFinite && height > 0 { controlHeight = height }
@@ -127,7 +131,7 @@ struct PlayerView: View {
     }
     private var canSeek: Bool { playback.duration.isFinite && playback.duration > 0 && !playback.hasPlaybackFailure && playback.error == nil }
     private func performCommand(_ action: () -> Void) {
-        guard !editingAds, !showJump, !showShortcuts, !showExperience, presentation.canPerformPlayerCommand else { return }
+        guard !editingAds, !showJump, !showShortcuts, !showExperience, !showQuality, presentation.canPerformPlayerCommand else { return }
         presentation.activity(); action()
     }
     private var commandContext: PlayerCommandContext {
@@ -340,31 +344,18 @@ struct PlayerView: View {
     }
 
     private var qualityMenu: some View {
-        Menu {
-            Picker("画面模式", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
-                ForEach(EnhancementMode.allCases) { mode in
-                    Text(mode.title).tag(mode)
-                }
-            }.pickerStyle(.inline)
-            Divider()
-            Text("所选：\(playback.selectedPictureMode.title)")
-            Text("正在呈现：\(playback.pictureStatusTitle)")
-            Text(playback.pictureStatusDetail)
-            if let dimensions = pictureDimensions { Text(dimensions) }
-            if playback.isComparingOriginal {
-                Button("结束对照，恢复所选模式") { playback.toggleOriginalComparison() }
-            } else {
-                Button("临时查看原片") { playback.toggleOriginalComparison() }
-                    .disabled(!playback.canCompareOriginal)
-            }
-            Divider()
-            Text("杜比视界与 HDR 使用系统原生呈现")
-            Text("4K 缩放改变输出尺寸，不等于恢复原生 4K 细节")
-        } label: {
-            PlayerChromeIcon(systemName: playback.pictureIsEnhanced ? "sparkles" : "film", selected: playback.pictureIsEnhanced)
+        Button { showQuality.toggle() } label: {
+            PlayerChromeIcon(systemName: playback.pictureIsEnhanced ? "sparkles" : "film", selected: showQuality || playback.pictureIsEnhanced)
         }
+        .buttonStyle(.plain)
         .accessibilityLabel("画质设置，\(playback.pictureStatusTitle)")
-        .menuStyle(.borderlessButton).fixedSize().help("画质增强与原片直通")
+        .help("修复方式、目标画质与性能检测")
+        .popover(isPresented: $showQuality) {
+            ScrollView {
+                QualityControlPanel(playback: playback, performance: playback.performance, compact: true, allows60FPS: playback.supportsFrameInterpolation).padding(20)
+            }.frame(width: 460, height: 600)
+        }
+        .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
     }
 
     private var pictureDimensions: String? {

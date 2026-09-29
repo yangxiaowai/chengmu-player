@@ -1,0 +1,116 @@
+{
+  "maximum" : [
+    -1,
+    -1
+  ],
+  "minimum" : [
+    -1,
+    -1
+  ],
+  "rows" : [
+    {
+      "destination" : "[\"Width\": 64, \"IOSurfaceProperties\": {\n}, \"Height\": 64, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        64,
+        64
+      ],
+      "source" : "[\"Width\": 64, \"Height\": 64, \"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 160, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"IOSurfaceProperties\": {\n}, \"Height\": 64]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        160,
+        64
+      ],
+      "source" : "[\"Height\": 64, \"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 160]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"IOSurfaceProperties\": {\n}, \"Height\": 128, \"Width\": 256]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        256,
+        128
+      ],
+      "source" : "[\"IOSurfaceProperties\": {\n}, \"Height\": 128, \"Width\": 256, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 640, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Height\": 360, \"IOSurfaceProperties\": {\n}]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        640,
+        360
+      ],
+      "source" : "[\"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"IOSurfaceProperties\": {\n}, \"Height\": 360, \"Width\": 640]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 1280, \"IOSurfaceProperties\": {\n}, \"Height\": 720]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        1280,
+        720
+      ],
+      "source" : "[\"Width\": 1280, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Height\": 720, \"IOSurfaceProperties\": {\n}]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Height\": 1080, \"Width\": 1920, \"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        1920,
+        1080
+      ],
+      "source" : "[\"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 1920, \"IOSurfaceProperties\": {\n}, \"Height\": 1080]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"Width\": 3840, \"Height\": 2160, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"IOSurfaceProperties\": {\n}]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        3840,
+        2160
+      ],
+      "source" : "[\"Height\": 2160, \"Width\": 3840, \"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n]",
+      "valid" : true
+    },
+    {
+      "destination" : "[\"IOSurfaceProperties\": {\n}, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"Width\": 8192, \"Height\": 4320]",
+      "formats" : [
+        "RGhA"
+      ],
+      "size" : [
+        8192,
+        4320
+      ],
+      "source" : "[\"Width\": 8192, \"Height\": 4320, \"PixelFormatType\": <NSConstantArray 0x2e75d24c8>(\n1380411457\n)\n, \"IOSurfaceProperties\": {\n}]",
+      "valid" : true
+    },
+    {
+      "size" : [
+        8193,
+        4320
+      ],
+      "valid" : false
+    }
+  ],
+  "supported" : true
+}
