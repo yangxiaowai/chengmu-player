@@ -46,4 +46,3 @@ dist/澄幕.app/Contents/MacOS/Cinema --validate --seconds 1800 --title 怪奇�
 `Sources/CinemaCore`保存来源/清单/历史/字幕逻辑；`Sources/CinemaApp`保存界面、媒体控制和GPU渲染。设计及实施步骤位于`docs/superpowers`，前期研究位于`docs/research`。
 
 体验和工程参考包括[mpv](https://github.com/mpv-player/mpv)、[IINA](https://github.com/iina/iina)、[Jellyfin](https://github.com/jellyfin/jellyfin)、[LibreTV](https://github.com/LibreSpark/LibreTV)和MoonTV系项目。当前产品代码为本项目实现，没有直接打包这些项目的播放器二进制或模型权重；片源配置线索及核验范围另见研究报告。
-
