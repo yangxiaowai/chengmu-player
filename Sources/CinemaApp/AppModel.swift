@@ -485,7 +485,25 @@ final class AppModel: ObservableObject {
     }
     func historyRecords(showAllEpisodes: Bool, unfinishedOnly: Bool) -> [WatchRecord] {
         let records = showAllEpisodes ? history : latestHistory
-        return unfinishedOnly ? records.filter { !$0.isCompleted } : records
+        return unfinishedOnly ? records.filter { !(showAllEpisodes ? $0.isEpisodeCompleted : $0.isCompleted) } : records
+    }
+    func historyPlaybackTarget(_ record: WatchRecord, showAllEpisodes: Bool) -> WatchRecord {
+        if showAllEpisodes || record.playbackContext == nil {
+            var target = record
+            if showAllEpisodes ? record.isEpisodeCompleted : record.isCompleted { target.position = 0 }
+            return target
+        }
+        guard let context = record.playbackContext,
+              let episode = record.isCompleted ? context.line.episodes.first : record.nextEpisodeToWatch else { return record }
+        let id = "\(context.detail.title.providerID):\(context.detail.title.id):\(context.line.id):\(episode.id)"
+        let saved = history.first { $0.id == id && $0.canResume(episode: episode) }
+        let position = !record.isCompleted && saved?.isEpisodeCompleted == false ? (saved?.position ?? 0) : 0
+        return WatchRecord(id: id, title: record.title, episode: episode.name, url: episode.url,
+            posterURL: record.posterURL, position: position.isFinite ? max(0, position) : 0,
+            duration: saved?.duration ?? 0, mediaDetail: context.detail, lineID: context.line.id, episodeID: episode.id)
+    }
+    func resumeHistory(_ record: WatchRecord, showAllEpisodes: Bool) {
+        resume(historyPlaybackTarget(record, showAllEpisodes: showAllEpisodes))
     }
     private func completeBookmarkGroup(_ group: MediaGroup) -> MediaGroup {
         groups.first { $0.id == group.id } ?? group

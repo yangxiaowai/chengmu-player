@@ -1,0 +1,74 @@
+{
+  "checks" : [
+    {
+      "name" : "completed_middle_episode_remains_in_continue_watching",
+      "passed" : true
+    },
+    {
+      "name" : "all_episode_filter_uses_episode_progress",
+      "passed" : true
+    },
+    {
+      "name" : "continue_action_targets_next_episode_with_its_own_progress",
+      "passed" : false
+    },
+    {
+      "name" : "unwatched_next_episode_starts_at_zero",
+      "passed" : false
+    },
+    {
+      "name" : "all_episode_replay_stays_on_selected_episode",
+      "passed" : false
+    },
+    {
+      "name" : "partial_episode_continues_without_advancing",
+      "passed" : true
+    },
+    {
+      "name" : "final_episode_hides_work_without_resurrecting_older_episode",
+      "passed" : true
+    },
+    {
+      "name" : "complete_series_restarts_from_first_episode",
+      "passed" : false
+    },
+    {
+      "name" : "legacy_episode_stays_visible_without_guessing_next_episode",
+      "passed" : false
+    },
+    {
+      "name" : "missing_number_does_not_jump_over_episode",
+      "passed" : true
+    },
+    {
+      "name" : "completed_movie_is_hidden_and_replay_starts_at_zero",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_continue-next-episode",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_completed-series",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_individual-episodes",
+      "passed" : true
+    },
+    {
+      "name" : "native_resume_opens_next_local_item_and_seeks_to_saved_progress",
+      "passed" : false
+    },
+    {
+      "name" : "native_resume_preserves_pause_intent",
+      "passed" : true
+    },
+    {
+      "name" : "history_selection_does_not_delete_prior_episode",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "scope" : "Actual AppModel with isolated history fixtures and local MP4s; native controller opens the next episode and restores saved progress while paused. Three native SwiftUI bitmap layouts, no physical button\/fullscreen or full network playback certification."
+}

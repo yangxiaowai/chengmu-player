@@ -1,0 +1,131 @@
+Building for debugging...
+[1 / 13] CinemaCoreTests-product
+[2 / 13] CinemaCore
+[6 / 38]
+[8 / 38]
+[11 / 38]
+[12 / 38]
+[15 / 38]
+[16 / 38]
+[27 / 38] CinemaCore
+[31 / 43] CinemaCore
+[31 / 43] Cinema-product
+[40 / 73]
+[45 / 73]
+[45 / 73] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[50 / 73] CinemaCoreTests-product
+[58 / 84] CinemaCoreTests-product
+[59 / 84] CinemaCoreTests-product
+[60 / 84] CinemaCoreTests-product
+[65 / 87]
+[66 / 87] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[68 / 90] CinemaCoreTests-product
+[70 / 88]
+[71 / 88]
+[72 / 88]
+[74 / 88]
+[85 / 88] Cinema-product
+[86 / 88] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[88 / 90] Cinema-product
+Build complete! (14.95 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite HistoryCompletionTests started.
+◇ Test movieContextAndOldMovieRecordsStillCompleteNormally() started.
+◇ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() started.
+◇ Test completedStatusDoesNotChangeStoredHistory() started.
+◇ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() started.
+◇ Test completedIsAReversibleViewOfValidProgress() started.
+◇ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() started.
+◇ Test finalEpisodeMustAlsoReachTheProgressThreshold() started.
+◇ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() started.
+✔ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() passed after 0.001 seconds.
+✔ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() passed after 0.001 seconds.
+✔ Test finalEpisodeMustAlsoReachTheProgressThreshold() passed after 0.001 seconds.
+✔ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() passed after 0.001 seconds.
+✔ Test completedStatusDoesNotChangeStoredHistory() passed after 0.001 seconds.
+✔ Test movieContextAndOldMovieRecordsStillCompleteNormally() passed after 0.001 seconds.
+✔ Test completedIsAReversibleViewOfValidProgress() passed after 0.001 seconds.
+✘ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() recorded an issue at HistoryCompletionTests.swift:56:9: Expectation failed: !legacy.isCompleted
+↳ !legacy.isCompleted → true
+↳   legacy.isCompleted → false
+↳     legacy → WatchRecord(id: "p:series:line:episode-1", title: "同一部剧", episode: "01", url: https://example.com/1.mp4, posterURL: nil, position: 97.0, duration: 100.0, updatedAt: 2026-10-26 15:10:11 +0000, mediaDetail: nil, lineID: nil, episodeID: nil)
+↳       id → "p:series:line:episode-1"
+↳       title → "同一部剧"
+↳       episode → "01"
+↳       url → https://example.com/1.mp4
+↳         _url → Foundation._SwiftURL
+↳           _parseInfo → Foundation.URLParseInfo
+↳             urlString → "https://example.com/1.mp4"
+↳             schemeRange → 0[utf8] ..< 5[utf8]
+↳               some → 0[utf8] ..< 5[utf8]
+↳                 lowerBound → 0[utf8]
+↳                   _rawBits → 4
+↳                 upperBound → 5[utf8]
+↳                   _rawBits → 327684
+↳             userRange → nil
+↳             passwordRange → nil
+↳             hostRange → 8[utf8] ..< 19[utf8]
+↳               some → 8[utf8] ..< 19[utf8]
+↳                 lowerBound → 8[utf8]
+↳                   _rawBits → 524292
+↳                 upperBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳             portRange → nil
+↳             pathRange → 19[utf8] ..< 25[utf8]
+↳               some → 19[utf8] ..< 25[utf8]
+↳                 lowerBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳                 upperBound → 25[utf8]
+↳                   _rawBits → 1638404
+↳             queryRange → nil
+↳             fragmentRange → nil
+↳             isIPLiteral → false
+↳             didPercentEncodeHost → false
+↳             pathHasFileID → false
+↳             encodedComponents → EncodedComponentSet(rawValue: 0)
+↳               rawValue → 0
+↳           _baseURL → nil
+↳           _encoding → Unicode (UTF-8)
+↳             rawValue → 4
+↳           _isCanonicalFileURL → false
+↳           _nsurlLock → ()
+↳       posterURL → nil
+↳       position → 97.0
+↳       duration → 100.0
+↳       updatedAt → 2026-10-26 15:10:11 +0000
+↳         timeIntervalSinceReferenceDate → 814720211.516931
+↳       mediaDetail → nil
+↳       lineID → nil
+↳       episodeID → nil
+↳     isCompleted → true
+✘ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() failed after 0.012 seconds with 1 issue.
+✘ Suite HistoryCompletionTests failed after 0.012 seconds with 1 issue.
+✘ Test run with 8 tests in 1 suite failed after 0.012 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter HistoryCompletionTests` failed. (See above for error)

@@ -60,8 +60,12 @@ import CinemaCore
             let metadata = MediaTitle(id: title, title: title, year: "2023", posterURL: nil, summary: "", providerID: a.id, providerName: a.name)
             return .init(id: id, title: title, episode: episode, url: URL(string: "https://fixture.invalid/\(id).mp4")!, posterURL: nil, position: position, duration: duration, mediaDetail: .init(title: metadata, lines: []))
         }
-        let completed = record("latest", "第02集", 97, 100)
+        var completed = record("latest", "第02集", 97, 100)
         let older = record("older", "第01集", 40, 100)
+        let firstEpisode = Episode(id: "e1", name: older.episode, url: older.url, number: 1)
+        let lastEpisode = Episode(id: "e2", name: completed.episode, url: completed.url, number: 2)
+        completed.mediaDetail!.lines = [.init(id: "history-line", name: "线路", episodes: [firstEpisode, lastEpisode])]
+        completed.lineID = "history-line"; completed.episodeID = "e2"
         let unknownDuration = record("unknown", "正片", 30, 0, title: "深海")
         app.history = [completed, older, unknownDuration]
         check("unfinished_latest_view_does_not_resurrect_old_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [unknownDuration])

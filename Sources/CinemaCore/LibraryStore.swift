@@ -31,9 +31,44 @@ public struct WatchRecord: Codable, Hashable, Identifiable {
         url == candidate.url && episode == candidate.name
     }
     public var progress: Double { duration > 0 ? min(1, max(0, position / duration)) : 0 }
-    /// A display filter only; completion never deletes history or changes resume identity.
-    public var isCompleted: Bool {
+    /// Completion of this media item, independently of its place in a series.
+    public var isEpisodeCompleted: Bool {
         duration.isFinite && duration > 0 && position.isFinite && position >= duration * 0.95
+    }
+    /// Completion of the saved work/season, not merely the episode most recently watched.
+    /// This uses the known catalog, not a claim that an airing series has officially ended.
+    public var isCompleted: Bool {
+        guard isEpisodeCompleted else { return false }
+        guard let context = playbackContext else {
+            // Old direct-file/movie records remain useful. A missing or broken series
+            // context must never turn one finished episode into a completed season.
+            return mediaDetail == nil && Int(episode.trimmingCharacters(in: .whitespacesAndNewlines)) == nil && !Self.hasEpisodeLabel(episode) && !Self.hasEpisodeLabel(title)
+        }
+        let episodes = context.line.episodes
+        guard episodes.last?.id == context.episode.id else { return false }
+        let category = context.detail.title.category ?? ""
+        let episodicCategory = category.hasSuffix("剧") || category.contains("电视剧") || category.contains("连续剧") || category.contains("动漫") || category.contains("综艺")
+        if episodes.count == 1, episodicCategory || Self.hasEpisodeLabel(context.episode.name) { return false }
+        // A truncated selected line must not hide later episodes on another line.
+        if context.detail.lines.contains(where: { $0.episodes.count > episodes.count }) { return false }
+        if let number = context.episode.number, episodes.count > 1 {
+            if context.detail.lines.contains(where: { $0.episodes.contains { ($0.number ?? 0) > number } }) { return false }
+        }
+        return true
+    }
+    /// Only offer a known next item after this episode finished; do not skip numbered gaps.
+    public var nextEpisodeToWatch: Episode? {
+        guard isEpisodeCompleted, let context = playbackContext,
+              let index = context.line.episodes.firstIndex(where: { $0.id == context.episode.id }),
+              context.line.episodes.indices.contains(index + 1) else { return nil }
+        let next = context.line.episodes[index + 1]
+        switch (context.episode.number, next.number) {
+        case let (current?, number?) where current >= 0 && current < Int.max && number == current + 1: return next
+        default: return nil
+        }
+    }
+    private static func hasEpisodeLabel(_ value: String) -> Bool {
+        value.range(of: "第\\s*[0-9一二三四五六七八九十百零两]+\\s*[集话期季]|(?i)\\b(?:s\\d+\\s*)?e(?:p)?\\s*\\d+\\b", options: .regularExpression) != nil
     }
 }
 

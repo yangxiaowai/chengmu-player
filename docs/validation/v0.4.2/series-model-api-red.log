@@ -1,0 +1,163 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:54: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                      |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                      |- note: use a default value parameter to avoid this warning
+   |                                                      |- note: provide a default value to avoid this warning
+   |                                                      `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:73: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                                       |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                                       |- note: use a default value parameter to avoid this warning
+   |                                                                       |- note: provide a default value to avoid this warning
+   |                                                                       `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:122: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                                                                                      |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                                                                                      |- note: use a default value parameter to avoid this warning
+   |                                                                                                                      |- note: provide a default value to avoid this warning
+   |                                                                                                                      `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:27:26: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+25 |         check("completed_middle_episode_remains_in_continue_watching", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [middle])
+26 |         check("all_episode_filter_uses_episode_progress", app.historyRecords(showAllEpisodes: true, unfinishedOnly: true) == [partial])
+27 |         let target = app.historyPlaybackTarget(middle, showAllEpisodes: false)
+   |                          `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+28 |         check("continue_action_targets_next_episode_with_its_own_progress", target.id == "local:series:line:e2" && target.url == episodes[1].url && target.position == 12 && target.playbackContext?.episode.id == "e2")
+29 |         app.history = [middle]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:30:25: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+28 |         check("continue_action_targets_next_episode_with_its_own_progress", target.id == "local:series:line:e2" && target.url == episodes[1].url && target.position == 12 && target.playbackContext?.episode.id == "e2")
+29 |         app.history = [middle]
+30 |         let fresh = app.historyPlaybackTarget(middle, showAllEpisodes: false)
+   |                         `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+31 |         check("unwatched_next_episode_starts_at_zero", fresh.id == "local:series:line:e2" && fresh.position == 0 && fresh.duration == 0)
+32 |         check("all_episode_replay_stays_on_selected_episode", app.historyPlaybackTarget(middle, showAllEpisodes: true).episodeID == "e1" && app.historyPlaybackTarget(middle, showAllEpisodes: true).position == 0)
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:32:67: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+30 |         let fresh = app.historyPlaybackTarget(middle, showAllEpisodes: false)
+31 |         check("unwatched_next_episode_starts_at_zero", fresh.id == "local:series:line:e2" && fresh.position == 0 && fresh.duration == 0)
+32 |         check("all_episode_replay_stays_on_selected_episode", app.historyPlaybackTarget(middle, showAllEpisodes: true).episodeID == "e1" && app.historyPlaybackTarget(middle, showAllEpisodes: true).position == 0)
+   |                                                                   `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+33 |         check("partial_episode_continues_without_advancing", app.historyPlaybackTarget(partial, showAllEpisodes: false) == partial)
+34 |         app.history = [final, middle]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:32:145: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+30 |         let fresh = app.historyPlaybackTarget(middle, showAllEpisodes: false)
+31 |         check("unwatched_next_episode_starts_at_zero", fresh.id == "local:series:line:e2" && fresh.position == 0 && fresh.duration == 0)
+32 |         check("all_episode_replay_stays_on_selected_episode", app.historyPlaybackTarget(middle, showAllEpisodes: true).episodeID == "e1" && app.historyPlaybackTarget(middle, showAllEpisodes: true).position == 0)
+   |                                                                                                                                                 `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+33 |         check("partial_episode_continues_without_advancing", app.historyPlaybackTarget(partial, showAllEpisodes: false) == partial)
+34 |         app.history = [final, middle]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:33:66: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+31 |         check("unwatched_next_episode_starts_at_zero", fresh.id == "local:series:line:e2" && fresh.position == 0 && fresh.duration == 0)
+32 |         check("all_episode_replay_stays_on_selected_episode", app.historyPlaybackTarget(middle, showAllEpisodes: true).episodeID == "e1" && app.historyPlaybackTarget(middle, showAllEpisodes: true).position == 0)
+33 |         check("partial_episode_continues_without_advancing", app.historyPlaybackTarget(partial, showAllEpisodes: false) == partial)
+   |                                                                  `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+34 |         app.history = [final, middle]
+35 |         check("final_episode_hides_work_without_resurrecting_older_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true).isEmpty)
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:36:66: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+34 |         app.history = [final, middle]
+35 |         check("final_episode_hides_work_without_resurrecting_older_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true).isEmpty)
+36 |         check("complete_series_restarts_from_first_episode", app.historyPlaybackTarget(final, showAllEpisodes: false).episodeID == "e1" && app.historyPlaybackTarget(final, showAllEpisodes: false).position == 0)
+   |                                                                  `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+37 |         var legacy = middle; legacy.mediaDetail = nil; legacy.lineID = nil; legacy.episodeID = nil
+38 |         app.history = [legacy]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:36:144: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+34 |         app.history = [final, middle]
+35 |         check("final_episode_hides_work_without_resurrecting_older_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true).isEmpty)
+36 |         check("complete_series_restarts_from_first_episode", app.historyPlaybackTarget(final, showAllEpisodes: false).episodeID == "e1" && app.historyPlaybackTarget(final, showAllEpisodes: false).position == 0)
+   |                                                                                                                                                `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+37 |         var legacy = middle; legacy.mediaDetail = nil; legacy.lineID = nil; legacy.episodeID = nil
+38 |         app.history = [legacy]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:39:161: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+37 |         var legacy = middle; legacy.mediaDetail = nil; legacy.lineID = nil; legacy.episodeID = nil
+38 |         app.history = [legacy]
+39 |         check("legacy_episode_stays_visible_without_guessing_next_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [legacy] && app.historyPlaybackTarget(legacy, showAllEpisodes: false) == legacy)
+   |                                                                                                                                                                 `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+40 |         var gap = middle; gap.mediaDetail!.lines[0].episodes.remove(at: 1)
+41 |         check("missing_number_does_not_jump_over_episode", app.historyPlaybackTarget(gap, showAllEpisodes: false) == gap)
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:41:64: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+39 |         check("legacy_episode_stays_visible_without_guessing_next_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [legacy] && app.historyPlaybackTarget(legacy, showAllEpisodes: false) == legacy)
+40 |         var gap = middle; gap.mediaDetail!.lines[0].episodes.remove(at: 1)
+41 |         check("missing_number_does_not_jump_over_episode", app.historyPlaybackTarget(gap, showAllEpisodes: false) == gap)
+   |                                                                `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+42 |         var movie = final; movie.title = "深海"; movie.episode = "正片"; movie.mediaDetail = nil; movie.lineID = nil; movie.episodeID = nil
+43 |         app.history = [movie]
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:44:150: error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+42 |         var movie = final; movie.title = "深海"; movie.episode = "正片"; movie.mediaDetail = nil; movie.lineID = nil; movie.episodeID = nil
+43 |         app.history = [movie]
+44 |         check("completed_movie_is_hidden_and_replay_starts_at_zero", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true).isEmpty && app.historyPlaybackTarget(movie, showAllEpisodes: false).position == 0)
+   |                                                                                                                                                      `- error: value of type 'AppModel' has no member 'historyPlaybackTarget'
+45 |
+46 |         func snapshot<V: View>(_ view: V, name: String) async throws {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:62:90: error: extra argument 'showAllEpisodes' in call
+60 |         try await snapshot(HistoryView(app: app, unfinishedOnly: false), name: "completed-series")
+61 |         app.history = [middle, partial]
+62 |         try await snapshot(HistoryView(app: app, unfinishedOnly: false, showAllEpisodes: true), name: "individual-episodes")
+   |                                                                                          `- error: extra argument 'showAllEpisodes' in call
+63 |         let before = app.history
+64 |         app.resumeHistory(middle, showAllEpisodes: false); app.playback.pause()
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:64:13: error: value of type 'AppModel' has no member 'resumeHistory'
+62 |         try await snapshot(HistoryView(app: app, unfinishedOnly: false, showAllEpisodes: true), name: "individual-episodes")
+63 |         let before = app.history
+64 |         app.resumeHistory(middle, showAllEpisodes: false); app.playback.pause()
+   |             `- error: value of type 'AppModel' has no member 'resumeHistory'
+65 |         let deadline = Date().addingTimeInterval(10)
+66 |         while Date() < deadline && (app.playback.player.currentItem?.status != .readyToPlay || abs(app.playback.position - 12) > 0.5) { try await Task.sleep(nanoseconds: 50_000_000) }
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:67:127: error: 'url' is inaccessible due to 'private' protection level
+65 |         let deadline = Date().addingTimeInterval(10)
+66 |         while Date() < deadline && (app.playback.player.currentItem?.status != .readyToPlay || abs(app.playback.position - 12) > 0.5) { try await Task.sleep(nanoseconds: 50_000_000) }
+67 |         check("native_resume_opens_next_local_item_and_seeks_to_saved_progress", app.currentEpisodeID == "e2" && app.playback.url == episodes[1].url && app.playback.player.currentItem?.status == .readyToPlay && abs(app.playback.position - 12) < 0.5)
+   |                                                                                                                               `- error: 'url' is inaccessible due to 'private' protection level
+68 |         check("native_resume_preserves_pause_intent", !app.playback.playbackRequested && app.playback.player.rate == 0)
+69 |         check("history_selection_does_not_delete_prior_episode", app.history.contains { $0.id == middle.id } && before.count <= app.history.count)
+
+Sources/CinemaApp/PlaybackController.swift:260:17: note: 'url' declared here
+258 |     var playbackRequested: Bool { wantsPlay }
+259 |     private(set) var playbackIntentID = UUID()
+260 |     private var url: URL?
+    |                 `- note: 'url' declared here
+261 |     private var desiredResume = 0.0
+262 |     private var seekRequestID = UUID()
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/validate-series-history.sh .build/series-history-red` failed. (See above for error)

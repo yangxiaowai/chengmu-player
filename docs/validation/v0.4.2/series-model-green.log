@@ -1,0 +1,35 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS completed_middle_episode_remains_in_continue_watching
+PASS all_episode_filter_uses_episode_progress
+PASS continue_action_targets_next_episode_with_its_own_progress
+PASS unwatched_next_episode_starts_at_zero
+PASS all_episode_replay_stays_on_selected_episode
+PASS partial_episode_continues_without_advancing
+PASS final_episode_hides_work_without_resurrecting_older_episode
+PASS complete_series_restarts_from_first_episode
+PASS legacy_episode_stays_visible_without_guessing_next_episode
+PASS missing_number_does_not_jump_over_episode
+PASS completed_movie_is_hidden_and_replay_starts_at_zero
+PASS snapshot_continue-next-episode
+PASS snapshot_completed-series
+PASS snapshot_individual-episodes
+PASS native_resume_opens_next_local_item_and_seeks_to_saved_progress
+PASS native_resume_preserves_pause_intent
+PASS history_selection_does_not_delete_prior_episode

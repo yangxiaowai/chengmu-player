@@ -1,0 +1,159 @@
+Building for debugging...
+[3 / 16] CinemaCore
+[5 / 55]
+[12 / 55]
+[14 / 55]
+[19 / 55]
+[20 / 55]
+[21 / 55]
+[23 / 55]
+[25 / 55]
+[32 / 55]
+[34 / 55]
+[38 / 55]
+[41 / 55]
+[42 / 55]
+[43 / 55] CinemaCore
+[46 / 51] CinemaCoreTests-product
+[47 / 56]
+[51 / 56] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[56 / 60] CinemaCoreTests-product
+Build complete! (21.67 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite HistoryCompletionTests started.
+◇ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() started.
+◇ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() started.
+◇ Test completedStatusDoesNotChangeStoredHistory() started.
+◇ Test movieContextAndOldMovieRecordsStillCompleteNormally() started.
+◇ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() started.
+◇ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() started.
+◇ Test finalEpisodeMustAlsoReachTheProgressThreshold() started.
+◇ Test completedIsAReversibleViewOfValidProgress() started.
+✔ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() passed after 0.001 seconds.
+✔ Test finalEpisodeMustAlsoReachTheProgressThreshold() passed after 0.001 seconds.
+✔ Test completedStatusDoesNotChangeStoredHistory() passed after 0.001 seconds.
+✔ Test movieContextAndOldMovieRecordsStillCompleteNormally() passed after 0.001 seconds.
+✔ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() passed after 0.001 seconds.
+✔ Test completedIsAReversibleViewOfValidProgress() passed after 0.001 seconds.
+✘ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() recorded an issue at HistoryCompletionTests.swift:79:9: Expectation failed: gap.nextEpisodeToWatch == nil
+↳ gap.nextEpisodeToWatch == nil → false
+↳   gap.nextEpisodeToWatch → Episode(id: "episode-3", name: "第三集", url: https://example.com/3.mp4, number: nil)
+↳     some → Episode(id: "episode-3", name: "第三集", url: https://example.com/3.mp4, number: nil)
+↳       id → "episode-3"
+↳       name → "第三集"
+↳       url → https://example.com/3.mp4
+↳         _url → Foundation._SwiftURL
+↳           _parseInfo → Foundation.URLParseInfo
+↳             urlString → "https://example.com/3.mp4"
+↳             schemeRange → 0[utf8] ..< 5[utf8]
+↳               some → 0[utf8] ..< 5[utf8]
+↳                 lowerBound → 0[utf8]
+↳                   _rawBits → 4
+↳                 upperBound → 5[utf8]
+↳                   _rawBits → 327684
+↳             userRange → nil
+↳             passwordRange → nil
+↳             hostRange → 8[utf8] ..< 19[utf8]
+↳               some → 8[utf8] ..< 19[utf8]
+↳                 lowerBound → 8[utf8]
+↳                   _rawBits → 524292
+↳                 upperBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳             portRange → nil
+↳             pathRange → 19[utf8] ..< 25[utf8]
+↳               some → 19[utf8] ..< 25[utf8]
+↳                 lowerBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳                 upperBound → 25[utf8]
+↳                   _rawBits → 1638404
+↳             queryRange → nil
+↳             fragmentRange → nil
+↳             isIPLiteral → false
+↳             didPercentEncodeHost → false
+↳             pathHasFileID → false
+↳             encodedComponents → EncodedComponentSet(rawValue: 0)
+↳               rawValue → 0
+↳           _baseURL → nil
+↳           _encoding → Unicode (UTF-8)
+↳             rawValue → 4
+↳           _isCanonicalFileURL → false
+↳           _nsurlLock → ()
+↳       number → nil
+✘ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() failed after 0.009 seconds with 1 issue.
+✘ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() recorded an issue at HistoryCompletionTests.swift:52:9: Expectation failed: !short.isCompleted
+↳ !short.isCompleted → true
+↳   short.isCompleted → false
+↳     short → WatchRecord(id: "p:series:line:episode-2", title: "同一部剧 第一季", episode: "第2集", url: https://example.com/2.mp4, posterURL: nil, position: 97.0, duration: 100.0, updatedAt: 2026-10-26 15:16:35 +0000, mediaDetail: Optional(CinemaCore.MediaDetail(title: CinemaCore.MediaTitle(id: "series", title: "同一部剧 第一季", year: "2026", posterURL: nil, summary: "", providerID: "p", providerName: "来源", category: Optional("国产剧")), lines: [CinemaCore.PlaybackLine(id: "line", name: "线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: Optional(1)), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: Optional(2))]), CinemaCore.PlaybackLine(id: "full", name: "完整线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: nil), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: nil), CinemaCore.Episode(id: "episode-3", name: "第3集", url: https://example.com/3.mp4, number: nil)])])), lineID: Optional("line"), episodeID: Optional("episode-2"))
+↳       id → "p:series:line:episode-2"
+↳       title → "同一部剧 第一季"
+↳       episode → "第2集"
+↳       url → https://example.com/2.mp4
+↳         _url → Foundation._SwiftURL
+↳           _parseInfo → Foundation.URLParseInfo
+↳             urlString → "https://example.com/2.mp4"
+↳             schemeRange → 0[utf8] ..< 5[utf8]
+↳               some → 0[utf8] ..< 5[utf8]
+↳                 lowerBound → 0[utf8]
+↳                   _rawBits → 4
+↳                 upperBound → 5[utf8]
+↳                   _rawBits → 327684
+↳             userRange → nil
+↳             passwordRange → nil
+↳             hostRange → 8[utf8] ..< 19[utf8]
+↳               some → 8[utf8] ..< 19[utf8]
+↳                 lowerBound → 8[utf8]
+↳                   _rawBits → 524292
+↳                 upperBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳             portRange → nil
+↳             pathRange → 19[utf8] ..< 25[utf8]
+↳               some → 19[utf8] ..< 25[utf8]
+↳                 lowerBound → 19[utf8]
+↳                   _rawBits → 1245188
+↳                 upperBound → 25[utf8]
+↳                   _rawBits → 1638404
+↳             queryRange → nil
+↳             fragmentRange → nil
+↳             isIPLiteral → false
+↳             didPercentEncodeHost → false
+↳             pathHasFileID → false
+↳             encodedComponents → EncodedComponentSet(rawValue: 0)
+↳               rawValue → 0
+↳           _baseURL → nil
+↳           _encoding → Unicode (UTF-8)
+↳             rawValue → 4
+↳           _isCanonicalFileURL → false
+↳           _nsurlLock → ()
+↳       posterURL → nil
+↳       position → 97.0
+↳       duration → 100.0
+↳       updatedAt → 2026-10-26 15:16:35 +0000
+↳         timeIntervalSinceReferenceDate → 814720595.244983
+↳       mediaDetail → MediaDetail(title: CinemaCore.MediaTitle(id: "series", title: "同一部剧 第一季", year: "2026", posterURL: nil, summary: "", providerID: "p", providerName: "来源", category: Optional("国产剧")), lines: [CinemaCore.PlaybackLine(id: "line", name: "线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: Optional(1)), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: Optional(2))]), CinemaCore.PlaybackLine(id: "full", name: "完整线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: nil), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: nil), CinemaCore.Episode(id: "episode-3", name: "第3集", url: https://example.com/3.mp4, number: nil)])])
+↳         some → MediaDetail(title: CinemaCore.MediaTitle(id: "series", title: "同一部剧 第一季", year: "2026", posterURL: nil, summary: "", providerID: "p", providerName: "来源", category: Optional("国产剧")), lines: [CinemaCore.PlaybackLine(id: "line", name: "线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: Optional(1)), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: Optional(2))]), CinemaCore.PlaybackLine(id: "full", name: "完整线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: nil), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: nil), CinemaCore.Episode(id: "episode-3", name: "第3集", url: https://example.com/3.mp4, number: nil)])])
+↳           title → MediaTitle(id: "series", title: "同一部剧 第一季", year: "2026", posterURL: nil, summary: "", providerID: "p", providerName: "来源", category: Optional("国产剧"))
+↳             id → "series"
+↳             title → "同一部剧 第一季"
+↳             year → "2026"
+↳             posterURL → nil
+↳             summary → ""
+↳             providerID → "p"
+↳             providerName → "来源"
+↳             category → "国产剧"
+↳               some → "国产剧"
+↳           lines → [CinemaCore.PlaybackLine(id: "line", name: "线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: Optional(1)), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: Optional(2))]), CinemaCore.PlaybackLine(id: "full", name: "完整线路", episodes: [CinemaCore.Episode(id: "episode-1", name: "第1集", url: https://example.com/1.mp4, number: nil), CinemaCore.Episode(id: "episode-2", name: "第2集", url: https://example.com/2.mp4, number: nil), CinemaCore.Episode(id: "episode-3", name: "第3集", url: https://example.com/3.mp4, number: nil)])]
+↳       lineID → "line"
+↳         some → "line"
+↳       episodeID → "episode-2"
+↳         some → "episode-2"
+↳     isCompleted → true
+✘ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() failed after 0.011 seconds with 1 issue.
+✘ Suite HistoryCompletionTests failed after 0.011 seconds with 2 issues.
+✘ Test run with 8 tests in 1 suite failed after 0.011 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter HistoryCompletionTests` failed. (See above for error)

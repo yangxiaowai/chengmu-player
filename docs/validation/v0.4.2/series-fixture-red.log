@@ -1,0 +1,68 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:54: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                      |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                      |- note: use a default value parameter to avoid this warning
+   |                                                      |- note: provide a default value to avoid this warning
+   |                                                      `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:73: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                                       |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                                       |- note: use a default value parameter to avoid this warning
+   |                                                                       |- note: provide a default value to avoid this warning
+   |                                                                       `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+
+Tests/AppModelSmoke/SeriesHistorySmoke.swift:17:122: warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+15 |         let app = AppModel(); app.providers = []; app.automaticQualityInspection = false; app.autoNext = false
+16 |         let title = MediaTitle(id: "series", title: "漫长的季节", year: "2023", posterURL: nil, summary: "", providerID: "local", providerName: "本地片库", category: "国产剧")
+17 |         let episodes = (1...3).map { Episode(id: "e\($0)", name: "第0\($0)集", url: fixtures.appendingPathComponent("\($0).mp4"), number: $0) }
+   |                                                                                                                      |- warning: string interpolation produces a debug description for an optional value; did you mean to make this explicit?
+   |                                                                                                                      |- note: use a default value parameter to avoid this warning
+   |                                                                                                                      |- note: provide a default value to avoid this warning
+   |                                                                                                                      `- note: use 'String(describing:)' to silence this warning
+18 |         let detail = MediaDetail(title: title, lines: [.init(id: "line", name: "主线路", episodes: episodes)])
+19 |         func record(_ index: Int, position: Double, duration: Double = 100) -> WatchRecord {
+PASS completed_middle_episode_remains_in_continue_watching
+PASS all_episode_filter_uses_episode_progress
+FAIL continue_action_targets_next_episode_with_its_own_progress
+FAIL unwatched_next_episode_starts_at_zero
+FAIL all_episode_replay_stays_on_selected_episode
+PASS partial_episode_continues_without_advancing
+PASS final_episode_hides_work_without_resurrecting_older_episode
+FAIL complete_series_restarts_from_first_episode
+FAIL legacy_episode_stays_visible_without_guessing_next_episode
+PASS missing_number_does_not_jump_over_episode
+PASS completed_movie_is_hidden_and_replay_starts_at_zero
+PASS snapshot_continue-next-episode
+PASS snapshot_completed-series
+PASS snapshot_individual-episodes
+FAIL native_resume_opens_next_local_item_and_seeks_to_saved_progress
+PASS native_resume_preserves_pause_intent
+PASS history_selection_does_not_delete_prior_episode
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/validate-series-history.sh docs/validation/v0.4.2/ui` failed. (See above for error)

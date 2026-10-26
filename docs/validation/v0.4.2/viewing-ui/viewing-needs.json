@@ -1,0 +1,86 @@
+{
+  "checks" : [
+    {
+      "name" : "empty_provider_search_finishes_without_network",
+      "passed" : true
+    },
+    {
+      "name" : "submitted_query_ranks_exact_work_before_derived_content",
+      "passed" : true
+    },
+    {
+      "name" : "editing_search_field_does_not_reorder_existing_results",
+      "passed" : true
+    },
+    {
+      "name" : "content_filter_prunes_sources_without_changing_group_identity",
+      "passed" : true
+    },
+    {
+      "name" : "unclassified_records_remain_when_hiding_derived_content",
+      "passed" : true
+    },
+    {
+      "name" : "provider_and_content_filters_apply_to_same_source",
+      "passed" : true
+    },
+    {
+      "name" : "provider_year_content_filters_compose",
+      "passed" : true
+    },
+    {
+      "name" : "reset_filters_preserves_catalog_and_restores_default_order",
+      "passed" : true
+    },
+    {
+      "name" : "unknown_year_bookmark_matches_filtered_original_source",
+      "passed" : true
+    },
+    {
+      "name" : "unknown_year_bookmark_matches_filtered_new_year_source",
+      "passed" : true
+    },
+    {
+      "name" : "filtered_bookmark_toggle_removes_instead_of_duplicating",
+      "passed" : true
+    },
+    {
+      "name" : "unfinished_latest_view_does_not_resurrect_old_episode",
+      "passed" : true
+    },
+    {
+      "name" : "all_episode_view_can_show_older_unfinished_record",
+      "passed" : true
+    },
+    {
+      "name" : "all_history_remains_available_and_unmodified",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_discovery-filter-1280",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_discovery-filter-1040",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_unfinished-history-1280",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_all-history-900",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_subtitle-large-lift-1040",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_subtitle-no-background-1280",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Real AppModel with zero-provider search, offline catalog\/history fixtures and native SwiftUI bitmap snapshots. Subtitle images inject plain text into actual PlayerView without a video item to check layout only. No network request, decoded-video comparison, physical mouse\/keyboard or fullscreen acceptance."
+}

@@ -1,0 +1,38 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS empty_provider_search_finishes_without_network
+PASS submitted_query_ranks_exact_work_before_derived_content
+PASS editing_search_field_does_not_reorder_existing_results
+PASS content_filter_prunes_sources_without_changing_group_identity
+PASS unclassified_records_remain_when_hiding_derived_content
+PASS provider_and_content_filters_apply_to_same_source
+PASS provider_year_content_filters_compose
+PASS reset_filters_preserves_catalog_and_restores_default_order
+PASS unknown_year_bookmark_matches_filtered_original_source
+PASS unknown_year_bookmark_matches_filtered_new_year_source
+PASS filtered_bookmark_toggle_removes_instead_of_duplicating
+PASS unfinished_latest_view_does_not_resurrect_old_episode
+PASS all_episode_view_can_show_older_unfinished_record
+PASS all_history_remains_available_and_unmodified
+PASS snapshot_discovery-filter-1280
+PASS snapshot_discovery-filter-1040
+PASS snapshot_unfinished-history-1280
+PASS snapshot_all-history-900
+PASS snapshot_subtitle-large-lift-1040
+PASS snapshot_subtitle-no-background-1280

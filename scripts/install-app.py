@@ -38,8 +38,8 @@ def verify_bundle(bundle: Path) -> None:
         info = plistlib.load(stream)
     if info.get("CFBundleIdentifier") != BUNDLE_ID:
         raise ValueError("暂存应用标识不匹配，未安装。")
-    if info.get("CFBundleShortVersionString") != "0.4.1" or info.get("CFBundleVersion") != "24":
-        raise ValueError("暂存应用版本不是 0.4.1 / build 24，未安装。")
+    if info.get("CFBundleShortVersionString") != "0.4.2" or info.get("CFBundleVersion") != "25":
+        raise ValueError("暂存应用版本不是 0.4.2 / build 25，未安装。")
     executable = bundle / "Contents/MacOS/Cinema"
     if not executable.is_file() or not os.access(executable, os.X_OK):
         raise ValueError("暂存应用缺少可执行程序，未安装。")

@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {
+      "name": "existing_history_loaded_after_upgrade",
+      "passed": true
+    },
+    {
+      "name": "individual_completed_episodes_use_episode_label",
+      "passed": true
+    }
+  ],
+  "scope": "Installed build25 existing history: partial work stays in unfinished, known final episode is complete in aggregated view, previously completed intermediate episodes are labeled per-episode in all-episode view. Changed filters only; did not start media or modify progress. User history names/progress and screenshot remain local."
+}

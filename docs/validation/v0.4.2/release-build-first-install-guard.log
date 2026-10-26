@@ -1,0 +1,55 @@
+Building for production...
+[Using on-disk description]
+[3 / 11] CinemaCore
+[5 / 49]
+[11 / 49]
+[13 / 49]
+[18 / 49]
+[19 / 49]
+[20 / 49]
+[22 / 49]
+[24 / 49]
+[31 / 49]
+[33 / 49]
+[37 / 49]
+[40 / 49]
+[41 / 49]
+[42 / 49] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[48 / 50] CinemaCore
+[49 / 50] Cinema-product
+[59 / 70]
+[63 / 70]
+[64 / 70]
+[65 / 70]
+[66 / 70]
+[68 / 70]
+[69 / 70] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[72 / 74] Cinema-product
+[73 / 74] Cinema-product
+Build complete! (48.54 sec)
+/Users/yangjun/Downloads/视频播放器/.build/app-stage-0.4.2.3cuiXC/澄幕.app: replacing existing signature
+旧版映川或澄幕仍在运行，未替换应用。请正常退出后重新安装。
+70442 /Users/yangjun/Downloads/视频播放器/dist/澄幕.app/Contents/MacOS/Cinema
+暂存应用保留于：/Users/yangjun/Downloads/视频播放器/.build/app-stage-0.4.2.3cuiXC/澄幕.app
+重新安装：/Users/yangjun/anaconda3/envs/searchformoney/bin/python3 '/Users/yangjun/Downloads/视频播放器/scripts/install-app.py' '/Users/yangjun/Downloads/视频播放器/.build/app-stage-0.4.2.3cuiXC/澄幕.app' '/Users/yangjun/Downloads/视频播放器/dist'
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/build-app.sh release` failed. (See above for error)

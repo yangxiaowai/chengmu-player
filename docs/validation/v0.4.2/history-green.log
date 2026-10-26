@@ -1,0 +1,66 @@
+Building for debugging...
+[2 / 4] CinemaCore
+[3 / 43]
+[10 / 43]
+[12 / 43]
+[18 / 43]
+[19 / 43]
+[21 / 43]
+[23 / 43]
+[30 / 43]
+[32 / 43]
+[36 / 43]
+[39 / 43]
+[40 / 43]
+[41 / 43] CinemaCore
+[47 / 49] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[50 / 52] Cinema-product
+[60 / 80]
+[64 / 80]
+[65 / 80]
+[66 / 80]
+[67 / 80]
+[69 / 80]
+[78 / 80] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[80 / 80] Cinema-product
+[83 / 88] CinemaCoreTests-product
+[84 / 94]
+[89 / 94] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[95 / 99] CinemaCoreTests-product
+Build complete! (25.14 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite HistoryCompletionTests started.
+◇ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() started.
+◇ Test completedIsAReversibleViewOfValidProgress() started.
+◇ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() started.
+◇ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() started.
+◇ Test finalEpisodeMustAlsoReachTheProgressThreshold() started.
+◇ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() started.
+◇ Test movieContextAndOldMovieRecordsStillCompleteNormally() started.
+◇ Test completedStatusDoesNotChangeStoredHistory() started.
+✔ Test anIncompleteLineCannotHideEpisodesAvailableOnAnotherLine() passed after 0.001 seconds.
+✔ Test finishingAnIntermediateEpisodeDoesNotCompleteTheSeries() passed after 0.001 seconds.
+✔ Test finalEpisodeMustAlsoReachTheProgressThreshold() passed after 0.001 seconds.
+✔ Test completedEpisodeOffersOnlyAnUnambiguousConsecutiveNextEpisode() passed after 0.001 seconds.
+✔ Test completedStatusDoesNotChangeStoredHistory() passed after 0.001 seconds.
+✔ Test movieContextAndOldMovieRecordsStillCompleteNormally() passed after 0.001 seconds.
+✔ Test unknownOrBrokenSeriesContextDoesNotClaimWholeSeriesCompletion() passed after 0.001 seconds.
+✔ Test completedIsAReversibleViewOfValidProgress() passed after 0.001 seconds.
+✔ Suite HistoryCompletionTests passed after 0.001 seconds.
+✔ Test run with 8 tests in 1 suite passed after 0.001 seconds.

@@ -146,9 +146,10 @@ struct HistoryView: View {
     @LegacyState private var showAll = false
     @LegacyState private var unfinishedOnly = true
     @LegacyState private var confirmClear = false
-    init(app: AppModel, unfinishedOnly: Bool = true) {
+    init(app: AppModel, unfinishedOnly: Bool = true, showAllEpisodes: Bool = false) {
         self.app = app
         _unfinishedOnly = LegacyState(initialValue: unfinishedOnly)
+        _showAll = LegacyState(initialValue: showAllEpisodes)
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -167,24 +168,23 @@ struct HistoryView: View {
                 ContentUnavailableView("故事都看完了", systemImage: "checkmark.circle", description: Text("切换到全部记录，随时重温喜欢的影片。"))
             }
             ForEach(records) { record in
+                let completed = showAll ? record.isEpisodeCompleted : record.isCompleted
+                let next = showAll ? nil : record.nextEpisodeToWatch
                 HStack(spacing: 12) {
-                    Button {
-                        var target = record
-                        if target.isCompleted { target.position = 0 }
-                        app.resume(target)
-                    } label: {
+                    Button { app.resumeHistory(record, showAllEpisodes: showAll) } label: {
                         HStack(spacing: 21) {
                             PosterView(url: record.posterURL, title: record.title).frame(width: 86, height: 116).clipShape(RoundedRectangle(cornerRadius: 8))
                             VStack(alignment: .leading, spacing: 9) {
                                 HStack(spacing: 9) {
                                     Text(record.title).font(.system(size: 17, weight: .semibold))
-                                    if record.isCompleted { Label("已看完", systemImage: "checkmark.circle.fill").font(.system(size: 10)).foregroundStyle(CinemaStyle.positive) }
+                                    if completed { Label(showAll ? "本集已看完" : ((record.playbackContext?.line.episodes.count ?? 0) > 1 ? "全部已看完" : "已看完"), systemImage: "checkmark.circle.fill").font(.system(size: 10)).foregroundStyle(CinemaStyle.positive) }
+                                    else if record.isEpisodeCompleted { Text("本集已看完").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
                                 }
                                 Text(record.episode + " · " + (record.mediaDetail?.title.providerName ?? "本地与网络影片")).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                                 ProgressView(value: record.progress).tint(CinemaStyle.accent).frame(maxWidth: 360).padding(.top, 6)
-                                Text("已看 " + timeString(record.position) + " / " + (record.duration > 0 ? timeString(record.duration) : "时长未知")).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
+                                Text(((record.playbackContext?.line.episodes.count ?? 0) > 1 ? "本集已看 " : "已看 ") + timeString(record.position) + " / " + (record.duration > 0 ? timeString(record.duration) : "时长未知")).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
                             }.frame(maxWidth: .infinity, alignment: .leading)
-                            HStack(spacing: 7) { Image(systemName: record.isCompleted ? "arrow.counterclockwise" : "play.fill"); Text(record.isCompleted ? "重新观看" : "继续观看") }.font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.accent).padding(.horizontal, 17).padding(.vertical, 10).background(CinemaStyle.accent.opacity(0.1), in: Capsule())
+                            HStack(spacing: 7) { Image(systemName: completed ? "arrow.counterclockwise" : "play.fill"); Text(next.map { "续看 \($0.name)" } ?? (completed ? "重新观看" : "继续观看")) }.font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.accent).padding(.horizontal, 17).padding(.vertical, 10).background(CinemaStyle.accent.opacity(0.1), in: Capsule())
                         }.contentShape(Rectangle())
                     }.buttonStyle(.plain)
                     Button { app.removeHistory(record.id) } label: { Image(systemName: "xmark").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).frame(width: 28, height: 34).contentShape(Rectangle()) }.buttonStyle(.plain).help("移除此条记录")
