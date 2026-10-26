@@ -1,0 +1,15 @@
+{
+  "release": "https://github.com/yangxiaowai/chengmu-player/releases/tag/v0.4.3",
+  "sourceCommit": "e0c7ab2633c756fda640c03dbc97a10b625dc973",
+  "remoteRefs": [
+    "e0c7ab2633c756fda640c03dbc97a10b625dc973\trefs/heads/main",
+    "e0c7ab2633c756fda640c03dbc97a10b625dc973\trefs/tags/v0.4.3"
+  ],
+  "publishedAt": "2026-10-26T16:06:44Z",
+  "draft": false,
+  "prerelease": false,
+  "asset": "Chengmu-v0.4.3-macOS-AppleSilicon.zip",
+  "assetBytes": 2255325,
+  "assetDigest": "sha256:edb05b0174ee5624913988183f854a30969784c3dae835433ffad3dcd3732fba",
+  "matchesLocalArchive": true
+}

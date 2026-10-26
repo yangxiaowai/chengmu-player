@@ -4,7 +4,7 @@
 选源和线路同时显示画质与真实媒体HTTP响应，保留失败、取消、缓存与播放优先行为，构建安装并同步GitHub。
 
 ## Next Step
-完成正式安装、原生窗口与发行核对。
+v0.4.3已安装并公开发布，真实界面与附件远端核对完成，交付说明。
 
 ## Current Phase
 Phase 5
@@ -34,8 +34,8 @@ Phase 5
 
 ### Phase 5: Delivery
 - [x] Review outputs
-- [ ] Deliver to user
-- **Status:** in_progress
+- [x] Deliver to user
+- **Status:** complete
 
 ## Decisions Made
 | Decision | Rationale |
