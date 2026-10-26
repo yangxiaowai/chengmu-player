@@ -7,3 +7,5 @@ docs/validation/*.mov
 docs/validation/*.mp4
 __pycache__/
 *.pyc
+
+.planning/.active_plan

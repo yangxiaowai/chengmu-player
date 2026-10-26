@@ -1,0 +1,17 @@
+{
+  "version": "0.4.1",
+  "build": "24",
+  "architecture": "arm64",
+  "archive": "Chengmu-v0.4.1-macOS-AppleSilicon.zip",
+  "archiveBytes": 2204659,
+  "archiveSHA256": "24aa25844e0efc0855aff69720d1f1613dd7b6f74b112283f1dc19156c073571",
+  "installedExecutableSHA256": "234c2c0c187fc10e4664816d9e19af7d981400baaf5030d204e18b40a70d59e2",
+  "extractedExecutableMatchesInstalled": true,
+  "zipCRC": "pass",
+  "codesignInstalled": "pass",
+  "codesignExtracted": "pass",
+  "notarized": false,
+  "installation": "normal quit of build23, installer completed; old app backed up",
+  "backup": "dist/历史版本/澄幕-v0.4.0-build23.app",
+  "scope": "Packaging integrity and local installation, not full network playback or content certification."
+}

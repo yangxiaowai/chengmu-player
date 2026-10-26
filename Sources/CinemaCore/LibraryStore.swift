@@ -31,6 +31,10 @@ public struct WatchRecord: Codable, Hashable, Identifiable {
         url == candidate.url && episode == candidate.name
     }
     public var progress: Double { duration > 0 ? min(1, max(0, position / duration)) : 0 }
+    /// A display filter only; completion never deletes history or changes resume identity.
+    public var isCompleted: Bool {
+        duration.isFinite && duration > 0 && position.isFinite && position >= duration * 0.95
+    }
 }
 
 public struct LibraryStore {

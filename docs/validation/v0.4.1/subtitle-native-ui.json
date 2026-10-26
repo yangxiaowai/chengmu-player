@@ -1,0 +1,18 @@
+{
+  "checks": [
+    {
+      "name": "s_hides_subtitle",
+      "passed": true
+    },
+    {
+      "name": "s_restores_subtitle_while_paused",
+      "passed": true
+    },
+    {
+      "name": "fullscreen_has_subtitle_and_exit_control",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Isolated native host with production views/controllers, local generated video/SRT. S key hide/show and fullscreen subtitle visibility checked. Fullscreen screenshot visually inspected. Does not certify all fonts, subtitle formats, track languages, or long playback. AX assertion used full tree after an initial diff omitted unchanged subtitle text."
+}

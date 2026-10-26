@@ -1,0 +1,95 @@
+Building for debugging...
+[Planning deferred tasks]
+[33 / 64]
+[34 / 65] CinemaCore
+[43 / 177]
+[47 / 177]
+[55 / 177]
+[58 / 177]
+[63 / 177]
+[66 / 177]
+[74 / 177]
+[79 / 177]
+[80 / 177]
+[88 / 177]
+[90 / 177]
+[94 / 177]
+[97 / 177]
+[98 / 177]
+[105 / 177]
+[106 / 177]
+[107 / 177]
+[112 / 177]
+[113 / 177]
+[114 / 177]
+[116 / 177]
+[117 / 177]
+[118 / 177]
+[125 / 177]
+[126 / 177]
+[127 / 177]
+[131 / 177]
+[134 / 177]
+[135 / 177]
+[145 / 177] CinemaCore
+[147 / 177] CinemaCore
+[157 / 178] CinemaCore
+[157 / 178] Cinema-product
+[168 / 225]
+[173 / 225]
+[181 / 225]
+[183 / 225]
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[189 / 225]
+[191 / 226]
+[192 / 226]
+[195 / 240]
+[205 / 240] CinemaCoreTests-product
+[206 / 240] CinemaCoreTests-product
+[208 / 240] CinemaCoreTests-product
+[209 / 240] CinemaCoreTests-product
+[214 / 240] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[216 / 240] CinemaCoreTests-product
+[220 / 240]
+[221 / 240]
+[223 / 240]
+[224 / 240]
+[234 / 240] Cinema-product
+[235 / 240] Cinema-product
+[236 / 240] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[238 / 240] Cinema-product
+Build complete! (40.90 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SubtitlePreferencesTests started.
+◇ Test clampsBoundsAndRejectsNonfiniteValues() started.
+◇ Test olderProfilesReceiveComfortDefaults() started.
+◇ Test dedicatedStorePreservesPlaybackPreferencesAndDiagnosticIsolation() started.
+✔ Test clampsBoundsAndRejectsNonfiniteValues() passed after 0.001 seconds.
+✔ Test olderProfilesReceiveComfortDefaults() passed after 0.001 seconds.
+✔ Test dedicatedStorePreservesPlaybackPreferencesAndDiagnosticIsolation() passed after 0.006 seconds.
+✔ Suite SubtitlePreferencesTests passed after 0.006 seconds.
+✔ Test run with 3 tests in 1 suite passed after 0.006 seconds.

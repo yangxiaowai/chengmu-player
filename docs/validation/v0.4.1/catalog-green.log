@@ -1,0 +1,62 @@
+Building for debugging...
+[Planning deferred tasks]
+[27 / 50]
+[28 / 51] CinemaCore
+[37 / 163]
+[45 / 163]
+[51 / 163]
+[52 / 163]
+[57 / 163]
+[59 / 163]
+[62 / 163]
+[68 / 163]
+[71 / 163]
+[73 / 163]
+[74 / 163]
+[82 / 163]
+[84 / 163]
+[88 / 163]
+[92 / 163]
+[99 / 163]
+[101 / 163]
+[107 / 163]
+[108 / 163]
+[110 / 163]
+[112 / 163]
+[119 / 163]
+[121 / 163]
+[125 / 163]
+[128 / 163]
+[129 / 163]
+[139 / 163] CinemaCore
+[140 / 163] CinemaCore
+[148 / 163] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.pnSfug/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[153 / 164] CinemaCoreTests-product
+[154 / 169]
+[158 / 169] CinemaCoreTests-product
+[163 / 169] CinemaCoreTests-product
+[165 / 169] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.pnSfug/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.pnSfug/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+Build complete! (22.69 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CatalogDiscoveryPolicyTests started.
+◇ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() started.
+◇ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() started.
+◇ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() started.
+◇ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() started.
+◇ Test unknownCategoriesRemainAvailableAndAllNeverHidesRecords() started.
+◇ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() started.
+◇ Test incidentalWordsInsideRealTitlesDoNotHideFeatures() started.
+✔ Test unknownCategoriesRemainAvailableAndAllNeverHidesRecords() passed after 0.001 seconds.
+✔ Test incidentalWordsInsideRealTitlesDoNotHideFeatures() passed after 0.001 seconds.
+✔ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() passed after 0.002 seconds.
+✔ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() passed after 0.002 seconds.
+✔ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() passed after 0.002 seconds.
+✔ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() passed after 0.002 seconds.
+✔ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() passed after 0.003 seconds.
+✔ Suite CatalogDiscoveryPolicyTests passed after 0.003 seconds.
+✔ Test run with 7 tests in 1 suite passed after 0.003 seconds.

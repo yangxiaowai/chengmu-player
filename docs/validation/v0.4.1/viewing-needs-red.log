@@ -1,0 +1,105 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:37:13: error: value of type 'AppModel' has no member 'filterContent'
+35 |         app.query = "流浪地球"
+36 |         check("editing_search_field_does_not_reorder_existing_results", app.filteredGroups.first?.sources.contains(main) == true)
+37 |         app.filterContent = .feature
+   |             `- error: value of type 'AppModel' has no member 'filterContent'
+38 |         let selectedMain = app.filteredGroups.first { $0.sources.contains(main) }
+39 |         check("content_filter_prunes_sources_without_changing_group_identity", selectedMain?.sources == [main] && selectedMain?.id == originalGroupID)
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:37:30: error: cannot infer contextual base in reference to member 'feature'
+35 |         app.query = "流浪地球"
+36 |         check("editing_search_field_does_not_reorder_existing_results", app.filteredGroups.first?.sources.contains(main) == true)
+37 |         app.filterContent = .feature
+   |                              `- error: cannot infer contextual base in reference to member 'feature'
+38 |         let selectedMain = app.filteredGroups.first { $0.sources.contains(main) }
+39 |         check("content_filter_prunes_sources_without_changing_group_identity", selectedMain?.sources == [main] && selectedMain?.id == originalGroupID)
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:43:13: error: value of type 'AppModel' has no member 'filterContent'
+41 |         app.filterProviderID = "b"
+42 |         check("provider_and_content_filters_apply_to_same_source", app.filteredGroups.isEmpty)
+43 |         app.filterContent = .commentary; app.filterYear = "2014"
+   |             `- error: value of type 'AppModel' has no member 'filterContent'
+44 |         check("provider_year_content_filters_compose", app.filteredGroups.count == 1 && app.filteredGroups[0].sources == [sameNameCommentary])
+45 |         app.catalogSort = .title; app.resetCatalogFilters()
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:43:30: error: cannot infer contextual base in reference to member 'commentary'
+41 |         app.filterProviderID = "b"
+42 |         check("provider_and_content_filters_apply_to_same_source", app.filteredGroups.isEmpty)
+43 |         app.filterContent = .commentary; app.filterYear = "2014"
+   |                              `- error: cannot infer contextual base in reference to member 'commentary'
+44 |         check("provider_year_content_filters_compose", app.filteredGroups.count == 1 && app.filteredGroups[0].sources == [sameNameCommentary])
+45 |         app.catalogSort = .title; app.resetCatalogFilters()
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:45:39: error: value of type 'AppModel' has no member 'resetCatalogFilters'
+43 |         app.filterContent = .commentary; app.filterYear = "2014"
+44 |         check("provider_year_content_filters_compose", app.filteredGroups.count == 1 && app.filteredGroups[0].sources == [sameNameCommentary])
+45 |         app.catalogSort = .title; app.resetCatalogFilters()
+   |                                       `- error: value of type 'AppModel' has no member 'resetCatalogFilters'
+46 |         check("reset_filters_preserves_catalog_and_restores_default_order", app.filterContent == .all && app.filterProviderID.isEmpty && app.filterYear.isEmpty && app.catalogSort == .relevance && app.results.count == 7)
+47 |         func record(_ id: String, _ episode: String, _ position: Double, _ duration: Double, title: String = "漫长的季节") -> WatchRecord {
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:46:81: error: value of type 'AppModel' has no member 'filterContent'
+44 |         check("provider_year_content_filters_compose", app.filteredGroups.count == 1 && app.filteredGroups[0].sources == [sameNameCommentary])
+45 |         app.catalogSort = .title; app.resetCatalogFilters()
+46 |         check("reset_filters_preserves_catalog_and_restores_default_order", app.filterContent == .all && app.filterProviderID.isEmpty && app.filterYear.isEmpty && app.catalogSort == .relevance && app.results.count == 7)
+   |                                                                                 `- error: value of type 'AppModel' has no member 'filterContent'
+47 |         func record(_ id: String, _ episode: String, _ position: Double, _ duration: Double, title: String = "漫长的季节") -> WatchRecord {
+48 |             let metadata = MediaTitle(id: title, title: title, year: "2023", posterURL: nil, summary: "", providerID: a.id, providerName: a.name)
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:55:76: error: value of type 'AppModel' has no member 'historyRecords'
+53 |         let unknownDuration = record("unknown", "正片", 30, 0, title: "深海")
+54 |         app.history = [completed, older, unknownDuration]
+55 |         check("unfinished_latest_view_does_not_resurrect_old_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [unknownDuration])
+   |                                                                            `- error: value of type 'AppModel' has no member 'historyRecords'
+56 |         check("all_episode_view_can_show_older_unfinished_record", app.historyRecords(showAllEpisodes: true, unfinishedOnly: true) == [older, unknownDuration])
+57 |         check("all_history_remains_available_and_unmodified", app.historyRecords(showAllEpisodes: true, unfinishedOnly: false) == [completed, older, unknownDuration] && app.history.count == 3)
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:56:72: error: value of type 'AppModel' has no member 'historyRecords'
+54 |         app.history = [completed, older, unknownDuration]
+55 |         check("unfinished_latest_view_does_not_resurrect_old_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [unknownDuration])
+56 |         check("all_episode_view_can_show_older_unfinished_record", app.historyRecords(showAllEpisodes: true, unfinishedOnly: true) == [older, unknownDuration])
+   |                                                                        `- error: value of type 'AppModel' has no member 'historyRecords'
+57 |         check("all_history_remains_available_and_unmodified", app.historyRecords(showAllEpisodes: true, unfinishedOnly: false) == [completed, older, unknownDuration] && app.history.count == 3)
+58 |
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:57:67: error: value of type 'AppModel' has no member 'historyRecords'
+55 |         check("unfinished_latest_view_does_not_resurrect_old_episode", app.historyRecords(showAllEpisodes: false, unfinishedOnly: true) == [unknownDuration])
+56 |         check("all_episode_view_can_show_older_unfinished_record", app.historyRecords(showAllEpisodes: true, unfinishedOnly: true) == [older, unknownDuration])
+57 |         check("all_history_remains_available_and_unmodified", app.historyRecords(showAllEpisodes: true, unfinishedOnly: false) == [completed, older, unknownDuration] && app.history.count == 3)
+   |                                                                   `- error: value of type 'AppModel' has no member 'historyRecords'
+58 |
+59 |         func snapshot<V: View>(_ view: V, name: String, size: NSSize) async throws {
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:70:41: error: value of type 'AppModel' has no member 'filterContent'
+68 |             check("snapshot_\(name)", png.count > 10_000)
+69 |         }
+70 |         app.query = "星际穿越"; app.filterContent = .feature
+   |                                 `- error: value of type 'AppModel' has no member 'filterContent'
+71 |         try await snapshot(ContentView(app: app), name: "discovery-filter-1280", size: .init(width: 1280, height: 900))
+72 |         try await snapshot(ContentView(app: app), name: "discovery-filter-1040", size: .init(width: 1040, height: 760))
+
+Tests/AppModelSmoke/ViewingNeedsSmoke.swift:70:58: error: cannot infer contextual base in reference to member 'feature'
+68 |             check("snapshot_\(name)", png.count > 10_000)
+69 |         }
+70 |         app.query = "星际穿越"; app.filterContent = .feature
+   |                                                  `- error: cannot infer contextual base in reference to member 'feature'
+71 |         try await snapshot(ContentView(app: app), name: "discovery-filter-1280", size: .init(width: 1280, height: 900))
+72 |         try await snapshot(ContentView(app: app), name: "discovery-filter-1040", size: .init(width: 1040, height: 760))

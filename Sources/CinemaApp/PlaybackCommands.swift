@@ -7,12 +7,14 @@ struct PlayerCommandContext {
     let canNext: Bool
     let fullscreen: Bool
     let episodesShown: Bool
+    let subtitlesVisible: Bool
     let togglePlayback: () -> Void
     let skip: (Double) -> Void
     let jumpToTime: () -> Void
     let previous: () -> Void
     let next: () -> Void
     let toggleFullscreen: () -> Void
+    let toggleSubtitles: () -> Void
     let toggleEpisodes: () -> Void
     let showShortcuts: () -> Void
 }
@@ -41,6 +43,8 @@ struct PlaybackCommands: Commands {
             Divider()
             Button(player?.fullscreen == true ? "退出全屏" : "进入全屏") { player?.toggleFullscreen() }.disabled(player == nil)
             Button(player?.episodesShown == true ? "隐藏选集" : "显示选集") { player?.toggleEpisodes() }.disabled(player == nil)
+            Button(player?.subtitlesVisible == true ? "隐藏字幕" : "显示字幕") { player?.toggleSubtitles() }
+                .keyboardShortcut("s", modifiers: [.command, .shift]).disabled(player == nil)
             Divider()
             Button("播放快捷键…") { player?.showShortcuts() }.disabled(player == nil)
         }

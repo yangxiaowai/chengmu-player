@@ -38,7 +38,8 @@ struct PlaybackShortcutsDialog: View {
     private let shortcuts = [
         ("播放 / 暂停", "空格 或 ⌘P"), ("快退 / 快进 10 秒", "← / → 或 ⌥⌘← / ⌥⌘→"),
         ("精确跳转", "⌘J 或点击播放时间"), ("上一集 / 下一集", "⌘← / ⌘→"),
-        ("调节音量", "↑ / ↓"), ("静音 / 恢复音量", "M"), ("全屏 / 退出全屏", "F / Esc 或双击画面")
+        ("调节音量", "↑ / ↓"), ("静音 / 恢复音量", "M"), ("显示 / 隐藏字幕", "S 或 ⇧⌘S"),
+        ("全屏 / 退出全屏", "F / Esc 或双击画面")
     ]
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {

@@ -7,8 +7,8 @@ struct DiscoveryView: View {
         VStack(alignment: .leading, spacing: 23) {
             if !app.recentSearches.isEmpty && !app.browsing { recentSearches }
             HStack(alignment: .firstTextBaseline) {
-                Text(app.query.isEmpty && !app.browsing ? "为你发现" : app.searchLabel).font(.custom("PingFangSC-Semibold", size: 25)).lineLimit(1)
-                if app.query.isEmpty && !app.browsing { quickSearches }
+                Text(app.catalogQuery.isEmpty && !app.browsing ? "为你发现" : app.searchLabel).font(.custom("PingFangSC-Semibold", size: 25)).lineLimit(1)
+                if app.catalogQuery.isEmpty && !app.browsing { quickSearches }
                 if app.searching { ProgressView().controlSize(.small) }
                 Spacer()
                 Text("\(app.filteredGroups.count) 部作品").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
@@ -49,8 +49,21 @@ struct DiscoveryView: View {
         HStack(spacing: 9) {
             Menu { Button("全部来源") { app.filterProviderID = "" }; ForEach(app.providers.filter(\.enabled)) { provider in Button(provider.name) { app.filterProviderID = provider.id } } } label: { FilterPill(title: app.providers.first { $0.id == app.filterProviderID }?.name ?? "全部来源", active: !app.filterProviderID.isEmpty) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
             Menu { Button("全部年份") { app.filterYear = "" }; ForEach(app.availableYears, id: \.self) { year in Button(year) { app.filterYear = year } } } label: { FilterPill(title: app.filterYear.isEmpty ? "全部年份" : app.filterYear, active: !app.filterYear.isEmpty) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+            Menu {
+                ForEach(CatalogContentFilter.allCases) { filter in
+                    Button { app.filterContent = filter } label: {
+                        if app.filterContent == filter { Label(filter.title, systemImage: "checkmark") }
+                        else { Text(filter.title) }
+                    }
+                }
+            } label: { FilterPill(title: app.filterContent.title, active: app.filterContent != .all) }
+                .menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+                .help("影片与剧集会隐藏明确标记为解说、预告或短剧的内容；未分类影片仍保留。")
             Menu { ForEach(CatalogSort.allCases) { sort in Button(sortLabel(sort)) { app.catalogSort = sort } } } label: { FilterPill(title: sortLabel(app.catalogSort)) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
             Spacer(minLength: 4)
+            if app.hasCatalogFilters {
+                Button { app.resetCatalogFilters() } label: { Text("重置").font(.system(size: 10)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary).help("清除筛选并恢复相关性排序")
+            }
             Toggle(isOn: $app.automaticQualityInspection) { Label("自动识别画质", systemImage: "4k.tv").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }.toggleStyle(.switch).controlSize(.mini).fixedSize().help("自动获取可见影片的分辨率。播放时暂停后台读取。")
         }.padding(.bottom, 3)
     }
@@ -131,29 +144,61 @@ struct WatchlistView: View {
 struct HistoryView: View {
     @ObservedObject var app: AppModel
     @LegacyState private var showAll = false
+    @LegacyState private var unfinishedOnly = true
     @LegacyState private var confirmClear = false
+    init(app: AppModel, unfinishedOnly: Bool = true) {
+        self.app = app
+        _unfinishedOnly = LegacyState(initialValue: unfinishedOnly)
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack(alignment: .bottom) { VStack(alignment: .leading, spacing: 8) { Text("故事，继续。").font(.custom("Songti SC", size: 30)).fontWeight(.semibold); Text("回到上次离开的那一刻").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary) }; Spacer(); Button { confirmClear = true } label: { Label("清空记录", systemImage: "trash").font(.system(size: 11)) }.buttonStyle(CinemaActionStyle(compact: true)) }
-            HStack { Text("最近观看").font(.system(size: 16, weight: .semibold)); Spacer(); Toggle("显示全部剧集", isOn: $showAll).toggleStyle(.switch).controlSize(.mini).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary) }
+            HStack(spacing: 14) {
+                HStack(spacing: 3) {
+                    historyFilter("未看完", unfinished: true)
+                    historyFilter("全部记录", unfinished: false)
+                }.padding(4).background(CinemaStyle.panel, in: Capsule())
+                Text("\(records.count) 项").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
+                Spacer()
+                Toggle("显示全部剧集", isOn: $showAll).toggleStyle(.switch).controlSize(.mini).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+            }
             if app.history.isEmpty { ContentUnavailableView("你的观影时光，从这里开始", systemImage: "clock", description: Text("播放过的影片会自动记录进度。")) }
-            ForEach(showAll ? app.history : app.latestHistory) { record in
+            else if records.isEmpty {
+                ContentUnavailableView("故事都看完了", systemImage: "checkmark.circle", description: Text("切换到全部记录，随时重温喜欢的影片。"))
+            }
+            ForEach(records) { record in
                 HStack(spacing: 12) {
-                    Button { app.resume(record) } label: {
+                    Button {
+                        var target = record
+                        if target.isCompleted { target.position = 0 }
+                        app.resume(target)
+                    } label: {
                         HStack(spacing: 21) {
                             PosterView(url: record.posterURL, title: record.title).frame(width: 86, height: 116).clipShape(RoundedRectangle(cornerRadius: 8))
                             VStack(alignment: .leading, spacing: 9) {
-                                Text(record.title).font(.system(size: 17, weight: .semibold))
+                                HStack(spacing: 9) {
+                                    Text(record.title).font(.system(size: 17, weight: .semibold))
+                                    if record.isCompleted { Label("已看完", systemImage: "checkmark.circle.fill").font(.system(size: 10)).foregroundStyle(CinemaStyle.positive) }
+                                }
                                 Text(record.episode + " · " + (record.mediaDetail?.title.providerName ?? "本地与网络影片")).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                                 ProgressView(value: record.progress).tint(CinemaStyle.accent).frame(maxWidth: 360).padding(.top, 6)
-                                Text("已看 " + timeString(record.position) + " / " + timeString(record.duration)).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
+                                Text("已看 " + timeString(record.position) + " / " + (record.duration > 0 ? timeString(record.duration) : "时长未知")).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
                             }.frame(maxWidth: .infinity, alignment: .leading)
-                            HStack(spacing: 7) { Image(systemName: "play.fill"); Text("继续观看") }.font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.accent).padding(.horizontal, 17).padding(.vertical, 10).background(CinemaStyle.accent.opacity(0.1), in: Capsule())
+                            HStack(spacing: 7) { Image(systemName: record.isCompleted ? "arrow.counterclockwise" : "play.fill"); Text(record.isCompleted ? "重新观看" : "继续观看") }.font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.accent).padding(.horizontal, 17).padding(.vertical, 10).background(CinemaStyle.accent.opacity(0.1), in: Capsule())
                         }.contentShape(Rectangle())
                     }.buttonStyle(.plain)
                     Button { app.removeHistory(record.id) } label: { Image(systemName: "xmark").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).frame(width: 28, height: 34).contentShape(Rectangle()) }.buttonStyle(.plain).help("移除此条记录")
                 }.padding(15).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 12))
             }
         }.confirmationDialog("清除这台 Mac 的全部观看历史？", isPresented: $confirmClear) { Button("清除全部历史", role: .destructive) { app.clearHistory() }; Button("取消", role: .cancel) {} }
+    }
+    private var records: [WatchRecord] { app.historyRecords(showAllEpisodes: showAll, unfinishedOnly: unfinishedOnly) }
+    private func historyFilter(_ title: String, unfinished: Bool) -> some View {
+        Button { unfinishedOnly = unfinished } label: {
+            Text(title).font(.system(size: 11, weight: unfinishedOnly == unfinished ? .semibold : .regular))
+                .foregroundStyle(unfinishedOnly == unfinished ? CinemaStyle.accent : CinemaStyle.secondary)
+                .padding(.horizontal, 14).padding(.vertical, 8)
+                .background(unfinishedOnly == unfinished ? CinemaStyle.accentSoft : .clear, in: Capsule())
+        }.buttonStyle(.plain).accessibilityAddTraits(unfinishedOnly == unfinished ? .isSelected : [])
     }
 }

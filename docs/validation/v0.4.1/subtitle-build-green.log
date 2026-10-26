@@ -1,0 +1,108 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+{
+  "checks" : [
+    {
+      "name" : "fresh_profile_defaults",
+      "passed" : true
+    },
+    {
+      "name" : "local_fixture_ready",
+      "passed" : true
+    },
+    {
+      "name" : "paused_import_refreshes_current_cue",
+      "passed" : true
+    },
+    {
+      "name" : "hide_preserves_file_selection_offset_and_pause",
+      "passed" : true
+    },
+    {
+      "name" : "invalid_import_retains_hidden_file_and_offset",
+      "passed" : true
+    },
+    {
+      "name" : "unreadable_import_retains_hidden_file_and_offset",
+      "passed" : true
+    },
+    {
+      "name" : "show_after_paused_seek_refreshes_retained_cue",
+      "passed" : true
+    },
+    {
+      "name" : "paused_offset_change_refreshes_cue",
+      "passed" : true
+    },
+    {
+      "name" : "retry_retains_hidden_external_offset_and_pause",
+      "passed" : true
+    },
+    {
+      "name" : "show_after_retry_uses_retained_timeline",
+      "passed" : true
+    },
+    {
+      "name" : "global_comfort_and_visibility_persist",
+      "passed" : true
+    },
+    {
+      "name" : "new_film_clears_per_film_state_preserving_global_settings",
+      "passed" : true
+    },
+    {
+      "name" : "successful_import_can_show_new_subtitles",
+      "passed" : true
+    },
+    {
+      "name" : "explicit_none_removes_subtitle_selection",
+      "passed" : true
+    },
+    {
+      "name" : "controller_rejects_nonfinite_values",
+      "passed" : true
+    },
+    {
+      "name" : "controller_clamps_comfort_bounds",
+      "passed" : true
+    },
+    {
+      "name" : "native_fixture_exposes_language_tracks",
+      "passed" : true
+    },
+    {
+      "name" : "native_hide_keeps_selected_track_and_suppressed_native_rendering",
+      "passed" : true
+    },
+    {
+      "name" : "native_retry_preserves_semantic_track_while_hidden_and_paused",
+      "passed" : true
+    },
+    {
+      "name" : "native_show_keeps_track_selection",
+      "passed" : true
+    },
+    {
+      "name" : "explicit_native_none_survives_retry",
+      "passed" : true
+    }
+  ],
+  "embeddedTrackFixtureVerified" : true,
+  "fixture" : "generated local PCM audio, UTF-8 SRT, invalid files, and MP4 with English\/Chinese mov_text tracks; actual PlaybackController",
+  "nativeTrackNames" : [
+    "English",
+    "English Forced",
+    "Chinese",
+    "Chinese Forced"
+  ],
+  "nativeUIVerified" : false,
+  "networkUsed" : false,
+  "passed" : true
+}

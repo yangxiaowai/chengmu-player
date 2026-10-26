@@ -200,7 +200,28 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     @Published var subtitleText = ""
     @Published var subtitleNotice: String?
-    @Published var subtitleOffset = 0.0
+    @Published var subtitleOffset = 0.0 {
+        didSet {
+            if !subtitleOffset.isFinite { subtitleOffset = 0 }
+            refreshExternalSubtitle()
+        }
+    }
+    @Published var subtitlesVisible = true { didSet { saveSubtitlePreferences() } }
+    @Published var subtitleFontSize = 22.0 {
+        didSet {
+            let valid = SubtitlePreferences(fontSize: subtitleFontSize).fontSize
+            if subtitleFontSize != valid { subtitleFontSize = valid }
+            saveSubtitlePreferences()
+        }
+    }
+    @Published var subtitleBackgroundEnabled = true { didSet { saveSubtitlePreferences() } }
+    @Published var subtitleVerticalOffset = 0.0 {
+        didSet {
+            let valid = SubtitlePreferences(verticalOffset: subtitleVerticalOffset).verticalOffset
+            if subtitleVerticalOffset != valid { subtitleVerticalOffset = valid }
+            saveSubtitlePreferences()
+        }
+    }
     @Published var audioTracks: [MediaTrack] = []
     @Published var subtitleTracks: [MediaTrack] = []
     @Published var selectedAudio = -1
@@ -219,6 +240,20 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var audioGroup: AVMediaSelectionGroup?
     private var subtitleGroup: AVMediaSelectionGroup?
     private var cues: [SubtitleCue] = []
+    private struct SubtitleTrackIdentity: Equatable {
+        let name: String
+        let language: String?
+        let subtypes: [NSNumber]
+        init(_ option: AVMediaSelectionOption) {
+            name = option.displayName
+            language = option.extendedLanguageTag ?? option.locale?.identifier
+            subtypes = option.mediaSubTypes
+        }
+    }
+    private enum SubtitleSelection {
+        case automatic, none, embedded(SubtitleTrackIdentity)
+    }
+    private var desiredSubtitleSelection: SubtitleSelection = .automatic
     @Published private(set) var itemID = UUID()
     var playbackRequested: Bool { wantsPlay }
     private(set) var playbackIntentID = UUID()
@@ -244,6 +279,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var automaticRecoveryAttempted = false
     private let preferencesStore: PlaybackPreferencesStore
     private var preferences: PlaybackPreferences
+    private let subtitlePreferencesStore: SubtitlePreferencesStore
     private var sleepState = PlaybackSleepTimer()
     private var sleepTimer: Timer?
     private let displaySleepGuard = PlaybackDisplaySleepGuard()
@@ -253,9 +289,13 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var adSkipInteractions = Set<String>()
 
     override convenience init() { self.init(preferencesStore: PlaybackPreferencesStore()) }
-    init(preferencesStore store: PlaybackPreferencesStore) {
+    init(preferencesStore store: PlaybackPreferencesStore, subtitlePreferencesStore subtitleStore: SubtitlePreferencesStore = SubtitlePreferencesStore()) {
         let saved = store.load()
         preferencesStore = store; preferences = saved
+        subtitlePreferencesStore = subtitleStore
+        let subtitles = subtitleStore.load()
+        subtitlesVisible = subtitles.visible; subtitleFontSize = subtitles.fontSize
+        subtitleBackgroundEnabled = subtitles.backgroundEnabled; subtitleVerticalOffset = subtitles.verticalOffset
         rate = Float(saved.rate); volume = Float(saved.volume)
         enhancementMode = EnhancementMode(rawValue: saved.enhancement) ?? .clarity
         automaticAdSkipping = saved.automaticAdSkipping
@@ -280,6 +320,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
 
     func open(url: URL, title: String, episode: String, resume: Double = 0, isAutomaticRecovery: Bool = false) {
+        let recoveryCues = isAutomaticRecovery ? cues : []
+        let recoveryName = isAutomaticRecovery ? externalSubtitleName : nil
+        let recoveryOffset = isAutomaticRecovery ? subtitleOffset : 0
+        let recoverySelection: SubtitleSelection = isAutomaticRecovery ? desiredSubtitleSelection : .automatic
         saveProgress()
         isComparingOriginal = false
         // A user-selected item starts a new recovery budget; only the internal replacement made
@@ -298,6 +342,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         desiredResume = max(0, resume); wantsPlay = true
         position = 0; duration = 0; error = nil; isPlaying = false; isLoading = true; loadingMessage = "正在准备媒体"
         cues = []; subtitleText = ""; subtitleNotice = nil; externalSubtitleName = nil; subtitleOffset = 0
+        cues = recoveryCues; externalSubtitleName = recoveryName; subtitleOffset = recoveryOffset
+        desiredSubtitleSelection = recoverySelection
         audioTracks = []; subtitleTracks = []; audioGroup = nil; subtitleGroup = nil
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
         adCleanup = AdCleanupSettings()
@@ -423,8 +469,21 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 if let subtitles {
                     if !self.cues.isEmpty {
                         item.select(nil, in: subtitles); self.selectedSubtitle = -1
-                    } else if let selected = item.currentMediaSelection.selectedMediaOption(in: subtitles) {
-                        self.selectedSubtitle = subtitles.options.firstIndex(of: selected) ?? -1
+                    } else {
+                        switch self.desiredSubtitleSelection {
+                        case .none: item.select(nil, in: subtitles)
+                        case .embedded(let identity):
+                            // Match the new asset by metadata. Never reuse a previous asset's array index.
+                            let matches = subtitles.options.filter { SubtitleTrackIdentity($0) == identity }
+                            item.select(matches.count == 1 ? matches[0] : nil, in: subtitles)
+                        case .automatic: break
+                        }
+                        self.selectedSubtitle = item.currentMediaSelection.selectedMediaOption(in: subtitles)
+                            .flatMap { subtitles.options.firstIndex(of: $0) } ?? -1
+                        if case .automatic = self.desiredSubtitleSelection,
+                           let selected = item.currentMediaSelection.selectedMediaOption(in: subtitles) {
+                            self.desiredSubtitleSelection = .embedded(SubtitleTrackIdentity(selected))
+                        }
                     }
                 }
             } catch { /* Some sources expose no track groups. */ }
@@ -456,6 +515,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     func retry() {
         guard let url else { return }
         let savedCues = cues, savedName = externalSubtitleName, savedOffset = subtitleOffset
+        let savedSelection = desiredSubtitleSelection
         let savedCleanup = adCleanup
         // A failed item clears wantsPlay; retrying that failure still requests play.
         // Normal paused retries retain their pause, including during preparation.
@@ -463,6 +523,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         let resumePosition = failureResumeTarget ?? (desiredResume > 0 ? desiredResume : position)
         open(url: url, title: title, episode: episodeName, resume: resumePosition)
         cues = savedCues; externalSubtitleName = savedName; subtitleOffset = savedOffset
+        desiredSubtitleSelection = savedSelection
         adCleanup = savedCleanup
         wantsPlay = shouldPlay
         if !shouldPlay { player.pause() }
@@ -619,8 +680,15 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         player.currentItem?.select(group.options[index], in: group); selectedAudio = index
     }
     func selectSubtitle(_ index: Int) {
+        guard index == -1 || subtitleGroup?.options.indices.contains(index) == true else { return }
         cues = []; externalSubtitleName = nil; subtitleText = ""; subtitleNotice = nil
+        subtitleOffset = 0
+        desiredSubtitleSelection = .none
         guard let group = subtitleGroup else { selectedSubtitle = -1; return }
+        if group.options.indices.contains(index) {
+            desiredSubtitleSelection = .embedded(SubtitleTrackIdentity(group.options[index]))
+            subtitlesVisible = true
+        }
         player.currentItem?.select(group.options.indices.contains(index) ? group.options[index] : nil, in: group)
         selectedSubtitle = index
     }
@@ -631,7 +699,21 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             guard !parsed.isEmpty else { subtitleNotice = "没有识别到有效字幕。支持 UTF-8 编码的 SRT、VTT 和 ASS 文本字幕，当前影片会继续播放。"; return }
             if let group = subtitleGroup { player.currentItem?.select(nil, in: group) }
             selectedSubtitle = -1; cues = parsed; externalSubtitleName = file.lastPathComponent; subtitleNotice = nil
+            desiredSubtitleSelection = .none; subtitleOffset = 0; subtitlesVisible = true
+            refreshExternalSubtitle()
         } catch { subtitleNotice = "无法读取字幕，请使用 UTF-8 编码的字幕文件，当前影片会继续播放。" }
+    }
+    func toggleSubtitleVisibility() {
+        subtitlesVisible.toggle()
+        refreshExternalSubtitle()
+    }
+    private func saveSubtitlePreferences() {
+        subtitlePreferencesStore.save(SubtitlePreferences(visible: subtitlesVisible, fontSize: subtitleFontSize,
+            backgroundEnabled: subtitleBackgroundEnabled, verticalOffset: subtitleVerticalOffset))
+    }
+    private func refreshExternalSubtitle() {
+        guard !cues.isEmpty else { return }
+        subtitleText = SubtitleParser.text(at: position - subtitleOffset, in: cues)
     }
     nonisolated func legibleOutput(_ output: AVPlayerItemLegibleOutput, didOutputAttributedStrings strings: [NSAttributedString], nativeSampleBuffers: [Any], forItemTime itemTime: CMTime) {
         Task { @MainActor [weak self] in

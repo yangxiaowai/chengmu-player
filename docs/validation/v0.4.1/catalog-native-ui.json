@@ -1,0 +1,14 @@
+{
+  "scope": "Installed v0.4.1 build24 native UI; menu opened and feature filter selected; no film playback verification",
+  "checks": [
+    {
+      "name": "feature_filter_selected",
+      "passed": true
+    },
+    {
+      "name": "reset_visible",
+      "passed": true
+    }
+  ],
+  "screenshot": "ui/native-installed-catalog.png"
+}

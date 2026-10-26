@@ -41,7 +41,9 @@ final class AppModel: ObservableObject {
     @Published var recentSearches: [String] = []
     @Published var filterProviderID = ""
     @Published var filterYear = ""
+    @Published var filterContent = CatalogContentFilter.all
     @Published var catalogSort = CatalogSort.relevance
+    @Published private(set) var catalogQuery = ""
     @Published var loadingMore = false { didSet { mediaQuality.setCatalogBusy(searching || loadingMore) } }
     @Published var moreProviderIDs: Set<String> = []
     @Published var sourceHealth: [String: String] = [:]
@@ -139,8 +141,9 @@ final class AppModel: ObservableObject {
         mediaQuality.cancelAll()
         cancelAlternativeSources(); searchTask?.cancel(); searchID = UUID()
         let token = searchID, sources = providers
+        catalogQuery = terms.count == 1 ? query.trimmingCharacters(in: .whitespacesAndNewlines) : ""
         searchTerms = terms; loadedPages = [:]; moreProviderIDs = []; loadingMore = false
-        filterProviderID = ""; filterYear = ""; searching = true; failures = []; providerErrors = [:]; results = []
+        filterProviderID = ""; filterYear = ""; filterContent = .all; searching = true; failures = []; providerErrors = [:]; results = []
         searchTask = Task {
             for term in terms {
                 let pages = await service.searchPages(query: term, providers: sources)
@@ -193,7 +196,7 @@ final class AppModel: ObservableObject {
     func browseCatalog(reset: Bool = true) {
         if reset { mediaQuality.cancelAll() }
         guard let provider = providers.first(where: { $0.id == browseProviderID && $0.enabled }) else { return }
-        if reset { searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; filterYear = ""; filterProviderID = "" }
+        if reset { searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; filterYear = ""; filterProviderID = ""; filterContent = .all; catalogQuery = "" }
         cancelAlternativeSources(); browsing = true; searchTerms = []; moreProviderIDs = []
         searching = reset; loadingMore = !reset; failures = []
         let token = searchID, page = browsePage + 1, category = browseCategoryID.isEmpty ? nil : browseCategoryID
@@ -434,12 +437,15 @@ final class AppModel: ObservableObject {
     var canPlayPrevious: Bool { adjacentEpisode(by: -1) != nil }
     var groups: [MediaGroup] { CatalogGrouping.groups(results) }
     var filteredGroups: [MediaGroup] {
-        var values = groups.filter { group in
-            (filterProviderID.isEmpty || group.sources.contains { $0.providerID == filterProviderID }) &&
-            (filterYear.isEmpty || group.representative.year == filterYear)
+        var values = groups.compactMap { group -> MediaGroup? in
+            guard filterYear.isEmpty || group.representative.year == filterYear else { return nil }
+            let matching = group.sources.filter {
+                (filterProviderID.isEmpty || $0.providerID == filterProviderID) && CatalogDiscoveryPolicy.matches($0, filter: filterContent)
+            }
+            return matching.isEmpty ? nil : MediaGroup(id: group.id, sources: matching)
         }
         switch catalogSort {
-        case .relevance: break
+        case .relevance: values = CatalogDiscoveryPolicy.rank(values, query: catalogQuery)
         case .title: values.sort { $0.representative.title.localizedStandardCompare($1.representative.title) == .orderedAscending }
         case .year: values.sort { $0.representative.year > $1.representative.year }
         case .sources: values.sort { $0.sources.count > $1.sources.count }
@@ -452,6 +458,8 @@ final class AppModel: ObservableObject {
         }
         return values
     }
+    var hasCatalogFilters: Bool { !filterProviderID.isEmpty || !filterYear.isEmpty || filterContent != .all || catalogSort != .relevance }
+    func resetCatalogFilters() { filterProviderID = ""; filterYear = ""; filterContent = .all; catalogSort = .relevance }
     var availableYears: [String] { Array(Set(groups.map { $0.representative.year }.filter { !$0.isEmpty })).sorted(by: >) }
     func inspectVisibleQuality(_ group: MediaGroup) {
         guard automaticQualityInspection, !showPlayer else { return }
@@ -475,12 +483,25 @@ final class AppModel: ObservableObject {
             return seen.insert(key).inserted
         }
     }
-    func isSaved(_ group: MediaGroup) -> Bool { watchlist.contains { $0.matches(group) } }
+    func historyRecords(showAllEpisodes: Bool, unfinishedOnly: Bool) -> [WatchRecord] {
+        let records = showAllEpisodes ? history : latestHistory
+        return unfinishedOnly ? records.filter { !$0.isCompleted } : records
+    }
+    private func completeBookmarkGroup(_ group: MediaGroup) -> MediaGroup {
+        groups.first { $0.id == group.id } ?? group
+    }
+    func isSaved(_ group: MediaGroup) -> Bool {
+        if watchlist.contains(where: { $0.matches(group) }) { return true }
+        guard watchlist.contains(where: { !$0.sources.isEmpty && $0.sources.allSatisfy { $0.year.isEmpty } }) else { return false }
+        let complete = completeBookmarkGroup(group)
+        return watchlist.contains { $0.matches(complete) }
+    }
     func toggleSaved(_ group: MediaGroup) {
         guard watchlistReadable else { message = "原待看文件损坏，已保留，请在待看页明确重建后重试。"; return }
+        let complete = completeBookmarkGroup(group)
         var updated = watchlist
-        if updated.contains(where: {$0.matches(group)}) { updated.removeAll { $0.matches(group) } }
-        else { guard updated.count < 1000 else { message = "待看已达1000项，请先移除不需要的条目。"; return }; updated.insert(SavedTitle(group: group), at: 0) }
+        if updated.contains(where: {$0.matches(complete)}) { updated.removeAll { $0.matches(complete) } }
+        else { guard updated.count < 1000 else { message = "待看已达1000项，请先移除不需要的条目。"; return }; updated.insert(SavedTitle(group: complete), at: 0) }
         saveWatchlist(updated)
     }
     func removeSaved(_ id: String) { saveWatchlist(watchlist.filter { $0.id != id }) }
@@ -597,6 +618,6 @@ struct AlternativeSourceRequests {
 }
 
  enum CatalogSort: String, CaseIterable, Identifiable {
-    case relevance = "默认顺序", title = "按片名", year = "年份优先", sources = "来源数量", resolution = "已读分辨率优先"
+    case relevance = "相关性优先", title = "按片名", year = "年份优先", sources = "来源数量", resolution = "已读分辨率优先"
     var id: String { rawValue }
 }

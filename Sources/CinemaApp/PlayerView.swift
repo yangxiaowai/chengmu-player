@@ -40,10 +40,7 @@ struct PlayerView: View {
                             VStack { HStack { Text("原片"); Spacer(); Text("修复") }.font(.system(size: 12, weight: .medium)).padding(10).background(.black.opacity(0.5)); Spacer() }.allowsHitTesting(false)
                         }
                         if !editingAds { PlaybackKeyboardSurface(playback: playback, presentation: presentation) }
-                        if !playback.subtitleText.isEmpty {
-                            VStack { Spacer(); Text(playback.subtitleText).font(.system(size: 22, weight: .medium)).multilineTextAlignment(.center).foregroundStyle(.white).shadow(color: .black, radius: 2, y: 1).padding(.horizontal, 14).padding(.vertical, 5).background(.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 5)).padding(.bottom, subtitleBottomPadding).padding(.horizontal, 30) }
-                                .allowsHitTesting(false)
-                        }
+                        if playback.subtitlesVisible && !playback.subtitleText.isEmpty { subtitleOverlay }
                         if playback.isLoading {
                             VStack(spacing: 14) {
                                 ProgressView(playback.loadingMessage ?? "正在缓冲…")
@@ -138,11 +135,13 @@ struct PlayerView: View {
         PlayerCommandContext(playing: playback.playbackRequested, canSeek: canSeek,
             canPrevious: app.canPlayPrevious, canNext: app.canPlayNext,
             fullscreen: presentation.isFullscreen, episodesShown: showEpisodes && !presentation.isFullscreen,
+            subtitlesVisible: playback.subtitlesVisible,
             togglePlayback: { performCommand { playback.togglePlayback() } },
             skip: { amount in performCommand { if canSeek { playback.skip(amount) } } },
             jumpToTime: { performCommand { if canSeek { showJump = true } } },
             previous: { performCommand { app.previousEpisode() } }, next: { performCommand { app.nextEpisode() } },
             toggleFullscreen: { performCommand { presentation.toggleFullscreen() } },
+            toggleSubtitles: { performCommand { playback.toggleSubtitleVisibility() } },
             toggleEpisodes: { performCommand {
                 if presentation.isFullscreen { presentation.leaveFullscreen(); showEpisodes = true }
                 else { showEpisodes.toggle() }
@@ -196,7 +195,24 @@ struct PlayerView: View {
         presentation.interact("ad-editor", active: false)
     }
     private var subtitleBottomPadding: CGFloat {
-        presentation.controlsVisible && !editingAds ? controlHeight + 18 : 32
+        (presentation.controlsVisible && !editingAds ? controlHeight + 18 : 32) + playback.subtitleVerticalOffset
+    }
+    private var subtitleOverlay: some View {
+        GeometryReader { geometry in
+            let bottom = min(subtitleBottomPadding, max(0, geometry.size.height - 20))
+            let available = max(0, geometry.size.height - bottom - 90)
+            VStack(spacing: 0) {
+                Spacer(minLength: 0)
+                Text(playback.subtitleText)
+                    .font(.system(size: playback.subtitleFontSize, weight: .medium))
+                    .multilineTextAlignment(.center).foregroundStyle(.white)
+                    .shadow(color: .black, radius: 2, y: 1)
+                    .padding(.horizontal, 14).padding(.vertical, 5)
+                    .background(.black.opacity(playback.subtitleBackgroundEnabled ? 0.5 : 0), in: RoundedRectangle(cornerRadius: 5))
+                    .frame(maxHeight: available, alignment: .bottom).clipped()
+                    .padding(.horizontal, 30).padding(.bottom, bottom)
+            }.frame(width: geometry.size.width, height: geometry.size.height)
+        }.allowsHitTesting(false)
     }
     private var header: some View {
         HStack(spacing: 13) {
@@ -320,7 +336,18 @@ struct PlayerView: View {
     private var subtitleMenu: some View {
         Menu {
             Button("导入 SRT / VTT / ASS…") { app.importSubtitle() }
-            Toggle("关闭字幕", isOn: Binding(get: { playback.selectedSubtitle == -1 && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(-1) } }))
+            Toggle("显示字幕", isOn: $playback.subtitlesVisible)
+            Menu("字幕样式") {
+                Picker("字号", selection: $playback.subtitleFontSize) {
+                    ForEach([18.0, 20, 22, 24, 28, 32, 36], id: \.self) { size in Text("\(Int(size)) pt").tag(size) }
+                }
+                Toggle("字幕背景", isOn: $playback.subtitleBackgroundEnabled)
+                Picker("额外上移", selection: $playback.subtitleVerticalOffset) {
+                    ForEach([0.0, 20, 40, 60, 80, 100, 120], id: \.self) { offset in Text("\(Int(offset)) pt").tag(offset) }
+                }
+            }
+            Divider()
+            Toggle("不选择字幕轨", isOn: Binding(get: { playback.selectedSubtitle == -1 && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(-1) } }))
             ForEach(playback.subtitleTracks) { track in
                 Toggle(track.name, isOn: Binding(get: { playback.selectedSubtitle == track.id && playback.externalSubtitleName == nil }, set: { if $0 { playback.selectSubtitle(track.id) } }))
             }
@@ -379,8 +406,7 @@ struct PlayerView: View {
         Menu {
             Toggle("自动识别并跳过插播（实验）", isOn: $playback.automaticAdSkipping)
             Text(playback.automaticAdSkipping ? playback.adSkip.status : "自动跳过已关闭")
-            Text("已识别 \(playback.adSkip.segments.count) 段 · 已分析 \(playback.adSkip.analyzedFrames) 帧")
-            Text("帧来源：\(playback.adSkip.frameSource)")
+            Text("已识别 \(playback.adSkip.segments.count) 段广告")
             Button("撤销上次跳过并暂停") { playback.undoAdSkip() }.disabled(playback.adSkipNotice == nil)
             Divider()
             Menu {
@@ -673,6 +699,7 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
                 switch event.charactersIgnoringModifiers?.lowercased() {
                 case "f": if !event.isARepeat { presentation?.toggleFullscreen() }
                 case "m": if !event.isARepeat { playback.toggleMute() }
+                case "s": if !event.isARepeat { playback.toggleSubtitleVisibility() }
                 default: super.keyDown(with: event)
                 }
             }

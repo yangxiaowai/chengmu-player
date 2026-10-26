@@ -1,0 +1,130 @@
+Building for debugging...
+[Planning deferred tasks]
+[27 / 50]
+[28 / 51] CinemaCore
+[39 / 163]
+[49 / 163]
+[52 / 163]
+[57 / 163]
+[60 / 163]
+[68 / 163]
+[70 / 163]
+[73 / 163]
+[74 / 163]
+[82 / 163]
+[84 / 163]
+[88 / 163]
+[92 / 163]
+[99 / 163]
+[101 / 163]
+[107 / 163]
+[108 / 163]
+[110 / 163]
+[112 / 163]
+[119 / 163]
+[121 / 163]
+[125 / 163]
+[128 / 163]
+[129 / 163]
+[140 / 163] CinemaCore
+[141 / 163] CinemaCore
+[148 / 163] CinemaCore
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.4SzFNy/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[153 / 164] CinemaCoreTests-product
+[154 / 169]
+[158 / 169] CinemaCoreTests-product
+[163 / 169] CinemaCoreTests-product
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.4SzFNy/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/private/var/folders/_t/j9znzxgn4m74t0fdt_sfgpl40000gn/T/chengmu-catalog.4SzFNy/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[165 / 169] CinemaCoreTests-product
+Build complete! (20.38 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CatalogDiscoveryPolicyTests started.
+◇ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() started.
+◇ Test incidentalWordsInsideRealTitlesDoNotHideFeatures() started.
+◇ Test unknownCategoriesRemainAvailableAndAllNeverHidesRecords() started.
+◇ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() started.
+◇ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() started.
+◇ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() started.
+◇ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() started.
+✔ Test incidentalWordsInsideRealTitlesDoNotHideFeatures() passed after 0.001 seconds.
+✘ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() recorded an issue at CatalogDiscoveryPolicyTests.swift:50:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: "沙丘 解说").first?.id == "commentary"
+↳ CatalogDiscoveryPolicy.rank(groups, query: "沙丘 解说").first?.id == "commentary" → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: "沙丘 解说").first?.id → "feature"
+↳     some → "feature"
+↳     some → "commentary"
+✘ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() recorded an issue at CatalogDiscoveryPolicyTests.swift:51:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: "沙丘预告片").first?.id == "trailer"
+↳ CatalogDiscoveryPolicy.rank(groups, query: "沙丘预告片").first?.id == "trailer" → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: "沙丘预告片").first?.id → "feature"
+↳     some → "feature"
+↳     some → "trailer"
+✘ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() recorded an issue at CatalogDiscoveryPolicyTests.swift:26:9: Expectation failed: !CatalogDiscoveryPolicy.matches(commentary[0], filter: .trailer)
+↳ !CatalogDiscoveryPolicy.matches(commentary[0], filter: .trailer) → true
+↳   CatalogDiscoveryPolicy.matches(commentary[0], filter: .trailer) → false
+↳     commentary[0] → MediaTitle(id: "1", title: "沙丘", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: Optional("电影解说"))
+↳       id → "1"
+↳       title → "沙丘"
+↳       year → "2024"
+↳       posterURL → nil
+↳       summary → ""
+↳       providerID → "a"
+↳       providerName → "a"
+↳       category → "电影解说"
+↳         some → "电影解说"
+✘ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() recorded an issue at CatalogDiscoveryPolicyTests.swift:52:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: "解说").prefix(2).map(\.id) == ["commentary", "otherCommentary"]
+↳ CatalogDiscoveryPolicy.rank(groups, query: "解说").prefix(2).map(\.id) == ["commentary", "otherCommentary"] → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: "解说").prefix(2).map(\.id) → ["feature", "trailer"]
+✘ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() recorded an issue at CatalogDiscoveryPolicyTests.swift:60:9: Expectation failed: ranked.map(\.id) == ["first", "second", "unrelated"]
+↳ ranked.map(\.id) == ["first", "second", "unrelated"] → false
+↳   ranked.map(\.id) → ["unrelated", "first", "second"]
+✘ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() recorded an issue at CatalogDiscoveryPolicyTests.swift:44:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: "火线第２季").map(\.id) == ["english", "chinese", "base", "other", "commentary"]
+↳ CatalogDiscoveryPolicy.rank(groups, query: "火线第２季").map(\.id) == ["english", "chinese", "base", "other", "commentary"] → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: "火线第２季").map(\.id) → ["other", "base", "english", "chinese", "commentary"]
+✘ Test explicitDerivedQueriesRespectTheRequestedKindAndLiteralTitle() failed after 0.001 seconds with 3 issues.
+✘ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() recorded an issue at CatalogDiscoveryPolicyTests.swift:45:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: "火线 SEASON ２").prefix(2).map(\.id) == ["english", "chinese"]
+↳ CatalogDiscoveryPolicy.rank(groups, query: "火线 SEASON ２").prefix(2).map(\.id) == ["english", "chinese"] → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: "火线 SEASON ２").prefix(2).map(\.id) → ["other", "base"]
+✘ Test unknownCategoriesRemainAvailableAndAllNeverHidesRecords() recorded an issue at CatalogDiscoveryPolicyTests.swift:16:9: Expectation failed: rows.filter { CatalogDiscoveryPolicy.matches($0, filter: .feature) }.map(\.id) == ["unknown", "missing", "new"]
+↳ rows.filter { CatalogDiscoveryPolicy.matches($0, filter: .feature) }.map(\.id) == ["unknown", "missing", "new"] → false
+↳   rows.filter { CatalogDiscoveryPolicy.matches($0, filter: .feature) }.map(\.id) → ["unknown", "missing", "new", "derived"]
+✘ Test explicitChineseAndEnglishSeasonsPreferTheRequestedSeason() failed after 0.001 seconds with 2 issues.
+✘ Test unknownCategoriesRemainAvailableAndAllNeverHidesRecords() failed after 0.001 seconds with 1 issue.
+✘ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() recorded an issue at CatalogDiscoveryPolicyTests.swift:37:9: Expectation failed: CatalogDiscoveryPolicy.rank(groups, query: " 沙 丘 ").map(\.id) == ["exact", "sequel", "short", "commentary", "trailer"]
+↳ CatalogDiscoveryPolicy.rank(groups, query: " 沙 丘 ").map(\.id) == ["exact", "sequel", "short", "commentary", "trailer"] → false
+↳   CatalogDiscoveryPolicy.rank(groups, query: " 沙 丘 ").map(\.id) → ["commentary", "sequel", "short", "exact", "trailer"]
+✘ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() recorded an issue at CatalogDiscoveryPolicyTests.swift:27:9: Expectation failed: !CatalogDiscoveryPolicy.matches(shortDramas[0], filter: .feature)
+↳ !CatalogDiscoveryPolicy.matches(shortDramas[0], filter: .feature) → true
+↳   CatalogDiscoveryPolicy.matches(shortDramas[0], filter: .feature) → false
+↳     shortDramas[0] → MediaTitle(id: "7", title: "归来", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: Optional("爽文短剧"))
+↳       id → "7"
+↳       title → "归来"
+↳       year → "2024"
+↳       posterURL → nil
+↳       summary → ""
+↳       providerID → "a"
+↳       providerName → "a"
+↳       category → "爽文短剧"
+↳         some → "爽文短剧"
+✘ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() recorded an issue at CatalogDiscoveryPolicyTests.swift:39:9: Expectation failed: CatalogDiscoveryPolicy.rank(english, query: " dune\n").map(\.id) == ["exact", "sequel"]
+↳ CatalogDiscoveryPolicy.rank(english, query: " dune\n").map(\.id) == ["exact", "sequel"] → false
+↳   CatalogDiscoveryPolicy.rank(english, query: " dune\n").map(\.id) → ["sequel", "exact"]
+✘ Test categoryMetadataAndExplicitTitleMarkersSelectDerivedContent() failed after 0.001 seconds with 2 issues.
+✘ Test exactNormalizedTitleRanksBeforeSequelsAndDerivedTitles() failed after 0.001 seconds with 2 issues.
+✘ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() recorded an issue at CatalogDiscoveryPolicyTests.swift:61:9: Expectation failed: ranked[0] == first
+↳ ranked[0] == first → false
+↳   ranked[0] → MediaGroup(id: "unrelated", sources: [CinemaCore.MediaTitle(id: "unrelated", title: "谜案", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: nil)])
+↳     id → "unrelated"
+↳     sources → [CinemaCore.MediaTitle(id: "unrelated", title: "谜案", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: nil)]
+↳   first → MediaGroup(id: "first", sources: [CinemaCore.MediaTitle(id: "a1", title: "沙丘", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: nil), CinemaCore.MediaTitle(id: "b1", title: "沙 丘", year: "2024", posterURL: nil, summary: "", providerID: "b", providerName: "b", category: nil)])
+↳     id → "first"
+↳     sources → [CinemaCore.MediaTitle(id: "a1", title: "沙丘", year: "2024", posterURL: nil, summary: "", providerID: "a", providerName: "a", category: nil), CinemaCore.MediaTitle(id: "b1", title: "沙 丘", year: "2024", posterURL: nil, summary: "", providerID: "b", providerName: "b", category: nil)]
+✘ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() recorded an issue at CatalogDiscoveryPolicyTests.swift:62:9: Expectation failed: ranked[0].sources.map(\.id) == ["a1", "b1"]
+↳ ranked[0].sources.map(\.id) == ["a1", "b1"] → false
+↳   ranked[0].sources.map(\.id) → ["unrelated"]
+✘ Test rankingIsStablePreservesSourceRecordsAndDoesNotDeleteUnrelatedResults() failed after 0.001 seconds with 3 issues.
+✘ Suite CatalogDiscoveryPolicyTests failed after 0.001 seconds with 13 issues.
+✘ Test run with 7 tests in 1 suite failed after 0.001 seconds with 13 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
