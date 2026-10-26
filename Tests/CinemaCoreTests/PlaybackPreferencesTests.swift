@@ -3,6 +3,24 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() throws {
+        let old = try JSONDecoder().decode(PlaybackPreferences.self, from: Data("{\"volume\":0.4}".utf8))
+        let encodedOld = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(old)) as? [String: Any])
+        #expect(encodedOld["keepsDisplayAwake"] as? Bool == true)
+        let disabled = try JSONDecoder().decode(PlaybackPreferences.self, from: Data("{\"volume\":0.4,\"keepsDisplayAwake\":false}".utf8))
+        let encodedDisabled = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(disabled)) as? [String: Any])
+        #expect(encodedDisabled["keepsDisplayAwake"] as? Bool == false)
+        let suite = "CinemaDisplaySleep.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = PlaybackPreferencesStore(defaults: defaults, arguments: ["Cinema"])
+        var preferences = store.load()
+        #expect(preferences.keepsDisplayAwake)
+        preferences.setKeepsDisplayAwake(false)
+        store.save(preferences)
+        #expect(!store.load().keepsDisplayAwake)
+    }
+
     @Test func compressionChoiceSurvivesStoreReloadWithoutChangingOtherPreferences() throws {
         let suite = "CinemaCompressionPreferences.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suite))

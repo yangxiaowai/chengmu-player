@@ -1,0 +1,66 @@
+Building for production...
+[Planning deferred tasks]
+[6 / 16] CinemaCore
+[17 / 76]
+[23 / 76]
+[28 / 76]
+[32 / 76]
+[35 / 76]
+[41 / 76]
+[43 / 76]
+[44 / 76]
+[45 / 76]
+[46 / 76]
+[52 / 76]
+[53 / 76]
+[58 / 76]
+[59 / 76]
+[61 / 76]
+[63 / 76]
+[66 / 76]
+[67 / 76] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[73 / 78] Cinema-product
+[87 / 156]
+[98 / 156]
+[105 / 156]
+[110 / 156]
+[117 / 156]
+[121 / 156]
+[123 / 156]
+[130 / 156]
+[131 / 156]
+[138 / 156]
+[142 / 156]
+[145 / 156]
+[146 / 156]
+[147 / 156]
+[148 / 156]
+[149 / 156]
+[151 / 156]
+[152 / 156] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:358:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+356 |             }.frame(width: 460, height: 600)
+357 |         }
+358 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+359 |     }
+360 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[154 / 156] Cinema-product
+[155 / 156] Cinema-product
+Build complete! (38.54 sec)
+/Users/yangjun/Downloads/视频播放器/.build/app-stage-0.3.8.od6GGo/澄幕.app: replacing existing signature
+旧版已备份：/Users/yangjun/Downloads/视频播放器/dist/历史版本/澄幕-v0.3.7-build19.app
+/Users/yangjun/Downloads/视频播放器/dist/澄幕.app

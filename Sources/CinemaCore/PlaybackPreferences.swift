@@ -14,11 +14,12 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public private(set) var pipeline: String
     public private(set) var targetResolution: EnhancementResolution
     public private(set) var targetFrameRate: EnhancementFrameRate
+    public private(set) var keepsDisplayAwake: Bool
 
     public static let pipelineEnhanced = "enhanced"
     public static let pipelineOriginal = "original"
 
-    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "clarity", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineOriginal, targetResolution: EnhancementResolution = .automatic, targetFrameRate: EnhancementFrameRate = .source) {
+    public init(volume: Double = 0.8, rate: Double = 1, enhancement: String = "clarity", lastAudibleVolume: Double = 0.8, automaticAdSkipping: Bool = true, keepsOriginalAudioLayout: Bool = false, pipeline: String = PlaybackPreferences.pipelineOriginal, targetResolution: EnhancementResolution = .automatic, targetFrameRate: EnhancementFrameRate = .source, keepsDisplayAwake: Bool = true) {
         self.volume = Self.validVolume(volume)
         self.rate = Self.validRate(rate)
         self.enhancement = Self.validEnhancement(enhancement)
@@ -28,6 +29,7 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
         self.pipeline = Self.validPipeline(pipeline)
         self.targetResolution = targetResolution
         self.targetFrameRate = targetFrameRate
+        self.keepsDisplayAwake = keepsDisplayAwake
     }
 
     public mutating func setVolume(_ value: Double) {
@@ -41,6 +43,7 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     public mutating func setKeepsOriginalAudioLayout(_ value: Bool) { keepsOriginalAudioLayout = value }
     public mutating func setTargetResolution(_ value: EnhancementResolution) { targetResolution = value }
     public mutating func setTargetFrameRate(_ value: EnhancementFrameRate) { targetFrameRate = value }
+    public mutating func setKeepsDisplayAwake(_ value: Bool) { keepsDisplayAwake = value }
     public mutating func setPipeline(_ value: String) { pipeline = Self.validPipeline(value) }
     /// True when the realtime pipeline may replace the picture. It only ever affects SDR sources:
     /// Dolby Vision and HDR always keep the system's native presentation.
@@ -54,7 +57,7 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     private static func validPipeline(_ value: String) -> String {
         value == pipelineOriginal ? pipelineOriginal : pipelineEnhanced
     }
-    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume, automaticAdSkipping, keepsOriginalAudioLayout, pipeline, targetResolution, targetFrameRate }
+    private enum CodingKeys: String, CodingKey { case volume, rate, enhancement, lastAudibleVolume, automaticAdSkipping, keepsOriginalAudioLayout, pipeline, targetResolution, targetFrameRate, keepsDisplayAwake }
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(volume: try container.decodeIfPresent(Double.self, forKey: .volume) ?? 0.8,
@@ -65,7 +68,8 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
                   keepsOriginalAudioLayout: try container.decodeIfPresent(Bool.self, forKey: .keepsOriginalAudioLayout) ?? false,
                   pipeline: try container.decodeIfPresent(String.self, forKey: .pipeline) ?? PlaybackPreferences.pipelineEnhanced,
                   targetResolution: (try? container.decode(EnhancementResolution.self, forKey: .targetResolution)) ?? .automatic,
-                  targetFrameRate: (try? container.decode(EnhancementFrameRate.self, forKey: .targetFrameRate)) ?? .source)
+                  targetFrameRate: (try? container.decode(EnhancementFrameRate.self, forKey: .targetFrameRate)) ?? .source,
+                  keepsDisplayAwake: try container.decodeIfPresent(Bool.self, forKey: .keepsDisplayAwake) ?? true)
     }
 }
 

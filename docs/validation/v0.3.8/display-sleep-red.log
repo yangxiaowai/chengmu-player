@@ -1,0 +1,22 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS idle_has_no_owned_display_assertion
+PASS media_condition_reached
+FAIL playing_holds_one_native_display_assertion
+FAIL mode_and_seek_keep_one_assertion
+PASS pause_releases_immediately
+PASS late_callbacks_do_not_reacquire_after_pause
+PASS media_condition_reached
+FAIL resume_reacquires
+FAIL transient_stall_does_not_drop_assertion
+PASS media_condition_reached
+PASS natural_end_releases
+PASS media_condition_reached
+PASS failed_item_releases

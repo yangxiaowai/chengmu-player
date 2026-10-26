@@ -1,0 +1,33 @@
+Building for debugging...
+[Pre-planning 1 / 124]
+[Planning deferred tasks]
+[2 / 16]
+[3 / 17] CinemaCore
+[14 / 28] CinemaCore
+[16 / 26] CinemaCore
+[19 / 30] CinemaCoreTests-product
+[21 / 32] CinemaCoreTests-product
+[25 / 31] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[27 / 31] CinemaCoreTests-product
+Build complete! (4.76 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() started.
+✘ Test displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() recorded an issue at PlaybackPreferencesTests.swift:9:9: Expectation failed: encodedOld["keepsDisplayAwake"] as? Bool == true
+↳ encodedOld["keepsDisplayAwake"] as? Bool == true → false
+↳   encodedOld["keepsDisplayAwake"] as? Bool → nil
+↳     some → true
+✘ Test displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() recorded an issue at PlaybackPreferencesTests.swift:12:9: Expectation failed: encodedDisabled["keepsDisplayAwake"] as? Bool == false
+↳ encodedDisabled["keepsDisplayAwake"] as? Bool == false → false
+↳   encodedDisabled["keepsDisplayAwake"] as? Bool → nil
+↳     some → false
+✘ Test displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() failed after 0.001 seconds with 2 issues.
+✘ Suite PlaybackPreferencesTests failed after 0.001 seconds with 2 issues.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter displaySleepPreference` failed. (See above for error)

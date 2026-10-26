@@ -181,6 +181,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         didSet { preferences.setEnhancement(enhancementMode.rawValue); preferencesStore.save(preferences) }
     }
     @Published private(set) var sleepRemainingSeconds: Int?
+    @Published var keepsDisplayAwake = true {
+        didSet {
+            preferences.setKeepsDisplayAwake(keepsDisplayAwake)
+            preferencesStore.save(preferences)
+            updateDisplaySleepPrevention()
+        }
+    }
+    @Published private(set) var displaySleepPreventionError: String?
     @Published var metrics: EnhancementMetrics?
     @Published var adCleanup = AdCleanupSettings() {
         didSet {
@@ -219,7 +227,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var seekRequestID = UUID()
     private var pendingSeekTarget: Double?
     private var automaticSeekRequestID: UUID?
-    @Published private var wantsPlay = false { didSet { playbackIntentID = UUID() } }
+    @Published private var wantsPlay = false {
+        didSet { playbackIntentID = UUID(); updateDisplaySleepPrevention() }
+    }
     private var lastSave = 0.0
     private var probeTask: Task<Void, Never>?
     private var prepareTask: Task<Void, Never>?
@@ -234,6 +244,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var preferences: PlaybackPreferences
     private var sleepState = PlaybackSleepTimer()
     private var sleepTimer: Timer?
+    private let displaySleepGuard = PlaybackDisplaySleepGuard()
     private var adSkipSubscription: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var ignoredAdSegments: [AdSkipSegment] = []
@@ -249,6 +260,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         keepsOriginalAudioLayout = saved.keepsOriginalAudioLayout
         pipelineProcessesFrames = saved.pipelineProcessesFrames
         targetResolution = saved.targetResolution; targetFrameRate = saved.targetFrameRate
+        keepsDisplayAwake = saved.keepsDisplayAwake
         super.init()
         experience.$videoPermission.sink { [weak self] permission in
             guard let self, self.videoPermission != permission else { return }
@@ -626,6 +638,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         refreshPlaybackState(); saveProgress()
     }
     private func refreshPlaybackState() {
+        updateDisplaySleepPrevention()
         let preparation: PlaybackPreparationState
         if let item = player.currentItem {
             switch item.status { case .readyToPlay: preparation = .ready; case .failed: preparation = .failed; default: preparation = .preparing }
@@ -646,6 +659,13 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             self.refreshPlaybackState()
             self.recoverySuggested = PlaybackStabilityPolicy.shouldSuggestRecovery(isLoading: self.isLoading, elapsed: 15)
         }
+    }
+    private func updateDisplaySleepPrevention() {
+        // Play intent spans preparation, transient buffering, seeks and source replacement.
+        // User pause/end/failure all clear that intent and must release synchronously,
+        // rather than waiting for an AVPlayer KVO callback that may arrive out of order.
+        displaySleepGuard.update(shouldPreventSleep: keepsDisplayAwake && wantsPlay && player.currentItem != nil && !hasPlaybackFailure && error == nil)
+        if displaySleepPreventionError != displaySleepGuard.error { displaySleepPreventionError = displaySleepGuard.error }
     }
     private func clearWaitingState() {
         loadingWatchdog?.cancel(); loadingWatchdog = nil; waitingID = nil; recoverySuggested = false

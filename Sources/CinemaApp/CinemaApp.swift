@@ -29,7 +29,10 @@ struct CinemaApp: App {
                 if CommandLine.arguments.contains("--validate") { PlaybackValidation.shared.start(model: model) }
                 else if model.results.isEmpty { model.discover() }
             }
-            .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.playback.saveProgress() }
+            .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
+                model.playback.pause()
+                model.playback.cancelSleepTimer()
+            }
         }
         .defaultSize(width: 1250, height: 820)
         .windowStyle(.hiddenTitleBar)

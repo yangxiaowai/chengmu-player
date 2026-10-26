@@ -1,8 +1,10 @@
-# 澄幕 v0.3.7 · 个人影视播放器
+# 澄幕 v0.3.8 · 个人影视播放器
 
 Mac原生应用：检索网络影视目录、选择集数、在软件内播放，并按需进行实时降噪与缩放。源码与实际应用都在本目录。
 
-Apple Silicon Mac 安装包：[下载澄幕 v0.3.7](https://github.com/yangxiaowai/chengmu-player/releases/tag/v0.3.7)。应用采用本地签名，尚未经过 Apple 公证。
+Apple Silicon Mac 安装包：[下载澄幕 v0.3.8](https://github.com/yangxiaowai/chengmu-player/releases/tag/v0.3.8)。应用采用本地签名，尚未经过 Apple 公证。
+
+v0.3.8 修复播放期间没有阻止显示器自动休眠的问题。播放菜单“更多播放设置”新增“播放时保持屏幕常亮”，默认开启且记住选择。准备、短缓冲和拖动期间保持；暂停、结束、失败及睡眠定时暂停后恢复系统休眠。原片与增强模式使用相同策略。实现参考与验收边界见[电源管理记录](docs/research/display-sleep-2026-10-26.md)。
 
 ## 启动
 

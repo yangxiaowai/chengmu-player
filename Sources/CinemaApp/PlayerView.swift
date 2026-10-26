@@ -394,6 +394,8 @@ struct PlayerView: View {
                 }
             } label: { Label("广告文字柔化", systemImage: "rectangle.dashed") }
             sleepMenu
+            Toggle("播放时保持屏幕常亮", isOn: $playback.keepsDisplayAwake)
+            if let message = playback.displaySleepPreventionError { Text(message) }
             Menu("音量") {
                 Button("调高 10%") { playback.adjustVolume(0.1) }
                 Button("调低 10%") { playback.adjustVolume(-0.1) }

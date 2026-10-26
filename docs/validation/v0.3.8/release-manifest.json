@@ -1,0 +1,11 @@
+{
+  "version": "0.3.8",
+  "build": "20",
+  "archive": "dist/Chengmu-v0.3.8-macOS-AppleSilicon.zip",
+  "bytes": 1931763,
+  "sha256": "977d3c2c83e32af1179bc75b8b53d87e0b95130a9ff073a7116c432a6790bcd9",
+  "installed_app": "dist/澄幕.app",
+  "previous_backup": "dist/历史版本/澄幕-v0.3.7-build19.app",
+  "signature_and_extraction_verified": true,
+  "scope": "Local signature, archive CRC, extraction, executable equality and version; not notarization or visible screen acceptance."
+}
