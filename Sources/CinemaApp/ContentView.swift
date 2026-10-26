@@ -1,24 +1,23 @@
 import SwiftUI
 import CinemaCore
 
-// CLT ships the property wrapper but may omit the new SwiftUI State macro plugin.
 typealias LegacyState<Value> = SwiftUI.State<Value>
 
 struct ContentView: View {
     @ObservedObject var app: AppModel
     @LegacyState private var showLink = false
     @LegacyState private var link = ""
+
     var body: some View {
         Group {
             if app.showPlayer { PlayerView(app: app, playback: app.playback) }
             else {
                 HStack(spacing: 0) {
                     sidebar
-                    Divider().overlay(CinemaStyle.border)
                     VStack(spacing: 0) {
                         topbar
                         ScrollView {
-                            VStack(alignment: .leading, spacing: 28) {
+                            VStack(alignment: .leading, spacing: 24) {
                                 switch app.section {
                                 case .discover: DiscoveryView(app: app)
                                 case .watchlist: WatchlistView(app: app)
@@ -26,192 +25,285 @@ struct ContentView: View {
                                 case .quality: QualityStudio(playback: app.playback)
                                 case .sources: SourcesView(app: app)
                                 }
-                            }.padding(32)
+                            }.padding(.horizontal, CinemaStyle.gutter).padding(.top, 26).padding(.bottom, 36)
                         }
                     }
                 }
             }
         }
-        .background(CinemaStyle.background)
-        .foregroundStyle(Color.white.opacity(0.93))
-        .tint(CinemaStyle.accent)
-        .preferredColorScheme(.dark)
+        .background(CinemaStyle.background).foregroundStyle(CinemaStyle.primary).tint(CinemaStyle.accent).preferredColorScheme(.dark)
         .frame(minWidth: 1040, minHeight: 680)
         .sheet(isPresented: Binding(get: { !app.showPlayer && app.detailPresented }, set: { if !$0 && !app.showPlayer { app.dismissDetail() } })) {
-            DetailView(app: app).frame(width: 850, height: 650)
+            DetailView(app: app).frame(width: 900, height: 740)
         }
         .sheet(isPresented: $showLink) {
-            VStack(alignment: .leading, spacing: 20) {
-                Text("打开网络影片").font(.title2.bold())
-                Text("粘贴可直接播放的 HLS、MP4 等媒体链接。").foregroundStyle(.secondary)
-                TextField("https://…", text: $link).textFieldStyle(.roundedBorder).frame(width: 480)
-                HStack { Button("取消") { showLink = false }; Spacer(); Button("打开播放") { if let url = URL(string: link.trimmingCharacters(in: .whitespacesAndNewlines)) { app.openURL(url); showLink = false } else { app.message = "链接格式不正确。" } }.buttonStyle(.borderedProminent) }
-            }.padding(28)
+            VStack(alignment: .leading, spacing: 22) {
+                HStack { Image(systemName: "link").foregroundStyle(CinemaStyle.accent); Text("打开网络影片").font(.system(size: 23, weight: .semibold)) }
+                Text("粘贴影片的 HLS 或 MP4 链接，开始观看。").foregroundStyle(CinemaStyle.secondary).font(.system(size: 13))
+                TextField("https://…", text: $link).textFieldStyle(.plain).padding(14).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 10)).frame(width: 470)
+                HStack { Button("取消") { showLink = false }.buttonStyle(CinemaActionStyle()); Spacer(); Button("开始播放") {
+                    if let url = URL(string: link.trimmingCharacters(in: .whitespacesAndNewlines)) { app.openURL(url); showLink = false }
+                    else { app.message = "链接格式不正确。" }
+                }.buttonStyle(CinemaActionStyle(prominent: true)) }
+            }.padding(32).background(CinemaStyle.background)
         }
-        .alert("澄幕", isPresented: Binding(get: {app.message != nil}, set: {if !$0 {app.message = nil}})) { Button("知道了") { app.message = nil } } message: { Text(app.message ?? "") }
-    }
-    private var sidebar: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 11) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 9, style: .continuous).fill(CinemaStyle.accentSoft)
-                    Image(systemName: "play.rectangle.fill").font(.system(size: 17, weight: .regular)).foregroundStyle(CinemaStyle.accent)
-                }.frame(width: 36, height: 36)
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("澄幕").font(.system(size: 21, weight: .semibold, design: .serif))
-                    Text("C H E N G M U").font(.system(size: 7.5, weight: .medium)).tracking(1.4).foregroundStyle(CinemaStyle.tertiary)
-                }
-            }.padding(.top, 30).padding(.bottom, 34).padding(.horizontal, 20)
-            Text("你的放映室").font(.system(size: 9.5, weight: .semibold)).tracking(1.1).foregroundStyle(CinemaStyle.tertiary).padding(.horizontal, 24).padding(.bottom, 11)
-            ForEach(AppSection.allCases) { section in
-                SidebarButton(title: section.rawValue, icon: section.icon, selected: app.section == section) {
-                    app.section = section
-                }.padding(.horizontal, 10).padding(.bottom, 3)
-            }
-            Spacer()
-            VStack(alignment: .leading, spacing: 3) {
-                SidebarButton(title: "打开本地影片", icon: "folder.badge.plus", isNavigation: false) { app.importFile() }
-                SidebarButton(title: "打开网络链接", icon: "link", isNavigation: false) { showLink = true }
-            }.padding(.horizontal, 10).padding(.bottom, 14)
-            Rectangle().fill(CinemaStyle.border).frame(height: 1).padding(.horizontal, 20)
-            HStack(spacing: 8) {
-                ZStack { Circle().fill(CinemaStyle.accent.opacity(0.18)).frame(width: 14, height: 14); Circle().fill(CinemaStyle.accent).frame(width: 5, height: 5) }
-                Text("\(app.enabledProviderCount) 个检索来源已启用").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-            }.padding(.horizontal, 22).padding(.vertical, 18)
-        }.frame(width: 204)
-        .background(LinearGradient(colors: [Color.black.opacity(0.28), Color.black.opacity(0.12)], startPoint: .top, endPoint: .bottom))
-    }
-    private var topbar: some View {
-        HStack(spacing: 18) {
-            Text(app.section.rawValue).font(.system(size: 13, weight: .medium)).foregroundStyle(CinemaStyle.secondary)
-            Spacer()
-            HStack(spacing: 10) {
-                Image(systemName: "magnifyingglass").font(.system(size: 12)).foregroundStyle(app.query.isEmpty ? CinemaStyle.tertiary : CinemaStyle.accent)
-                TextField("搜索电影、剧集…", text: $app.query).textFieldStyle(.plain).onSubmit { app.search() }.frame(width: 245).accessibilityIdentifier("searchField")
-                if app.searching { ProgressView().controlSize(.small) }
-            }
-            .font(.system(size: 12)).padding(.horizontal, 15).padding(.vertical, 10)
-            .background(CinemaStyle.backgroundRaised, in: Capsule())
-            .overlay(Capsule().strokeBorder(app.query.isEmpty ? CinemaStyle.border : CinemaStyle.accent.opacity(0.45), lineWidth: 1))
-            .animation(CinemaStyle.quick, value: app.query.isEmpty)
-            Button { app.search() } label: { Text("搜索").font(.system(size: 12, weight: .medium)).padding(.horizontal, 6).padding(.vertical, 6) }
-                .buttonStyle(.plain).foregroundStyle(CinemaStyle.accent).accessibilityIdentifier("searchButton")
-                .disabled(app.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                .opacity(app.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.45 : 1)
-        }.padding(.horizontal, CinemaStyle.gutter).padding(.vertical, 18)
+        .alert("澄幕", isPresented: Binding(get: { app.message != nil }, set: { if !$0 { app.message = nil } })) {
+            Button("知道了") { app.message = nil }
+        } message: { Text(app.message ?? "") }
     }
 
+    private var sidebar: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 9) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10).fill(CinemaStyle.accent).frame(width: 33, height: 33)
+                    Image(systemName: "play.fill").font(.system(size: 13, weight: .bold)).foregroundStyle(.white).offset(x: 1)
+                }
+                Text("澄幕").font(.custom("PingFangSC-Semibold", size: 23)).tracking(1)
+            }.padding(.horizontal, 23).padding(.top, 32).padding(.bottom, 36)
+            Text("我的影院").font(.system(size: 10, weight: .medium)).foregroundStyle(CinemaStyle.tertiary).padding(.horizontal, 25).padding(.bottom, 12)
+            ForEach([AppSection.discover, .watchlist, .history]) { section in
+                SidebarButton(title: section.rawValue, icon: section.icon, selected: app.section == section) { app.section = section }.padding(.horizontal, 12).padding(.bottom, 5)
+            }
+            Rectangle().fill(CinemaStyle.border).frame(height: 1).padding(.horizontal, 24).padding(.vertical, 20)
+            ForEach([AppSection.quality, .sources]) { section in
+                SidebarButton(title: section.rawValue, icon: section.icon, selected: app.section == section) { app.section = section }.padding(.horizontal, 12).padding(.bottom, 5)
+            }
+            Spacer(minLength: 25)
+            VStack(alignment: .leading, spacing: 5) {
+                SidebarButton(title: "本地影片", icon: "folder", isNavigation: false) { app.importFile() }
+                SidebarButton(title: "网络链接", icon: "link", isNavigation: false) { showLink = true }
+            }.padding(.horizontal, 12).padding(.bottom, 20)
+            HStack(spacing: 7) { Circle().fill(CinemaStyle.positive).frame(width: 5, height: 5); Text("\(app.enabledProviderCount) 个来源已开启").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary) }.padding(.horizontal, 25).padding(.bottom, 23)
+        }.frame(width: 174).background(Color(red: 0.055, green: 0.06, blue: 0.07))
+        .overlay(alignment: .trailing) { Rectangle().fill(CinemaStyle.border).frame(width: 1) }
+    }
+
+    private var topbar: some View {
+        HStack(spacing: 16) {
+            Text(app.section.rawValue).font(.system(size: 14, weight: .medium)).foregroundStyle(CinemaStyle.secondary)
+            Spacer(minLength: 18)
+            HStack(spacing: 10) {
+                Image(systemName: "magnifyingglass").font(.system(size: 14)).foregroundStyle(CinemaStyle.secondary)
+                TextField("搜索电影、电视剧", text: $app.query).font(.system(size: 13)).textFieldStyle(.plain).onSubmit { app.search() }.accessibilityIdentifier("searchField")
+                if app.searching { ProgressView().controlSize(.mini) }
+                else if !app.query.isEmpty {
+                    Button { app.query = "" } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(CinemaStyle.tertiary) }.buttonStyle(.plain).help("清空搜索")
+                }
+                Button { app.search() } label: { Text("搜索").font(.system(size: 11, weight: .semibold)).foregroundStyle(.white).padding(.horizontal, 15).frame(height: 29).background(CinemaStyle.accent, in: RoundedRectangle(cornerRadius: 6)) }
+                    .buttonStyle(.plain).accessibilityIdentifier("searchButton").disabled(app.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }.padding(.leading, 13).padding(.trailing, 5).frame(width: 370, height: 39).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9))
+            Button { app.importFile() } label: { Image(systemName: "plus").font(.system(size: 14, weight: .medium)).frame(width: 36, height: 36).background(CinemaStyle.panel, in: Circle()) }.buttonStyle(.plain).help("打开本地影片")
+        }.padding(.horizontal, CinemaStyle.gutter).padding(.vertical, 17)
+        .background(CinemaStyle.background).overlay(alignment: .bottom) { Rectangle().fill(CinemaStyle.border).frame(height: 1) }
+    }
 }
 
 struct PosterView: View {
     let url: URL?
     let title: String
-    /// Keeps the placeholder until the artwork has decoded, so a poster fades in instead of
-    /// flashing an empty frame.
-    @LegacyState private var loaded = false
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                placeholder
-                AsyncImage(url: url, transaction: Transaction(animation: .easeOut(duration: 0.28))) { phase in
-                    if case .success(let image) = phase {
-                        image.resizable().scaledToFill()
-                            .opacity(loaded ? 1 : 0)
-                            .onAppear { loaded = true }
-                    }
+                PosterFallback(title: title)
+                AsyncImage(url: url) { phase in
+                    if case .success(let image) = phase { image.resizable().scaledToFill() }
                 }
-            }
-            .frame(width: geometry.size.width, height: geometry.size.height)
-            .clipped()
-            .onChange(of: url) { _, _ in loaded = false }
+            }.frame(width: geometry.size.width, height: geometry.size.height).clipped()
         }
-    }
-    private var placeholder: some View {
-        ZStack {
-            LinearGradient(colors: [Color(red: 0.16, green: 0.21, blue: 0.24), CinemaStyle.panel], startPoint: .topLeading, endPoint: .bottomTrailing)
-            VStack(spacing: 16) {
-                Image(systemName: "film").font(.system(size: 27, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent.opacity(0.55))
-                Text(title).font(.system(size: 17, weight: .medium, design: .serif)).multilineTextAlignment(.center).padding(.horizontal, 18).lineLimit(3)
-            }
-        }
-    }
-}
-struct MediaCard: View {
-    let title: MediaTitle
-    @LegacyState private var hovering = false
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            PosterView(url: title.posterURL, title: title.title)
-                .aspectRatio(2.0 / 3, contentMode: .fit)
-                .clipShape(RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous))
-                .overlay(alignment: .bottomLeading) {
-                    Text(title.providerName).font(.system(size: 9, weight: .medium))
-                        .padding(.horizontal, 7).padding(.vertical, 4)
-                        .background(.black.opacity(0.66), in: Capsule())
-                        .overlay(Capsule().strokeBorder(Color.white.opacity(0.12), lineWidth: 1))
-                        .padding(8)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous)
-                        .strokeBorder(hovering ? CinemaStyle.accent.opacity(0.85) : CinemaStyle.border, lineWidth: hovering ? 1.5 : 1)
-                    if hovering {
-                        ZStack {
-                            Color.black.opacity(0.28)
-                            Image(systemName: "play.circle.fill").font(.system(size: 36)).foregroundStyle(.white).shadow(color: .black.opacity(0.5), radius: 8)
-                        }
-                        .transition(.opacity)
-                    }
-                }
-                .shadow(color: .black.opacity(hovering ? 0.45 : 0.22), radius: hovering ? 14 : 7, y: hovering ? 7 : 3)
-                .scaleEffect(hovering ? 1.012 : 1)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title.title).font(.system(size: 13, weight: .medium)).lineLimit(1)
-                Text(title.year.isEmpty ? "查看集数与线路" : "\(title.year) · 查看集数与线路").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
-            }
-        }
-        .animation(CinemaStyle.quick, value: hovering)
-        .onHover { hovering = $0 }
-    }
-}
-struct DetailView: View {
-    @ObservedObject var app: AppModel
-    var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            HStack { Text("影片详情").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary); Spacer(); Button { app.dismissDetail() } label: { Image(systemName: "xmark") }.buttonStyle(.plain) }
-            if app.detailLoading { Spacer(); ProgressView("正在获取可播放线路…").frame(maxWidth: .infinity); Spacer() }
-            else if let detail = app.detail {
-                HStack(alignment: .top, spacing: 25) {
-                    PosterView(url: detail.title.posterURL, title: detail.title.title).frame(width: 140, height: 205).clipShape(RoundedRectangle(cornerRadius: 9))
-                    VStack(alignment: .leading, spacing: 15) {
-                        Text(detail.title.providerName.uppercased()).font(.system(size: 10, weight: .semibold)).tracking(1.4).foregroundStyle(CinemaStyle.accent)
-                        Text(detail.title.title).font(.system(size: 29, weight: .medium, design: .serif))
-                        Text("\(detail.title.year)  ·  \(detail.lines.count) 条播放线路").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
-                        Text(detail.title.summary).font(.system(size: 12)).lineSpacing(5).foregroundStyle(CinemaStyle.secondary).lineLimit(4)
-                        HStack {
-                            Button { app.continueDetail() } label: { Label(app.detailHasHistory ? "继续观看" : "开始观看", systemImage: "play.fill").padding(.horizontal, 10).padding(.vertical, 4) }.buttonStyle(.borderedProminent)
-                            if let group = CatalogGrouping.groups([detail.title] + app.detailSources.filter { CatalogGrouping.normalizedTitle($0.title) == CatalogGrouping.normalizedTitle(detail.title.title) && ($0.year.isEmpty || detail.title.year.isEmpty || $0.year == detail.title.year) }).first {
-                                Button { app.toggleSaved(group) } label: { Label(app.isSaved(group) ? "已在待看" : "加入待看", systemImage: app.isSaved(group) ? "bookmark.fill" : "bookmark") }.buttonStyle(.bordered)
-                            }
-                        }
-                    }
-                }
-                if app.detailSources.count > 1 {
-                    HStack { Text("播放来源").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
-                        Picker("播放来源", selection: Binding(get: { detail.title.providerID + ":" + detail.title.id }, set: { key in if let title = app.detailSources.first(where: { $0.providerID + ":" + $0.id == key }) { app.select(title) } })) {
-                            ForEach(app.detailSources, id: \.self) { source in Text(source.providerName + (app.providers.contains(where: { $0.id == source.providerID && $0.enabled }) ? "" : " · 未启用")).tag(source.providerID + ":" + source.id).disabled(!app.providers.contains { $0.id == source.providerID && $0.enabled }) }
-                        }.labelsHidden()
-                    }
-                }
-                HStack { Text("选择集数").font(.system(size: 17, weight: .semibold)); Spacer(); Picker("线路", selection: $app.selectedLineID) { ForEach(detail.lines) { line in Text("\(line.name) · \(line.episodes.count) 集").tag(line.id) } }.labelsHidden().frame(width: 220) }
-                ScrollView { LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 9)], spacing: 9) { ForEach(app.selectedLine?.episodes ?? []) { episode in Button { app.play(episode) } label: { Text(episode.name).font(.system(size: 12)).lineLimit(1).frame(maxWidth: .infinity).padding(.vertical, 12).background(Color.white.opacity(0.055), in: RoundedRectangle(cornerRadius: 6)) }.buttonStyle(.plain) } } }
-                Text("线路与集数来自目录；源尺寸会在实际播放后显示。").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-            }
-        }.padding(28).background(CinemaStyle.background).foregroundStyle(.white).tint(CinemaStyle.accent)
     }
 }
 
+/// Original typographic artwork for titles whose source does not supply a cover.
+private struct PosterFallback: View {
+    let title: String
+    private var seed: Int { title.unicodeScalars.reduce(0) { ($0 + Int($1.value)) % 997 } }
+    private var hue: Double { Double(seed % 360) / 360 }
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .bottomLeading) {
+                Color(hue: hue, saturation: 0.27, brightness: 0.18)
+                LinearGradient(colors: [Color(hue: hue, saturation: 0.5, brightness: 0.53), .black.opacity(0.35)], startPoint: .topTrailing, endPoint: .bottomLeading)
+                Circle().stroke(Color.white.opacity(0.11), lineWidth: geo.size.width * 0.16).frame(width: geo.size.width * 0.95).offset(x: geo.size.width * 0.28, y: -geo.size.height * 0.25)
+                Rectangle().fill(Color.white.opacity(0.075)).frame(width: geo.size.width * 0.22).rotationEffect(.degrees(28)).offset(x: geo.size.width * 0.22)
+                VStack(alignment: .leading, spacing: 11) {
+                    Text("CHENGMU / CINEMA").font(.system(size: max(6, geo.size.width * 0.04), weight: .medium)).tracking(1.8).foregroundStyle(.white.opacity(0.58))
+                    Text(title).font(.custom("Songti SC", size: max(18, geo.size.width * 0.16))).fontWeight(.bold).lineLimit(4).lineSpacing(5).foregroundStyle(.white.opacity(0.94))
+                    Rectangle().fill(.white.opacity(0.5)).frame(width: 22, height: 2)
+                }.padding(geo.size.width * 0.11).padding(.bottom, geo.size.height * 0.05)
+            }
+        }
+    }
+}
+
+struct MediaCard: View {
+    let title: MediaTitle
+    var sourceCount = 1
+    var quality: MediaQualityState?
+    @LegacyState private var hovering = false
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            PosterView(url: title.posterURL, title: title.title).aspectRatio(0.70, contentMode: .fit)
+                .overlay(alignment: .bottom) {
+                    LinearGradient(colors: [.clear, .black.opacity(0.82)], startPoint: .center, endPoint: .bottom)
+                    HStack { Text(title.year).font(.system(size: 10, weight: .medium)); Spacer(); if sourceCount > 1 { Text("\(sourceCount) 个来源").font(.system(size: 9)) } }.padding(10).frame(maxHeight: .infinity, alignment: .bottom)
+                }
+                .overlay(alignment: .topTrailing) { QualityBadge(state: quality).padding(8) }
+                .overlay {
+                    if hovering { ZStack { Color.black.opacity(0.22); Image(systemName: "play.circle.fill").font(.system(size: 42)).foregroundStyle(.white) }.transition(.opacity) }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 9))
+                .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(hovering ? CinemaStyle.accent : .white.opacity(0.05), lineWidth: 1))
+            Text(title.title).font(.system(size: 13, weight: .semibold)).foregroundStyle(hovering ? CinemaStyle.accent : CinemaStyle.primary).lineLimit(1)
+            HStack(spacing: 5) {
+                Text(providerLabel).lineLimit(1)
+                Spacer(minLength: 0)
+                if case .ready(let value) = quality, let fps = value.sample.frameRate {
+                    Text(consumerFrameRate(fps)).fixedSize()
+                }
+            }.font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
+        }.contentShape(Rectangle()).onHover { hovering = $0 }.animation(CinemaStyle.quick, value: hovering)
+    }
+    private var providerLabel: String {
+        if case .ready(let value) = quality, !value.providerName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return value.providerName }
+        return title.providerName.isEmpty ? "网络影片" : title.providerName
+    }
+}
+
+private func consumerResolution(_ sample: MediaQualitySample) -> String {
+    if sample.width == 3840 && sample.height == 2160 { return "4K" }
+    return sample.resolutionLabel.components(separatedBy: " · ")[0].uppercased()
+}
+private func consumerFrameRate(_ fps: Double) -> String {
+    String(format: abs(fps.rounded() - fps) < 0.02 ? "%.0f 帧" : "%.2f 帧", fps)
+}
+private func consumerQuality(_ sample: MediaQualitySample) -> String {
+    consumerResolution(sample) + " · " + (sample.frameRate.map(consumerFrameRate) ?? "帧率未知")
+}
+
+struct QualityBadge: View {
+    let state: MediaQualityState?
+    var body: some View {
+        Text(label).font(.system(size: 9, weight: .semibold)).tracking(0.2).foregroundStyle(.white)
+            .padding(.horizontal, 7).padding(.vertical, 5)
+            .background(isReady ? CinemaStyle.accent.opacity(0.92) : .black.opacity(0.65), in: RoundedRectangle(cornerRadius: 4))
+            .help(explanation)
+            .accessibilityLabel("片源画质：" + label)
+    }
+    private var isReady: Bool { if case .ready = state { return true }; return false }
+    private var label: String {
+        switch state {
+        case .ready(let value): return consumerResolution(value.sample)
+        case .queued: return "等待识别"
+        case .reading: return "识别中"
+        case .unavailable: return "暂未获取"
+        case nil: return "画质待识别"
+        }
+    }
+    private var explanation: String {
+        switch state {
+        case .ready(let value): return value.providerName + " · " + value.sampleLabel + "\n" + consumerQuality(value.sample) + " · " + value.sample.dimensionsLabel
+        case .queued: return "正在等待获取这部影片的画质信息。"
+        case .reading: return "正在获取片源分辨率和帧率。"
+        case .unavailable: return "暂时无法获取画质信息，仍可打开影片观看；右键选择更新画质可再次尝试。"
+        case nil: return "尚未获取片源画质；右键选择更新画质可立即开始。"
+        }
+    }
+}
+
+struct QualityReadout: View {
+    let state: MediaQualityState?
+    var body: some View {
+        Group {
+            switch state {
+            case .ready(let value): Text(consumerQuality(value.sample)).foregroundStyle(CinemaStyle.accent).help(value.providerName + " · " + value.sampleLabel + " · " + value.sample.dimensionsLabel)
+            case .reading, .queued: Text("正在获取画质…").foregroundStyle(CinemaStyle.secondary)
+            case .unavailable: Text("画质信息暂不可用").foregroundStyle(CinemaStyle.tertiary)
+            case nil: Text("画质待获取").foregroundStyle(CinemaStyle.tertiary)
+            }
+        }.font(.system(size: 11)).lineLimit(1)
+    }
+}
+
+struct DetailView: View {
+    @ObservedObject var app: AppModel
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack { Text("影片详情").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary); Spacer(); Button { app.dismissDetail() } label: { Image(systemName: "xmark").font(.system(size: 11, weight: .semibold)).frame(width: 29, height: 29).background(CinemaStyle.panel, in: Circle()) }.buttonStyle(.plain).help("关闭详情") }.padding(.horizontal, 30).padding(.vertical, 15)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 26) {
+                    if app.detailLoading { ProgressView("正在加载影片…").frame(maxWidth: .infinity).padding(.vertical, 80) }
+                    else if let detail = app.detail { overview(detail) }
+                    if !app.detailSources.isEmpty { sources }
+                    if let detail = app.detail, !app.detailLoading { lines(detail); episodes }
+                }.padding(.horizontal, 30).padding(.top, 6).padding(.bottom, 30)
+            }
+        }.background(CinemaStyle.background).foregroundStyle(CinemaStyle.primary).tint(CinemaStyle.accent)
+        .onChange(of: app.selectedLineID) { _, _ in inspectSelectedLine() }
+        .onChange(of: app.automaticQualityInspection) { _, enabled in if enabled, let detail = app.detail { app.inspectDetailQuality(detail) } }
+        .onChange(of: app.providers) { _, _ in if let detail = app.detail { app.inspectDetailQuality(detail) } }
+        .onAppear { if let detail = app.detail { app.inspectDetailQuality(detail) } }
+    }
+    private func overview(_ detail: MediaDetail) -> some View {
+        HStack(alignment: .top, spacing: 28) {
+            PosterView(url: detail.title.posterURL, title: detail.title.title).frame(width: 145, height: 207).clipShape(RoundedRectangle(cornerRadius: 10))
+            VStack(alignment: .leading, spacing: 13) {
+                Text(detail.title.year.isEmpty ? "电影 · 剧集" : detail.title.year + "  /  " + detail.title.providerName).font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.secondary)
+                Text(detail.title.title).font(.custom("PingFangSC-Semibold", size: 29)).lineLimit(2)
+                Text(detail.title.summary.isEmpty ? "暂无简介。选择来源与集数，即可开始观看。" : detail.title.summary).font(.system(size: 12)).lineSpacing(5).foregroundStyle(CinemaStyle.secondary).lineLimit(3)
+                Spacer(minLength: 0)
+                HStack(spacing: 10) {
+                    Button { app.continueDetail() } label: { Label(app.detailHasHistory ? "继续观看" : "立即播放", systemImage: "play.fill") }.buttonStyle(CinemaActionStyle(prominent: true))
+                    if let group = detailGroup(detail) { Button { app.toggleSaved(group) } label: { Label(app.isSaved(group) ? "已加入待看" : "加入待看", systemImage: app.isSaved(group) ? "bookmark.fill" : "bookmark") }.buttonStyle(CinemaActionStyle()) }
+                }
+            }.frame(minHeight: 207, alignment: .topLeading)
+        }
+    }
+    private var sources: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack { Text("播放来源").font(.system(size: 16, weight: .semibold)); Text("\(app.detailSources.count)").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary); Spacer(); Button { app.mediaQuality.check(app.detailSources, providers: app.providers, force: true) } label: { Label("更新画质", systemImage: "arrow.clockwise").font(.system(size: 11)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary) }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 230), spacing: 9)], spacing: 9) { ForEach(app.detailSources, id: \.self) { source in sourceRow(source) } }
+        }
+    }
+    private func sourceRow(_ source: MediaTitle) -> some View {
+        let selected = app.detail?.title.providerID == source.providerID && app.detail?.title.id == source.id
+        let enabled = app.providers.contains { $0.id == source.providerID && $0.enabled }
+        return Button { app.select(source) } label: {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 7) { Text(source.providerName).font(.system(size: 12, weight: .medium)); QualityReadout(state: app.mediaQuality.state(for: source, providers: app.providers)) }
+                Spacer(minLength: 0)
+                if selected { Image(systemName: "checkmark.circle.fill").foregroundStyle(CinemaStyle.accent) }
+            }.padding(14).frame(maxWidth: .infinity, minHeight: 68, alignment: .leading).background(selected ? CinemaStyle.accent.opacity(0.10) : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9)).overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(selected ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1)).contentShape(Rectangle())
+        }.buttonStyle(.plain).disabled(!enabled).opacity(enabled ? 1 : 0.5)
+    }
+    private func lines(_ detail: MediaDetail) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack { Text("播放线路").font(.system(size: 16, weight: .semibold)); Spacer(); Text("画质因来源和集数而异").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary) }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 230), spacing: 9)], spacing: 9) {
+                ForEach(detail.lines) { line in
+                    let state = line.episodes.first.flatMap { app.mediaQuality.state(for: $0.url) }
+                    HStack(spacing: 5) {
+                        Button { app.selectedLineID = line.id } label: {
+                            VStack(alignment: .leading, spacing: 7) { HStack { Text(line.name).font(.system(size: 12, weight: .medium)); Text("\(line.episodes.count) 集").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary); Spacer(); if app.selectedLineID == line.id { Image(systemName: "checkmark").font(.system(size: 10, weight: .bold)).foregroundStyle(CinemaStyle.accent) } }; QualityReadout(state: state) }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+                        }.buttonStyle(.plain)
+                        Button { app.mediaQuality.check(line: line, providerName: detail.title.providerName, force: true) } label: { Image(systemName: "arrow.clockwise").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).frame(width: 28, height: 35).contentShape(Rectangle()) }.buttonStyle(.plain).disabled(line.episodes.isEmpty || isBusy(state)).help("更新画质信息")
+                    }.padding(13).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9)).overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(app.selectedLineID == line.id ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1))
+                }
+            }
+        }
+    }
+    private var episodes: some View {
+        VStack(alignment: .leading, spacing: 13) {
+            HStack { Text("选集").font(.system(size: 16, weight: .semibold)); Spacer(); Text(app.selectedLine?.name ?? "暂无线路").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary) }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 91), spacing: 9)], spacing: 9) { ForEach(app.selectedLine?.episodes ?? []) { episode in Button { app.play(episode) } label: { Text(episode.name).font(.system(size: 12)).lineLimit(1).frame(maxWidth: .infinity).padding(.vertical, 12).contentShape(Rectangle()) }.buttonStyle(CinemaEpisodeStyle()) } }
+        }
+    }
+    private func detailGroup(_ detail: MediaDetail) -> MediaGroup? { CatalogGrouping.groups([detail.title] + app.detailSources.filter { CatalogGrouping.normalizedTitle($0.title) == CatalogGrouping.normalizedTitle(detail.title.title) && ($0.year.isEmpty || detail.title.year.isEmpty || $0.year == detail.title.year) }).first }
+    private func inspectSelectedLine() { guard app.automaticQualityInspection, let line = app.selectedLine, let detail = app.detail else { return }; app.mediaQuality.check(line: line, providerName: detail.title.providerName) }
+    private func isBusy(_ state: MediaQualityState?) -> Bool { switch state { case .queued, .reading: return true; default: return false } }
+}
+
 func timeString(_ seconds: Double) -> String {
-    guard seconds.isFinite, seconds >= 0 else { return "--:--" }
-    let value = Int(seconds)
+    guard seconds.isFinite, seconds >= 0 else { return "--:--" }; let value = Int(seconds)
     return value >= 3600 ? String(format: "%d:%02d:%02d", value / 3600, value % 3600 / 60, value % 60) : String(format: "%02d:%02d", value / 60, value % 60)
 }

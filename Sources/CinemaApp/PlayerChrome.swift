@@ -11,11 +11,11 @@ struct PlayerChromeIcon: View {
     var body: some View {
         Image(systemName: systemName)
             .font(.system(size: symbolSize, weight: .semibold))
-            .foregroundStyle(prominent ? Color.black : CinemaStyle.primary)
+            .foregroundStyle(CinemaStyle.primary)
             .frame(width: prominent ? 48 : 42, height: prominent ? 48 : 42)
-            .background(fill, in: RoundedRectangle(cornerRadius: prominent ? 16 : 13, style: .continuous))
+            .background(fill, in: RoundedRectangle(cornerRadius: prominent ? 22 : 8, style: .continuous))
             .overlay {
-                RoundedRectangle(cornerRadius: prominent ? 16 : 13, style: .continuous)
+                RoundedRectangle(cornerRadius: prominent ? 22 : 8, style: .continuous)
                     .strokeBorder(prominent ? CinemaStyle.accent.opacity(0.6) : Color.white.opacity(hovered ? 0.15 : 0), lineWidth: 1)
             }
             .contentShape(Rectangle())
@@ -26,7 +26,7 @@ struct PlayerChromeIcon: View {
     private var fill: Color {
         if prominent { return CinemaStyle.accent }
         if selected { return CinemaStyle.accent.opacity(0.20) }
-        return Color.white.opacity(hovered ? 0.15 : 0.045)
+        return Color.white.opacity(hovered ? 0.12 : 0)
     }
 }
 
@@ -42,7 +42,7 @@ struct PlayerChromeText: View {
             .lineLimit(1)
             .padding(.horizontal, 10)
             .frame(minHeight: 42)
-            .background(Color.white.opacity(hovered ? 0.15 : 0.045), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .background(Color.white.opacity(hovered ? 0.12 : 0), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
             .contentShape(Rectangle())
             .onHover { hovered = $0 }
             .animation(CinemaStyle.quick, value: hovered)

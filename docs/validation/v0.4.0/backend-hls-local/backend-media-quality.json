@@ -1,0 +1,76 @@
+{
+  "checkedAt" : "2026-10-26T07:39:59Z",
+  "checks" : [
+    "sample labels, conservative classification, invalid values, Codable",
+    "local metadata landscape.mp4",
+    "local metadata portrait-rotation.mp4",
+    "local metadata claimed-4K.mp4",
+    "HTTP metadata",
+    "local HTTP HLS prepared-item or first-frame fallback",
+    "rejected invalid-scheme",
+    "rejected invalid-host",
+    "rejected credentials",
+    "rejected bad-file",
+    "rejected audio-only",
+    "stalled HTTP timeout returns within 2 seconds",
+    "stalled HTTP cancellation returns CancellationError within 2 seconds",
+    "stalled HLS media timeout releases prepared private player within 2 seconds",
+    "stalled HLS media cancellation releases prepared private player within 2 seconds"
+  ],
+  "elapsedSeconds" : {
+    "HLS-cancellation" : 0.35727202892303467,
+    "HLS-timeout" : 1.2029259204864502,
+    "cancellation" : 0.25801193714141846,
+    "timeout" : 0.42540597915649414
+  },
+  "failures" : {
+    "HLS-timeout" : "画质元数据检测超时",
+    "audio-only" : "画质元数据检测超时",
+    "bad-file" : "Cannot Open",
+    "credentials" : "媒体地址无效",
+    "invalid-host" : "媒体地址无效",
+    "invalid-scheme" : "媒体地址无效",
+    "timeout" : "画质元数据检测超时"
+  },
+  "samples" : {
+    "claimed-4K.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "evidence" : "track",
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "http-landscape.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "evidence" : "track",
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "http-local.m3u8" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 746128,
+      "evidence" : "track",
+      "height" : 360,
+      "width" : 640
+    },
+    "landscape.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "evidence" : "track",
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "portrait-rotation.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "evidence" : "track",
+      "frameRate" : 24,
+      "height" : 640,
+      "width" : 360
+    }
+  }
+}

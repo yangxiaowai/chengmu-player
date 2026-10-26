@@ -1,0 +1,8 @@
+{"event": "accepted", "path": "/hang-timeout.mp4", "time": 1793000400.618512}
+{"event": "disconnected", "path": "/hang-timeout.mp4", "time": 1793000401.039762}
+{"event": "accepted", "path": "/hang-cancel.mp4", "time": 1793000401.041824}
+{"event": "disconnected", "path": "/hang-cancel.mp4", "time": 1793000401.2962089}
+{"event": "accepted", "path": "/hang-hls-timeout.ts", "time": 1793000401.314653}
+{"event": "disconnected", "path": "/hang-hls-timeout.ts", "time": 1793000402.498184}
+{"event": "accepted", "path": "/hang-hls-cancel.ts", "time": 1793000402.5038981}
+{"event": "disconnected", "path": "/hang-hls-cancel.ts", "time": 1793000402.855511}

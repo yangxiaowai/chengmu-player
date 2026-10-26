@@ -1,242 +1,238 @@
 import SwiftUI
 import CinemaCore
 
-/// Shared by the studio and the player's popover. Requested settings and actual output stay separate.
+/// Consumer controls shared by the settings page and the player popover.
 struct QualityControlPanel: View {
     @ObservedObject var playback: PlaybackController
     @ObservedObject var performance: QualityPerformanceController
     var compact = false
-    /// Hardware support enables the experimental target; it does not prove sustained playback.
     var allows60FPS = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: compact ? 16 : 22) {
+        VStack(alignment: .leading, spacing: compact ? 18 : 24) {
             sourceSection
             settingsSection
             comparisonSection
             performanceSection
-        }
-        .foregroundStyle(CinemaStyle.primary)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        }.foregroundStyle(CinemaStyle.primary).frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var sourceSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: "film.stack").font(.system(size: compact ? 20 : 27, weight: .light))
-                    .foregroundStyle(CinemaStyle.accent).frame(width: compact ? 26 : 36)
-                VStack(alignment: .leading, spacing: 6) {
-                    eyebrow("当前片源")
-                    Text(playback.sourceFormatLabel)
-                        .font(.system(size: compact ? 13 : 17, weight: .medium, design: .monospaced))
-                        .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(alignment: .center, spacing: 14) {
+                Image(systemName: "play.rectangle").font(.system(size: 25, weight: .light))
+                    .foregroundStyle(CinemaStyle.accent).frame(width: 42, height: 42)
+                    .background(CinemaStyle.accentSoft, in: RoundedRectangle(cornerRadius: 10))
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("当前影片").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                    Text(playback.title.isEmpty ? "还没有打开影片" : playback.title).font(.system(size: 15, weight: .semibold)).lineLimit(1)
                 }
                 Spacer(minLength: 0)
+                Text(playback.title.isEmpty ? "未播放" : (playback.pictureIsEnhanced ? "增强中" : "原片播放"))
+                    .font(.system(size: 10, weight: .medium)).foregroundStyle(playback.pictureIsEnhanced ? CinemaStyle.accent : CinemaStyle.secondary)
+                    .padding(.horizontal, 10).padding(.vertical, 6).background(CinemaStyle.panel, in: Capsule())
             }
-            Rectangle().fill(CinemaStyle.border).frame(height: 1)
-            HStack(alignment: .top, spacing: 10) {
-                Image(systemName: playback.pictureIsEnhanced ? "sparkles" : "play.rectangle")
-                    .foregroundStyle(CinemaStyle.accent).frame(width: 18)
+            Text(playback.sourceFormatLabel.replacingOccurrences(of: "（轨道）", with: "").replacingOccurrences(of: " fps", with: " 帧/秒")).font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            if case .nativeOnly(let reason) = playback.videoPermission {
+                CinemaNotice(icon: "info.circle", text: reason)
+            } else if let reason = playback.metrics?.fallbackReason {
+                CinemaNotice(icon: "info.circle", text: reason)
+            }
+            DisclosureGroup {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(playback.pictureStatusTitle).font(.system(size: 12, weight: .semibold))
+                    Text(playback.pictureStatusTitle)
                     if let metrics = playback.metrics, metrics.outputWidth > 0, metrics.outputHeight > 0 {
-                        Text("实际输出 \(metrics.outputWidth)×\(metrics.outputHeight)")
-                            .font(.system(size: 11, design: .monospaced)).foregroundStyle(CinemaStyle.secondary)
+                        Text("输出画面 \(metrics.outputWidth)×\(metrics.outputHeight)")
                     }
-                    Text(playback.outputTimingLabel).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                    if case .nativeOnly(let reason) = playback.videoPermission {
-                        Text(reason).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
-                    } else if let reason = playback.metrics?.fallbackReason {
-                        Text(reason).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
-                    }
-                }.fixedSize(horizontal: false, vertical: true)
-            }
-        }
-        .padding(compact ? 14 : 20)
-        .background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: CinemaStyle.radius))
-        .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius).strokeBorder(CinemaStyle.borderStrong, lineWidth: 1))
+                    Text(playback.outputTimingLabel)
+                }.font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary).padding(.top, 6)
+            } label: { Text("画面详情").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary) }
+        }.padding(compact ? 16 : 22).background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: 12))
     }
 
     private var settingsSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            eyebrow("画面与流畅度")
-            settingRow("处理模式") {
-                Picker("处理模式", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
-                    ForEach(EnhancementMode.allCases) { mode in Text(mode.title).tag(mode) }
-                }.labelsHidden().pickerStyle(.menu)
-            }
-            Text(playback.selectedPictureMode.detail)
-                .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-            if playback.selectedPictureMode == .restoration || playback.selectedPictureMode == .gentleRestoration {
-                settingRow("修复强度") {
-                    Picker("修复强度", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
-                        Text("轻度").tag(EnhancementMode.gentleRestoration)
-                        Text("常规").tag(EnhancementMode.restoration)
-                    }.labelsHidden().pickerStyle(.segmented)
+        VStack(alignment: .leading, spacing: 18) {
+            sectionHeading("画面风格", subtitle: "从自然清晰，到更细致的修复")
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: compact ? 2 : 4), spacing: 8) {
+                ForEach(EnhancementMode.allCases) { mode in
+                    Button { playback.selectEnhancementMode(mode) } label: {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: modeIcon(mode)).font(.system(size: 16, weight: .medium))
+                                Spacer(minLength: 0)
+                                if playback.selectedPictureMode == mode { Image(systemName: "checkmark.circle.fill").font(.system(size: 12)) }
+                            }
+                            Text(modeName(mode)).font(.system(size: 12, weight: .semibold))
+                            Text(modeSubtitle(mode)).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).lineLimit(1)
+                        }.foregroundStyle(playback.selectedPictureMode == mode ? CinemaStyle.accent : CinemaStyle.primary)
+                            .padding(13).frame(maxWidth: .infinity, minHeight: 86, alignment: .leading)
+                            .background(playback.selectedPictureMode == mode ? CinemaStyle.accentSoft : CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: 10))
+                            .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(playback.selectedPictureMode == mode ? CinemaStyle.accent.opacity(0.6) : CinemaStyle.border, lineWidth: 1))
+                            .contentShape(Rectangle())
+                    }.buttonStyle(.plain).help(mode.detail)
+                        .accessibilityAddTraits(playback.selectedPictureMode == mode ? .isSelected : [])
                 }
             }
-            settingRow("目标分辨率") {
-                Picker("目标分辨率", selection: $playback.targetResolution) {
-                    ForEach(EnhancementResolution.allCases) { resolution in Text(resolution.title).tag(resolution) }
-                }.labelsHidden().pickerStyle(.menu)
-                    .disabled(playback.selectedPictureMode == .original)
-            }
-            settingRow("目标帧率") {
-                Picker("目标帧率", selection: $playback.targetFrameRate) {
-                    Text(EnhancementFrameRate.source.title).tag(EnhancementFrameRate.source)
-                    Text("60 fps目标（实验，可能回退）").tag(EnhancementFrameRate.fps60).disabled(!allows60FPS)
-                }.labelsHidden().pickerStyle(.menu)
-                    .disabled(playback.selectedPictureMode == .original)
-            }
-            if playback.targetFrameRate == .fps60 && selectedOutputExceeds1080p {
-                CinemaNotice(icon: "exclamationmark.circle", text: "当前目标超过 1080p，不支持 60 fps 插帧；4K60 不会启用。可尝试下方 1080p60，或跟随片源帧率。")
-            }
-            Button {
-                playback.targetResolution = .fullHD
-                playback.targetFrameRate = .fps60
-                playback.selectEnhancementMode(.clarity)
-            } label: {
+            Text(playback.selectedPictureMode.detail).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary).fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 16) {
+                settingRow("目标清晰度") {
+                    Menu {
+                        ForEach(EnhancementResolution.allCases) { resolution in
+                            Button { playback.targetResolution = resolution } label: {
+                                if playback.targetResolution == resolution { Label(resolution.title, systemImage: "checkmark") }
+                                else { Text(resolution.title) }
+                            }
+                        }
+                    } label: { menuLabel(playback.targetResolution.title) }.menuStyle(.borderlessButton).fixedSize()
+                        .disabled(playback.selectedPictureMode == .original)
+                }
+                Rectangle().fill(CinemaStyle.border).frame(height: 1)
+                settingRow("流畅度") {
+                    HStack(spacing: 7) {
+                        choice("原始帧率", selected: playback.targetFrameRate == .source) { playback.targetFrameRate = .source }
+                        choice("60 帧", selected: playback.targetFrameRate == .fps60) { playback.targetFrameRate = .fps60 }.disabled(!allows60FPS)
+                    }.disabled(playback.selectedPictureMode == .original)
+                }
+                if playback.targetFrameRate == .fps60 && selectedOutputExceeds1080p {
+                    Text("60 帧增强支持 1080P 以内的画面，请降低目标清晰度。")
+                        .font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
+                }
                 HStack(spacing: 8) {
-                    Image(systemName: "hare")
-                    Text("尝试1080p60（自然降噪）")
+                    Text("想要更流畅？").foregroundStyle(CinemaStyle.secondary)
+                    Button("试试 1080P · 60 帧") {
+                        playback.targetResolution = .fullHD; playback.targetFrameRate = .fps60; playback.selectEnhancementMode(.clarity)
+                    }.buttonStyle(.plain).foregroundStyle(CinemaStyle.accent).disabled(!allows60FPS)
                     Spacer(minLength: 0)
-                    Text("实验").font(.system(size: 10, weight: .medium)).foregroundStyle(CinemaStyle.accent)
-                }.font(.system(size: 11, weight: .medium)).padding(.vertical, 4)
-            }.buttonStyle(.bordered).disabled(!allows60FPS)
-            Text(allows60FPS
-                 ? "60 fps 是实验目标，可能回退。本机自检不等于稳定播放；性能不足时保留修复、跟随片源帧率。当前仅支持 1080p 以内，实际状态见上方。"
-                 : "当前系统或设备不支持运动插帧，需要 macOS 26 或更新版本及兼容硬件。分辨率保持画面比例，帧率跟随片源。")
-                .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                .fixedSize(horizontal: false, vertical: true)
+                }.font(.system(size: 11))
+                Text(allows60FPS ? "60 帧为实验功能，性能不足时会跟随原始帧率。提高分辨率不能还原原片中不存在的细节。" : "当前设备不支持运动插帧，帧率将跟随片源。更高清晰度会增加处理负担。")
+                    .font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).fixedSize(horizontal: false, vertical: true)
+            }.padding(18).background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: 12))
         }.disabled(performance.isRunning)
     }
 
     private var comparisonSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                eyebrow("原片与修复")
-                Spacer()
-                if playback.isComparingOriginal {
-                    Text("正在看原片").font(.system(size: 10, weight: .semibold)).foregroundStyle(CinemaStyle.accent)
-                }
-            }
-            HStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 16) {
+            sectionHeading("看见区别", subtitle: "保留你喜欢的画面，不必只追求更高参数")
+            HStack(spacing: 12) {
                 Button { playback.toggleOriginalComparison() } label: {
-                    Label(playback.isComparingOriginal ? "返回修复画面" : "临时查看原片", systemImage: "circle.lefthalf.filled")
-                        .font(.system(size: 12))
-                }.buttonStyle(.bordered)
-                    .disabled(!playback.canCompareOriginal && !playback.isComparingOriginal)
+                    Label(playback.isComparingOriginal ? "返回增强画面" : "对比原片", systemImage: "circle.lefthalf.filled")
+                        .font(.system(size: 12, weight: .medium)).padding(.horizontal, 14).frame(height: 38)
+                        .background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 8))
+                        .contentShape(Rectangle())
+                }.buttonStyle(.plain).disabled(!playback.canCompareOriginal && !playback.isComparingOriginal)
                 Spacer(minLength: 0)
-                Toggle("同帧分屏", isOn: $playback.isSplitComparison).toggleStyle(.switch)
-                    .font(.system(size: 12)).fixedSize()
+                Toggle("分屏对比", isOn: $playback.isSplitComparison).toggleStyle(.switch).controlSize(.small).font(.system(size: 12))
                     .disabled(!playback.pictureIsEnhanced && !playback.isSplitComparison)
             }
-            Text(playback.isSplitComparison ? "同一时刻的原片与处理画面并排呈现，适合检查纹理、噪点与字幕。" : "对照不会改变所选模式。增强画面就绪后，可以开启同帧分屏。")
-                .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .padding(.vertical, 14)
-        .overlay(alignment: .top) { Rectangle().fill(CinemaStyle.border).frame(height: 1) }
-        .overlay(alignment: .bottom) { Rectangle().fill(CinemaStyle.border).frame(height: 1) }
-        .disabled(performance.isRunning)
+        }.padding(18).background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: 12)).disabled(performance.isRunning)
     }
 
     private var performanceSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 10) {
-                VStack(alignment: .leading, spacing: 5) {
-                    eyebrow("本机处理能力")
-                    Text(performance.isRunning ? performance.status : (playback.selectedPictureMode == .original ? "原片模式下，以流式修复检测所选目标" : "用固定样本检验当前设置"))
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("这台 Mac，能跑多高？").font(.system(size: 15, weight: .semibold))
+                    Text(performance.isRunning ? "正在评估当前设置…" : "用短时性能评估，帮助选择适合的画质")
                         .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                 }
                 Spacer(minLength: 0)
                 if performance.isRunning {
-                    Button(performance.isCancelling ? "停止中…" : "取消") { playback.cancelPerformanceTest() }
+                    Button(performance.isCancelling ? "正在停止" : "停止") { playback.cancelPerformanceTest() }
                         .disabled(performance.isCancelling).buttonStyle(.bordered)
                 } else {
                     Button { playback.startPerformanceTest() } label: {
-                        Label(performance.report == nil ? "开始自检" : "重新检测", systemImage: "speedometer")
-                    }.buttonStyle(.borderedProminent).tint(CinemaStyle.accent)
-                        .help("检测时暂时暂停播放，使用固定运动与噪声样本；结束后按播放意图恢复。")
+                        Text(performance.report == nil ? "检测性能" : "再次检测").font(.system(size: 12, weight: .semibold)).padding(.horizontal, 14).frame(height: 38)
+                            .foregroundStyle(.white).background(CinemaStyle.accent, in: RoundedRectangle(cornerRadius: 8))
+                    }.buttonStyle(.plain).help("检测会暂时暂停播放，结束后恢复。使用内置测试画面，不修改影片。")
                 }
             }
-            if performance.isRunning {
-                ProgressView(value: performance.progress).tint(CinemaStyle.accent)
-                    .accessibilityLabel("本机画质检测进度")
-            }
-            if let error = performance.error {
-                CinemaNotice(icon: "exclamationmark.circle", text: error)
-            }
+            if performance.isRunning { ProgressView(value: performance.progress).tint(CinemaStyle.accent).accessibilityLabel("性能检测进度") }
+            if let error = performance.error { CinemaNotice(icon: "info.circle", text: error) }
             if let report = performance.report { performanceResult(report) }
-            else if !performance.isRunning && performance.error == nil {
-                Text(performance.status == "检测已取消" ? "检测已取消，没有生成性能结论。" : "尚无检测结果。检测使用合成 SDR 图像，不读取电影文件；未识别片源尺寸时使用 1280×720。")
-                    .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            Text("本机自检不等于稳定播放。自检统计完整处理耗时，不代表显示帧率或音画同步；性能不足时保留修复、跟随片源帧率。HDR 与杜比视界继续由系统原生呈现。")
-                .font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
-                .fixedSize(horizontal: false, vertical: true)
-        }
+            Text("短时检测仅供选项参考，实际流畅度会随影片与设备负载变化。HDR 与杜比视界由系统原生播放。")
+                .font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).fixedSize(horizontal: false, vertical: true)
+        }.padding(18).background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: 12))
     }
 
     private func performanceResult(_ report: QualityPerformanceReport) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
-                Image(systemName: report.spatialFitsBudget ? "checkmark.circle" : "info.circle")
-                Text(report.verdict).font(.system(size: 12, weight: .medium))
-            }.foregroundStyle(report.spatialFitsBudget ? CinemaStyle.positive : CinemaStyle.accent)
-            HStack(alignment: .firstTextBaseline, spacing: compact ? 16 : 28) {
-                performanceValue("P95 完成耗时", value: String(format: "%.1f", report.p95MS), unit: "ms", primary: true)
-                performanceValue("每源帧预算", value: String(format: "%.1f", report.frameBudgetMS), unit: "ms")
-                performanceValue("P95 余量", value: String(format: "%+.1f", report.headroomMS), unit: "ms")
-            }
-            VStack(alignment: .leading, spacing: 5) {
-                Text(report.configurationLabel).font(.system(size: 11, weight: .medium))
-                Text(report.sourceLabel + " → \(report.outputSize.width)×\(report.outputSize.height)")
-                Text("平均 \(String(format: "%.1f", report.meanMS)) ms · 超预算 \(report.overBudgetFrames)/\(report.completedFrames) 个源帧间隔")
-                Text("预热 \(report.warmupFrames) 帧 · 首帧处理 \(String(format: "%.1f", report.firstFrameMS)) ms")
-                if report.includesFrameInterpolation {
-                    Text("采样 \(String(format: "%.2f", report.sampledMediaSeconds)) 秒媒体时间，输出 \(report.completedOutputFrames) 个 60 Hz 格点，其中 \(report.interpolatedFrames) 帧为运动插帧。")
-                }
-                Text(report.frameRateNote)
-                Text(report.algorithm)
-                Text(report.deviceName + " · " + report.testedAt.formatted(date: .abbreviated, time: .shortened))
-            }.font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-                .fixedSize(horizontal: false, vertical: true)
+            Label(report.spatialFitsBudget ? "当前设置在本次检测中有处理余量" : "建议降低清晰度或使用原始帧率", systemImage: report.spatialFitsBudget ? "checkmark.circle.fill" : "info.circle")
+                .font(.system(size: 12, weight: .medium)).foregroundStyle(report.spatialFitsBudget ? CinemaStyle.positive : CinemaStyle.accent)
+            Text(report.configurationLabel).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
             if report.mode != (playback.selectedPictureMode == .original ? .restoration : playback.selectedPictureMode) || report.resolution != playback.targetResolution || report.requestedFrameRate != playback.targetFrameRate {
-                Text("上次结果对应上方所列配置；当前选项已改变，请重新检测。")
-                    .font(.system(size: 10)).foregroundStyle(CinemaStyle.accent)
+                Text("设置已更改，重新检测可更新建议。").font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
             }
+            DisclosureGroup {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(report.sourceLabel + " → \(report.outputSize.width)×\(report.outputSize.height)")
+                    Text("95% 的帧在 \(String(format: "%.1f", report.p95MS)) ms 内完成处理；每源帧预算 \(String(format: "%.1f", report.frameBudgetMS)) ms")
+                    Text("平均 \(String(format: "%.1f", report.meanMS)) ms · 超时 \(report.overBudgetFrames)/\(report.completedFrames) 帧")
+                    Text(report.frameRateNote)
+                    Text(report.algorithm)
+                    Text(report.deviceName + " · " + report.testedAt.formatted(date: .abbreviated, time: .shortened))
+                }.font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).fixedSize(horizontal: false, vertical: true).padding(.top, 6)
+            } label: { Text("性能详情").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary) }
         }
-        .padding(14)
-        .background(CinemaStyle.backgroundRaised, in: RoundedRectangle(cornerRadius: CinemaStyle.radius))
-        .overlay(RoundedRectangle(cornerRadius: CinemaStyle.radius).strokeBorder(CinemaStyle.border, lineWidth: 1))
     }
 
-    private func performanceValue(_ title: String, value: String, unit: String, primary: Bool = false) -> some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-            HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(value).font(.system(size: primary ? (compact ? 24 : 30) : (compact ? 18 : 23), weight: .medium, design: .rounded)).monospacedDigit()
-                Text(unit).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
-            }
-        }.frame(maxWidth: .infinity, alignment: .leading)
+    private func modeName(_ mode: EnhancementMode) -> String {
+        switch mode {
+        case .original: return "原片"
+        case .clarity: return "自然清晰"
+        case .temporal: return "柔和降噪"
+        case .gentleRestoration: return "轻度修复"
+        case .restoration: return "细致修复"
+        case .compression: return "压缩改善"
+        case .upscale4K: return "平滑放大"
+        case .appleAI: return "AI 超分"
+        }
     }
-
+    private func modeSubtitle(_ mode: EnhancementMode) -> String {
+        switch mode {
+        case .original: return "忠于原始画面"
+        case .clarity: return "减少噪点 · 自然质感"
+        case .temporal: return "结合相邻画面降噪"
+        case .gentleRestoration: return "保留更多细节"
+        case .restoration: return "降噪与放大结合"
+        case .compression: return "减轻残留噪点 · 实验"
+        case .upscale4K: return "舒适观看大画面"
+        case .appleAI: return "依设备能力启用"
+        }
+    }
+    private func modeIcon(_ mode: EnhancementMode) -> String {
+        switch mode {
+        case .original: return "film"
+        case .clarity: return "sun.max"
+        case .temporal: return "square.stack.3d.up"
+        case .gentleRestoration: return "leaf"
+        case .restoration: return "sparkles"
+        case .compression: return "slider.horizontal.3"
+        case .upscale4K: return "arrow.up.left.and.arrow.down.right"
+        case .appleAI: return "cpu"
+        }
+    }
     private var selectedOutputExceeds1080p: Bool {
         let width = playback.metrics?.sourceWidth ?? 1280, height = playback.metrics?.sourceHeight ?? 720
-        let size = playback.targetResolution.target(width: max(1, width), height: max(1, height),
-                                                    automatic4K: playback.selectedPictureMode.automaticallyTargets4K)
+        let size = playback.targetResolution.target(width: max(1, width), height: max(1, height), automatic4K: playback.selectedPictureMode.automaticallyTargets4K)
         return max(size.width, size.height) > 1920 || size.width * size.height > 1920 * 1080
     }
-    private func eyebrow(_ text: String) -> some View {
-        Text(text).font(.system(size: 11, weight: .semibold)).tracking(0.8).foregroundStyle(CinemaStyle.secondary)
+    private func sectionHeading(_ title: String, subtitle: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title).font(.system(size: 15, weight: .semibold))
+            Text(subtitle).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+        }
     }
     private func settingRow<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
-        HStack(spacing: 16) {
-            Text(title).font(.system(size: 12)).frame(width: compact ? 82 : 112, alignment: .leading)
-            content().frame(maxWidth: .infinity, alignment: .trailing)
-        }
+        HStack(spacing: 12) { Text(title).font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary); Spacer(minLength: 0); content() }
+    }
+    private func menuLabel(_ value: String) -> some View {
+        HStack(spacing: 10) { Text(value); Image(systemName: "chevron.down").font(.system(size: 9)) }.font(.system(size: 12)).padding(.horizontal, 12).frame(height: 34).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 7))
+    }
+    private func choice(_ title: String, selected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title).font(.system(size: 11, weight: .medium)).foregroundStyle(selected ? CinemaStyle.accent : CinemaStyle.secondary)
+                .padding(.horizontal, 11).frame(height: 32).background(selected ? CinemaStyle.accentSoft : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 7)).contentShape(Rectangle())
+        }.buttonStyle(.plain).accessibilityAddTraits(selected ? .isSelected : [])
     }
 }

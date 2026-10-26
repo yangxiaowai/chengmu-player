@@ -1,0 +1,46 @@
+{
+  "checks" : [
+    {
+      "name" : "two_job_limit_and_first_episode_only",
+      "passed" : true
+    },
+    {
+      "name" : "cached_title_is_not_refetched",
+      "passed" : true
+    },
+    {
+      "name" : "success_cache_expires",
+      "passed" : true
+    },
+    {
+      "name" : "same_url_reads_are_shared_across_titles",
+      "passed" : true
+    },
+    {
+      "name" : "detail_line_reuses_matching_url_cache",
+      "passed" : true
+    },
+    {
+      "name" : "playback_suspension_stops_queue_and_new_requests",
+      "passed" : true
+    },
+    {
+      "name" : "late_cancelled_result_cannot_overwrite_new_read",
+      "passed" : true
+    },
+    {
+      "name" : "catalog_load_defers_probes_and_queue_is_bounded",
+      "passed" : true
+    },
+    {
+      "name" : "cancel_removes_queued_states",
+      "passed" : true
+    },
+    {
+      "name" : "disabled_provider_not_probed",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Injected metadata\/detail closures; concurrency, cancellation races, queue cap and cache. No network\/video quality evidence."
+}

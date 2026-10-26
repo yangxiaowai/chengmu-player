@@ -1,0 +1,98 @@
+{
+  "checks" : [
+    {
+      "name" : "two_job_limit_and_first_episode_only",
+      "passed" : true
+    },
+    {
+      "name" : "cached_title_is_not_refetched",
+      "passed" : true
+    },
+    {
+      "name" : "success_cache_expires",
+      "passed" : true
+    },
+    {
+      "name" : "same_url_reads_are_shared_across_titles",
+      "passed" : true
+    },
+    {
+      "name" : "detail_line_reuses_matching_url_cache",
+      "passed" : true
+    },
+    {
+      "name" : "forced_source_read_bypasses_url_cache",
+      "passed" : true
+    },
+    {
+      "name" : "line_refresh_updates_existing_source_observation",
+      "passed" : true
+    },
+    {
+      "name" : "cache_reuse_preserves_original_measurement_time",
+      "passed" : true
+    },
+    {
+      "name" : "sample_progress_counts_unique_urls",
+      "passed" : true
+    },
+    {
+      "name" : "forced_queued_request_is_promoted_and_bypasses_url_cache",
+      "passed" : true
+    },
+    {
+      "name" : "failure_cooldown_shared_across_title_and_line_aliases",
+      "passed" : true
+    },
+    {
+      "name" : "explicit_refresh_bypasses_shared_failure_cooldown",
+      "passed" : true
+    },
+    {
+      "name" : "shared_failure_cooldown_expires",
+      "passed" : true
+    },
+    {
+      "name" : "failed_url_cooldown_survives_pending_line_state",
+      "passed" : true
+    },
+    {
+      "name" : "playback_suspension_stops_queue_and_new_requests",
+      "passed" : true
+    },
+    {
+      "name" : "late_cancelled_result_cannot_overwrite_new_read",
+      "passed" : true
+    },
+    {
+      "name" : "catalog_load_defers_probes_and_queue_is_bounded",
+      "passed" : true
+    },
+    {
+      "name" : "manual_request_is_accepted_when_background_queue_is_full",
+      "passed" : true
+    },
+    {
+      "name" : "cancel_removes_queued_states",
+      "passed" : true
+    },
+    {
+      "name" : "disabled_provider_not_probed",
+      "passed" : true
+    },
+    {
+      "name" : "automatic_quality_tries_later_sources_after_failures",
+      "passed" : true
+    },
+    {
+      "name" : "successful_alternative_is_reused_without_restarting_failed_sources",
+      "passed" : true
+    },
+    {
+      "name" : "manual_refresh_retries_recovered_fallback_inside_cooldown",
+      "passed" : false
+    }
+  ],
+  "passed" : false,
+  "scope" : "Injected metadata\/detail closures; concurrency, cancellation races, queue cap and cache. No network\/video quality evidence."
+}

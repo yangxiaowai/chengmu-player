@@ -207,7 +207,7 @@ struct PlayerView: View {
             .accessibilityLabel("返回片库")
             VStack(alignment: .leading, spacing: 3) {
                 Text(playback.title)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.system(size: presentation.isFullscreen ? 20 : 17, weight: .semibold))
                     .foregroundStyle(CinemaStyle.primary)
                     .lineLimit(1)
                 if !playback.episodeName.isEmpty {
@@ -232,7 +232,7 @@ struct PlayerView: View {
                     .foregroundStyle(showEpisodes ? CinemaStyle.accent : CinemaStyle.primary)
                     .padding(.horizontal, 13)
                     .frame(height: 42)
-                    .background(showEpisodes ? CinemaStyle.accentSoft : Color.white.opacity(0.055), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    .background(showEpisodes ? CinemaStyle.accentSoft : Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .contentShape(Rectangle())
                 }
                 .help(showEpisodes ? "收起选集" : "展开选集")
@@ -241,7 +241,7 @@ struct PlayerView: View {
         }
         .buttonStyle(PlayerChromeButtonStyle())
         .padding(.horizontal, presentation.isFullscreen ? 34 : 22)
-        .padding(.top, presentation.isFullscreen ? 19 : 26)
+        .padding(.top, presentation.isFullscreen ? 24 : 22)
         .padding(.bottom, 30)
         .background(CinemaStyle.headerScrim.allowsHitTesting(false))
     }
@@ -345,7 +345,7 @@ struct PlayerView: View {
 
     private var qualityMenu: some View {
         Button { showQuality.toggle() } label: {
-            PlayerChromeIcon(systemName: playback.pictureIsEnhanced ? "sparkles" : "film", selected: showQuality || playback.pictureIsEnhanced)
+            PlayerChromeText(text: playback.pictureIsEnhanced ? "画质增强" : "画质")
         }
         .buttonStyle(.plain)
         .accessibilityLabel("画质设置，\(playback.pictureStatusTitle)")
@@ -418,13 +418,10 @@ struct PlayerView: View {
                 Text(playback.pictureStatusTitle)
                     .foregroundStyle(CinemaStyle.primary)
                     .fixedSize()
-                Text(playback.pictureStatusDetail)
-                    .foregroundStyle(CinemaStyle.secondary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
                 Spacer(minLength: 0)
             }
-            .font(.system(size: 10))
+            .font(.system(size: 10, weight: .medium))
+            .opacity(0.8)
             .help(playback.pictureStatusDetail)
             .allowsHitTesting(false)
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
@@ -485,7 +482,7 @@ struct PlayerView: View {
     }
     private var statistics: some View {
         VStack(alignment: .leading, spacing: 7) {
-            Text("播放诊断").font(.system(size: 11, weight: .bold))
+            Text("播放详情").font(.system(size: 11, weight: .bold))
             if let m = playback.metrics {
                 Text("源 \(m.sourceWidth)×\(m.sourceHeight) / 输出 \(m.outputWidth)×\(m.outputHeight)")
                 Text("处理 \(m.processingMS, specifier: "%.2f") ms / 帧")

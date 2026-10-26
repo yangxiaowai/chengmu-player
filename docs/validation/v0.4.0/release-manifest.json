@@ -1,0 +1,13 @@
+{
+  "version": "0.4.0",
+  "build": "23",
+  "archive": "dist/Chengmu-v0.4.0-macOS-AppleSilicon.zip",
+  "bytes": 2156744,
+  "sha256": "2f9c91eb9a7502d7afe1313c05c5dc1d31882918f239899fff2602064b168141",
+  "staged_app": ".build/app-stage-0.4.0.2d9mCy/澄幕.app",
+  "installed_app": "dist/澄幕.app",
+  "installed_build_at_packaging": "22",
+  "installation": "pending normal exit of running build22",
+  "local_signature_archive_crc_extraction_executable_version_verified": true,
+  "scope": "Local signature and archive checks; not Apple notarization or continuous media playback acceptance."
+}

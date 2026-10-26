@@ -1,0 +1,45 @@
+{
+  "boundaries" : [
+    "Only AVFoundation track metadata is loaded; no player, AVAssetReader, ffprobe, or whole-movie download is used.",
+    "AVFoundation may fetch playlists and initial media bytes needed to discover track metadata.",
+    "Metadata describes the track exposed by this asset load, not every HLS variant or a later player selection.",
+    "This host's result does not certify mainland-China direct access, perceptual quality, continuous playback, or content identity."
+  ],
+  "checkedAt" : "2026-10-26T07:33:14Z",
+  "metadataTimeoutSeconds" : 8,
+  "observations" : [
+    {
+      "elapsedSeconds" : 0.04059302806854248,
+      "error" : "未读取到视频轨道元数据",
+      "errorCode" : 2,
+      "errorDomain" : "CinemaCore.MediaQualityProbe.(unknown context at $100e9fb20).ProbeFailure",
+      "label" : "Mux public HLS",
+      "stage" : "AVFoundation track metadata",
+      "url" : "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    },
+    {
+      "catalogID" : "42998",
+      "catalogTitle" : "星际穿越",
+      "configurationSource" : "local.yingchuan.cinema sourceProviders",
+      "elapsedSeconds" : 0.0014830827713012695,
+      "episode" : "正片",
+      "error" : "未读取到视频轨道元数据",
+      "errorCode" : 2,
+      "errorDomain" : "CinemaCore.MediaQualityProbe.(unknown context at $100e9fb20).ProbeFailure",
+      "label" : "mdzy single episode",
+      "line" : "modum3u8",
+      "provider" : {
+        "enabled" : true,
+        "endpoint" : "https://www.mdzyapi.com/api.php/provide/vod",
+        "id" : "mdzy",
+        "name" : "魔都目录",
+        "searchAction" : "detail"
+      },
+      "query" : "星际穿越",
+      "searchResultCount" : 2,
+      "stage" : "AVFoundation track metadata",
+      "url" : "https://play.modujx16.com/20241011/QFGRoztl/index.m3u8"
+    }
+  ],
+  "routing" : "SourceService default/system routing; AVURLAsset default routing"
+}

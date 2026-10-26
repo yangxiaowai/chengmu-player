@@ -4,157 +4,154 @@ import CinemaCore
 struct DiscoveryView: View {
     @ObservedObject var app: AppModel
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            if app.query.isEmpty && !app.browsing { hero }
-            if !app.recentSearches.isEmpty && !app.browsing {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 9) {
-                        Text("最近搜索").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-                        ForEach(app.recentSearches, id: \.self) { term in Button(term) { app.explore(term) }.buttonStyle(.plain).font(.system(size: 11)).padding(.horizontal, 11).padding(.vertical, 6).background(CinemaStyle.panel, in: Capsule()) }
-                    }
-                }
-            }
-            HStack(alignment: .lastTextBaseline) {
-                VStack(alignment: .leading, spacing: 7) {
-                    Text(app.searchLabel).font(.system(size: 23, weight: .semibold))
-                    Text(app.searching ? "正在检索已启用来源…" : "\(app.filteredGroups.count) 部作品 · \(app.results.count) 个来源版本")
-                        .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                }
+        VStack(alignment: .leading, spacing: 23) {
+            if !app.recentSearches.isEmpty && !app.browsing { recentSearches }
+            HStack(alignment: .firstTextBaseline) {
+                Text(app.query.isEmpty && !app.browsing ? "为你发现" : app.searchLabel).font(.custom("PingFangSC-Semibold", size: 25)).lineLimit(1)
+                if app.query.isEmpty && !app.browsing { quickSearches }
+                if app.searching { ProgressView().controlSize(.small) }
                 Spacer()
-                Button { app.openBrowse() } label: { Label("浏览来源目录", systemImage: "square.grid.2x2") }.buttonStyle(.bordered)
+                Text("\(app.filteredGroups.count) 部作品").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
+                Button { app.openBrowse() } label: { Label("浏览片库", systemImage: "square.grid.2x2").font(.system(size: 11)) }.buttonStyle(CinemaActionStyle(compact: true))
             }
             if app.browsing { browseFilters }
-            HStack(spacing: 14) {
-                Picker("来源", selection: $app.filterProviderID) {
-                    Text("全部来源").tag("")
-                    ForEach(app.providers.filter(\.enabled)) { Text($0.name).tag($0.id) }
-                }.frame(maxWidth: 215)
-                Picker("年份", selection: $app.filterYear) {
-                    Text("全部年份").tag("")
-                    ForEach(app.availableYears, id: \.self) { Text($0).tag($0) }
-                }.frame(maxWidth: 140)
-                Spacer()
-                Picker("排序", selection: $app.catalogSort) { ForEach(CatalogSort.allCases) { Text($0.rawValue).tag($0) } }.frame(width: 175)
-            }.font(.system(size: 11))
+            filterBar
             if !app.failures.isEmpty {
-                DisclosureGroup("\(app.failures.count) 个来源本次未能返回结果") {
-                    ForEach(app.failures, id: \.self) { Text($0).font(.caption).frame(maxWidth: .infinity, alignment: .leading) }
-                }.font(.caption).foregroundStyle(CinemaStyle.secondary)
+                DisclosureGroup("部分来源暂时不可用") { ForEach(app.failures, id: \.self) { Text($0).font(.caption).frame(maxWidth: .infinity, alignment: .leading) } }.font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
             }
-            if app.searching && app.results.isEmpty {
-                HStack { Spacer(); ProgressView("正在找到好故事…"); Spacer() }.padding(60)
-            } else if app.filteredGroups.isEmpty {
-                ContentUnavailableView(app.enabledProviderCount == 0 ? "还没有启用媒体来源" : "没有匹配的作品", systemImage: "film.stack", description: Text(app.enabledProviderCount == 0 ? "前往媒体来源启用目录，再回来搜索。" : "换个片名、放宽筛选，或继续加载其他页。"))
-            }
+            if app.searching && app.results.isEmpty { HStack { Spacer(); ProgressView("正在寻找影片…"); Spacer() }.padding(60) }
+            else if app.filteredGroups.isEmpty { ContentUnavailableView(app.enabledProviderCount == 0 ? "启用来源，开启观影" : "还没有找到这部作品", systemImage: "film.stack", description: Text(app.enabledProviderCount == 0 ? "在媒体来源中选择片库，然后搜索喜欢的影片。" : "试试其他片名，或放宽筛选条件。")) }
             GroupGrid(app: app, groups: app.filteredGroups)
             if app.canLoadMore {
-                HStack { Spacer(); Button { app.loadMore() } label: {
-                    HStack { if app.loadingMore { ProgressView().controlSize(.small) }; Text(app.loadingMore ? "正在加载…" : "加载更多 / 重试未返回来源") }.padding(.horizontal, 14).padding(.vertical, 6)
-                }.buttonStyle(.bordered).disabled(app.loadingMore || app.searching); Spacer() }
+                HStack { Spacer(); Button { app.loadMore() } label: { HStack(spacing: 8) { if app.loadingMore { ProgressView().controlSize(.mini) }; Text(app.loadingMore ? "正在加载…" : "发现更多"); if !app.loadingMore { Image(systemName: "chevron.down").font(.system(size: 9)) } } }.buttonStyle(CinemaActionStyle()).disabled(app.loadingMore || app.searching); Spacer() }.padding(.top, 12)
             }
-            Text("同作品的来源已合并展示；分辨率与可播放性以实际资源为准。").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
         }
     }
-    private var hero: some View {
-        VStack(alignment: .leading, spacing: 23) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 13) {
-                    Text("Y O U R   E V E N I N G   S T A R T S   H E R E").font(.system(size: 9, weight: .semibold)).foregroundStyle(CinemaStyle.accent)
-                    Text("把好故事，\n留给今晚。").font(.system(size: 36, weight: .medium, design: .serif)).lineSpacing(3)
-                    Text("电影、国产剧、美剧。多个来源，一间放映室。").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 9) {
-                    Image(systemName: "play.rectangle.on.rectangle").font(.system(size: 44, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent)
-                    Text("\(app.enabledProviderCount) 个来源\n边看，边增强").font(.system(size: 11)).lineSpacing(4).multilineTextAlignment(.trailing).foregroundStyle(CinemaStyle.secondary)
-                }.padding(10)
+    private var quickSearches: some View {
+        HStack(spacing: 7) {
+            ForEach(["星际穿越", "漫长的季节", "绝命毒师"], id: \.self) { term in
+                Button { app.explore(term) } label: {
+                    Text(term).font(.system(size: 10)).lineLimit(1).padding(.horizontal, 10).padding(.vertical, 6)
+                        .background(CinemaStyle.panel, in: Capsule())
+                }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary)
             }
-            HStack(spacing: 24) {
-                picks("电影", terms: ["星际穿越", "流浪地球", "盗梦空间"])
-                picks("国产剧", terms: ["庆余年", "琅琊榜", "漫长的季节"])
-                picks("美剧", terms: ["怪奇物语", "绝命毒师", "火线"])
-            }
-        }.padding(28).frame(maxWidth: .infinity, alignment: .leading).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 16))
+        }
     }
-    private func picks(_ label: String, terms: [String]) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(label).font(.system(size: 10, weight: .semibold)).foregroundStyle(CinemaStyle.accent)
-            ForEach(terms, id: \.self) { term in Button { app.explore(term) } label: { HStack(spacing: 5) { Text(term); Image(systemName: "arrow.up.right").font(.system(size: 8)) }.font(.system(size: 11)) }.buttonStyle(.plain) }
-        }.frame(maxWidth: .infinity, alignment: .leading)
+    private var recentSearches: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 14) {
+                Image(systemName: "clock").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
+                ForEach(app.recentSearches, id: \.self) { term in Button(term) { app.explore(term) }.buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary) }
+            }
+        }
+    }
+    private var filterBar: some View {
+        HStack(spacing: 9) {
+            Menu { Button("全部来源") { app.filterProviderID = "" }; ForEach(app.providers.filter(\.enabled)) { provider in Button(provider.name) { app.filterProviderID = provider.id } } } label: { FilterPill(title: app.providers.first { $0.id == app.filterProviderID }?.name ?? "全部来源", active: !app.filterProviderID.isEmpty) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+            Menu { Button("全部年份") { app.filterYear = "" }; ForEach(app.availableYears, id: \.self) { year in Button(year) { app.filterYear = year } } } label: { FilterPill(title: app.filterYear.isEmpty ? "全部年份" : app.filterYear, active: !app.filterYear.isEmpty) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+            Menu { ForEach(CatalogSort.allCases) { sort in Button(sortLabel(sort)) { app.catalogSort = sort } } } label: { FilterPill(title: sortLabel(app.catalogSort)) }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+            Spacer(minLength: 4)
+            Toggle(isOn: $app.automaticQualityInspection) { Label("自动识别画质", systemImage: "4k.tv").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }.toggleStyle(.switch).controlSize(.mini).fixedSize().help("自动获取可见影片的分辨率。播放时暂停后台读取。")
+        }.padding(.bottom, 3)
+    }
+    private func sortLabel(_ sort: CatalogSort) -> String {
+        if sort == .resolution { return "清晰度优先" }
+        return sort.rawValue
     }
     private var browseFilters: some View {
-        HStack(spacing: 18) {
-            Picker("目录", selection: Binding(get: { app.browseProviderID }, set: { app.browseProviderID = $0; app.browseCategoryID = ""; app.browseCategories = []; app.browseCatalog() })) {
-                ForEach(app.providers.filter(\.enabled)) { Text($0.name).tag($0.id) }
-            }.frame(maxWidth: 260)
-            Picker("分类", selection: Binding(get: { app.browseCategoryID }, set: { app.browseCategoryID = $0; app.browseCatalog() })) {
-                Text("全部分类").tag("")
-                ForEach(app.browseCategories, id: \.id) { Text($0.name).tag($0.id) }
-            }.frame(maxWidth: 260)
-            Spacer()
-        }.font(.system(size: 12)).padding(15).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9))
+        HStack(spacing: 12) {
+            Menu { ForEach(app.providers.filter(\.enabled)) { provider in Button(provider.name) { app.browseProviderID = provider.id; app.browseCategoryID = ""; app.browseCategories = []; app.browseCatalog() } } } label: { FilterPill(title: app.providers.first { $0.id == app.browseProviderID }?.name ?? "选择片库") }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+            ScrollView(.horizontal, showsIndicators: false) { HStack(spacing: 5) {
+                categoryButton("全部", id: "")
+                ForEach(app.browseCategories, id: \.id) { category in categoryButton(category.name, id: category.id) }
+            } }
+        }
+    }
+    private func categoryButton(_ title: String, id: String) -> some View {
+        Button { app.browseCategoryID = id; app.browseCatalog() } label: { Text(title).font(.system(size: 11, weight: app.browseCategoryID == id ? .semibold : .regular)).foregroundStyle(app.browseCategoryID == id ? CinemaStyle.accent : CinemaStyle.secondary).padding(.horizontal, 12).padding(.vertical, 7).background(app.browseCategoryID == id ? CinemaStyle.accent.opacity(0.1) : .clear, in: Capsule()) }.buttonStyle(.plain)
     }
 }
-
+private struct FilterPill: View {
+    let title: String
+    var active = false
+    var body: some View { HStack(spacing: 8) { Text(title).font(.system(size: 11)); Image(systemName: "chevron.down").font(.system(size: 8, weight: .semibold)) }.foregroundStyle(active ? CinemaStyle.accent : CinemaStyle.secondary).padding(.horizontal, 12).padding(.vertical, 8).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 7)) }
+}
 struct GroupGrid: View {
     @ObservedObject var app: AppModel
     let groups: [MediaGroup]
+    var body: some View { LazyVGrid(columns: [GridItem(.adaptive(minimum: 156, maximum: 210), spacing: 19)], spacing: 25) { ForEach(groups) { group in GroupCard(app: app, group: group) } } }
+}
+private struct GroupCard: View {
+    @ObservedObject var app: AppModel
+    let group: MediaGroup
     var body: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 154, maximum: 210), spacing: 18)], spacing: 25) {
-            ForEach(groups) { group in
-                VStack(alignment: .leading, spacing: 9) {
-                    Button { app.selectGroup(group) } label: { MediaCard(title: group.representative) }.buttonStyle(.plain)
-                    HStack {
-                        Text("\(group.sources.count) 个版本").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-                        Spacer()
-                        Button { app.toggleSaved(group) } label: { Image(systemName: app.isSaved(group) ? "bookmark.fill" : "bookmark").foregroundStyle(app.isSaved(group) ? CinemaStyle.accent : CinemaStyle.secondary) }.buttonStyle(.plain).help(app.isSaved(group) ? "移出待看" : "加入待看").accessibilityLabel((app.isSaved(group) ? "移出待看 " : "加入待看 ") + group.representative.title)
-                    }
-                }
-            }
+        ZStack(alignment: .topLeading) {
+            Button { app.selectGroup(group) } label: {
+                MediaCard(title: group.representative, sourceCount: group.sources.count, quality: quality)
+            }.buttonStyle(.plain)
+            Button { app.toggleSaved(group) } label: {
+                Image(systemName: app.isSaved(group) ? "bookmark.fill" : "bookmark")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(app.isSaved(group) ? CinemaStyle.bookmark : .white)
+                    .frame(width: 29, height: 29)
+                    .background(.black.opacity(0.55), in: Circle())
+                    .contentShape(Circle())
+            }.buttonStyle(.plain).padding(8)
+                .help(app.isSaved(group) ? "移出待看" : "加入待看")
+                .accessibilityLabel((app.isSaved(group) ? "移出待看 " : "加入待看 ") + group.representative.title)
+        }.contextMenu {
+            Button { app.refreshQuality(group) } label: { Label("更新画质", systemImage: "arrow.clockwise") }
         }
+        .onAppear { app.inspectVisibleQuality(group) }
+        .onChange(of: app.automaticQualityInspection) { _, enabled in if enabled { app.inspectVisibleQuality(group) } }
+        .onChange(of: app.searching) { _, searching in if !searching { app.inspectVisibleQuality(group) } }
+        .onChange(of: app.loadingMore) { _, loading in if !loading { app.inspectVisibleQuality(group) } }
+        .onChange(of: app.providers) { _, _ in app.inspectVisibleQuality(group) }
+    }
+    private var quality: MediaQualityState? {
+        if let best = app.mediaQuality.best(in: group.sources, providers: app.providers) { return .ready(best) }
+        let states = group.sources.compactMap { app.mediaQuality.state(for: $0, providers: app.providers) }
+        if states.contains(where: { if case .reading = $0 { return true }; return false }) { return .reading }
+        if states.contains(where: { if case .queued = $0 { return true }; return false }) { return .queued }
+        return states.first
     }
 }
-
 struct WatchlistView: View {
     @ObservedObject var app: AppModel
     @LegacyState private var confirmReset = false
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            Text("好故事，先收起来。").font(.system(size: 30, weight: .medium, design: .serif))
-            Text("\(app.watchlist.count) 部待看 · 保存在这台 Mac 上").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)
-            if app.canResetWatchlist { Button("重建损坏的待看文件…") { confirmReset = true }.foregroundStyle(CinemaStyle.accent) }
-            if app.watchlist.isEmpty { ContentUnavailableView("你的片单，从这里开始", systemImage: "bookmark", description: Text("搜索后点击卡片旁的书签，或在详情中加入待看。")) }
+        VStack(alignment: .leading, spacing: 25) {
+            HStack(alignment: .bottom) { VStack(alignment: .leading, spacing: 8) { Text("留给下一次心动").font(.custom("Songti SC", size: 30)).fontWeight(.semibold); Text("我的待看  /  \(app.watchlist.count) 部作品").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary) }; Spacer(); Image(systemName: "bookmark").font(.system(size: 28, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent) }.padding(.bottom, 8)
+            if app.canResetWatchlist { Button("恢复待看片单…") { confirmReset = true }.buttonStyle(CinemaActionStyle()) }
+            if app.watchlist.isEmpty { ContentUnavailableView("收藏下一部想看的影片", systemImage: "bookmark", description: Text("点亮影片旁的书签，让好故事在这里等你。")) }
             GroupGrid(app: app, groups: app.watchlist.compactMap(\.group))
         }.confirmationDialog("重建将清空原待看文件，是否继续？", isPresented: $confirmReset) { Button("重建待看", role: .destructive) { app.resetWatchlist() }; Button("取消", role: .cancel) {} }
     }
 }
-
 struct HistoryView: View {
     @ObservedObject var app: AppModel
     @LegacyState private var showAll = false
     @LegacyState private var confirmClear = false
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            HStack {
-                VStack(alignment: .leading, spacing: 8) { Text("接着上次，继续入戏。").font(.system(size: 29, weight: .medium, design: .serif)); Text("同作品优先展示最近一集，进度始终属于实际观看的来源版本。").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary) }
-                Spacer(); Button("清除历史…") { confirmClear = true }.foregroundStyle(CinemaStyle.secondary)
-            }
-            Toggle("显示所有集目记录", isOn: $showAll).toggleStyle(.switch).font(.system(size: 12))
-            if app.history.isEmpty { ContentUnavailableView("还没有观看记录", systemImage: "clock", description: Text("开始播放后，进度会自动保存在这里。")) }
+            HStack(alignment: .bottom) { VStack(alignment: .leading, spacing: 8) { Text("故事，继续。").font(.custom("Songti SC", size: 30)).fontWeight(.semibold); Text("回到上次离开的那一刻").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary) }; Spacer(); Button { confirmClear = true } label: { Label("清空记录", systemImage: "trash").font(.system(size: 11)) }.buttonStyle(CinemaActionStyle(compact: true)) }
+            HStack { Text("最近观看").font(.system(size: 16, weight: .semibold)); Spacer(); Toggle("显示全部剧集", isOn: $showAll).toggleStyle(.switch).controlSize(.mini).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary) }
+            if app.history.isEmpty { ContentUnavailableView("你的观影时光，从这里开始", systemImage: "clock", description: Text("播放过的影片会自动记录进度。")) }
             ForEach(showAll ? app.history : app.latestHistory) { record in
-                HStack(spacing: 18) {
+                HStack(spacing: 12) {
                     Button { app.resume(record) } label: {
-                        HStack(spacing: 20) {
-                            PosterView(url: record.posterURL, title: record.title).frame(width: 76, height: 102).clipShape(RoundedRectangle(cornerRadius: 7))
+                        HStack(spacing: 21) {
+                            PosterView(url: record.posterURL, title: record.title).frame(width: 86, height: 116).clipShape(RoundedRectangle(cornerRadius: 8))
                             VStack(alignment: .leading, spacing: 9) {
                                 Text(record.title).font(.system(size: 17, weight: .semibold))
-                                Text(record.episode + " · " + (record.mediaDetail?.title.providerName ?? "自选媒体")).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
-                                ProgressView(value: record.progress).tint(CinemaStyle.accent).frame(maxWidth: 340)
-                                Text("\(timeString(record.position)) / \(timeString(record.duration))").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
-                            }; Spacer(); Image(systemName: "play.circle").font(.system(size: 30, weight: .ultraLight)).foregroundStyle(CinemaStyle.accent)
-                        }
+                                Text(record.episode + " · " + (record.mediaDetail?.title.providerName ?? "本地与网络影片")).font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                                ProgressView(value: record.progress).tint(CinemaStyle.accent).frame(maxWidth: 360).padding(.top, 6)
+                                Text("已看 " + timeString(record.position) + " / " + timeString(record.duration)).font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary)
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                            HStack(spacing: 7) { Image(systemName: "play.fill"); Text("继续观看") }.font(.system(size: 11, weight: .medium)).foregroundStyle(CinemaStyle.accent).padding(.horizontal, 17).padding(.vertical, 10).background(CinemaStyle.accent.opacity(0.1), in: Capsule())
+                        }.contentShape(Rectangle())
                     }.buttonStyle(.plain)
-                    Button { app.removeHistory(record.id) } label: { Image(systemName: "xmark").padding(8) }.buttonStyle(.plain).help("移除此条记录")
+                    Button { app.removeHistory(record.id) } label: { Image(systemName: "xmark").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary).frame(width: 28, height: 34).contentShape(Rectangle()) }.buttonStyle(.plain).help("移除此条记录")
                 }.padding(15).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 12))
             }
         }.confirmationDialog("清除这台 Mac 的全部观看历史？", isPresented: $confirmClear) { Button("清除全部历史", role: .destructive) { app.clearHistory() }; Button("取消", role: .cancel) {} }

@@ -1,0 +1,59 @@
+[
+  {
+    "title": "星际穿越",
+    "url": "https://www.mdzypic.com/upload/vod/20241012-1/96eff89a7ed41374b4773dae63f4f77f.jpg",
+    "path": ".build/catalog-preview-artwork/0.jpg",
+    "bytes": 23715,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "流浪地球2",
+    "url": "https://www.mdzypic.com/upload/vod/20240910-4/031a2141e97748929948a2cae23e0cbc.jpg",
+    "path": ".build/catalog-preview-artwork/1.jpg",
+    "bytes": 123467,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "漫长的季节",
+    "url": "https://www.mdzypic.com/upload/vod/20250130-1/f648be9785aa920f48e053cd95d9370c.jpg",
+    "path": ".build/catalog-preview-artwork/2.jpg",
+    "bytes": 37183,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "庆余年第二季",
+    "status": "no exact catalog match"
+  },
+  {
+    "title": "怪奇物语第一季",
+    "url": "https://www.mdzypic.com/upload/vod/20240703-1/9c349df8a8e90cd3caded889322f47f4.jpg",
+    "path": ".build/catalog-preview-artwork/4.jpg",
+    "bytes": 150505,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "绝命毒师第一季",
+    "url": "https://www.mdzypic.com/upload/vod/20240707-1/e21e2d5636448a9512ad64f0d735d7dd.jpg",
+    "path": ".build/catalog-preview-artwork/5.jpg",
+    "bytes": 88707,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "火线第一季",
+    "url": "https://www.mdzypic.com/upload/vod/20240705-1/2168c8134ad2a71ad78cd07678f14af3.jpg",
+    "path": ".build/catalog-preview-artwork/6.jpg",
+    "bytes": 82315,
+    "status": "downloaded preview image"
+  },
+  {
+    "title": "盗梦空间",
+    "status": "no exact catalog match"
+  },
+  {
+    "title": "琅琊榜",
+    "url": "https://www.mdzypic.com/upload/vod/20240719-1/fd6193718e5495253a6e46a07129d974.jpg",
+    "path": ".build/catalog-preview-artwork/8.jpg",
+    "bytes": 80003,
+    "status": "downloaded preview image"
+  }
+]

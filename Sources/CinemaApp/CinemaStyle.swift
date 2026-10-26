@@ -5,9 +5,9 @@ import CinemaCore
 /// same surfaces, strokes, radii, spacing and motion instead of ad-hoc numbers.
 enum CinemaStyle {
     // Surfaces
-    static let background = Color(red: 0.055, green: 0.065, blue: 0.075)
-    static let backgroundRaised = Color(red: 0.075, green: 0.086, blue: 0.098)
-    static let panel = Color(red: 0.09, green: 0.10, blue: 0.115)
+    static let background = Color(red: 0.068, green: 0.073, blue: 0.084)
+    static let backgroundRaised = Color(red: 0.112, green: 0.119, blue: 0.133)
+    static let panel = Color(red: 0.102, green: 0.109, blue: 0.124)
     static let panelHover = Color.white.opacity(0.055)
     /// Video overlay surfaces stay dark enough to keep subtitles legible on any frame.
     static let overlay = Color.black.opacity(0.62)
@@ -19,16 +19,17 @@ enum CinemaStyle {
     static let accentSoft = accent.opacity(0.16)
 
     // Content
-    static let accent = Color(red: 0.94, green: 0.66, blue: 0.29)
-    static let secondary = Color(red: 0.56, green: 0.59, blue: 0.62)
-    static let tertiary = Color.white.opacity(0.42)
+    static let accent = Color(red: 0, green: 0.682, blue: 0.925)
+    static let bookmark = Color(red: 0.98, green: 0.47, blue: 0.59)
+    static let secondary = Color(red: 0.61, green: 0.63, blue: 0.68)
+    static let tertiary = Color(red: 0.40, green: 0.43, blue: 0.49)
     static let primary = Color.white.opacity(0.93)
     static let positive = Color(red: 0.42, green: 0.78, blue: 0.55)
 
     // Geometry
-    static let radiusSmall: CGFloat = 6
-    static let radius: CGFloat = 10
-    static let radiusLarge: CGFloat = 14
+    static let radiusSmall: CGFloat = 8
+    static let radius: CGFloat = 12
+    static let radiusLarge: CGFloat = 18
     static let gutter: CGFloat = 32
     static let cardPadding: CGFloat = 16
     static let rowSpacing: CGFloat = 8
@@ -37,7 +38,7 @@ enum CinemaStyle {
     static let quick = Animation.easeOut(duration: 0.14)
     static let standard = Animation.easeInOut(duration: 0.2)
 
-    static let cardFill = LinearGradient(colors: [Color.white.opacity(0.052), Color.white.opacity(0.028)], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let cardFill = LinearGradient(colors: [backgroundRaised, panel.opacity(0.75)], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let headerScrim = LinearGradient(colors: [.black.opacity(0.78), .clear], startPoint: .top, endPoint: .bottom)
     static let controlsScrim = LinearGradient(colors: [.clear, .black.opacity(0.86)], startPoint: .top, endPoint: .bottom)
 }
@@ -110,5 +111,23 @@ struct CinemaNotice: View {
         .foregroundStyle(tint)
         .padding(.horizontal, 11).padding(.vertical, 8)
         .background(tint.opacity(0.1), in: RoundedRectangle(cornerRadius: CinemaStyle.radiusSmall, style: .continuous))
+    }
+}
+
+/// Shared consumer actions avoid platform bevels and provide a visible pressed response.
+struct CinemaActionStyle: ButtonStyle {
+    var prominent = false
+    var compact = false
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.font(.system(size: compact ? 11 : 12, weight: .medium)).foregroundStyle(prominent ? .white : CinemaStyle.primary)
+            .padding(.horizontal, compact ? 12 : 18).padding(.vertical, compact ? 8 : 11)
+            .background(prominent ? CinemaStyle.accent.opacity(configuration.isPressed ? 0.7 : 1) : Color.white.opacity(configuration.isPressed ? 0.11 : 0.065), in: RoundedRectangle(cornerRadius: 8))
+            .opacity(configuration.isPressed ? 0.84 : 1)
+    }
+}
+struct CinemaEpisodeStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label.foregroundStyle(configuration.isPressed ? CinemaStyle.accent : CinemaStyle.primary)
+            .background(configuration.isPressed ? CinemaStyle.accent.opacity(0.14) : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 7))
     }
 }

@@ -1,0 +1,59 @@
+{
+  "checkedAt" : "2026-10-26T07:08:21Z",
+  "checks" : [
+    "sample labels, conservative classification, invalid values, Codable",
+    "local metadata landscape.mp4",
+    "local metadata portrait-rotation.mp4",
+    "local metadata claimed-4K.mp4",
+    "HTTP metadata",
+    "rejected invalid-scheme",
+    "rejected invalid-host",
+    "rejected credentials",
+    "rejected bad-file",
+    "rejected audio-only",
+    "stalled HTTP timeout returns within 2 seconds",
+    "stalled HTTP cancellation returns CancellationError within 2 seconds"
+  ],
+  "elapsedSeconds" : {
+    "cancellation" : 0.2538590431213379,
+    "timeout" : 0.4047880172729492
+  },
+  "failures" : {
+    "audio-only" : "未读取到视频轨道元数据",
+    "bad-file" : "Cannot Open",
+    "credentials" : "媒体地址无效",
+    "invalid-host" : "媒体地址无效",
+    "invalid-scheme" : "媒体地址无效",
+    "timeout" : "画质元数据检测超时"
+  },
+  "samples" : {
+    "claimed-4K.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "http-landscape.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "landscape.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "frameRate" : 24,
+      "height" : 360,
+      "width" : 640
+    },
+    "portrait-rotation.mp4" : {
+      "codec" : "avc1",
+      "estimatedBitrate" : 713568,
+      "frameRate" : 24,
+      "height" : 640,
+      "width" : 360
+    }
+  }
+}

@@ -47,7 +47,7 @@ struct PlayerEpisodePanel: View {
                     .foregroundStyle(CinemaStyle.accent)
             }
             Text(playback.title)
-                .font(.system(size: 21, weight: .medium, design: .serif))
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(CinemaStyle.primary)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -181,7 +181,7 @@ struct PlayerEpisodePanel: View {
                                         .font(.system(size: 11))
                                         .foregroundStyle(CinemaStyle.primary)
                                         .lineLimit(2)
-                                    Text("画质待核对 · 切换前确认季集")
+                                    Text("切换前请确认季集")
                                         .font(.system(size: 9))
                                         .foregroundStyle(CinemaStyle.secondary)
                                 }

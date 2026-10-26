@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import AppKit
 import UniformTypeIdentifiers
 import CinemaCore
@@ -16,7 +17,7 @@ final class AppModel: ObservableObject {
     @Published var section: AppSection = .discover
     @Published var query = ""
     @Published var results: [MediaTitle] = []
-    @Published var searching = false
+    @Published var searching = false { didSet { mediaQuality.setCatalogBusy(searching || loadingMore) } }
     @Published var searchLabel = "为你找到的剧集"
     @Published var failures: [String] = []
     @Published var message: String?
@@ -26,16 +27,22 @@ final class AppModel: ObservableObject {
     @Published var detailSources: [MediaTitle] = []
     @Published var selectedLineID = ""
     @Published var currentEpisodeID = ""
-    @Published var showPlayer = false
+    @Published var showPlayer = false { didSet { mediaQuality.setSuspended(showPlayer || qualityBenchmarkRunning) } }
     @Published var history: [WatchRecord] = []
-    @Published var providers: [SourceProvider] = SourceProvider.defaults
+    @Published var providers: [SourceProvider] = SourceProvider.defaults { didSet { mediaQuality.cancelAll() } }
+    @Published var automaticQualityInspection = true {
+        didSet {
+            if !automaticQualityInspection { mediaQuality.cancelAll() }
+            if !isDiagnostic { UserDefaults.standard.set(automaticQualityInspection, forKey: "automaticQualityInspection") }
+        }
+    }
     @Published var autoNext = true { didSet { if !isDiagnostic { UserDefaults.standard.set(autoNext, forKey: "autoNext") } } }
     @Published var watchlist: [SavedTitle] = []
     @Published var recentSearches: [String] = []
     @Published var filterProviderID = ""
     @Published var filterYear = ""
     @Published var catalogSort = CatalogSort.relevance
-    @Published var loadingMore = false
+    @Published var loadingMore = false { didSet { mediaQuality.setCatalogBusy(searching || loadingMore) } }
     @Published var moreProviderIDs: Set<String> = []
     @Published var sourceHealth: [String: String] = [:]
     @Published var checkingProviders: Set<String> = []
@@ -43,6 +50,10 @@ final class AppModel: ObservableObject {
         didSet { if !isDiagnostic { UserDefaults.standard.set(preferredProviderID, forKey: "preferredProviderID") } }
     }
     let sourceAccess = SourceAccessController()
+    let mediaQuality = MediaQualityController()
+    private var qualitySubscription: AnyCancellable?
+    private var qualityBenchmarkSubscription: AnyCancellable?
+    private var qualityBenchmarkRunning = false
     @Published var browseProviderID = ""
     @Published var browseCategoryID = ""
     @Published var browseCategories: [SourceCategory] = []
@@ -96,6 +107,15 @@ final class AppModel: ObservableObject {
         }
         playback.onProgress = { [weak self] position, duration in self?.saveProgress(position, duration: duration) }
         playback.onFinished = { [weak self] in if self?.autoNext == true { self?.nextEpisode() } }
+        if !isDiagnostic, UserDefaults.standard.object(forKey: "automaticQualityInspection") != nil {
+            automaticQualityInspection = UserDefaults.standard.bool(forKey: "automaticQualityInspection")
+        }
+        qualitySubscription = mediaQuality.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
+        qualityBenchmarkSubscription = playback.performance.$isRunning.sink { [weak self] running in
+            guard let self else { return }
+            self.qualityBenchmarkRunning = running
+            self.mediaQuality.setSuspended(self.showPlayer || running)
+        }
     }
     var selectedLine: PlaybackLine? { detail?.lines.first { $0.id == selectedLineID } ?? detail?.lines.first }
     var enabledProviderCount: Int { providers.filter(\.enabled).count }
@@ -116,6 +136,7 @@ final class AppModel: ObservableObject {
         runSearch([text == "火线" ? "火线第" : text])
     }
     private func runSearch(_ terms: [String]) {
+        mediaQuality.cancelAll()
         cancelAlternativeSources(); searchTask?.cancel(); searchID = UUID()
         let token = searchID, sources = providers
         searchTerms = terms; loadedPages = [:]; moreProviderIDs = []; loadingMore = false
@@ -170,6 +191,7 @@ final class AppModel: ObservableObject {
         browseCatalog(reset: true)
     }
     func browseCatalog(reset: Bool = true) {
+        if reset { mediaQuality.cancelAll() }
         guard let provider = providers.first(where: { $0.id == browseProviderID && $0.enabled }) else { return }
         if reset { searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; filterYear = ""; filterProviderID = "" }
         cancelAlternativeSources(); browsing = true; searchTerms = []; moreProviderIDs = []
@@ -209,6 +231,7 @@ final class AppModel: ObservableObject {
                 let loaded = try await service.detail(title: title, provider: provider)
                 guard !Task.isCancelled, detailID == token else { return }
                 detail = loaded; selectedLineID = loaded.lines.first?.id ?? ""; detailLoading = false
+                inspectDetailQuality(loaded)
             } catch {
                 guard !Task.isCancelled, detailID == token else { return }
                 detailLoading = false; message = "无法取得剧集详情：\(error.localizedDescription)"
@@ -219,6 +242,7 @@ final class AppModel: ObservableObject {
     func play(_ episode: Episode) {
         cancelAlternativeSources()
         guard let detail, let line = selectedLine else { return }
+        mediaQuality.setSuspended(true)
         let id = "\(detail.title.providerID):\(detail.title.id):\(line.id):\(episode.id)"
         playback.saveProgress()
         let saved = history.first { $0.id == id && $0.canResume(episode: episode) }
@@ -233,6 +257,7 @@ final class AppModel: ObservableObject {
     }
     func resume(_ record: WatchRecord) {
         cancelAlternativeSources()
+        mediaQuality.setSuspended(true)
         playback.saveProgress(); dismissDetail(); currentRecord = record
         if let context = record.playbackContext {
             detail = context.detail; selectedLineID = context.line.id; currentEpisodeID = context.episode.id
@@ -418,10 +443,28 @@ final class AppModel: ObservableObject {
         case .title: values.sort { $0.representative.title.localizedStandardCompare($1.representative.title) == .orderedAscending }
         case .year: values.sort { $0.representative.year > $1.representative.year }
         case .sources: values.sort { $0.sources.count > $1.sources.count }
+        case .resolution:
+            values = values.enumerated().sorted {
+                let left = mediaQuality.best(in: $0.element.sources, providers: providers)?.sample.pixelCount ?? -1
+                let right = mediaQuality.best(in: $1.element.sources, providers: providers)?.sample.pixelCount ?? -1
+                return left == right ? $0.offset < $1.offset : left > right
+            }.map(\.element)
         }
         return values
     }
     var availableYears: [String] { Array(Set(groups.map { $0.representative.year }.filter { !$0.isEmpty })).sorted(by: >) }
+    func inspectVisibleQuality(_ group: MediaGroup) {
+        guard automaticQualityInspection, !showPlayer else { return }
+        mediaQuality.checkAlternatives(group.sources, providers: providers)
+    }
+    func refreshQuality(_ group: MediaGroup) {
+        mediaQuality.checkAlternatives(group.sources, providers: providers, force: true)
+    }
+    func inspectDetailQuality(_ detail: MediaDetail) {
+        guard automaticQualityInspection, !showPlayer else { return }
+        mediaQuality.check(detailSources, providers: providers)
+        for line in detail.lines.prefix(4).reversed() { mediaQuality.check(line: line, providerName: detail.title.providerName) }
+    }
     var canLoadMore: Bool { !moreProviderIDs.isEmpty }
     var canResetWatchlist: Bool { !watchlistReadable }
     var latestHistory: [WatchRecord] {
@@ -554,6 +597,6 @@ struct AlternativeSourceRequests {
 }
 
  enum CatalogSort: String, CaseIterable, Identifiable {
-    case relevance = "默认顺序", title = "按片名", year = "年份优先", sources = "来源数量"
+    case relevance = "默认顺序", title = "按片名", year = "年份优先", sources = "来源数量", resolution = "已读分辨率优先"
     var id: String { rawValue }
 }
