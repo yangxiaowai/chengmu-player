@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+  <title id="title">澄幕 Chengmu — 把好故事，留给大屏幕。</title>
+  <desc id="desc">深色影院风格的澄幕品牌横幅，蓝色播放符号与银幕线条。Mac 原生个人影视播放器。</desc>
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#182b36"/><stop offset="1" stop-color="#101316"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00aeec" stop-opacity="0"/><stop offset="1" stop-color="#00aeec" stop-opacity=".13"/></linearGradient>
+  </defs>
+  <rect width="1280" height="400" rx="24" fill="#0e1012"/>
+  <path d="M664 80 1188 22v356L664 320Z" fill="url(#beam)"/>
+  <g font-family="'PingFang SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif">
+    <rect x="64" y="52" width="6" height="15" rx="3" fill="#00aeec"/>
+    <text x="83" y="65" font-size="14" letter-spacing="4" fill="#8d9ba5">CHENGMU / FOR MAC</text>
+    <text x="60" y="161" font-size="76" font-weight="600" letter-spacing="10" fill="#f2f5f7">澄幕</text>
+    <text x="64" y="225" font-size="30" font-weight="500" fill="#f2f5f7">把好故事，留给大屏幕。</text>
+    <text x="65" y="274" font-size="17" fill="#9ca8b1">找片 · 播放 · 字幕 · 实时画质处理</text>
+    <path d="M64 326h42" stroke="#00aeec" stroke-width="3"/>
+    <text x="121" y="332" font-size="13" letter-spacing="2" fill="#71808b">YOUR SCREEN. YOUR CINEMA.</text>
+  </g>
+  <g transform="translate(779 83)">
+    <rect width="412" height="236" rx="15" fill="#101417" stroke="#31444f"/>
+    <rect x="12" y="12" width="388" height="212" rx="8" fill="url(#screen)"/>
+    <path d="M33 37h26M33 37v21M379 37h-26M379 37v21M33 199h26M33 199v-21M379 199h-26M379 199v-21" fill="none" stroke="#496371" stroke-width="1.5"/>
+    <circle cx="206" cy="110" r="48" fill="#00aeec" fill-opacity=".08" stroke="#00aeec" stroke-opacity=".26"/>
+    <path d="M195 89 229 110 195 131Z" fill="#00aeec"/>
+    <path d="M49 191h314" stroke="#33434d" stroke-width="3" stroke-linecap="round"/>
+    <path d="M49 191h113" stroke="#00aeec" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="162" cy="191" r="4" fill="#eef5f8"/>
+    <path d="M160 257h92" stroke="#31444f" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
