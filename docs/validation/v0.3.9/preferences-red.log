@@ -1,0 +1,92 @@
+Building for debugging...
+[Planning deferred tasks]
+[2 / 20]
+[3 / 21] CinemaCore
+[13 / 92]
+[19 / 92]
+[24 / 92]
+[28 / 92]
+[31 / 92]
+[37 / 92]
+[40 / 92]
+[41 / 92]
+[42 / 92]
+[49 / 92]
+[50 / 92]
+[55 / 92]
+[56 / 92]
+[58 / 92]
+[60 / 92]
+[63 / 92]
+[74 / 92] CinemaCore
+[78 / 90] CinemaCore
+[88 / 178]
+[100 / 178]
+[106 / 178]
+[113 / 178] CinemaCore
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[118 / 178]
+[123 / 178]
+[130 / 179] CinemaCoreTests-product
+[137 / 192]
+[139 / 192]
+[142 / 192]
+[148 / 192] CinemaCoreTests-product
+[149 / 192]
+[151 / 192]
+[153 / 192]
+[159 / 192] CinemaCoreTests-product
+[162 / 192]
+[163 / 192]
+[166 / 192] CinemaCoreTests-product
+[167 / 197] CinemaCoreTests-product
+[169 / 198] CinemaCoreTests-product
+[172 / 198] CinemaCoreTests-product
+[172 / 198]
+[173 / 198]
+[175 / 198]
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[177 / 198] CinemaCoreTests-product
+[178 / 196]
+[179 / 196]
+[180 / 196]
+[182 / 196]
+[193 / 196] Cinema-product
+[194 / 196] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:358:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+356 |             }.frame(width: 460, height: 600)
+357 |         }
+358 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+359 |     }
+360 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[196 / 198] Cinema-product
+Build complete! (29.05 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PlaybackPreferencesTests started.
+◇ Test gentleRestorationSelectionSurvivesReload() started.
+✘ Test gentleRestorationSelectionSurvivesReload() recorded an issue at PlaybackPreferencesTests.swift:10:9: Expectation failed: roundTrip.enhancement == "gentleRestoration"
+↳ roundTrip.enhancement == "gentleRestoration" → false
+↳   roundTrip.enhancement → "upscale4K"
+✘ Test gentleRestorationSelectionSurvivesReload() failed after 0.001 seconds with 1 issue.
+✘ Suite PlaybackPreferencesTests failed after 0.001 seconds with 1 issue.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter gentleRestoration` failed. (See above for error)

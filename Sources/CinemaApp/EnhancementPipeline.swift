@@ -6,9 +6,10 @@ import VideoToolbox
 import CinemaCore
 
 enum EnhancementMode: String, CaseIterable, Identifiable {
-    case original, temporal, restoration, compression, clarity, upscale4K, appleAI
+    case original, temporal, restoration, gentleRestoration, compression, clarity, upscale4K, appleAI
     var id: String { rawValue }
-    var usesRestorationScaling: Bool { self == .restoration || self == .compression }
+    var usesRestorationScaling: Bool { self == .restoration || self == .gentleRestoration || self == .compression }
+    var temporalStrength: Float { self == .gentleRestoration ? 0.5 : 0.75 }
     var automaticallyTargets4K: Bool { usesRestorationScaling || self == .upscale4K }
     var usesTemporalRestoration: Bool { self == .temporal || usesRestorationScaling }
     var title: String {
@@ -16,6 +17,7 @@ enum EnhancementMode: String, CaseIterable, Identifiable {
         case .original: return "原片"
         case .temporal: return "时域降噪"
         case .restoration: return "流式修复"
+        case .gentleRestoration: return "轻度流式修复"
         case .compression: return "压缩抑噪"
         case .clarity: return "自然降噪"
         case .upscale4K: return "平滑缩放"
@@ -27,6 +29,7 @@ enum EnhancementMode: String, CaseIterable, Identifiable {
         case .original: return "系统硬件解码与原始画面"
         case .temporal: return "利用前帧减轻噪点；需要 macOS 26"
         case .restoration: return "先时域降噪，再使用可用的 Apple AI 与抑噪缩放；保留渐变，弱纹理可能稍柔和"
+        case .gentleRestoration: return "降低时域降噪强度，再使用相同的 AI/缩放；适合轻噪片源，残噪可能更多，请对照原片选择"
         case .compression: return "实验：时域降噪后轻清理残噪，再放大；下方字幕区免额外清理，弱纹理可能稍软"
         case .clarity: return "轻度降噪，不叠加锐化，可调整输出尺寸"
         case .upscale4K: return "降噪后平滑缩放，不增加原片没有的细节"
@@ -139,7 +142,7 @@ final class EnhancementPipeline {
             let key = "\(mode.rawValue):\(width)x\(height)"
             if temporalKey != key {
                 temporalSession = nil; temporalKey = ""
-                temporalSession = try TemporalRestorer(width: width, height: height, context: context)
+                temporalSession = try TemporalRestorer(width: width, height: height, context: context, strength: mode.temporalStrength)
                 temporalKey = key
             }
             let restored = try (temporalSession as! TemporalRestorer).process(image, time: time, streamID: streamID)
@@ -198,6 +201,7 @@ final class EnhancementPipeline {
             output = finalTarget
         }
         if mode == .compression { label += " + 压缩抑噪（下方字幕区免额外清理）" }
+        if mode == .gentleRestoration { label += " · 轻度时域" }
         // Finish the enhanced base before cleanup. Applying patches with bounded copies
         // preserves exact pixels outside the selection, regardless of the scaling path.
         let decision = AdCleanupPolicy.evaluate(cleanup, width: output.width, height: output.height)

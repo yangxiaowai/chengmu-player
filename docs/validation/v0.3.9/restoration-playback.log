@@ -1,0 +1,31 @@
+PASS temporal_sampled_processing_fits_frame_budget sampledMeanMS=14.817899993310371 nominalFrameBudgetMS=41.666666666666664
+PASS temporal_keeps_processing_during_playback frames=75 mediaAdvanced=3.133343 fallback=none
+PASS temporal_reports_actual_restoration 时域降噪
+PASS temporal_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中）
+PASS temporal_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS temporal_resumes_after_comparison 时域降噪
+PASS restoration_sampled_processing_fits_frame_budget sampledMeanMS=19.63741104894628 nominalFrameBudgetMS=41.666666666666664
+PASS restoration_keeps_processing_during_playback frames=74 mediaAdvanced=3.115416 fallback=none
+PASS restoration_reports_actual_restoration 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）
+PASS restoration_outputs_actual_3840x2160 input=1920x1080 completedOutput=3840x2160
+PASS restoration_reports_non_ai_detail_scaling 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）
+PASS restoration_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）
+PASS restoration_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS restoration_resumes_after_comparison 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI）
+PASS gentleRestoration_sampled_processing_fits_frame_budget sampledMeanMS=19.913438886093598 nominalFrameBudgetMS=41.666666666666664
+PASS gentleRestoration_keeps_processing_during_playback frames=75 mediaAdvanced=3.1200925830000004 fallback=none
+PASS gentleRestoration_reports_actual_restoration 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） · 轻度时域
+PASS gentleRestoration_outputs_actual_3840x2160 input=1920x1080 completedOutput=3840x2160
+PASS gentleRestoration_reports_non_ai_detail_scaling 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） · 轻度时域
+PASS gentleRestoration_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） · 轻度时域
+PASS gentleRestoration_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS gentleRestoration_resumes_after_comparison 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） · 轻度时域
+PASS compression_sampled_processing_fits_frame_budget sampledMeanMS=23.377777775749564 nominalFrameBudgetMS=41.666666666666664
+PASS compression_keeps_processing_during_playback frames=75 mediaAdvanced=3.147976625 fallback=none
+PASS compression_reports_actual_restoration 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）
+PASS compression_outputs_actual_3840x2160 input=1920x1080 completedOutput=3840x2160
+PASS compression_reports_non_ai_detail_scaling 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）
+PASS compression_reports_extra_cleanup 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）
+PASS compression_paused_seek_rebuilds_without_old_reference 原帧（时域参考建立中） · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）
+PASS compression_comparison_preserves_stable_output_without_processing outputs=1 positionBefore=2.0 positionAfter=2.0
+PASS compression_resumes_after_comparison 时域降噪 · 当前尺寸无 AI 超分倍率 + 细节缩放（非 AI） + 压缩抑噪（下方字幕区免额外清理）

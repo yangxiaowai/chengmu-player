@@ -27,6 +27,38 @@ import CinemaCore
             c.open(url: media, title: "Stability", episode: "Local", resume: position)
             try await until { c.player.currentItem?.status == .readyToPlay && c.position >= position - 0.3 && c.isPlaying }
         }
+        try await ready(20); c.pause()
+        let beforeRapidSkips = c.generation
+        for _ in 0..<5 { c.skip(1) }
+        check("rapid_skips_accumulate_without_repeated_decoder_reset", c.generation == beforeRapidSkips && abs(c.position - 25) < 0.4,
+              "Five synchronous relative clicks update the visible target before one deferred seek.")
+        try await until { abs(c.player.currentTime().seconds - 25) < 0.3 }
+        check("coalesced_skip_preserves_pause", !c.playbackRequested && c.player.rate == 0, "Final physical position reached while paused.")
+        c.skip(5); c.seek(to: 12)
+        try await until { abs(c.player.currentTime().seconds - 12) < 0.3 }
+        try await Task.sleep(nanoseconds: 200_000_000)
+        check("explicit_seek_supersedes_pending_skip", abs(c.player.currentTime().seconds - 12) < 0.3, "No deferred relative jump may overwrite the absolute request.")
+        c.seek(to: 20)
+        try await until { abs(c.player.currentTime().seconds - 20) < 0.3 }
+        var movedDuringHeldKey = false
+        for _ in 0..<12 {
+            c.skip(1)
+            try await Task.sleep(nanoseconds: 30_000_000)
+            if c.player.currentTime().seconds > 20.5 { movedDuringHeldKey = true }
+        }
+        try await until { abs(c.player.currentTime().seconds - 32) < 0.4 }
+        check("held_relative_seek_flushes_while_key_is_held", movedDuringHeldKey && !c.playbackRequested, "Fixed windows produce physical seeks before the repeated inputs stop.")
+        c.skip(5)
+        c.open(url: media, title: "Replacement", episode: "Local", resume: 7); c.pause()
+        try await until { c.player.currentItem?.status == .readyToPlay && abs(c.player.currentTime().seconds - 7) < 0.3 }
+        try await Task.sleep(nanoseconds: 200_000_000)
+        check("replacement_cancels_pending_relative_target", abs(c.player.currentTime().seconds - 7) < 0.3 && !c.playbackRequested, "Old deferred skips never move the replacement source.")
+        try await ready(); c.pause()
+        let pausedInterruptedItem = c.itemID
+        NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
+        try await Task.sleep(nanoseconds: 300_000_000)
+        check("late_interruption_respects_user_pause", !c.playbackRequested && c.player.rate == 0 && c.itemID == pausedInterruptedItem,
+              "A transport notification after explicit pause must not rebuild an autoplaying item.")
         try await ready(); c.pause()
         stage = "paused stall"
         NotificationCenter.default.post(name: .AVPlayerItemPlaybackStalled, object: c.player.currentItem)
@@ -62,12 +94,12 @@ import CinemaCore
         try await ready(119)
         var raced = false
         let observer = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: c.player.currentItem, queue: .main) { _ in
-            MainActor.assumeIsolated { raced = true; c.seek(to: 20) }
+            MainActor.assumeIsolated { raced = true; c.skip(-100) }
         }
         try await until { raced }
         try await until { abs(c.player.currentTime().seconds - 20) < 0.4 && c.player.rate > 0 }
         NotificationCenter.default.removeObserver(observer)
-        check("real_eof_seek_back_rejects_old_end", finishCount == 0 && c.playbackRequested, "Real EOF observer seeks to 20 before delayed handler; no EOF notice was injected.")
+        check("real_eof_queued_skip_back_rejects_old_end", finishCount == 0 && c.playbackRequested, "Real EOF observer queues a relative skip back before delayed handler; no EOF notice was injected.")
         try await ready(119)
         try await until { finishCount == 1 }
         check("ordinary_eof_advances_once", !c.playbackRequested && c.player.rate == 0 && !c.isLoading, "Real terminal EOF completes once and leaves a stopped, ready controller.")

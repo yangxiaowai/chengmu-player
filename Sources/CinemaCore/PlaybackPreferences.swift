@@ -52,7 +52,7 @@ public struct PlaybackPreferences: Codable, Equatable, Sendable {
     private static func validVolume(_ value: Double) -> Double { value.isFinite ? min(1, max(0, value)) : 0.8 }
     private static func validRate(_ value: Double) -> Double { value.isFinite ? min(2, max(0.5, value)) : 1 }
     private static func validEnhancement(_ value: String) -> String {
-        ["original", "temporal", "restoration", "compression", "clarity", "upscale4K", "appleAI"].contains(value) ? value : "upscale4K"
+        ["original", "temporal", "restoration", "gentleRestoration", "compression", "clarity", "upscale4K", "appleAI"].contains(value) ? value : "upscale4K"
     }
     private static func validPipeline(_ value: String) -> String {
         value == pipelineOriginal ? pipelineOriginal : pipelineEnhanced

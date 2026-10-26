@@ -32,6 +32,19 @@ import CinemaCore
     }
     static func time(_ frame: Int) -> CMTime { CMTime(value:Int64(frame),timescale:30) }
     @available(macOS 26.0, *)
+    static func gentleMode() throws {
+        let p = try EnhancementPipeline(), b = try fixture(p, w:640, h:360), id = UUID()
+        let original = try p.process(b, mode:.original, time:time(0), streamID:id)
+        let first = try p.process(b, mode:.gentleRestoration, time:time(0), streamID:id, resolution:.source)
+        check("gentle primes from unmodified source", !first.usedTemporalHistory && pixels(first,pipeline:p)==pixels(original,pipeline:p))
+        let warm = try p.process(b, mode:.gentleRestoration, time:time(1), streamID:id, resolution:.source)
+        check("gentle uses history and reports actual strength mode", warm.usedTemporalHistory && warm.mode.contains("轻度时域") && warm.width==640 && warm.height==360)
+        check("gentle mode uses restoration targets", EnhancementMode.gentleRestoration.usesRestorationScaling && EnhancementMode.gentleRestoration.automaticallyTargets4K && EnhancementMode.gentleRestoration.temporalStrength == 0.5)
+        let normal = try p.process(b, mode:.restoration, time:time(2), streamID:id, resolution:.source)
+        check("switching strength clears old temporal history", !normal.usedTemporalHistory)
+        check("return to gentle clears normal history", !(try p.process(b, mode:.gentleRestoration, time:time(3), streamID:id, resolution:.source)).usedTemporalHistory)
+    }
+    @available(macOS 26.0, *)
     static func compressionMode() throws {
         let base=try EnhancementPipeline(),cleaner=try EnhancementPipeline(),id=UUID()
         let a=try fixture(base,w:640,h:360),b=try fixture(base,w:640,h:360,index:1)
@@ -131,7 +144,7 @@ import CinemaCore
         let p=try EnhancementPipeline(),b=try fixture(p,w:640,h:360)
         for transfer in [kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ,kCVImageBufferTransferFunction_ITU_R_2100_HLG] {
             CVBufferSetAttachment(b,kCVImageBufferTransferFunctionKey,transfer,.shouldPropagate)
-            for mode in [EnhancementMode.temporal,.restoration,.compression] {
+            for mode in [EnhancementMode.temporal,.restoration,.gentleRestoration,.compression] {
                 var reason:String?
                 do{_=try p.process(b,mode:mode,time:.zero,streamID:UUID())}catch{reason=error.localizedDescription}
                 check("HDR \(transfer) \(mode.rawValue) rejected",reason?.contains("HDR")==true,["reason":reason ?? "not rejected"])
@@ -141,7 +154,7 @@ import CinemaCore
     @available(macOS 26.0, *)
     static func cleanup() throws -> [[String:Any]] {
         var cases:[[String:Any]]=[]
-        for mode in [EnhancementMode.temporal,.restoration,.compression] {
+        for mode in [EnhancementMode.temporal,.restoration,.gentleRestoration,.compression] {
             let baseline=try EnhancementPipeline(),changed=try EnhancementPipeline(),rejected=try EnhancementPipeline(),id=UUID()
             let first=try fixture(baseline,w:640,h:360,index:0),next=try fixture(baseline,w:640,h:360,index:1)
             let region=NormalizedVideoRect(x:0.10,y:0.10,width:0.3,height:0.3)
@@ -175,7 +188,7 @@ import CinemaCore
     static func main() throws {
         guard #available(macOS 26.0,*),VTTemporalNoiseFilterConfiguration.isSupported else{throw NSError(domain:"streaming",code:1,userInfo:[NSLocalizedDescriptionKey:"Native temporal unavailable; no passing report"])}
         let path=CommandLine.arguments.count>1 ? CommandLine.arguments[1]:"/tmp/streaming-restoration.json"
-        try lifecycle();try compressionMode();let scales=try scalerAndGeometry();try hdrRejection();let cleanup=try cleanup()
+        try lifecycle();try compressionMode();try gentleMode();let scales=try scalerAndGeometry();try hdrRejection();let cleanup=try cleanup()
         let failed=checks.filter{($0["passed"] as? Bool) != true}
         let report:[String:Any]=["scope":"Real production EnhancementPipeline and TemporalRestorer on synthetic SDR CVPixelBuffers; native/GPU completion and pixel readback. No app UI, network decoding, audio sync, real-film or sustained-playback validation.","device":MTLCreateSystemDefaultDevice()?.name ?? "unknown","os":ProcessInfo.processInfo.operatingSystemVersionString,"checks":checks,"scaling_cases":scales,"cleanup_cases":cleanup,"passed":failed.isEmpty,"failed_checks":failed.count]
         try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:path))

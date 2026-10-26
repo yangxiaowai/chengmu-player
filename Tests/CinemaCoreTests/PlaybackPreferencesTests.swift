@@ -3,6 +3,12 @@ import Testing
 @testable import CinemaCore
 
 struct PlaybackPreferencesTests {
+    @Test func gentleRestorationSelectionSurvivesReload() throws {
+        var chosen = PlaybackPreferences()
+        chosen.setEnhancement("gentleRestoration")
+        let roundTrip = try JSONDecoder().decode(PlaybackPreferences.self, from: JSONEncoder().encode(chosen))
+        #expect(roundTrip.enhancement == "gentleRestoration")
+    }
     @Test func displaySleepPreferenceDefaultsOnForExistingProfilesAndPersistsOff() throws {
         let old = try JSONDecoder().decode(PlaybackPreferences.self, from: Data("{\"volume\":0.4}".utf8))
         let encodedOld = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(old)) as? [String: Any])

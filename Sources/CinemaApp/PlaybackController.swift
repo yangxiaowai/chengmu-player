@@ -226,6 +226,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var desiredResume = 0.0
     private var seekRequestID = UUID()
     private var pendingSeekTarget: Double?
+    private var pendingSkipTarget: Double?
+    private var pendingSkipTask: Task<Void, Never>?
     private var automaticSeekRequestID: UUID?
     @Published private var wantsPlay = false {
         didSet { playbackIntentID = UUID(); updateDisplaySleepPrevention() }
@@ -336,7 +338,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 let actual = self.player.currentTime().seconds
                 let itemDuration = item.duration.seconds
                 let terminalDuration = itemDuration.isFinite && itemDuration > 0 ? itemDuration : self.duration
-                guard PlaybackStabilityPolicy.acceptsEnd(actualTime: actual, duration: terminalDuration, seeking: self.pendingSeekTarget != nil, seekMatches: deliveredSeek == self.seekRequestID) else {
+                guard PlaybackStabilityPolicy.acceptsEnd(actualTime: actual, duration: terminalDuration, seeking: self.pendingSeekTarget != nil || self.pendingSkipTarget != nil, seekMatches: deliveredSeek == self.seekRequestID) else {
                     self.refreshPlaybackState(); return
                 }
                 let shouldAdvance = self.wantsPlay
@@ -351,6 +353,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 guard let self, self.itemID == token, self.player.currentItem === item else { return }
                 // A dropped connection mid-transfer is worth one silent retry at the same position;
                 // the source, the line and the user's play intent are all unchanged.
+                guard self.wantsPlay else {
+                    self.failCurrentItem(self.describe(item.error))
+                    return
+                }
                 guard !self.automaticRecoveryAttempted else {
                     self.failCurrentItem(self.describe(item.error))
                     return
@@ -359,7 +365,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 guard let url = self.url else { self.failCurrentItem(self.describe(item.error)); return }
                 // Before an item becomes ready, position is still zero even when the user asked
                 // to resume later. Preserve that pending target across an early transport retry.
-                let resume = self.pendingSeekTarget ?? (self.desiredResume > 0 ? self.desiredResume : (self.position.isFinite ? self.position : 0))
+                let resume = self.pendingSkipTarget ?? self.pendingSeekTarget ?? (self.desiredResume > 0 ? self.desiredResume : (self.position.isFinite ? self.position : 0))
                 let rewind = item.status == .readyToPlay && self.pendingSeekTarget == nil ? 0.5 : 0
                 self.loadingMessage = "传输中断，正在自动续播…"
                 self.isLoading = true
@@ -464,6 +470,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     func seek(to value: Double) {
         guard value.isFinite else { return }
+        cancelScheduledSkip()
         // Scrubbing into an identified segment is an explicit request to watch it.
         for segment in adSkip.segments where value >= segment.start && value < segment.end { ignoreAdSegment(segment) }
         adSkipNotice = nil
@@ -471,6 +478,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     private func performSeek(to value: Double, automaticEvent: AdSkipEvent? = nil) {
         guard value.isFinite, let item = player.currentItem else { return }
+        cancelScheduledSkip()
         let safe = max(0, duration > 0 ? min(value, duration) : value)
         let request = UUID(), token = itemID
         seekRequestID = request; pendingSeekTarget = safe
@@ -528,7 +536,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         // produced a decodable first frame yet. Several parallel connections to one slow HLS
         // source can break the playback transport itself.
         let ready = player.currentItem?.status == .readyToPlay && position > 0.05
-        let available = automaticAdSkipping && wantsPlay && isPlaying && ready && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && adSkipInteractions.isEmpty
+        let available = automaticAdSkipping && wantsPlay && isPlaying && ready && !isLoading && !hasPlaybackFailure && error == nil && pendingSeekTarget == nil && pendingSkipTarget == nil && adSkipInteractions.isEmpty
         let sharesPlaybackFrames = surfaceMode != .original && videoPermission == .inspectSDRFrames && metrics?.fallbackReason == nil
         adSkip.update(position: position, duration: duration, shouldScan: available, prefersSharedFrames: sharesPlaybackFrames)
     }
@@ -536,7 +544,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         guard automaticAdSkipping, duration.isFinite, duration > 0,
               let segment = AdSegmentPolicy.target(at: position, in: adSkip.segments, ignored: ignoredAdSegments,
                   isPlaying: wantsPlay && isPlaying,
-                  isBusy: isLoading || hasPlaybackFailure || error != nil || pendingSeekTarget != nil || !adSkipInteractions.isEmpty),
+                  isBusy: isLoading || hasPlaybackFailure || error != nil || pendingSeekTarget != nil || pendingSkipTarget != nil || !adSkipInteractions.isEmpty),
               segment.end < duration - 0.5 else { return false }
         let event = AdSkipEvent(segment: segment, returnPosition: position)
         // Consume before the asynchronous seek to avoid loops on seek failure or repeated ticks.
@@ -545,6 +553,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         return true
     }
     func cancelPendingSeek() {
+        cancelScheduledSkip()
         seekRequestID = UUID(); pendingSeekTarget = nil; automaticSeekRequestID = nil; desiredResume = 0
         player.currentItem?.cancelPendingSeeks()
         let actual = player.currentTime().seconds
@@ -560,8 +569,28 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         else { desiredResume = max(0, position) }
     }
     func skip(_ amount: Double) {
-        let base = pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
-        seek(to: base + amount)
+        guard amount.isFinite, player.currentItem != nil else { return }
+        let base = pendingSkipTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
+        let requested = base + amount
+        guard requested.isFinite else { return }
+        let target = max(0, duration > 0 ? min(requested, duration) : requested)
+        cancelAutomaticAdSeek()
+        // Preparation has no seek work to coalesce; retain the existing pending-resume path.
+        guard player.currentItem?.status == .readyToPlay else { seek(to: target); return }
+        pendingSkipTarget = target; position = target
+        // Fixed windows, not an indefinitely postponed trailing debounce: held arrow keys
+        // still produce physical seeks while the visible cumulative target updates instantly.
+        guard pendingSkipTask == nil else { return }
+        let token = itemID
+        pendingSkipTask = Task { @MainActor [weak self] in
+            do { try await Task.sleep(nanoseconds: 80_000_000) } catch { return }
+            guard let self, self.itemID == token, let target = self.pendingSkipTarget else { return }
+            self.pendingSkipTask = nil; self.pendingSkipTarget = nil
+            self.seek(to: target)
+        }
+    }
+    private func cancelScheduledSkip() {
+        pendingSkipTask?.cancel(); pendingSkipTask = nil; pendingSkipTarget = nil
     }
     func setRate(_ rate: Float) { self.rate = rate }
     func toggleMute() { preferences.toggleMute(); volume = Float(preferences.volume) }
@@ -617,7 +646,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         // Periodic callbacks are delivered through an asynchronous MainActor
         // hop. Their captured times can predate the latest seek completion.
         // Sample the live player here, and keep a requested target while seeking.
-        guard pendingSeekTarget == nil else { return }
+        guard pendingSeekTarget == nil, pendingSkipTarget == nil else { return }
         let actual = player.currentTime().seconds
         guard actual.isFinite else { return }
         position = actual
@@ -630,7 +659,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     private func failCurrentItem(_ message: String) {
         // Cancel the operation, but retain its intended position for explicit retry.
-        let retryTarget = failureResumeTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
+        let retryTarget = failureResumeTarget ?? pendingSkipTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
         cancelPendingSeek()
         failureResumeTarget = retryTarget.isFinite ? max(0, retryTarget) : nil
         hasPlaybackFailure = true

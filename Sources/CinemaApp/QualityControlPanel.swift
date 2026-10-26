@@ -68,6 +68,14 @@ struct QualityControlPanel: View {
             Text(playback.selectedPictureMode.detail)
                 .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                 .fixedSize(horizontal: false, vertical: true)
+            if playback.selectedPictureMode == .restoration || playback.selectedPictureMode == .gentleRestoration {
+                settingRow("修复强度") {
+                    Picker("修复强度", selection: Binding(get: { playback.selectedPictureMode }, set: { playback.selectEnhancementMode($0) })) {
+                        Text("轻度").tag(EnhancementMode.gentleRestoration)
+                        Text("常规").tag(EnhancementMode.restoration)
+                    }.labelsHidden().pickerStyle(.segmented)
+                }
+            }
             settingRow("目标分辨率") {
                 Picker("目标分辨率", selection: $playback.targetResolution) {
                     ForEach(EnhancementResolution.allCases) { resolution in Text(resolution.title).tag(resolution) }

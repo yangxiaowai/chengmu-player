@@ -34,7 +34,7 @@ import CinemaCore
             checks.append(["name": name, "passed": passed, "detail": detail])
             print(passed ? "PASS" : "FAIL", name, detail)
         }
-        for mode in [EnhancementMode.temporal, .restoration, .compression] {
+        for mode in [EnhancementMode.temporal, .restoration, .gentleRestoration, .compression] {
             let item = AVPlayerItem(url: url), generation = UUID()
             let player = AVPlayer(playerItem: item); player.isMuted = true
             let view = CinemaVideoView(frame: CGRect(x: 0, y: 0, width: 960, height: 540))
