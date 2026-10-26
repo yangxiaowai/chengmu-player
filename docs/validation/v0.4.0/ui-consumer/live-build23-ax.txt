@@ -1,0 +1,83 @@
+The following is a diff from the previous accessibility tree for Window: "澄幕" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 6, 26
+~		18 scroll area Secondary Actions: Scroll Up, Scroll Down
+~			27 text 52 部作品
+~				34 button Description: CHENGMU / CINEMA, 星际穿越, 2014, 5 个来源, 片源画质：1920×808, 星际穿越, 如意目录, Help: 如意目录 · rym3u8 · HD中字
+1920×808 · 帧率未知 · 1920×808
+~				36 button Description: CHENGMU / CINEMA, 星际穿越[电影解说], 2014, 片源画质：1080×606, 星际穿越[电影解说], 如意目录, Help: 如意目录 · rym3u8 · HD中字
+1080×606 · 帧率未知 · 1080×606
+~				38 button Description: CHENGMU / CINEMA, 星际穿越中的科学, 2014, 片源画质：720P, 星际穿越中的科学, 魔都目录, Help: 魔都目录 · modum3u8 · 正片
+720P · 帧率未知 · 1280×720
+~				40 button Description: CHENGMU / CINEMA, 星际穿越【影视解说】, 2014, 片源画质：1048×720, 星际穿越【影视解说】, 无尽目录, Help: 无尽目录 · wjm3u8 · 全集
+1048×720 · 帧率未知 · 1048×720
++				53 button Description: CHENGMU / CINEMA, 庆余年 第一季, 片源画质：暂未获取, 庆余年 第一季, 电影天堂目录, Help: 暂时无法获取画质信息，仍可打开影片观看；右键选择更新画质可再次尝试。
++				54 button Description: 加入待看 庆余年 第一季, Help: 加入待看, ID: bookmark
++				55 button Description: CHENGMU / CINEMA, 庆余年第二季粤语, 2024, 2 个来源, 片源画质：等待识别, 庆余年第二季粤语, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				56 button Description: 加入待看 庆余年第二季粤语, Help: 加入待看, ID: bookmark
++				57 button Description: CHENGMU / CINEMA, 庆余年，全世界都以为我是废物太子, 2024, 2 个来源, 片源画质：等待识别, 庆余年，全世界都以为我是废物太子, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				58 button Description: 加入待看 庆余年，全世界都以为我是废物太子, Help: 加入待看, ID: bookmark
++				59 button Description: CHENGMU / CINEMA, 庆余年之帝王业, 2024, 3 个来源, 片源画质：识别中, 庆余年之帝王业, 电影天堂目录, Help: 正在获取片源分辨率和帧率。
++				60 button Description: 加入待看 庆余年之帝王业, Help: 加入待看, ID: bookmark
++				61 button Description: CHENGMU / CINEMA, 庆余年之少年风流, 2024, 3 个来源, 片源画质：等待识别, 庆余年之少年风流, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				62 button Description: 加入待看 庆余年之少年风流, Help: 加入待看, ID: bookmark
++				63 button Description: CHENGMU / CINEMA, 庆余年 第二季, 2024, 4 个来源, 片源画质：等待识别, 庆余年 第二季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				64 button Description: 加入待看 庆余年 第二季, Help: 加入待看, ID: bookmark
++				65 button Description: CHENGMU / CINEMA, 庆余年之风起沧州, 2024, 5 个来源, 片源画质：等待识别, 庆余年之风起沧州, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				66 button Description: 加入待看 庆余年之风起沧州, Help: 加入待看, ID: bookmark
++				67 button Description: CHENGMU / CINEMA, 庆余年第一季特别篇, 2024, 片源画质：暂未获取, 庆余年第一季特别篇, 非凡目录, Help: 暂时无法获取画质信息，仍可打开影片观看；右键选择更新画质可再次尝试。
++				68 button Description: 加入待看 庆余年第一季特别篇, Help: 加入待看, ID: bookmark
++				69 button Description: CHENGMU / CINEMA, 庆余年第一季, 2019, 3 个来源, 片源画质：识别中, 庆余年第一季, 非凡目录, Help: 正在获取片源分辨率和帧率。
++				70 button Description: 加入待看 庆余年第一季, Help: 加入待看, ID: bookmark
++				71 button Description: CHENGMU / CINEMA, 庆余年第一季, 2019–, 片源画质：等待识别, 庆余年第一季, 魔都目录, Help: 正在等待获取这部影片的画质信息。
++				72 button Description: 加入待看 庆余年第一季, Help: 加入待看, ID: bookmark
++				73 button Description: CHENGMU / CINEMA, 庆余年, 2019, 片源画质：1080P, 庆余年, 魔都目录, Help: 魔都目录 · modum3u8 · 第01集
+1080P · 帧率未知 · 1920×1080
++				74 button Description: 加入待看 庆余年, Help: 加入待看, ID: bookmark
++				75 button Description: CHENGMU / CINEMA, 庆余年，全世界都以为我是废物太子$庆余年之大凉太子爷, 2024, 片源画质：等待识别, 庆余年，全世界都以为我是废物太子$庆余年之大凉太子爷, 无尽目录, Help: 正在等待获取这部影片的画质信息。
++				76 button Description: 加入待看 庆余年，全世界都以为我是废物太子$庆余年之大凉太子爷, Help: 加入待看, ID: bookmark
++				77 button Description: CHENGMU / CINEMA, 庆余年第一季特别版, 2024, 片源画质：等待识别, 庆余年第一季特别版, 无尽目录, Help: 正在等待获取这部影片的画质信息。
++				78 button Description: 加入待看 庆余年第一季特别版, Help: 加入待看, ID: bookmark
++				79 button Description: CHENGMU / CINEMA, 庆余年之大赵逍遥王, 2024, 片源画质：720×1280, 庆余年之大赵逍遥王, 无尽目录, Help: 无尽目录 · wjm3u8 · 全集
+720×1280 · 帧率未知 · 720×1280
++				80 button Description: 加入待看 庆余年之大赵逍遥王, Help: 加入待看, ID: bookmark
++				81 button Description: CHENGMU / CINEMA, 庆余年第二季 预告片, 2024, 片源画质：等待识别, 庆余年第二季 预告片, 无尽目录, Help: 正在等待获取这部影片的画质信息。
++				82 button Description: 加入待看 庆余年第二季 预告片, Help: 加入待看, ID: bookmark
++				83 button Description: CHENGMU / CINEMA, 怪奇物语：1985故事集第二季, 2026, 5 个来源, 片源画质：等待识别, 怪奇物语：1985故事集第二季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				84 button Description: 加入待看 怪奇物语：1985故事集第二季, Help: 加入待看, ID: bookmark
++				85 button Description: CHENGMU / CINEMA, 怪奇物语：1985故事集, 片源画质：等待识别, 怪奇物语：1985故事集, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				86 button Description: 加入待看 怪奇物语：1985故事集, Help: 加入待看, ID: bookmark
++				87 button Description: CHENGMU / CINEMA, 怪奇物语第五季, 2025, 5 个来源, 片源画质：等待识别, 怪奇物语第五季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				88 button Description: 加入待看 怪奇物语第五季, Help: 加入待看, ID: bookmark
++				89 button Description: CHENGMU / CINEMA, 怪奇物语第四季, 2022, 5 个来源, 片源画质：等待识别, 怪奇物语第四季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				90 button Description: 加入待看 怪奇物语第四季, Help: 加入待看, ID: bookmark
++				91 button Description: CHENGMU / CINEMA, 怪奇物语第三季, 2019, 5 个来源, 片源画质：等待识别, 怪奇物语第三季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				92 button Description: 加入待看 怪奇物语第三季, Help: 加入待看, ID: bookmark
++				93 button Description: CHENGMU / CINEMA, 怪奇物语第二季, 2017, 5 个来源, 片源画质：等待识别, 怪奇物语第二季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				94 button Description: 加入待看 怪奇物语第二季, Help: 加入待看, ID: bookmark
++				95 button Description: CHENGMU / CINEMA, 怪奇物语第一季, 片源画质：等待识别, 怪奇物语第一季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				96 button Description: 加入待看 怪奇物语第一季, Help: 加入待看, ID: bookmark
++				97 button Description: CHENGMU / CINEMA, 怪奇物语：1985故事集, 2026, 3 个来源, 片源画质：等待识别, 怪奇物语：1985故事集, 非凡目录, Help: 正在等待获取这部影片的画质信息。
++				98 button Description: 加入待看 怪奇物语：1985故事集, Help: 加入待看, ID: bookmark
++				99 button Description: CHENGMU / CINEMA, 怪奇物语第一季, 2016, 3 个来源, 片源画质：等待识别, 怪奇物语第一季, 非凡目录, Help: 正在等待获取这部影片的画质信息。
++				100 button Description: 加入待看 怪奇物语第一季, Help: 加入待看, ID: bookmark
++				101 button Description: CHENGMU / CINEMA, 最后的冒险：《怪奇物语》第五季幕后, 2026, 片源画质：等待识别, 最后的冒险：《怪奇物语》第五季幕后, 如意目录, Help: 正在等待获取这部影片的画质信息。
++				102 button Description: 加入待看 最后的冒险：《怪奇物语》第五季幕后, Help: 加入待看, ID: bookmark
++				103 button Description: CHENGMU / CINEMA, 《怪奇物语》幕后：第一道阴影, 2025, 2 个来源, 片源画质：等待识别, 《怪奇物语》幕后：第一道阴影, 如意目录, Help: 正在等待获取这部影片的画质信息。
++				104 button Description: 加入待看 《怪奇物语》幕后：第一道阴影, Help: 加入待看, ID: bookmark
++				105 button Description: CHENGMU / CINEMA, X频道之怪奇物语, 2021, 片源画质：等待识别, X频道之怪奇物语, 如意目录, Help: 正在等待获取这部影片的画质信息。
++				106 button Description: 加入待看 X频道之怪奇物语, Help: 加入待看, ID: bookmark
++				107 button Description: CHENGMU / CINEMA, 怪奇物语：1985故事集, 2026–, 片源画质：等待识别, 怪奇物语：1985故事集, 魔都目录, Help: 正在等待获取这部影片的画质信息。
++				108 button Description: 加入待看 怪奇物语：1985故事集, Help: 加入待看, ID: bookmark
++				109 button Description: CHENGMU / CINEMA, 怪奇物语第一季, 2016–, 片源画质：等待识别, 怪奇物语第一季, 魔都目录, Help: 正在等待获取这部影片的画质信息。
++				110 button Description: 加入待看 怪奇物语第一季, Help: 加入待看, ID: bookmark
++				111 button Description: CHENGMU / CINEMA, 绝命毒师第五季, 2012, 5 个来源, 片源画质：等待识别, 绝命毒师第五季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				112 button Description: 加入待看 绝命毒师第五季, Help: 加入待看, ID: bookmark
++				113 button Description: CHENGMU / CINEMA, 绝命毒师第四季, 2011, 5 个来源, 片源画质：等待识别, 绝命毒师第四季, 电影天堂目录, Help: 正在等待获取这部影片的画质信息。
++				114 button Description: 加入待看 绝命毒师第四季, Help: 加入待看, ID: bookmark
++			115 scroll bar (settable, float) 0
++				116 value indicator (settable, float) 0
++				117 increment arrow button
++				118 decrement arrow button
++				119 increment page button
++				120 decrement page button
+The focused UI element is 5 text field (settable) Placeholder: 搜索电影、电视剧, ID: searchField
