@@ -4,7 +4,7 @@
 单集看完不等于整部作品完成；可靠最后一集才完成，提供安全续看下一集，保留电影与旧记录边界，构建安装并同步GitHub。
 
 ## Next Step
-最终安装、归档和GitHub发行核对。
+v0.4.2已安装并公开发行，远端附件SHA-256与本地一致，交付说明。
 
 ## Current Phase
 Phase 5
@@ -34,8 +34,8 @@ Phase 5
 
 ### Phase 5: Delivery
 - [x] Review outputs
-- [ ] Deliver to user
-- **Status:** in_progress
+- [x] Deliver to user
+- **Status:** complete
 
 ## Decisions Made
 | Decision | Rationale |
