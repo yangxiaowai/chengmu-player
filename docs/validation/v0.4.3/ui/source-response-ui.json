@@ -1,0 +1,38 @@
+{
+  "checks" : [
+    {
+      "name" : "source_latency_ready",
+      "passed" : true
+    },
+    {
+      "name" : "line_latency_shared_with_source",
+      "passed" : true
+    },
+    {
+      "name" : "timeout_and_quality_are_independent",
+      "passed" : true
+    },
+    {
+      "name" : "missing_quality_still_has_latency",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_source-response-detail",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_source-response-standard",
+      "passed" : true
+    },
+    {
+      "name" : "snapshot_source-response-player-panel",
+      "passed" : true
+    },
+    {
+      "name" : "playback_view_does_not_start_new_background_jobs",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Actual AppModel\/coordinator + production SwiftUI views with controlled quality\/latency fixtures. Three offscreen native bitmap layouts, no network or physical pointer\/full playback verification."
+}

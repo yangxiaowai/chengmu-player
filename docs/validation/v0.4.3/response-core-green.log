@@ -1,0 +1,69 @@
+Building for debugging...
+[1 / 9]
+[2 / 14] CinemaCore
+[6 / 39]
+[8 / 39]
+[11 / 39]
+[12 / 39]
+[15 / 39]
+[16 / 39]
+[27 / 39] CinemaCore
+[28 / 40] CinemaCore
+[32 / 44] CinemaCore
+[32 / 44] Cinema-product
+[41 / 74]
+[46 / 74]
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[51 / 74] CinemaCoreTests-product
+[59 / 85] CinemaCoreTests-product
+[60 / 85] CinemaCoreTests-product
+[61 / 85] CinemaCoreTests-product
+[66 / 88] CinemaCoreTests-product
+[67 / 88] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[69 / 91] CinemaCoreTests-product
+[71 / 89]
+[72 / 89]
+[73 / 89]
+[75 / 89]
+[86 / 89] Cinema-product
+[87 / 89] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[89 / 91] Cinema-product
+Build complete! (14.61 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MediaResponseTests started.
+◇ Test largeResponseCanBeStoppedAtHeadersWithoutWaitingForBody() started.
+◇ Test httpFailureDoesNotBecomeASuccessfulResponse() started.
+◇ Test invalidAndCredentialBearingURLsAreRejected() started.
+◇ Test cancellationDoesNotBecomeAResponseMeasurement() started.
+◇ Test includesServerDelayBeforeResponseHeaders() started.
+✔ Test cancellationDoesNotBecomeAResponseMeasurement() passed after 0.003 seconds.
+✔ Test invalidAndCredentialBearingURLsAreRejected() passed after 0.003 seconds.
+✔ Test httpFailureDoesNotBecomeASuccessfulResponse() passed after 0.006 seconds.
+✔ Test largeResponseCanBeStoppedAtHeadersWithoutWaitingForBody() passed after 0.006 seconds.
+✔ Test includesServerDelayBeforeResponseHeaders() passed after 0.161 seconds.
+✔ Suite MediaResponseTests passed after 0.161 seconds.
+✔ Test run with 5 tests in 1 suite passed after 0.161 seconds.

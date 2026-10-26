@@ -1,0 +1,54 @@
+{
+  "checks" : [
+    {
+      "name" : "latency_is_visible_before_quality_finishes",
+      "passed" : true
+    },
+    {
+      "name" : "quality_failure_keeps_successful_media_response",
+      "passed" : true
+    },
+    {
+      "name" : "response_timeout_does_not_discard_usable_quality",
+      "passed" : true
+    },
+    {
+      "name" : "timeout_is_not_displayed_as_zero_ms",
+      "passed" : true
+    },
+    {
+      "name" : "same_url_shares_one_probe_and_source_line_results",
+      "passed" : true
+    },
+    {
+      "name" : "cached_metadata_reuses_latency_without_network",
+      "passed" : true
+    },
+    {
+      "name" : "explicit_refresh_updates_all_matching_aliases",
+      "passed" : true
+    },
+    {
+      "name" : "playback_cancels_pending_latency_states",
+      "passed" : true
+    },
+    {
+      "name" : "late_cancelled_probe_cannot_overwrite_new_latency",
+      "passed" : true
+    },
+    {
+      "name" : "latency_expires_with_session_measurement_cache",
+      "passed" : true
+    },
+    {
+      "name" : "expired_response_refreshes_even_while_quality_cache_is_fresh",
+      "passed" : false
+    },
+    {
+      "name" : "catalog_failure_does_not_invent_media_latency",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "scope" : "Actual shared quality\/response coordinator with controlled async closures, no real network or native pointer interaction."
+}

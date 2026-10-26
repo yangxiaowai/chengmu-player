@@ -1,0 +1,232 @@
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:21:19: error: value of type 'MediaQualityController' has no member 'measureResponse'
+19 |             value.loadDetail = { value, _ in detail(value) }
+20 |             value.inspect = { _ in .init(width: 1920, height: 1080) }
+21 |             value.measureResponse = { _ in .init(milliseconds: 180) }
+   |                   `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+22 |             return value
+23 |         }
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:21:39: error: cannot infer type of closure parameter '_' without a type annotation
+19 |             value.loadDetail = { value, _ in detail(value) }
+20 |             value.inspect = { _ in .init(width: 1920, height: 1080) }
+21 |             value.measureResponse = { _ in .init(milliseconds: 180) }
+   |                                       `- error: cannot infer type of closure parameter '_' without a type annotation
+22 |             return value
+23 |         }
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:21:45: error: cannot infer contextual base in reference to member 'init'
+19 |             value.loadDetail = { value, _ in detail(value) }
+20 |             value.inspect = { _ in .init(width: 1920, height: 1080) }
+21 |             value.measureResponse = { _ in .init(milliseconds: 180) }
+   |                                             `- error: cannot infer contextual base in reference to member 'init'
+22 |             return value
+23 |         }
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:24:26: error: cannot find type 'MediaResponseState' in scope
+22 |             return value
+23 |         }
+24 |         func ms(_ state: MediaResponseState?) -> Int? { if case .ready(let value) = state { return value.sample.milliseconds }; return nil }
+   |                          `- error: cannot find type 'MediaResponseState' in scope
+25 |
+26 |         let early = controller(); var finishQuality: CheckedContinuation<MediaQualitySample, Never>?
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:30:70: error: value of type 'MediaQualityController' has no member 'responseState'
+28 |         early.check([title("early")], providers: [provider])
+29 |         try await wait { finishQuality != nil }
+30 |         check("latency_is_visible_before_quality_finishes", ms(early.responseState(for: title("early"), providers: [provider])) == 180 && early.state(for: title("early"), providers: [provider]) == .reading)
+   |                                                                      `- error: value of type 'MediaQualityController' has no member 'responseState'
+31 |         finishQuality?.resume(returning: .init(width: 1920, height: 1080)); try await wait { early.readingCount == 0 }
+32 |
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:36:77: error: value of type 'MediaQualityController' has no member 'responseState'
+34 |         failure.inspect = { _ in throw URLError(.cannotDecodeContentData) }
+35 |         failure.check([title("fail")], providers: [provider]); try await wait { failure.readingCount == 0 }
+36 |         check("quality_failure_keeps_successful_media_response", ms(failure.responseState(for: title("fail"), providers: [provider])) == 180)
+   |                                                                             `- error: value of type 'MediaQualityController' has no member 'responseState'
+37 |         let timeout = controller()
+38 |         timeout.measureResponse = { _ in throw URLError(.timedOut) }
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:38:17: error: value of type 'MediaQualityController' has no member 'measureResponse'
+36 |         check("quality_failure_keeps_successful_media_response", ms(failure.responseState(for: title("fail"), providers: [provider])) == 180)
+37 |         let timeout = controller()
+38 |         timeout.measureResponse = { _ in throw URLError(.timedOut) }
+   |                 `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+39 |         timeout.check([title("timeout")], providers: [provider]); try await wait { timeout.readingCount == 0 }
+40 |         check("response_timeout_does_not_discard_usable_quality", timeout.best(in: [title("timeout")], providers: [provider])?.sample.width == 1920)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:38:37: error: cannot infer type of closure parameter '_' without a type annotation
+36 |         check("quality_failure_keeps_successful_media_response", ms(failure.responseState(for: title("fail"), providers: [provider])) == 180)
+37 |         let timeout = controller()
+38 |         timeout.measureResponse = { _ in throw URLError(.timedOut) }
+   |                                     `- error: cannot infer type of closure parameter '_' without a type annotation
+39 |         timeout.check([title("timeout")], providers: [provider]); try await wait { timeout.readingCount == 0 }
+40 |         check("response_timeout_does_not_discard_usable_quality", timeout.best(in: [title("timeout")], providers: [provider])?.sample.width == 1920)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:41:56: error: value of type 'MediaQualityController' has no member 'responseState'
+39 |         timeout.check([title("timeout")], providers: [provider]); try await wait { timeout.readingCount == 0 }
+40 |         check("response_timeout_does_not_discard_usable_quality", timeout.best(in: [title("timeout")], providers: [provider])?.sample.width == 1920)
+41 |         if case .unavailable(let reason, _)? = timeout.responseState(for: title("timeout"), providers: [provider]) { check("timeout_is_not_displayed_as_zero_ms", reason == "响应超时") } else { check("timeout_is_not_displayed_as_zero_ms", false) }
+   |                                                        `- error: value of type 'MediaQualityController' has no member 'responseState'
+42 |
+43 |         let shared = controller(); var probes = 0
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:44:16: error: value of type 'MediaQualityController' has no member 'measureResponse'
+42 |
+43 |         let shared = controller(); var probes = 0
+44 |         shared.measureResponse = { _ in probes += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(milliseconds: probes == 1 ? 180 : 420) }
+   |                `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+45 |         shared.check([title("one"), title("two")], providers: [provider]); try await wait { shared.readingCount == 0 }
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:44:36: error: cannot infer type of closure parameter '_' without a type annotation
+42 |
+43 |         let shared = controller(); var probes = 0
+44 |         shared.measureResponse = { _ in probes += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(milliseconds: probes == 1 ? 180 : 420) }
+   |                                    `- error: cannot infer type of closure parameter '_' without a type annotation
+45 |         shared.check([title("one"), title("two")], providers: [provider]); try await wait { shared.readingCount == 0 }
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:44:109: error: cannot infer contextual base in reference to member 'init'
+42 |
+43 |         let shared = controller(); var probes = 0
+44 |         shared.measureResponse = { _ in probes += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(milliseconds: probes == 1 ? 180 : 420) }
+   |                                                                                                             `- error: cannot infer contextual base in reference to member 'init'
+45 |         shared.check([title("one"), title("two")], providers: [provider]); try await wait { shared.readingCount == 0 }
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:46:93: error: value of type 'MediaQualityController' has no member 'responseState'
+44 |         shared.measureResponse = { _ in probes += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(milliseconds: probes == 1 ? 180 : 420) }
+45 |         shared.check([title("one"), title("two")], providers: [provider]); try await wait { shared.readingCount == 0 }
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+   |                                                                                             `- error: value of type 'MediaQualityController' has no member 'responseState'
+47 |         shared.check([title("three")], providers: [provider]); try await wait { shared.readingCount == 0 }
+48 |         check("cached_metadata_reuses_latency_without_network", probes == 1 && ms(shared.responseState(for: title("three"), providers: [provider])) == 180)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:46:138: error: value of type 'MediaQualityController' has no member 'responseState'
+44 |         shared.measureResponse = { _ in probes += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(milliseconds: probes == 1 ? 180 : 420) }
+45 |         shared.check([title("one"), title("two")], providers: [provider]); try await wait { shared.readingCount == 0 }
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+   |                                                                                                                                          `- error: value of type 'MediaQualityController' has no member 'responseState'
+47 |         shared.check([title("three")], providers: [provider]); try await wait { shared.readingCount == 0 }
+48 |         check("cached_metadata_reuses_latency_without_network", probes == 1 && ms(shared.responseState(for: title("three"), providers: [provider])) == 180)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:48:90: error: value of type 'MediaQualityController' has no member 'responseState'
+46 |         check("same_url_shares_one_probe_and_source_line_results", probes == 1 && ms(shared.responseState(for: url)) == 180 && ms(shared.responseState(for: title("two"), providers: [provider])) == 180)
+47 |         shared.check([title("three")], providers: [provider]); try await wait { shared.readingCount == 0 }
+48 |         check("cached_metadata_reuses_latency_without_network", probes == 1 && ms(shared.responseState(for: title("three"), providers: [provider])) == 180)
+   |                                                                                          `- error: value of type 'MediaQualityController' has no member 'responseState'
+49 |         shared.check(line: detail(title("one")).lines[0], providerName: provider.name, force: true); try await wait { shared.readingCount == 0 }
+50 |         check("explicit_refresh_updates_all_matching_aliases", probes == 2 && ms(shared.responseState(for: title("one"), providers: [provider])) == 420 && ms(shared.responseState(for: title("two"), providers: [provider])) == 420)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:50:89: error: value of type 'MediaQualityController' has no member 'responseState'
+48 |         check("cached_metadata_reuses_latency_without_network", probes == 1 && ms(shared.responseState(for: title("three"), providers: [provider])) == 180)
+49 |         shared.check(line: detail(title("one")).lines[0], providerName: provider.name, force: true); try await wait { shared.readingCount == 0 }
+50 |         check("explicit_refresh_updates_all_matching_aliases", probes == 2 && ms(shared.responseState(for: title("one"), providers: [provider])) == 420 && ms(shared.responseState(for: title("two"), providers: [provider])) == 420)
+   |                                                                                         `- error: value of type 'MediaQualityController' has no member 'responseState'
+51 |
+52 |         let stale = controller(); var late: CheckedContinuation<MediaResponseSample, Never>?
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:50:166: error: value of type 'MediaQualityController' has no member 'responseState'
+48 |         check("cached_metadata_reuses_latency_without_network", probes == 1 && ms(shared.responseState(for: title("three"), providers: [provider])) == 180)
+49 |         shared.check(line: detail(title("one")).lines[0], providerName: provider.name, force: true); try await wait { shared.readingCount == 0 }
+50 |         check("explicit_refresh_updates_all_matching_aliases", probes == 2 && ms(shared.responseState(for: title("one"), providers: [provider])) == 420 && ms(shared.responseState(for: title("two"), providers: [provider])) == 420)
+   |                                                                                                                                                                      `- error: value of type 'MediaQualityController' has no member 'responseState'
+51 |
+52 |         let stale = controller(); var late: CheckedContinuation<MediaResponseSample, Never>?
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:53:15: error: value of type 'MediaQualityController' has no member 'measureResponse'
+51 |
+52 |         let stale = controller(); var late: CheckedContinuation<MediaResponseSample, Never>?
+53 |         stale.measureResponse = { _ in await withCheckedContinuation { late = $0 } }
+   |               `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+54 |         stale.check([title("late")], providers: [provider]); try await wait { late != nil }
+55 |         stale.setSuspended(true)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:53:35: error: cannot infer type of closure parameter '_' without a type annotation
+51 |
+52 |         let stale = controller(); var late: CheckedContinuation<MediaResponseSample, Never>?
+53 |         stale.measureResponse = { _ in await withCheckedContinuation { late = $0 } }
+   |                                   `- error: cannot infer type of closure parameter '_' without a type annotation
+54 |         stale.check([title("late")], providers: [provider]); try await wait { late != nil }
+55 |         stale.setSuspended(true)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:56:91: error: value of type 'MediaQualityController' has no member 'responseState'
+54 |         stale.check([title("late")], providers: [provider]); try await wait { late != nil }
+55 |         stale.setSuspended(true)
+56 |         check("playback_cancels_pending_latency_states", stale.readingCount == 0 && stale.responseState(for: title("late"), providers: [provider]) == nil)
+   |                                                                                           `- error: value of type 'MediaQualityController' has no member 'responseState'
+57 |         stale.measureResponse = { _ in .init(milliseconds: 90) }; stale.setSuspended(false)
+58 |         stale.check([title("late")], providers: [provider]); try await wait { stale.readingCount == 0 }
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:57:15: error: value of type 'MediaQualityController' has no member 'measureResponse'
+55 |         stale.setSuspended(true)
+56 |         check("playback_cancels_pending_latency_states", stale.readingCount == 0 && stale.responseState(for: title("late"), providers: [provider]) == nil)
+57 |         stale.measureResponse = { _ in .init(milliseconds: 90) }; stale.setSuspended(false)
+   |               `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+58 |         stale.check([title("late")], providers: [provider]); try await wait { stale.readingCount == 0 }
+59 |         late?.resume(returning: .init(milliseconds: 999)); try await Task.sleep(nanoseconds: 40_000_000)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:57:35: error: cannot infer type of closure parameter '_' without a type annotation
+55 |         stale.setSuspended(true)
+56 |         check("playback_cancels_pending_latency_states", stale.readingCount == 0 && stale.responseState(for: title("late"), providers: [provider]) == nil)
+57 |         stale.measureResponse = { _ in .init(milliseconds: 90) }; stale.setSuspended(false)
+   |                                   `- error: cannot infer type of closure parameter '_' without a type annotation
+58 |         stale.check([title("late")], providers: [provider]); try await wait { stale.readingCount == 0 }
+59 |         late?.resume(returning: .init(milliseconds: 999)); try await Task.sleep(nanoseconds: 40_000_000)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:57:41: error: cannot infer contextual base in reference to member 'init'
+55 |         stale.setSuspended(true)
+56 |         check("playback_cancels_pending_latency_states", stale.readingCount == 0 && stale.responseState(for: title("late"), providers: [provider]) == nil)
+57 |         stale.measureResponse = { _ in .init(milliseconds: 90) }; stale.setSuspended(false)
+   |                                         `- error: cannot infer contextual base in reference to member 'init'
+58 |         stale.check([title("late")], providers: [provider]); try await wait { stale.readingCount == 0 }
+59 |         late?.resume(returning: .init(milliseconds: 999)); try await Task.sleep(nanoseconds: 40_000_000)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:60:77: error: value of type 'MediaQualityController' has no member 'responseState'
+58 |         stale.check([title("late")], providers: [provider]); try await wait { stale.readingCount == 0 }
+59 |         late?.resume(returning: .init(milliseconds: 999)); try await Task.sleep(nanoseconds: 40_000_000)
+60 |         check("late_cancelled_probe_cannot_overwrite_new_latency", ms(stale.responseState(for: title("late"), providers: [provider])) == 90)
+   |                                                                             `- error: value of type 'MediaQualityController' has no member 'responseState'
+61 |         var clock = Date().addingTimeInterval(901); shared.now = { clock }
+62 |         check("latency_expires_with_session_measurement_cache", shared.responseState(for: title("one"), providers: [provider]) == nil)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:62:72: error: value of type 'MediaQualityController' has no member 'responseState'
+60 |         check("late_cancelled_probe_cannot_overwrite_new_latency", ms(stale.responseState(for: title("late"), providers: [provider])) == 90)
+61 |         var clock = Date().addingTimeInterval(901); shared.now = { clock }
+62 |         check("latency_expires_with_session_measurement_cache", shared.responseState(for: title("one"), providers: [provider]) == nil)
+   |                                                                        `- error: value of type 'MediaQualityController' has no member 'responseState'
+63 |         clock = .distantFuture
+64 |         let failedDetail = controller(); var detailProbeCalls = 0
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:66:22: error: value of type 'MediaQualityController' has no member 'measureResponse'
+64 |         let failedDetail = controller(); var detailProbeCalls = 0
+65 |         failedDetail.loadDetail = { _, _ in throw SourceError.emptyDetail }
+66 |         failedDetail.measureResponse = { _ in detailProbeCalls += 1; return .init(milliseconds: 1) }
+   |                      `- error: value of type 'MediaQualityController' has no member 'measureResponse'
+67 |         failedDetail.check([title("empty")], providers: [provider]); try await wait { failedDetail.readingCount == 0 }
+68 |         check("catalog_failure_does_not_invent_media_latency", detailProbeCalls == 0 && ms(failedDetail.responseState(for: title("empty"), providers: [provider])) == nil)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:66:42: error: cannot infer type of closure parameter '_' without a type annotation
+64 |         let failedDetail = controller(); var detailProbeCalls = 0
+65 |         failedDetail.loadDetail = { _, _ in throw SourceError.emptyDetail }
+66 |         failedDetail.measureResponse = { _ in detailProbeCalls += 1; return .init(milliseconds: 1) }
+   |                                          `- error: cannot infer type of closure parameter '_' without a type annotation
+67 |         failedDetail.check([title("empty")], providers: [provider]); try await wait { failedDetail.readingCount == 0 }
+68 |         check("catalog_failure_does_not_invent_media_latency", detailProbeCalls == 0 && ms(failedDetail.responseState(for: title("empty"), providers: [provider])) == nil)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:66:78: error: cannot infer contextual base in reference to member 'init'
+64 |         let failedDetail = controller(); var detailProbeCalls = 0
+65 |         failedDetail.loadDetail = { _, _ in throw SourceError.emptyDetail }
+66 |         failedDetail.measureResponse = { _ in detailProbeCalls += 1; return .init(milliseconds: 1) }
+   |                                                                              `- error: cannot infer contextual base in reference to member 'init'
+67 |         failedDetail.check([title("empty")], providers: [provider]); try await wait { failedDetail.readingCount == 0 }
+68 |         check("catalog_failure_does_not_invent_media_latency", detailProbeCalls == 0 && ms(failedDetail.responseState(for: title("empty"), providers: [provider])) == nil)
+
+Tests/AppModelSmoke/MediaResponseQueueSmoke.swift:68:105: error: value of type 'MediaQualityController' has no member 'responseState'
+66 |         failedDetail.measureResponse = { _ in detailProbeCalls += 1; return .init(milliseconds: 1) }
+67 |         failedDetail.check([title("empty")], providers: [provider]); try await wait { failedDetail.readingCount == 0 }
+68 |         check("catalog_failure_does_not_invent_media_latency", detailProbeCalls == 0 && ms(failedDetail.responseState(for: title("empty"), providers: [provider])) == nil)
+   |                                                                                                         `- error: value of type 'MediaQualityController' has no member 'responseState'
+69 |         let passed = checks.allSatisfy { $0["passed"] as? Bool == true }
+70 |         try JSONSerialization.data(withJSONObject: ["passed": passed, "checks": checks, "scope": "Actual shared quality/response coordinator with controlled async closures, no real network or native pointer interaction."], options: [.prettyPrinted, .sortedKeys]).write(to: URL(fileURLWithPath: CommandLine.arguments[1]))
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/validate-media-response-queue.sh docs/validation/v0.4.3/response-queue.json` failed. (See above for error)

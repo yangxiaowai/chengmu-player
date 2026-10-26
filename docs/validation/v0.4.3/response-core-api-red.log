@@ -1,0 +1,63 @@
+Building for debugging...
+[Planning deferred tasks]
+[5 / 30]
+[6 / 31] CinemaCore
+[11 / 46]
+[13 / 46]
+[17 / 46]
+[20 / 46]
+[21 / 46]
+[22 / 46] CinemaCore
+[27 / 40] CinemaCoreTests-product
+[37 / 51] CinemaCoreTests-product
+[37 / 81] CinemaCoreTests-product
+[40 / 81]
+[41 / 81]
+error: SwiftCompile normal arm64 /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift failed with a nonzero exit code. Command line:     cd /Users/yangjun/Downloads
+    builtin-SwiftPerFileCompile MediaResponseTests.swift
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift:6:29: error: cannot find type 'MediaResponseProbe' in scope
+ 4 |
+ 5 | struct MediaResponseTests {
+ 6 |     private func probe() -> MediaResponseProbe {
+   |                             `- error: cannot find type 'MediaResponseProbe' in scope
+ 7 |         let configuration = URLSessionConfiguration.ephemeral
+ 8 |         configuration.protocolClasses = [MediaResponseFixture.self]
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift:9:16: error: cannot find 'MediaResponseProbe' in scope
+ 7 |         let configuration = URLSessionConfiguration.ephemeral
+ 8 |         configuration.protocolClasses = [MediaResponseFixture.self]
+ 9 |         return MediaResponseProbe(client: .init(timeout: 1, maximumBytes: 1024, configuration: configuration))
+   |                `- error: cannot find 'MediaResponseProbe' in scope
+10 |     }
+11 |     @Test func measuresFirstBodyByteRatherThanJustHeaders() async throws {
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift:35:22: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+33 |         let task = Task { try await probe().inspect(url: URL(string: "https://response.fixture/large")!) }
+34 |         task.cancel()
+35 |         do { _ = try await task.value; Issue.record("Cancelled request returned a latency") }
+   |                      `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+36 |         catch is CancellationError {} catch let error as URLError { #expect(error.code == .cancelled) }
+37 |         catch { Issue.record("Unexpected cancellation error: \(error)") }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift:35:18: warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+33 |         let task = Task { try await probe().inspect(url: URL(string: "https://response.fixture/large")!) }
+34 |         task.cancel()
+35 |         do { _ = try await task.value; Issue.record("Cancelled request returned a latency") }
+   |                  `- warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+36 |         catch is CancellationError {} catch let error as URLError { #expect(error.code == .cancelled) }
+37 |         catch { Issue.record("Unexpected cancellation error: \(error)") }
+
+/Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift:36:9: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+34 |         task.cancel()
+35 |         do { _ = try await task.value; Issue.record("Cancelled request returned a latency") }
+36 |         catch is CancellationError {} catch let error as URLError { #expect(error.code == .cancelled) }
+   |         `- warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+37 |         catch { Issue.record("Unexpected cancellation error: \(error)") }
+38 |     }
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/test_entry_point.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/AdCleanupTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/AdSkipPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogDiscoveryPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogLibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/CatalogPageTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/DolbyMetadataTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/EnhancementTargetTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/HLSDolbyDeclarationsTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/HistoryCompletionTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/LibraryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaQualityProbeTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/MediaResponseTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackCanvasClickPolicyTests.swift -primary-file /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackControlsPolicyTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackPreferencesTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackStabilityTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/PlaybackTimecodeTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/QualityTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SeekTimelineGeometryTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceAccessTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceMatchingTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SourceTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/SubtitlePreferencesTests.swift /Users/yangjun/Downloads/视频播放器/Tests/CinemaCoreTests/VideoSelectionTests.swift -supplementary-output-file-map /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/supplementaryOutputs-5 -target arm64-apple-macos15.0 -module-can-import-version Testing 2084 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Library/Developer/CommandLineTools/Library/Developer/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/PackageFrameworks -F /Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 5 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/yangjun/Downloads/视频播放器/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/yangjun/Downloads -enable-anonymous-context-mangled-names -file-compilation-dir /Users/yangjun/Downloads -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/yangjun/Downloads/视频播放器/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-1aa54e4a50e311dbd51de5aafe7eca3dffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Products/Debug/include -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources/arm64 -Xcc -I/Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name CinemaCoreTests -package-name 视频播放器 -const-gather-protocols-file /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/MediaResponseTests.o -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackCanvasClickPolicyTests.o -o /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackControlsPolicyTests.o -debug-module-path /Users/yangjun/Downloads/视频播放器/.build/out/Intermediates.noindex/Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/CinemaCoreTests.swiftmodule -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/MediaResponseTests.o -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackCanvasClickPolicyTests.o -index-unit-output-path /Cinema.build/Debug/CinemaCoreTests-p.build/Objects-normal/arm64/PlaybackControlsPolicyTests.o -index-store-path /Users/yangjun/Downloads/视频播放器/.build/out -index-system-modules
+error: Build failed
+error: fatalError
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter MediaResponseTests` failed. (See above for error)

@@ -37,6 +37,7 @@ import CinemaCore
         }
         var inspections = 0
         app.mediaQuality.loadDetail = { title, _ in fixtureDetail(title) }
+        app.mediaQuality.measureResponse = { _ in .init(milliseconds: 180) }
         app.mediaQuality.inspect = { url in
             inspections += 1
             try await Task.sleep(nanoseconds: 20_000_000)

@@ -66,12 +66,13 @@ struct PlayerEpisodePanel: View {
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(CinemaStyle.secondary)
             Picker("播放线路", selection: Binding(get: { app.selectedLineID }, set: { app.switchLine($0) })) {
-                ForEach(detail.lines) { Text($0.name).tag($0.id) }
+                ForEach(detail.lines) { line in Text(line.name + " · " + (line.episodes.first.flatMap { app.mediaQuality.responseState(for: $0.url) }?.label ?? "响应未检测")).tag(line.id) }
             }
             .labelsHidden()
             .pickerStyle(.menu)
             .controlSize(.regular)
             .frame(maxWidth: .infinity, alignment: .leading)
+            MediaResponseReadout(state: app.selectedLine?.episodes.first.flatMap { app.mediaQuality.responseState(for: $0.url) }, playbackActive: app.showPlayer)
 
             HStack(spacing: 8) {
                 PanelActionButton(title: "上一集", symbol: "backward.end.fill", action: app.previousEpisode)
@@ -181,6 +182,8 @@ struct PlayerEpisodePanel: View {
                                         .font(.system(size: 11))
                                         .foregroundStyle(CinemaStyle.primary)
                                         .lineLimit(2)
+                                    QualityReadout(state: app.mediaQuality.state(for: title, providers: app.providers))
+                                    MediaResponseReadout(state: app.mediaQuality.responseState(for: title, providers: app.providers), playbackActive: app.showPlayer)
                                     Text("切换前请确认季集")
                                         .font(.system(size: 9))
                                         .foregroundStyle(CinemaStyle.secondary)

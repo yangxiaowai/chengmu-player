@@ -1,0 +1,36 @@
+Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+PASS automatic_off_does_not_start_visible_probe
+PASS queue_finishes
+PASS manual_read_works_with_automatic_off
+PASS group_resolution_sort_uses_best_actual_source
+PASS playing_view_blocks_background_probe_submission
+PASS endpoint_change_does_not_reuse_title_result
+PASS performance_test_cancels_background_metadata
+PASS cancelled_metadata_does_not_reappear_after_self_test
+PASS native_snapshot_home-1280
+PASS native_snapshot_home-minimum
+PASS native_snapshot_watchlist-1280
+PASS native_snapshot_history-1280
+PASS native_snapshot_sources-1280
+PASS native_snapshot_quality-1280
+PASS native_snapshot_search-1280
+PASS native_snapshot_detail-900
+PASS local_player_fixture_ready
+PASS native_snapshot_player-1280

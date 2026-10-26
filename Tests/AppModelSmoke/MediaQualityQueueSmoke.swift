@@ -10,12 +10,17 @@ import CinemaCore
             while !predicate(), Date() < deadline { try await Task.sleep(nanoseconds: 10_000_000) }
             if !predicate() { throw NSError(domain: "quality-queue-timeout", code: 1) }
         }
+        func fixtureController() -> MediaQualityController {
+            let controller = MediaQualityController()
+            controller.measureResponse = { _ in .init(milliseconds: 25) }
+            return controller
+        }
         let provider = SourceProvider(id: "fixture", name: "Fixture", endpoint: URL(string: "https://catalog.example/api")!, enabled: true)
         func title(_ id: String) -> MediaTitle { .init(id: id, title: "Movie \(id)", year: "2026", posterURL: nil, summary: "", providerID: provider.id, providerName: provider.name) }
         func detail(_ title: MediaTitle, _ url: URL) -> MediaDetail {
             .init(title: title, lines: [.init(id: "one", name: "Line 1", episodes: [.init(id: "first", name: "第01集", url: url, number: 1), .init(id: "second", name: "第02集", url: URL(string: "https://media.example/never-read.mp4")!, number: 2)])])
         }
-        let c = MediaQualityController()
+        let c = fixtureController()
         var active = 0, maximum = 0, readCount = 0, detailCount = 0
         c.loadDetail = { value, _ in detailCount += 1; return detail(value, URL(string: "https://media.example/\(value.id).mp4")!) }
         c.inspect = { _ in
@@ -36,7 +41,7 @@ import CinemaCore
         try await wait { c.readingCount == 0 }
         check("success_cache_expires", readCount == 6)
 
-        let shared = MediaQualityController(); var sharedReads = 0
+        let shared = fixtureController(); var sharedReads = 0
         let sharedURL = URL(string: "https://media.example/shared.mp4")!
         shared.loadDetail = { value, _ in detail(value, sharedURL) }
         shared.inspect = { _ in sharedReads += 1; try await Task.sleep(nanoseconds: 40_000_000); return .init(width: 1280, height: 720) }
@@ -62,7 +67,7 @@ import CinemaCore
         check("cache_reuse_preserves_original_measurement_time", lastRead != nil && shared.best(in: [title("alias")], providers: [provider])?.checkedAt == lastRead)
         check("sample_progress_counts_unique_urls", shared.completedCount == 1)
 
-        let promotion = MediaQualityController(); var detailOrder: [String] = [], promotionReads = 0
+        let promotion = fixtureController(); var detailOrder: [String] = [], promotionReads = 0
         promotion.loadDetail = { value, _ in detailOrder.append(value.id); return detail(value, sharedURL) }
         promotion.inspect = { _ in promotionReads += 1; return .init(width: promotionReads == 1 ? 1280 : 1920, height: promotionReads == 1 ? 720 : 1080) }
         promotion.check([title("warm")], providers: [provider])
@@ -75,7 +80,7 @@ import CinemaCore
         try await wait { promotion.readingCount == 0 && promotion.queuedCount == 0 }
         check("forced_queued_request_is_promoted_and_bypasses_url_cache", detailOrder.first == "pending-7" && promotionReads == 2 && promotion.best(in: [title("pending-7")], providers: [provider])?.sample.width == 1920)
 
-        let failure = MediaQualityController(); var failedReads = 0
+        let failure = fixtureController(); var failedReads = 0
         var failureClock = Date(); failure.now = { failureClock }
         failure.loadDetail = { value, _ in detail(value, sharedURL) }
         failure.inspect = { _ in failedReads += 1; throw NSError(domain: "fixture-failure", code: 1, userInfo: [NSLocalizedDescriptionKey: "来源暂时无响应"]) }
@@ -93,7 +98,7 @@ import CinemaCore
         try await wait { failure.readingCount == 0 }
         check("shared_failure_cooldown_expires", failedReads == 3)
 
-        let overlapping = MediaQualityController(); var overlapReads = 0
+        let overlapping = fixtureController(); var overlapReads = 0
         var releaseFailure: CheckedContinuation<Void, Never>?
         overlapping.loadDetail = { value, _ in detail(value, sharedURL) }
         overlapping.inspect = { _ in
@@ -108,7 +113,7 @@ import CinemaCore
         try await wait { overlapping.readingCount == 0 && overlapping.queuedCount == 0 }
         check("failed_url_cooldown_survives_pending_line_state", overlapReads == 1)
 
-        let stale = MediaQualityController(); var oldCompletion: CheckedContinuation<MediaQualitySample, Never>?
+        let stale = fixtureController(); var oldCompletion: CheckedContinuation<MediaQualitySample, Never>?
         stale.loadDetail = { value, _ in detail(value, sharedURL) }
         stale.inspect = { _ in await withCheckedContinuation { oldCompletion = $0 } }
         stale.check([title("a")], providers: [provider])
@@ -123,7 +128,7 @@ import CinemaCore
         try await Task.sleep(nanoseconds: 50_000_000)
         check("late_cancelled_result_cannot_overwrite_new_read", stale.best(in: [title("a")], providers: [provider])?.sample.width == 3840)
 
-        let bounded = MediaQualityController(); bounded.setCatalogBusy(true)
+        let bounded = fixtureController(); bounded.setCatalogBusy(true)
         bounded.check((0..<80).map { title(String($0)) }, providers: [provider])
         check("catalog_load_defers_probes_and_queue_is_bounded", bounded.readingCount == 0 && bounded.queuedCount == 48)
         bounded.check(line: detail(title("priority"), URL(string: "https://media.example/priority.mp4")!).lines[0], providerName: provider.name, force: true)
@@ -134,7 +139,7 @@ import CinemaCore
         bounded.check([title("a")], providers: [disabled])
         check("disabled_provider_not_probed", bounded.states.isEmpty)
 
-        let alternatives = MediaQualityController(); var alternativeReads: [String] = []
+        let alternatives = fixtureController(); var alternativeReads: [String] = []
         alternatives.loadDetail = { value, _ in detail(value, URL(string: "https://media.example/\(value.id).mp4")!) }
         alternatives.inspect = { url in
             alternativeReads.append(url.deletingPathExtension().lastPathComponent)
@@ -150,7 +155,7 @@ import CinemaCore
         try await wait { alternatives.readingCount == 0 && alternatives.queuedCount == 0 }
         check("successful_alternative_is_reused_without_restarting_failed_sources", alternativeReads.count == before)
 
-        let recovery = MediaQualityController(); var recovered = false, recoveryReads = 0
+        let recovery = fixtureController(); var recovered = false, recoveryReads = 0
         var releaseRefresh: CheckedContinuation<Void, Never>?
         recovery.loadDetail = { value, _ in detail(value, URL(string: "https://media.example/\(value.id).mp4")!) }
         recovery.inspect = { url in

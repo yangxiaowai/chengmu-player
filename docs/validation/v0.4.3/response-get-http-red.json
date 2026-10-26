@@ -1,0 +1,61 @@
+{
+  "checks" : [
+    {
+      "detail" : "16 ms",
+      "name" : "response_fast",
+      "passed" : true
+    },
+    {
+      "detail" : "212 ms",
+      "name" : "response_slow-headers",
+      "passed" : true
+    },
+    {
+      "detail" : "The request timed out.",
+      "name" : "response_never-body",
+      "passed" : false
+    },
+    {
+      "detail" : "2 ms",
+      "name" : "response_large-body",
+      "passed" : true
+    },
+    {
+      "detail" : "2 ms",
+      "name" : "response_redirect",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "reject_http-error",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "reject_empty",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "reject_timeout",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "inflight_cancellation",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "large_transfer_stops_well_before_entire_file",
+      "passed" : true
+    },
+    {
+      "detail" : "",
+      "name" : "cancelled_request_reached_server",
+      "passed" : true
+    }
+  ],
+  "passed" : false,
+  "scope" : "Actual loopback HTTP server + production URLSession response delegate: delayed headers, withheld\/large body, redirects, errors, timeout and cancellation. HTTP response headers, not body-first-byte, playback startup, throughput or mainland connectivity."
+}

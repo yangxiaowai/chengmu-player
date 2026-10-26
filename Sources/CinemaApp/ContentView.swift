@@ -225,6 +225,28 @@ struct QualityReadout: View {
     }
 }
 
+struct MediaResponseReadout: View {
+    let state: MediaResponseState?
+    var playbackActive = false
+    var body: some View {
+        Text(state?.label ?? (playbackActive ? "播放中暂停检测" : "响应待检测"))
+            .font(.system(size: 11)).foregroundStyle(isReady ? CinemaStyle.accent : CinemaStyle.tertiary)
+            .lineLimit(1).help(explanation)
+            .accessibilityLabel("媒体延时：" + (state?.label ?? "尚未检测"))
+    }
+    private var isReady: Bool { if case .ready = state { return true }; return false }
+    private var explanation: String {
+        let method = "媒体地址的 HTTP HEAD 响应时间，含本次连接开销；不下载影片正文，不是 Ping、起播时间或带宽。同一线路其他集数可能不同。"
+        switch state {
+        case .ready(let value): return method + "\n检测于 " + value.checkedAt.formatted(date: .omitted, time: .standard) + "，可更新画质与延时重新检测。"
+        case .unavailable(let reason, _): return reason + "。仍可尝试播放或换线路。\n" + method
+        case .queued: return "等待与画质检查一起执行。\n" + method
+        case .reading: return "正在准备媒体响应检查。取得媒体地址后的单次检查最长约3秒，目录加载和画质读取另计。\n" + method
+        case nil: return (playbackActive ? "为优先保障播放，后台检测已暂停；已有结果仍可查看。\n" : "尚未检测，可更新画质与延时。\n") + method
+        }
+    }
+}
+
 struct DetailView: View {
     @ObservedObject var app: AppModel
     var body: some View {
@@ -261,7 +283,7 @@ struct DetailView: View {
     }
     private var sources: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack { Text("播放来源").font(.system(size: 16, weight: .semibold)); Text("\(app.detailSources.count)").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary); Spacer(); Button { app.mediaQuality.check(app.detailSources, providers: app.providers, force: true) } label: { Label("更新画质", systemImage: "arrow.clockwise").font(.system(size: 11)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary) }
+            HStack { Text("播放来源").font(.system(size: 16, weight: .semibold)); Text("\(app.detailSources.count)").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary); Spacer(); Button { app.mediaQuality.check(app.detailSources, providers: app.providers, force: true) } label: { Label("更新画质与延时", systemImage: "arrow.clockwise").font(.system(size: 11)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary) }
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 230), spacing: 9)], spacing: 9) { ForEach(app.detailSources, id: \.self) { source in sourceRow(source) } }
         }
     }
@@ -270,7 +292,7 @@ struct DetailView: View {
         let enabled = app.providers.contains { $0.id == source.providerID && $0.enabled }
         return Button { app.select(source) } label: {
             HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 7) { Text(source.providerName).font(.system(size: 12, weight: .medium)); QualityReadout(state: app.mediaQuality.state(for: source, providers: app.providers)) }
+                VStack(alignment: .leading, spacing: 7) { Text(source.providerName).font(.system(size: 12, weight: .medium)); QualityReadout(state: app.mediaQuality.state(for: source, providers: app.providers)); MediaResponseReadout(state: app.mediaQuality.responseState(for: source, providers: app.providers)) }
                 Spacer(minLength: 0)
                 if selected { Image(systemName: "checkmark.circle.fill").foregroundStyle(CinemaStyle.accent) }
             }.padding(14).frame(maxWidth: .infinity, minHeight: 68, alignment: .leading).background(selected ? CinemaStyle.accent.opacity(0.10) : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9)).overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(selected ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1)).contentShape(Rectangle())
@@ -284,9 +306,9 @@ struct DetailView: View {
                     let state = line.episodes.first.flatMap { app.mediaQuality.state(for: $0.url) }
                     HStack(spacing: 5) {
                         Button { app.selectedLineID = line.id } label: {
-                            VStack(alignment: .leading, spacing: 7) { HStack { Text(line.name).font(.system(size: 12, weight: .medium)); Text("\(line.episodes.count) 集").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary); Spacer(); if app.selectedLineID == line.id { Image(systemName: "checkmark").font(.system(size: 10, weight: .bold)).foregroundStyle(CinemaStyle.accent) } }; QualityReadout(state: state) }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+                            VStack(alignment: .leading, spacing: 7) { HStack { Text(line.name).font(.system(size: 12, weight: .medium)); Text("\(line.episodes.count) 集").font(.system(size: 10)).foregroundStyle(CinemaStyle.tertiary); Spacer(); if app.selectedLineID == line.id { Image(systemName: "checkmark").font(.system(size: 10, weight: .bold)).foregroundStyle(CinemaStyle.accent) } }; QualityReadout(state: state); MediaResponseReadout(state: line.episodes.first.flatMap { app.mediaQuality.responseState(for: $0.url) }) }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
                         }.buttonStyle(.plain)
-                        Button { app.mediaQuality.check(line: line, providerName: detail.title.providerName, force: true) } label: { Image(systemName: "arrow.clockwise").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).frame(width: 28, height: 35).contentShape(Rectangle()) }.buttonStyle(.plain).disabled(line.episodes.isEmpty || isBusy(state)).help("更新画质信息")
+                        Button { app.mediaQuality.check(line: line, providerName: detail.title.providerName, force: true) } label: { Image(systemName: "arrow.clockwise").font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary).frame(width: 28, height: 35).contentShape(Rectangle()) }.buttonStyle(.plain).disabled(line.episodes.isEmpty || isBusy(state)).help("更新画质与延时")
                     }.padding(13).background(CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9)).overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(app.selectedLineID == line.id ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1))
                 }
             }

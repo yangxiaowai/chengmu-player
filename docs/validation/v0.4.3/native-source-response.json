@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "name": "real_source_cards_show_quality_and_numeric_response",
+      "passed": true
+    },
+    {
+      "name": "selected_source_and_line_share_response",
+      "passed": true
+    },
+    {
+      "name": "manual_refresh_control_present",
+      "passed": true
+    }
+  ],
+  "scope": "Installed v0.4.3 build26, real Interstellar catalog detail. Observed 919ms and1337ms on two sources; other HEAD responses404/502 are unavailable while metadata stays visible. Selected source and corresponding line agree. Current network/time only, no movie started, no bandwidth/full-playback/mainland certificate."
+}

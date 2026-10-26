@@ -16,6 +16,25 @@ enum MediaQualityState: Equatable {
     case unavailable(String, Date)
 }
 
+struct MediaResponseObservation: Equatable {
+    let sample: MediaResponseSample
+    let checkedAt: Date
+}
+enum MediaResponseState: Equatable {
+    case queued, reading
+    case ready(MediaResponseObservation)
+    case unavailable(String, Date)
+
+    var label: String {
+        switch self {
+        case .queued: return "响应待检测"
+        case .reading: return "响应检测中…"
+        case .ready(let value): return "响应 \(value.sample.milliseconds) ms"
+        case .unavailable(let reason, _): return reason == "响应超时" ? reason : "响应暂未获取"
+        }
+    }
+}
+
 /// Session-only sample metadata. At most two jobs; playback cancels the whole queue.
 @MainActor final class MediaQualityController: ObservableObject {
     struct Key: Hashable {
@@ -40,12 +59,16 @@ enum MediaQualityState: Equatable {
         let force: Bool
     }
     @Published private(set) var states: [Key: MediaQualityState] = [:]
+    @Published private(set) var responseStates: [Key: MediaResponseState] = [:]
+    private var resolvedMediaURLs: [Key: URL] = [:]
     private var queue: [Request] = []
     private var fallbacks: [Key: FallbackChain] = [:]
     private var tasks: [Key: Task<Void, Never>] = [:]
     private var tokens: [Key: UUID] = [:]
     private var inspections: [URL: Task<MediaQualitySample, Error>] = [:]
     private var inspectionIDs: [URL: UUID] = [:]
+    // Queue/reading UI states must not erase the measurement needed by late joiners.
+    private var completedResponses: [URL: (flightID: UUID, state: MediaResponseState)] = [:]
     // Pending UI states must not erase the cooldown for a failed media URL.
     private var urlFailures: [URL: (reason: String, checkedAt: Date)] = [:]
     private var suspended = false
@@ -58,6 +81,7 @@ enum MediaQualityState: Equatable {
         try await SourceService().detail(title: $0, provider: $1)
     }
     var inspect: (URL) async throws -> MediaQualitySample = { try await MediaQualityProbe().inspect(url: $0) }
+    var measureResponse: (URL) async throws -> MediaResponseSample = { try await MediaResponseProbe().inspect(url: $0) }
 
     var readingCount: Int { tasks.count }
     var queuedCount: Int { queue.count }
@@ -72,6 +96,11 @@ enum MediaQualityState: Equatable {
         return freshState(Key(provider: provider, titleID: title.id, mediaURL: nil))
     }
     func state(for url: URL) -> MediaQualityState? { freshState(Key(provider: nil, titleID: nil, mediaURL: url)) }
+    func responseState(for title: MediaTitle, providers: [SourceProvider]) -> MediaResponseState? {
+        guard let provider = providers.first(where: { $0.id == title.providerID && $0.enabled }) else { return nil }
+        return freshResponseState(Key(provider: provider, titleID: title.id, mediaURL: nil))
+    }
+    func responseState(for url: URL) -> MediaResponseState? { freshResponseState(Key(provider: nil, titleID: nil, mediaURL: url)) }
     func best(in titles: [MediaTitle], providers: [SourceProvider]) -> MediaQualityObservation? {
         titles.compactMap { title -> MediaQualityObservation? in
             if case .ready(let value) = state(for: title, providers: providers) { return value }; return nil
@@ -136,8 +165,59 @@ enum MediaQualityState: Equatable {
         states = states.filter { _, state in
             switch state { case .queued, .reading: return false; default: return true }
         }
+        responseStates = responseStates.filter { _, state in
+            switch state { case .queued, .reading: return false; default: return true }
+        }
+        resolvedMediaURLs = resolvedMediaURLs.filter { states[$0.key] != nil }
+        trimResponseStates()
     }
 
+    private func freshResponseState(_ key: Key) -> MediaResponseState? {
+        freshResponse(responseStates[key])
+    }
+    private func freshResponse(_ value: MediaResponseState?) -> MediaResponseState? {
+        guard let state = value else { return nil }
+        let date: Date
+        switch state {
+        case .ready(let value): date = value.checkedAt
+        case .unavailable(_, let value): date = value
+        default: return state
+        }
+        return now().timeIntervalSince(date) < successLifetime ? state : nil
+    }
+    private func completedResponseState(_ key: Key) -> MediaResponseState? {
+        let cached = key.mediaURL.flatMap { completedResponses[$0]?.state }
+        guard let state = freshResponse(cached ?? responseStates[key]) else { return nil }
+        switch state { case .ready, .unavailable: return state; default: return nil }
+    }
+    private func publishResponse(_ state: MediaResponseState, url: URL, flightID: UUID) {
+        guard inspectionIDs[url] == flightID, !Task.isCancelled else { return }
+        completedResponses[url] = (flightID, state)
+        responseStates[Key(provider: nil, titleID: nil, mediaURL: url)] = state
+        for (key, resolvedURL) in resolvedMediaURLs where resolvedURL == url { responseStates[key] = state }
+        trimResponseStates()
+    }
+    private func trimResponseStates() {
+        if completedResponses.count > 256 {
+            let removable = completedResponses.filter { inspectionIDs[$0.key] != $0.value.flightID }
+                .sorted { responseDate($0.value.state) < responseDate($1.value.state) }
+            for (url, _) in removable.prefix(completedResponses.count - 256) { completedResponses[url] = nil }
+        }
+        guard responseStates.count > 256 else { return }
+        let finished = responseStates.compactMap { key, state -> (Key, Date)? in
+            switch state { case .ready(let value): return (key, value.checkedAt); case .unavailable(_, let date): return (key, date); default: return nil }
+        }.sorted { $0.1 < $1.1 }
+        for (key, _) in finished.prefix(responseStates.count - 256) { responseStates[key] = nil; resolvedMediaURLs[key] = nil }
+    }
+    private func responseDate(_ state: MediaResponseState) -> Date {
+        switch state { case .ready(let value): return value.checkedAt; case .unavailable(_, let date): return date; default: return .distantPast }
+    }
+    private func failPendingResponse(_ key: Key, reason: String, checkedAt: Date) {
+        switch responseStates[key] {
+        case .ready?, .unavailable?: break
+        default: responseStates[key] = .unavailable(reason, checkedAt)
+        }
+    }
     private func freshState(_ key: Key) -> MediaQualityState? {
         guard let state = states[key] else { return nil }
         switch state {
@@ -155,15 +235,17 @@ enum MediaQualityState: Equatable {
             queue.insert(promoted, at: 0)
             return
         }
-        if !force, freshState(request.key) != nil { return }
+        if !force, freshState(request.key) != nil, completedResponseState(request.key) != nil { return }
         if queue.count >= 48 {
             guard priority else { return }
             let displaced = queue.removeLast()
             fallbacks[displaced.key] = nil
             if case .queued = states[displaced.key] { states[displaced.key] = nil }
+            if case .queued = responseStates[displaced.key] { responseStates[displaced.key] = nil }
         }
         var queued = request; queued.bypassCache = force
         states[request.key] = .queued
+        responseStates[request.key] = .queued; resolvedMediaURLs[request.key] = nil
         if priority { queue.insert(queued, at: 0) } else { queue.append(queued) }
     }
     private func startQueued() {
@@ -171,7 +253,8 @@ enum MediaQualityState: Equatable {
         while tasks.count < 2, !queue.isEmpty {
             let request = queue.removeFirst(), key = request.key, token = UUID()
             tokens[key] = token; states[key] = .reading
-            let detailLoader = loadDetail, inspector = inspect
+            responseStates[key] = .reading
+            let detailLoader = loadDetail, inspector = inspect, responseProbe = measureResponse
             tasks[key] = Task { [weak self] in
                 var resolvedURLKey: Key?
                 var reusedFailureDate: Date?
@@ -187,6 +270,9 @@ enum MediaQualityState: Equatable {
                     } else { throw SourceError.emptyDetail }
                     let urlKey = Key(provider: nil, titleID: nil, mediaURL: episode.url)
                     resolvedURLKey = urlKey
+                    guard let owner = self, owner.tokens[key] == token else { return }
+                    owner.resolvedMediaURLs[key] = episode.url
+                    if !request.bypassCache, let response = owner.completedResponseState(urlKey) { owner.responseStates[key] = response }
                     if !request.bypassCache, let failure = self?.urlFailures[episode.url],
                        let self, self.now().timeIntervalSince(failure.checkedAt) < self.failureLifetime {
                         reusedFailureDate = failure.checkedAt
@@ -194,14 +280,31 @@ enum MediaQualityState: Equatable {
                     }
                     let sample: MediaQualitySample
                     let checkedAt: Date
-                    if !request.bypassCache, case .ready(let cached)? = self?.freshState(urlKey) { sample = cached.sample; checkedAt = cached.checkedAt }
+                    if !request.bypassCache, case .ready(let cached)? = self?.freshState(urlKey), self?.completedResponseState(urlKey) != nil { sample = cached.sample; checkedAt = cached.checkedAt }
                     else {
                         guard let self, self.tokens[key] == token else { return }
                         let flight: Task<MediaQualitySample, Error>, flightID: UUID
-                        if let existing = self.inspections[episode.url], let existingID = self.inspectionIDs[episode.url] { flight = existing; flightID = existingID }
+                        if let existing = self.inspections[episode.url], let existingID = self.inspectionIDs[episode.url] {
+                            flight = existing; flightID = existingID
+                            if let completed = self.completedResponses[episode.url], completed.flightID == existingID {
+                                self.publishResponse(completed.state, url: episode.url, flightID: existingID)
+                            }
+                        }
                         else {
                             flightID = UUID()
-                            flight = Task { try await inspector(episode.url) }
+                            flight = Task {
+                                let response: MediaResponseState
+                                do { response = .ready(.init(sample: try await responseProbe(episode.url), checkedAt: self.now())) }
+                                catch {
+                                    try Task.checkCancellation()
+                                    response = .unavailable((error as? URLError)?.code == .timedOut ? "响应超时" : error.localizedDescription, self.now())
+                                }
+                                try Task.checkCancellation()
+                                self.publishResponse(response, url: episode.url, flightID: flightID)
+                                // Latency is an independent observation. An unavailable
+                                // response probe must not discard a usable quality read.
+                                return try await inspector(episode.url)
+                            }
                             self.inspections[episode.url] = flight; self.inspectionIDs[episode.url] = flightID
                         }
                         do { sample = try await flight.value }
@@ -231,6 +334,7 @@ enum MediaQualityState: Equatable {
                     guard let self, self.tokens[key] == token else { return }
                     let failed = MediaQualityState.unavailable(error.localizedDescription, reusedFailureDate ?? self.now())
                     self.states[key] = failed
+                    self.failPendingResponse(key, reason: error.localizedDescription, checkedAt: reusedFailureDate ?? self.now())
                     if let url = resolvedURLKey?.mediaURL {
                         self.urlFailures[url] = (error.localizedDescription, reusedFailureDate ?? self.now())
                         if self.urlFailures.count > 256 {
@@ -240,6 +344,7 @@ enum MediaQualityState: Equatable {
                     }
                     if let urlKey = resolvedURLKey, self.tasks[urlKey] == nil, !self.queue.contains(where: { $0.key == urlKey }) {
                         self.states[urlKey] = failed
+                        self.failPendingResponse(urlKey, reason: error.localizedDescription, checkedAt: reusedFailureDate ?? self.now())
                     }
                     self.finished(key, token: token)
                 }
@@ -257,8 +362,9 @@ enum MediaQualityState: Equatable {
             let completed = states.compactMap { key, state -> (Key, Date)? in
                 switch state { case .ready(let value): return (key, value.checkedAt); case .unavailable(_, let date): return (key, date); default: return nil }
             }.sorted { $0.1 < $1.1 }
-            for (key, _) in completed.prefix(states.count - 256) { states[key] = nil }
+            for (key, _) in completed.prefix(states.count - 256) { states[key] = nil; responseStates[key] = nil; resolvedMediaURLs[key] = nil }
         }
+        trimResponseStates()
         startQueued()
     }
 }

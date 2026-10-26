@@ -1,0 +1,87 @@
+Building for debugging...
+[1 / 13]
+[2 / 14] CinemaCore
+[3 / 63]
+[10 / 63]
+[12 / 63]
+[17 / 63]
+[18 / 63]
+[19 / 63]
+[21 / 63]
+[22 / 63]
+[23 / 63]
+[30 / 63]
+[31 / 63]
+[32 / 63]
+[36 / 63]
+[39 / 63]
+[40 / 63]
+[51 / 63] CinemaCore
+[57 / 69] CinemaCore
+[57 / 69] Cinema-product
+[67 / 99]
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCore: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[73 / 99] CinemaCore
+[76 / 99]
+[76 / 100] CinemaCoreTests-product
+[77 / 113]
+[88 / 113] CinemaCoreTests-product
+[89 / 113] CinemaCoreTests-product
+[90 / 113] CinemaCoreTests-product
+[95 / 116] CinemaCoreTests-product
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: CinemaCoreTests-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[97 / 119] CinemaCoreTests-product
+[99 / 117]
+[100 / 117]
+[101 / 117]
+[103 / 117]
+[114 / 117] Cinema-product
+[115 / 117] Cinema-product
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/MediaExperienceInspector.swift:160:48: warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+158 |     private static func format(of item: AVPlayerItem, mediaType: AVMediaType) -> CMFormatDescription? {
+159 |         for itemTrack in item.tracks where itemTrack.assetTrack?.mediaType == mediaType {
+160 |             for value in itemTrack.assetTrack?.formatDescriptions ?? [] {
+    |                                                `- warning: 'formatDescriptions' was deprecated in macOS 13.0: Use load(.formatDescriptions) instead [#DeprecatedDeclaration]
+161 |                 if CFGetTypeID(value as CFTypeRef) == CMFormatDescriptionGetTypeID() { return (value as! CMFormatDescription) }
+162 |             }
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/yangjun/Downloads/视频播放器/Sources/CinemaApp/PlayerView.swift:385:10: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+383 |             }.frame(width: 460, height: 600)
+384 |         }
+385 |         .onChange(of: showQuality) { visible in presentation.interact("quality", active: visible); playback.setAdSkipInteraction("quality", active: visible) }
+    |          `- warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead. [#DeprecatedDeclaration]
+386 |     }
+387 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[117 / 119] Cinema-product/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/usr/lib' not found
+/Users/yangjun/Downloads/视频播放器/Package.swift: Cinema-product: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+
+Build complete! (27.45 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MediaResponseTests started.
+◇ Test invalidAndCredentialBearingURLsAreRejected() started.
+◇ Test cancellationDoesNotBecomeAResponseMeasurement() started.
+◇ Test includesServerDelayBeforeResponseHeaders() started.
+◇ Test httpFailureAndEmptyBodyDoNotBecomeFastSources() started.
+◇ Test largeResponseCanBeStoppedAtHeadersWithoutWaitingForBody() started.
+✔ Test invalidAndCredentialBearingURLsAreRejected() passed after 0.004 seconds.
+✔ Test cancellationDoesNotBecomeAResponseMeasurement() passed after 0.004 seconds.
+✘ Test includesServerDelayBeforeResponseHeaders() recorded an issue at MediaResponseTests.swift:11:6: Caught error: Error Domain=NSURLErrorDomain Code=-1001 "The request timed out." UserInfo={_kCFStreamErrorCodeKey=-2103, _NSURLErrorFailingURLSessionTaskErrorKey=LocalDataTask <714CC335-2365-4608-9A2C-7214778A0DB4>.<1>, _NSURLErrorRelatedURLSessionTaskErrorKey=(
+    "LocalDataTask <714CC335-2365-4608-9A2C-7214778A0DB4>.<1>"
+), NSLocalizedDescription=The request timed out., NSErrorFailingURLStringKey=https://response.fixture/delayed-headers, NSErrorFailingURLKey=https://response.fixture/delayed-headers, _kCFStreamErrorDomainKey=4}
+✘ Test largeResponseCanBeStoppedAtHeadersWithoutWaitingForBody() recorded an issue at MediaResponseTests.swift:16:6: Caught error: Error Domain=NSURLErrorDomain Code=-1001 "The request timed out." UserInfo={_kCFStreamErrorCodeKey=-2103, _NSURLErrorFailingURLSessionTaskErrorKey=LocalDataTask <2DF81DEB-D892-4AE8-B74E-09F444625749>.<1>, _NSURLErrorRelatedURLSessionTaskErrorKey=(
+    "LocalDataTask <2DF81DEB-D892-4AE8-B74E-09F444625749>.<1>"
+), NSLocalizedDescription=The request timed out., NSErrorFailingURLStringKey=https://response.fixture/large, NSErrorFailingURLKey=https://response.fixture/large, _kCFStreamErrorDomainKey=4}
+✘ Test includesServerDelayBeforeResponseHeaders() failed after 1.017 seconds with 1 issue.
+✘ Test largeResponseCanBeStoppedAtHeadersWithoutWaitingForBody() failed after 1.017 seconds with 1 issue.
+✔ Test httpFailureAndEmptyBodyDoNotBecomeFastSources() passed after 2.019 seconds.
+✘ Suite MediaResponseTests failed after 2.020 seconds with 2 issues.
+✘ Test run with 5 tests in 1 suite failed after 2.020 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - CinemaCoreTests (Swift Testing)
+ERROR conda.cli.main_run:execute(127): `conda run bash scripts/swift.sh test --filter MediaResponseTests` failed. (See above for error)
