@@ -4,7 +4,7 @@
 将有出处的播放器需求转为可测试的搜索、字幕和观看记录改进，构建并同步GitHub。
 
 ## Next Step
-完成归档校验、提交推送与GitHub发行核对。
+已发布v0.4.1，附安装包与研究/验证记录，准备交付说明。
 
 ## Current Phase
 Phase 5
@@ -34,8 +34,8 @@ Phase 5
 
 ### Phase 5: Delivery
 - [x] Review outputs
-- [ ] Deliver to user
-- **Status:** in_progress
+- [x] Deliver to user
+- **Status:** complete
 
 ## Decisions Made
 | Decision | Rationale |
