@@ -8,10 +8,10 @@ import AppKit
   let local = URL(fileURLWithPath: CommandLine.arguments[1])
   let hls = URL(string: CommandLine.arguments[2])!
   var cases: [[String:Any]] = []
-  precondition(CommandLine.arguments.count == 6,"Expected local, HLS, rotated fixture, report path, extensionless HLS")
+  precondition(CommandLine.arguments.count == 9,"Expected local, HLS, rotated fixture, report path, extensionless HLS, slow HLS, slow segment HLS and unknown slow HLS")
   let extensionlessHLS = URL(string: CommandLine.arguments[5])!
-  func wait() async throws {
-   let deadline = Date().addingTimeInterval(12)
+  func wait(seconds: Double = 12) async throws {
+   let deadline = Date().addingTimeInterval(seconds)
    while controller.isLoading, Date() < deadline { try await Task.sleep(nanoseconds:20_000_000) }
    assert(!controller.isLoading,"Request did not meet deadline")
   }
@@ -71,6 +71,25 @@ import AppKit
    if controller.image != nil { seenRepeatedHoverFrame = true; break }
   }
   assert(seenRepeatedHoverFrame, "Repeated same-position hover starved preview")
+  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID(),isConfirmedHLS:true)
+  var seenJitterFrame = false
+  for index in 0..<25 {
+   controller.request(time:22.0 + (index.isMultiple(of: 2) ? 0 : 0.06), duration:30)
+   try await Task.sleep(nanoseconds:100_000_000)
+   if controller.image != nil && abs((controller.actualTime ?? -100) - controller.requestedTime) <= 0.45 { seenJitterFrame = true }
+  }
+  assert(seenJitterFrame, "Small repeated hover jitter must not starve preview")
+  print("PASS small_hover_jitter_keeps_accurate_frame")
+  // The initial target's nearest decoded frame may be on the opposite side of
+  // a newer, nearby hover. It is the latest target that determines correctness.
+  controller.configure(asset:AVURLAsset(url:local),itemID:UUID())
+  controller.request(time:7.3,duration:30)
+  try await Task.sleep(nanoseconds:50_000_000)
+  controller.request(time:7.7,duration:30)
+  try await wait()
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - controller.requestedTime) <= 0.45,
+         "A coalesced hover must return a frame matching the latest target")
+  print("PASS coalesced_hover_matches_latest_time")
   controller.configure(asset:AVURLAsset(url:local),itemID:UUID())
   for index in 0..<60 { controller.request(time:Double(index)*0.4,duration:30); try await Task.sleep(nanoseconds:5_000_000) }
   try await wait()
@@ -94,6 +113,47 @@ import AppKit
   assert(controller.image==nil && controller.actualTime==nil && controller.message != nil)
   controller.request(time:.nan,duration:30)
   assert(controller.image==nil && !controller.isLoading)
+  let slowHLS = URL(string: CommandLine.arguments[6])!
+  controller.configure(asset: AVURLAsset(url: slowHLS), itemID: UUID(), isConfirmedHLS: true)
+  controller.request(time: 7.3, duration: 30)
+  try await wait()
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - 7.3) <= 0.45, "A playable HLS playlist responding after five seconds must still show the requested frame")
+  print("PASS slow_hls_requested_frame")
+  controller.configure(asset: AVURLAsset(url: URL(string: CommandLine.arguments[7])!), itemID: UUID(), isConfirmedHLS: true)
+  controller.request(time: 22, duration: 30)
+  try await wait()
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - 22) <= 0.45, "A playable HLS segment responding after three seconds must still show the requested frame")
+  print("PASS slow_hls_segment_requested_frame")
+  controller.configure(asset: AVURLAsset(url: URL(string: CommandLine.arguments[8])!), itemID: UUID(), isConfirmedHLS: false)
+  controller.request(time: 7.3, duration: 30)
+  try await wait(seconds: 20)
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - 7.3) <= 0.45, "An unconfirmed extensionless HLS URL with a slow playlist must still show the requested frame")
+  print("PASS slow_unconfirmed_hls_requested_frame")
+  let base = hls.deletingLastPathComponent()
+  controller.configure(asset: AVURLAsset(url: base.appendingPathComponent("cancel-late.m3u8")), itemID: UUID(), isConfirmedHLS: true)
+  controller.request(time: 17, duration: 30)
+  try await Task.sleep(nanoseconds: 250_000_000)
+  let cancelStarted = Date(); controller.hide()
+  assert(!controller.isLoading && Date().timeIntervalSince(cancelStarted) < 0.5, "Leaving a slow preview must immediately clear the loading state")
+  controller.configure(asset: AVURLAsset(url: local), itemID: UUID())
+  controller.request(time: 4.4, duration: 30); try await wait()
+  try await Task.sleep(nanoseconds: 3_500_000_000)
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - 4.4) <= 0.45, "Cancelled network responses must not overwrite a new item")
+  print("PASS cancel_slow_preview_keeps_new_item")
+  controller.configure(asset: AVURLAsset(url: base.appendingPathComponent("hang.m3u8")), itemID: UUID(), isConfirmedHLS: true)
+  let hangStarted = Date(); controller.request(time: 7.3, duration: 30); try await wait(seconds: 20)
+  assert(!controller.isLoading && controller.image == nil && controller.message != nil && Date().timeIntervalSince(hangStarted) <= 19,
+         "A nonresponsive HLS playlist must exit loading within the finite budget")
+  print("PASS nonresponsive_hls_stops_loading")
+  for index in 0..<10 {
+   controller.request(time: 7.3 + (index.isMultiple(of: 2) ? 0 : 0.06), duration: 30)
+   try await Task.sleep(nanoseconds: 100_000_000)
+  }
+  assert(!controller.isLoading && controller.message != nil, "Same-position jitter must not silently restart a failed preview")
+  controller.request(time: 9, duration: 30)
+  assert(controller.isLoading, "Moving to another position must permit retry")
+  controller.hide()
+  print("PASS failed_hover_stays_failed_until_new_position")
   controller.stop()
   assert(controller.cachedFrameCount==0)
   let result:[String:Any]=["version":"0.2.4","scope":"Headless local MP4, rotated MP4 and ordinary no-iframe HLS, including an extensionless URL, served on loopback; no remote provider availability assertion","cases":cases,"late_hls_confirmation_restarts_hover":true,"playing_main_clock_untouched":true,"rapid_hover_last_request_only":true,"cache_count_at_limit":cacheCount,"hide_and_item_change_cancelled":true,"failure_cleared_stale_image":true,"invalid_time_rejected":true,"stop_released_cache":true,"passed":true]

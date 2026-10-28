@@ -19,15 +19,30 @@ if [[ -z "$sample" ]]; then
     -g 24 -keyint_min 24 -sc_threshold 0 -movflags +faststart "$sample"
 fi
 ffmpeg -hide_banner -loglevel error -i "$sample" -c copy -hls_time 1 -hls_list_size 0 -hls_segment_filename "$validation_directory/hls/segment-%03d.ts" "$validation_directory/hls/ordinary.m3u8"
+ffmpeg -hide_banner -loglevel error -i "$sample" -c copy -hls_time 5 -hls_list_size 0 -hls_segment_filename "$validation_directory/hls/slow-segment-%03d.ts" "$validation_directory/hls/slow-segments.m3u8"
 ffmpeg -hide_banner -loglevel error -display_rotation 90 -i "$sample" -c copy "$validation_directory/rotated.mp4"
 python3 - "$validation_directory/hls" "$validation_directory/port" > "$validation_directory/http.log" 2>&1 <<'PY' &
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from pathlib import Path
-import sys
+import sys,time
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
+        if self.path == '/slow-segment-004.ts':
+            time.sleep(3)
         if self.path == '/opaque-stream':
+            self.path = '/ordinary.m3u8'
+        elif self.path == '/slow.m3u8':
+            time.sleep(5)
+            self.path = '/ordinary.m3u8'
+        elif self.path == '/slow-opaque':
+            time.sleep(5)
+            self.path = '/ordinary.m3u8'
+        elif self.path == '/cancel-late.m3u8':
+            time.sleep(3)
+            self.path = '/ordinary.m3u8'
+        elif self.path == '/hang.m3u8':
+            time.sleep(25)
             self.path = '/ordinary.m3u8'
         super().do_GET()
 server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=sys.argv[1]))
@@ -43,4 +58,4 @@ port=$(cat "$validation_directory/port")
 swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 \
   Sources/CinemaApp/SeekPreviewController.swift scripts/validation/seek-preview/main.swift \
   -o "$validation_directory/check"
-"$validation_directory/check" "$sample" "http://127.0.0.1:$port/ordinary.m3u8" "$validation_directory/rotated.mp4" "$report" "http://127.0.0.1:$port/opaque-stream"
+"$validation_directory/check" "$sample" "http://127.0.0.1:$port/ordinary.m3u8" "$validation_directory/rotated.mp4" "$report" "http://127.0.0.1:$port/opaque-stream" "http://127.0.0.1:$port/slow.m3u8" "http://127.0.0.1:$port/slow-segments.m3u8" "http://127.0.0.1:$port/slow-opaque"

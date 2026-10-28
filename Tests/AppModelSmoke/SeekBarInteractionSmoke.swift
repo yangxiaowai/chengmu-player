@@ -65,7 +65,7 @@ struct SeekBarInteractionSmoke {
         }
     }
 
-    @MainActor static func main() {
+    @MainActor static func main() async {
         _ = NSApplication.shared
         let cases: [(String, @MainActor () throws -> String)] = [
             ("cancel_restores_value_and_ignores_late_mouse_up", {
@@ -124,6 +124,43 @@ struct SeekBarInteractionSmoke {
                 try require(f.record.values.count == callbacks && f.record.seeks.isEmpty && f.view.doubleValue == 7, "Silent item invalidation wrote the previous item's value or accepted its mouseUp")
                 return "Silent cancellation does not write an old value into a replacement item's binding and ignores the previous release."
             }),
+            ("long_video_hover_jitter_keeps_one_honest_anchor", {
+                let f = Fixture(); f.view.maxValue = 7200
+                f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.501))
+                try require(f.record.hovers.count == 2 && f.record.hovers.allSatisfy { abs(($0 ?? -1) - 3600) < 0.001 },
+                            "A subpoint jitter on a long video replaced the preview anchor")
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.51))
+                try require(f.record.hovers.count == 3 && abs((f.record.hovers[2] ?? -1) - 3672) < 0.001,
+                            "Meaningful movement did not update the preview target")
+                f.view.mouseExited(with: try f.event(.mouseExited, fraction: 1.1))
+                f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.501))
+                try require(f.record.hovers.count == 5 && abs((f.record.hovers[4] ?? -1) - 3607.2) < 0.001,
+                            "A new hover did not start a fresh anchor")
+                // Re-emitting the anchor permits the SwiftUI layer to hide and
+                // then resume the preview without a larger physical movement.
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.501))
+                try require(f.record.hovers.count == 6 && abs((f.record.hovers[5] ?? -1) - 3607.2) < 0.001,
+                            "An unchanged pointer did not re-emit its preview anchor")
+                f.view.maxValue = 3600
+                let samePoint = try f.event(.mouseMoved, fraction: 0.501)
+                f.view.mouseMoved(with: samePoint)
+                try require(abs((f.record.hovers.last! ?? -1) - 1803.6) < 0.001,
+                            "A changed duration reused a stale time")
+                f.view.frame.size.width += 100
+                // The offscreen cell may not repaint its cached bar rectangle;
+                // a subpoint move still demonstrates the anchor is invalidated.
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.502))
+                try require(abs((f.record.hovers.last! ?? -1) - 1807.2) < 0.001,
+                            "A resized timeline reused a stale anchor")
+                f.view.maxValue = 7200
+                f.view.mouseDown(with: try f.event(.leftMouseDown, fraction: 0.5))
+                f.view.mouseDragged(with: try f.event(.leftMouseDragged, fraction: 0.501))
+                f.view.mouseUp(with: try f.event(.leftMouseUp, fraction: 0.501))
+                try require(f.record.seeks.count == 1 && abs(f.record.seeks[0] - 3607.2) < 0.001,
+                            "Tiny physical movement incorrectly changed the precision of committed seeking")
+                return "Small physical motion retains a matching time anchor, while a larger move or re-entry updates it."
+            }),
             ("pure_hover_does_not_change_value_or_seek", {
                 let f = Fixture()
                 f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
@@ -140,7 +177,99 @@ struct SeekBarInteractionSmoke {
             do { checks.append(Check(name: name, passed: true, detail: try body())) }
             catch { checks.append(Check(name: name, passed: false, detail: String(describing: error))) }
         }
-        let passed = checks.count == 7 && checks.allSatisfy(\.passed)
+        do {
+            let f = Fixture(); f.view.maxValue = 7200
+            f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
+            f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.5038))
+            try require(abs((f.record.hovers.last! ?? -1) - 3600) < 0.001, "Subpoint jitter should initially retain the old anchor")
+            try await Task.sleep(nanoseconds: 600_000_000)
+            try require(abs((f.record.hovers.last! ?? -1) - 3627.36) < 0.001, "A settled pointer must eventually select its true time")
+            checks.append(.init(name: "long_video_settled_pointer_selects_exact_time", passed: true,
+                                detail: "A sub-2pt move is initially stabilized, then resolves to the pointer's true timestamp after it stops."))
+        } catch {
+            checks.append(.init(name: "long_video_settled_pointer_selects_exact_time", passed: false, detail: String(describing: error)))
+        }
+        let cancelledSettlements: [(String, @MainActor (Fixture) throws -> Void)] = [
+            ("exit", { f in f.view.mouseExited(with: try f.event(.mouseExited, fraction: 1.1)) }),
+            ("hidden", { f in f.view.previewVisible = false }),
+            ("item_change", { f in f.view.itemID = UUID() }),
+            ("duration_change", { f in f.view.maxValue = 3600 }),
+            ("width_change", { f in f.view.frame.size.width += 100 }),
+            ("disabled", { f in f.view.isEnabled = false }),
+            ("drag", { f in f.view.mouseDown(with: try f.event(.leftMouseDown, fraction: 0.7)) }),
+            ("large_move", { f in f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.7)) })
+        ]
+        for (name, action) in cancelledSettlements {
+            do {
+                let f = Fixture(); f.view.maxValue = 7200
+                f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.5038))
+                try action(f)
+                let count = f.record.hovers.count
+                try await Task.sleep(nanoseconds: 500_000_000)
+                if name == "duration_change" || name == "width_change" {
+                    try require(f.record.hovers.count == count + 1 && f.record.hovers.last! == nil,
+                                "A layout change must dismiss the old preview without restoring the old hover")
+                } else {
+                    try require(f.record.hovers.count == count, "A delayed hover escaped after \(name)")
+                }
+                if name == "drag" {
+                    f.view.mouseUp(with: try f.event(.leftMouseUp, fraction: 0.701))
+                    try require(f.record.seeks.count == 1 && abs(f.record.seeks[0] - 5047.2) < 0.001,
+                                "Cancelling a hover affected the precise drag target")
+                }
+                checks.append(.init(name: "settlement_cancelled_\(name)", passed: true,
+                                    detail: "No old hover callback fires after \(name)."))
+            } catch {
+                checks.append(.init(name: "settlement_cancelled_\(name)", passed: false, detail: String(describing: error)))
+            }
+        }
+        let layoutChanges: [(String, @MainActor (Fixture) -> Void)] = [
+            ("duration", { f in f.view.maxValue = 3600 }),
+            ("width", { f in f.view.frame.size.width += 100 })
+        ]
+        for (name, change) in layoutChanges {
+            do {
+                let f = Fixture(); f.view.maxValue = 7200
+                f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.5038))
+                let before = f.record.hovers.count
+                change(f)
+                try require(f.record.hovers.count == before, "Layout invalidation synchronously changed SwiftUI state")
+                try await Task.sleep(nanoseconds: 100_000_000)
+                try require(f.record.hovers.count == before + 1 && f.record.hovers.last! == nil,
+                            "A changed \(name) did not dismiss the old preview without pointer motion")
+                let afterDismissal = f.record.hovers.count
+                try await Task.sleep(nanoseconds: 450_000_000)
+                try require(f.record.hovers.count == afterDismissal, "An old delayed hover reopened the preview")
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.7))
+                try require(f.record.hovers.last! != nil, "A fresh hover did not restart the preview")
+                checks.append(.init(name: "layout_change_dismisses_preview_\(name)", passed: true,
+                                    detail: "A changed \(name) asynchronously dismisses the old preview and permits a fresh hover."))
+            } catch {
+                checks.append(.init(name: "layout_change_dismisses_preview_\(name)", passed: false, detail: String(describing: error)))
+            }
+        }
+        for replaceItem in [false, true] {
+            let name = replaceItem ? "item_change" : "new_hover"
+            do {
+                let f = Fixture(); f.view.maxValue = 7200
+                f.view.mouseEntered(with: try f.event(.mouseEntered, fraction: 0.5))
+                f.view.maxValue = 3600 // queues an asynchronous stale-preview dismissal
+                if replaceItem { f.view.itemID = UUID() }
+                f.view.mouseMoved(with: try f.event(.mouseMoved, fraction: 0.7))
+                let count = f.record.hovers.count
+                try require(abs((f.record.hovers.last! ?? -1) - 2520) < 0.001, "Fresh hover was not reported")
+                try await Task.sleep(nanoseconds: 100_000_000)
+                try require(f.record.hovers.count == count && abs((f.record.hovers.last! ?? -1) - 2520) < 0.001,
+                            "A stale queued dismissal hid the replacement hover")
+                checks.append(.init(name: "old_dismissal_does_not_hide_\(name)", passed: true,
+                                    detail: "The invalidation generation protects a later \(name)."))
+            } catch {
+                checks.append(.init(name: "old_dismissal_does_not_hide_\(name)", passed: false, detail: String(describing: error)))
+            }
+        }
+        let passed = checks.count == 11 + cancelledSettlements.count + layoutChanges.count && checks.allSatisfy(\.passed)
         let summary = Summary(checkedAt: ISO8601DateFormatter().string(from: Date()), passed: passed, checks: checks)
         do {
             let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]

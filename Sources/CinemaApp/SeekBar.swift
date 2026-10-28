@@ -18,7 +18,7 @@ struct SeekBar: View {
 
     var body: some View {
         GeometryReader { geometry in
-            TimelineSlider(value: $value, duration: duration, itemID: itemID, onEditing: onEditing, onSeek: onSeek) { location in
+            TimelineSlider(value: $value, duration: duration, itemID: itemID, visible: visible, onEditing: onEditing, onSeek: onSeek) { location in
                 guard visible, let location else { dismissPreview(); return }
                 hoverX = location.x
                 onHover(true)
@@ -49,7 +49,10 @@ struct SeekBar: View {
                 if let image = preview.image {
                     Image(nsImage: image).resizable().scaledToFit()
                 } else if preview.isLoading {
-                    ProgressView().controlSize(.small).tint(.white)
+                    VStack(spacing: 6) {
+                        ProgressView().controlSize(.small).tint(.white)
+                        Text("正在加载预览").font(.system(size: 10)).foregroundStyle(.white.opacity(0.7))
+                    }
                 } else {
                     VStack(spacing: 6) {
                         Image(systemName: "film")
@@ -82,6 +85,7 @@ private struct TimelineSlider: NSViewRepresentable {
     @Binding var value: Double
     let duration: Double
     let itemID: UUID
+    let visible: Bool
     let onEditing: (Bool) -> Void
     let onSeek: (Double) -> Void
     let onHover: (TimelineLocation?) -> Void
@@ -96,11 +100,13 @@ private struct TimelineSlider: NSViewRepresentable {
     }
     func updateNSView(_ view: HoverSlider, context: Context) {
         if view.itemID != itemID { view.cancelTracking(notify: false); view.itemID = itemID }
+        view.previewVisible = visible
         view.onValue = { value = $0 }; view.onSeek = onSeek
         view.onEditing = onEditing; view.onHover = onHover
         view.isEnabled = duration.isFinite && duration > 0
         if !view.isEnabled { view.cancelTracking(notify: false) }
-        view.maxValue = view.isEnabled ? duration : 1
+        let maxValue = view.isEnabled ? duration : 1
+        view.maxValue = maxValue
         if !view.isTrackingPointer { view.doubleValue = min(view.maxValue, max(0, value)) }
     }
     static func dismantleNSView(_ view: HoverSlider, coordinator: ()) {
@@ -112,7 +118,11 @@ private struct TimelineSlider: NSViewRepresentable {
 private struct TimelineLocation { let x: CGFloat; let time: Double }
 
 private final class HoverSlider: NSSlider {
-    var itemID: UUID?
+    var itemID: UUID? { didSet { if oldValue != itemID { invalidateHoverAnchor() } } }
+    var previewVisible = true { didSet { if !previewVisible { invalidateHoverAnchor() } } }
+    override var maxValue: Double {
+        didSet { if oldValue != maxValue { invalidateHoverAnchor(notify: true) } }
+    }
     var onValue: ((Double) -> Void)?
     var onSeek: ((Double) -> Void)?
     var onEditing: ((Bool) -> Void)?
@@ -121,8 +131,20 @@ private final class HoverSlider: NSSlider {
     private var pointerDownValue: Double = 0
     private var area: NSTrackingArea?
     private var resignObserver: NSObjectProtocol?
+    // Keep a tiny pointer jitter from restarting preview on long timelines. The
+    // displayed time and image both remain tied to this same physical anchor.
+    private var hoverAnchor: TimelineLocation?
+    private var anchorDuration = 0.0
+    private var anchorWidth: CGFloat = 0
+    private var hoverSettlement: DispatchWorkItem?
+    private var hoverGeneration = UUID()
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+    override func setFrameSize(_ newSize: NSSize) {
+        let changed = frame.size != newSize
+        super.setFrameSize(newSize)
+        if changed { invalidateHoverAnchor(notify: true) }
+    }
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
         if let area { removeTrackingArea(area) }
@@ -131,9 +153,10 @@ private final class HoverSlider: NSSlider {
     }
     override func mouseEntered(with event: NSEvent) { updateHover(event.locationInWindow) }
     override func mouseMoved(with event: NSEvent) { updateHover(event.locationInWindow) }
-    override func mouseExited(with event: NSEvent) { if !isTrackingPointer { onHover?(nil) } }
+    override func mouseExited(with event: NSEvent) { if !isTrackingPointer { dismissHover() } }
     override func mouseDown(with event: NSEvent) {
         guard isEnabled else { return }
+        invalidateHoverAnchor()
         window?.makeFirstResponder(self)
         pointerDownValue = doubleValue
         isTrackingPointer = true; onEditing?(true)
@@ -160,12 +183,13 @@ private final class HoverSlider: NSSlider {
         resignObserver = nil
         if let window {
             resignObserver = NotificationCenter.default.addObserver(forName: NSWindow.didResignKeyNotification, object: window, queue: .main) { [weak self] _ in
-                MainActor.assumeIsolated { self?.cancelTracking(); self?.onHover?(nil) }
+                MainActor.assumeIsolated { self?.cancelTracking(); self?.dismissHover() }
             }
         }
     }
     deinit { if let resignObserver { NotificationCenter.default.removeObserver(resignObserver) } }
     func cancelTracking(notify: Bool = true) {
+        invalidateHoverAnchor()
         guard isTrackingPointer else { return }
         isTrackingPointer = false
         if notify {
@@ -177,6 +201,7 @@ private final class HoverSlider: NSSlider {
         guard let location = location(for: event.locationInWindow) else { return }
         // Event-local coordinates also work for accessibility/remote pointer
         // input, whose position need not match the system's global cursor.
+        invalidateHoverAnchor()
         doubleValue = location.time; onValue?(doubleValue); onHover?(location)
     }
     @objc func changed() {
@@ -192,7 +217,50 @@ private final class HoverSlider: NSSlider {
         return TimelineLocation(x: min(bounds.maxX, max(bounds.minX, point.x)), time: time)
     }
     private func updateHover(_ windowPoint: NSPoint) {
-        guard bounds.contains(convert(windowPoint, from: nil)) else { onHover?(nil); return }
-        onHover?(location(for: windowPoint))
+        guard previewVisible else { invalidateHoverAnchor(); return }
+        guard bounds.contains(convert(windowPoint, from: nil)), let location = location(for: windowPoint) else { dismissHover(); return }
+        if let anchor = hoverAnchor, anchorDuration == maxValue, anchorWidth == bounds.width,
+           abs(anchor.x - location.x) < 2 {
+            // Re-emit the same anchor so a control bar that was hidden can
+            // restart its preview without waiting for a larger mouse movement.
+            onHover?(anchor)
+            scheduleSettledHover(location, anchor: anchor)
+            return
+        }
+        cancelHoverSettlement()
+        hoverAnchor = location
+        anchorDuration = maxValue; anchorWidth = bounds.width
+        onHover?(location)
     }
+    private func scheduleSettledHover(_ location: TimelineLocation, anchor: TimelineLocation) {
+        cancelHoverSettlement()
+        guard abs(location.x - anchor.x) > 0.01 else { return }
+        let generation = hoverGeneration, item = itemID, duration = maxValue, width = bounds.width
+        let work = DispatchWorkItem { [weak self] in
+            guard let self, self.hoverGeneration == generation else { return }
+            self.hoverSettlement = nil
+            guard self.previewVisible, self.isEnabled, !self.isTrackingPointer, self.itemID == item,
+                  self.maxValue == duration, self.bounds.width == width else { self.hoverAnchor = nil; return }
+            self.hoverAnchor = location
+            self.onHover?(location)
+        }
+        hoverSettlement = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: work)
+    }
+    private func cancelHoverSettlement() {
+        hoverGeneration = UUID(); hoverSettlement?.cancel(); hoverSettlement = nil
+    }
+    func invalidateHoverAnchor(notify: Bool = false) {
+        let shouldNotify = notify && hoverAnchor != nil && previewVisible
+        cancelHoverSettlement(); hoverAnchor = nil
+        guard shouldNotify else { return }
+        let generation = hoverGeneration
+        // updateNSView can change the slider's range or geometry while SwiftUI
+        // is updating. Deliver dismissal on the next main-queue turn instead.
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.previewVisible, self.hoverGeneration == generation else { return }
+            self.onHover?(nil)
+        }
+    }
+    private func dismissHover() { invalidateHoverAnchor(); onHover?(nil) }
 }
