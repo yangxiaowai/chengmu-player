@@ -197,7 +197,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published var adCleanup = AdCleanupSettings() {
         didSet {
             if oldValue.protectedRegions != adCleanup.protectedRegions {
-                adSkip.configure(url: url, itemID: itemID, protectedRegions: adCleanup.protectedRegions)
+                adSkip.configure(url: directHLSRelay?.url ?? url, itemID: itemID, protectedRegions: adCleanup.protectedRegions)
                 adSkipNotice = nil
             }
         }
@@ -277,7 +277,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var preparedItemID: UUID?
     private var loadingWatchdog: Task<Void, Never>?
     private var directRouteWatchdog: Task<Void, Never>?
+    private var directHLSStallWatchdog: Task<Void, Never>?
     private var directLoader: DirectProgressiveResourceLoader?
+    private var directHLSRelay: DirectHLSRelay?
     private var bufferMonitor: Task<Void, Never>?
     private let accessLogQueue = DispatchQueue(label: "cinema.playback-access-log", qos: .utility)
     private var accessLogReadInFlight = false
@@ -362,12 +364,16 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         selectedAudio = -1; selectedSubtitle = -1; sourceInfo = nil; metrics = nil
         adCleanup = AdCleanupSettings()
         ignoredAdSegments = []; adSkipNotice = nil; adSkipInteractions = []
-        adSkip.configure(url: url, itemID: token, protectedRegions: adCleanup.protectedRegions)
         let loader = forceSystemRoute ? nil : DirectProgressiveResourceLoader(url: url)
         directLoader = loader
+        let hls = forceSystemRoute ? nil : DirectHLSRelay(url: url) { [weak self] in
+            Task { @MainActor in _ = self?.fallbackDirectRoute(token: token) }
+        }
+        directHLSRelay = hls
+        adSkip.configure(url: hls?.url ?? url, itemID: token, protectedRegions: adCleanup.protectedRegions)
         observedNetworkBitrate = -1
-        mediaNetworkRoute = url.isFileURL ? "本地文件" : (loader == nil ? "系统网络" : "直连准备中")
-        let item = loader.map { AVPlayerItem(asset: $0.asset) } ?? AVPlayerItem(url: url)
+        mediaNetworkRoute = url.isFileURL ? "本地文件" : (loader == nil && hls == nil ? "系统网络" : "直连准备中")
+        let item = loader.map { AVPlayerItem(asset: $0.asset) } ?? AVPlayerItem(url: hls?.url ?? url)
         item.preferredForwardBufferDuration = forwardBufferTarget
         let output = AVPlayerItemLegibleOutput()
         output.suppressesPlayerRendering = true
@@ -389,6 +395,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 case .readyToPlay:
                     self.directRouteWatchdog?.cancel(); self.directRouteWatchdog = nil
                     if self.directLoader != nil { self.mediaNetworkRoute = "排除 HTTP 代理的文件直连" }
+                    if self.directHLSRelay != nil { self.mediaNetworkRoute = "排除 HTTP 代理的 HLS 直连" }
                     self.prepareReady(item, token: token)
                 case .failed:
                     if !self.fallbackDirectRoute(token: token) { self.failCurrentItem(self.describe(item.error)) }
@@ -456,7 +463,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 } catch { /* Playback owns media errors; non-HLS is a valid input. */ }
             }
         }
-        if loader != nil {
+        if loader != nil || hls != nil {
             directRouteWatchdog = Task { @MainActor [weak self, weak item] in
                 do { try await Task.sleep(nanoseconds: 7_000_000_000) } catch { return }
                 guard let self, let item, self.itemID == token, self.player.currentItem === item,
@@ -785,6 +792,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         } else { preparation = .absent }
         let transport: PlaybackTransportState
         switch player.timeControlStatus { case .playing: transport = .playing; case .waitingToPlayAtSpecifiedRate: transport = .waiting; default: transport = .paused }
+        updateDirectHLSStallWatchdog(waiting: transport == .waiting)
         let loading = PlaybackStabilityPolicy.loadingState(item: preparation, transport: transport, playbackRequested: wantsPlay, seeking: pendingSeekTarget != nil, hasError: hasPlaybackFailure || error != nil)
         isPlaying = !hasPlaybackFailure && error == nil && transport == .playing
         isLoading = loading.isLoading; loadingMessage = loading.message
@@ -806,6 +814,20 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             guard let self, self.itemID == token, self.waitingID == wait else { return }
             self.refreshPlaybackState()
             self.recoverySuggested = PlaybackStabilityPolicy.shouldSuggestRecovery(isLoading: self.isLoading, elapsed: 15)
+        }
+    }
+    private func updateDirectHLSStallWatchdog(waiting: Bool) {
+        guard directHLSRelay != nil, wantsPlay, waiting, !hasPlaybackFailure else {
+            directHLSStallWatchdog?.cancel(); directHLSStallWatchdog = nil; return
+        }
+        guard directHLSStallWatchdog == nil else { return }
+        let token = itemID
+        directHLSStallWatchdog = Task { @MainActor [weak self] in
+            do { try await Task.sleep(nanoseconds: 8_000_000_000) } catch { return }
+            guard let self, self.itemID == token, self.directHLSRelay != nil,
+                  self.wantsPlay, self.player.timeControlStatus == .waitingToPlayAtSpecifiedRate else { return }
+            self.directHLSStallWatchdog = nil
+            _ = self.fallbackDirectRoute(token: token)
         }
     }
     private func updateDisplaySleepPrevention() {
@@ -836,7 +858,10 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         } else {
             directDownloadSpeed = nil
         }
-        if url?.isFileURL == false, directLoader == nil, !accessLogReadInFlight {
+        // A loopback HLS item's access log describes transfer from our local relay,
+        // not the upstream network. Do not display it as the user's network speed.
+        if directHLSRelay != nil { observedNetworkBitrate = -1 }
+        if url?.isFileURL == false, directLoader == nil, directHLSRelay == nil, !accessLogReadInFlight {
             accessLogReadInFlight = true
             let token = itemID, wait = waitingID
             accessLogQueue.async { [weak self, item] in
@@ -855,14 +880,16 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private func clearItemObservers() {
         statusObservation = nil
         directRouteWatchdog?.cancel(); directRouteWatchdog = nil
+        directHLSStallWatchdog?.cancel(); directHLSStallWatchdog = nil
         directLoader?.stop(); directLoader = nil
+        directHLSRelay?.stop(); directHLSRelay = nil
         for value in [finishedObserver, stalledObserver, failedObserver].compactMap({$0}) { NotificationCenter.default.removeObserver(value) }
         finishedObserver = nil; stalledObserver = nil; failedObserver = nil
     }
     /// If direct loading cannot start or fails later, retry once using AVPlayer's system route.
     /// The latest seek target and play/pause intent take precedence over the original request.
     private func fallbackDirectRoute(token: UUID) -> Bool {
-        guard itemID == token, directLoader != nil, let url else { return false }
+        guard itemID == token, directLoader != nil || directHLSRelay != nil, let url else { return false }
         let resume = pendingSkipTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
         let shouldPlay = wantsPlay, cleanup = adCleanup
         open(url: url, title: title, episode: episodeName, resume: resume.isFinite ? max(0, resume) : 0,

@@ -10,6 +10,9 @@ import CinemaCore
         guard CommandLine.arguments.contains("--validate"), CommandLine.arguments.count >= 4 else { exit(2) }
         let media = URL(fileURLWithPath: CommandLine.arguments[2])
         let stalledURL = URL(string: CommandLine.arguments[3])!
+        var fixtureComponents = URLComponents(url: stalledURL, resolvingAgainstBaseURL: false)!
+        fixtureComponents.query = nil
+        let fixtureRoot = fixtureComponents.url!.deletingLastPathComponent()
         let c = PlaybackController(); c.volume = 0
         var checks: [Check] = []; var finishCount = 0
         var stage = "initial"
@@ -112,14 +115,14 @@ import CinemaCore
         NotificationCenter.default.post(name: .AVPlayerItemDidPlayToEndTime, object: c.player.currentItem)
         try await Task.sleep(nanoseconds: 100_000_000)
         check("paused_terminal_notice_does_not_next", finishCount == 1 && !c.playbackRequested, "Explicit paused terminal notice does not call next; this notice is injected.")
-        let resumeURL = stalledURL.deletingLastPathComponent().appendingPathComponent("resume.wav")
+        let resumeURL = fixtureRoot.appendingPathComponent("resume.wav")
         c.open(url: resumeURL, title: "Pending failure", episode: "Loopback", resume: 52)
         try await Task.sleep(nanoseconds: 150_000_000)
         NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
         try await Task.sleep(nanoseconds: 100_000_000)
         NotificationCenter.default.post(name: .AVPlayerItemFailedToPlayToEndTime, object: c.player.currentItem)
         try await Task.sleep(nanoseconds: 100_000_000)
-        _ = try await URLSession.shared.data(from: stalledURL.deletingLastPathComponent().appendingPathComponent("release"))
+        _ = try await URLSession.shared.data(from: fixtureRoot.appendingPathComponent("release"))
         c.togglePlayback()
         stage = "repeated preparation failure retry"
         try await until({ c.player.currentItem?.status == .readyToPlay && c.isPlaying && abs(c.player.currentTime().seconds - 52) < 0.5 }, seconds: 10)
@@ -133,6 +136,14 @@ import CinemaCore
         try await until { c.itemID != zeroInterruptedItem && c.player.currentItem?.status == .readyToPlay && c.isPlaying }
         check("zero_destination_failure_retry", c.error == nil && c.player.currentTime().seconds < 0.5,
               "Seek to zero followed immediately by an interruption; automatic retry rebuilds at zero.")
+        let slowHLS = fixtureRoot.appendingPathComponent("slow-start.m3u8")
+        c.open(url: slowHLS, title: "Slow HLS", episode: "Loopback", resume: 25); c.pause()
+        let waitingHLSItem = c.itemID
+        check("slow_hls_initially_attempts_direct", c.mediaNetworkRoute == "直连准备中", "Unsigned local HLS is first sent through the relay.")
+        stage = "slow HLS direct startup falls back"
+        try await until({ c.itemID != waitingHLSItem && c.mediaNetworkRoute == "系统网络" && c.player.currentItem?.status == .readyToPlay && abs(c.player.currentTime().seconds - 25) < 0.5 }, seconds: 16)
+        check("slow_hls_fallback_preserves_pause_and_resume", !c.playbackRequested && c.player.rate == 0,
+              "The direct request is withheld for longer than the watchdog; the system route loads real local HLS at the requested position, paused.")
         let waitStarted = Date()
         c.open(url: stalledURL, title: "Waiting", episode: "Loopback")
         try await Task.sleep(nanoseconds: 300_000_000)

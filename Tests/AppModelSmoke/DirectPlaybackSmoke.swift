@@ -87,8 +87,31 @@ import CinemaCore
         let query = URL(string: good.absoluteString + "?token=signed")!
         controller.open(url: query, title: "Signed", episode: "Fixture")
         try check("signed_url_stays_native", scheme() == "http" && controller.mediaNetworkRoute == "系统网络")
-        controller.open(url: base.appendingPathComponent("playlist.m3u8"), title: "HLS", episode: "Fixture")
-        try check("hls_stays_native", scheme() == "http" && controller.mediaNetworkRoute == "系统网络")
+        let playlist = base.appendingPathComponent("playlist.m3u8")
+        controller.open(url: playlist, title: "HLS", episode: "Fixture", resume: 2)
+        try check("eligible_hls_starts_with_local_relay", (controller.player.currentItem?.asset as? AVURLAsset)?.url != playlist && controller.mediaNetworkRoute == "直连准备中")
+        controller.pause()
+        try await until("invalid playlist falls back") { (controller.player.currentItem?.asset as? AVURLAsset)?.url == playlist && controller.mediaNetworkRoute == "系统网络" && controller.player.currentItem?.status == .readyToPlay && abs(controller.player.currentTime().seconds - 2) < 0.3 }
+        try check("invalid_playlist_falls_back_preserving_pause_and_resume", !controller.playbackRequested && controller.player.rate == 0)
+        let signedHLS = URL(string: playlist.absoluteString + "?token=signed")!
+        controller.open(url: signedHLS, title: "Signed HLS", episode: "Fixture")
+        try check("signed_hls_stays_system_route", (controller.player.currentItem?.asset as? AVURLAsset)?.url == signedHLS && controller.mediaNetworkRoute == "系统网络")
+        controller.open(url: playlist, title: "Old HLS", episode: "Fixture")
+        controller.open(url: good, title: "New file", episode: "Fixture")
+        try await until("new item ready after rapid HLS switch") { scheme() == "cinemadirect" && controller.player.currentItem?.status == .readyToPlay }
+        try await Task.sleep(nanoseconds: 500_000_000)
+        try check("hls_failure_cannot_replace_new_item", scheme() == "cinemadirect" && controller.title == "New file")
+        let late = base.appendingPathComponent("late.m3u8")
+        controller.open(url: late, title: "Late failure", episode: "Fixture")
+        try await until("HLS ready before later segment failure") { controller.mediaNetworkRoute == "排除 HTTP 代理的 HLS 直连" && controller.player.currentItem?.status == .readyToPlay }
+        controller.seek(to: 5)
+        try await until("HLS is buffering at a stalled segment") { controller.isLoading && controller.bufferSnapshot != nil }
+        try check("hls_loopback_speed_is_not_reported_as_network_speed", controller.directDownloadSpeed == nil && controller.bufferSnapshot?.observedBytesPerSecond == nil)
+        controller.pause()
+        let fixtureDirectory = URL(fileURLWithPath: CommandLine.arguments[2]).deletingLastPathComponent()
+        try Data().write(to: fixtureDirectory.appendingPathComponent("late-fail"))
+        try await until("later HLS segment triggers fallback") { (controller.player.currentItem?.asset as? AVURLAsset)?.url == late && controller.player.currentItem?.status == .readyToPlay && abs(controller.player.currentTime().seconds - 5) < 0.3 }
+        try check("late_hls_failure_restores_pause_and_seek", controller.mediaNetworkRoute == "系统网络" && !controller.playbackRequested && controller.player.rate == 0)
         let redirect = base.appendingPathComponent("redirect.mp4")
         controller.open(url: redirect, title: "Signed redirect", episode: "Fixture", resume: 2)
         controller.pause()

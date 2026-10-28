@@ -9,6 +9,9 @@ trap cleanup EXIT
 mkdir -p "$tmp/core" "$tmp/core-sources" "$(dirname "$report")"
 cp Sources/CinemaCore/*.swift "$tmp/core-sources/"
 ffmpeg -hide_banner -loglevel error -f lavfi -i 'testsrc2=size=640x360:rate=24:duration=10' -c:v libx264 -preset ultrafast -g 24 -movflags +faststart "$tmp/test.mp4"
+ffmpeg -hide_banner -loglevel error -i "$tmp/test.mp4" -c copy -hls_time 1 -hls_list_size 0 -hls_segment_filename "$tmp/hls-%03d.ts" "$tmp/generated.m3u8"
+awk 'NR==1 { print; print "#EXT-X-KEY:METHOD=NONE"; next } { print }' "$tmp/generated.m3u8" > "$tmp/playlist.m3u8"
+sed 's/hls-/late-hls-/g' "$tmp/generated.m3u8" > "$tmp/late.m3u8"
 python3 - "$tmp" > "$tmp/server.log" 2>&1 <<'PY' &
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -18,6 +21,19 @@ root=Path(sys.argv[1]); data=(root/'test.mp4').read_bytes()
 class Server(BaseHTTPRequestHandler):
  def do_GET(self):
   route=urlsplit(self.path).path
+  if route in ('/playlist.m3u8','/late.m3u8') or ((route.startswith('/hls-') or route.startswith('/late-hls-')) and route.endswith('.ts')):
+   path=root/route.removeprefix('/').removeprefix('late-')
+   if route == '/late.m3u8': path=root/'late.m3u8'
+   if route == '/late-hls-005.ts' and self.headers.get('User-Agent') == 'Cinema-HLS-Direct/1.0':
+    (root/'late-requested').write_text('requested')
+    until=time.monotonic()+10
+    while not (root/'late-fail').exists() and time.monotonic()<until: time.sleep(.02)
+    self.send_error(503); return
+   if not path.is_file(): self.send_error(404); return
+   body=path.read_bytes(); self.send_response(200); self.send_header('Content-Type','application/vnd.apple.mpegurl' if route.endswith('.m3u8') else 'video/mp2t'); self.send_header('Content-Length',str(len(body))); self.end_headers()
+   try: self.wfile.write(body)
+   except (BrokenPipeError,ConnectionResetError): pass
+   return
   direct=self.headers.get('User-Agent')=='Cinema-Direct/1.0'
   if direct and route == '/denied.mp4': self.send_error(403); return
   if direct and route == '/slow.mp4':
@@ -55,7 +71,7 @@ port=$(cat "$tmp/port")
 swiftc -swift-version 5 -target arm64-apple-macos15.0 -emit-module -emit-library -static -module-name CinemaCore \
   "$tmp"/core-sources/*.swift -emit-module-path "$tmp/core/CinemaCore.swiftmodule" -o "$tmp/core/libCinemaCore.a"
 swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 -I "$tmp/core" -L "$tmp/core" -lCinemaCore \
-  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/DirectProgressiveResourceLoader.swift Sources/CinemaApp/SeekPreviewController.swift Sources/CinemaApp/PlaybackDisplaySleepGuard.swift Sources/CinemaApp/QualityPerformanceController.swift Sources/CinemaApp/FrameInterpolator.swift Sources/CinemaApp/InterpolatedFramePipeline.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/CompressionCleaner.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift \
+  Sources/CinemaApp/PlaybackController.swift Sources/CinemaApp/DirectHLSRelay.swift Sources/CinemaApp/DirectProgressiveResourceLoader.swift Sources/CinemaApp/SeekPreviewController.swift Sources/CinemaApp/PlaybackDisplaySleepGuard.swift Sources/CinemaApp/QualityPerformanceController.swift Sources/CinemaApp/FrameInterpolator.swift Sources/CinemaApp/InterpolatedFramePipeline.swift Sources/CinemaApp/EnhancementPipeline.swift Sources/CinemaApp/CompressionCleaner.swift Sources/CinemaApp/TemporalRestorer.swift Sources/CinemaApp/DetailScaler.swift \
   Sources/CinemaApp/MediaExperienceInspector.swift Sources/CinemaApp/VideoProcessingPolicy.swift Sources/CinemaApp/AdSkipController.swift Sources/CinemaApp/AdFrameAnalyzer.swift Tests/AppModelSmoke/DirectPlaybackSmoke.swift -o "$tmp/check"
 "$tmp/check" "http://127.0.0.1:$port" "$tmp/test.mp4" > "$report"
 test -s "$tmp/basic-challenge"
