@@ -25,7 +25,12 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from pathlib import Path
 import sys
-server = ThreadingHTTPServer(('127.0.0.1', 0), partial(SimpleHTTPRequestHandler, directory=sys.argv[1]))
+class Handler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/opaque-stream':
+            self.path = '/ordinary.m3u8'
+        super().do_GET()
+server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=sys.argv[1]))
 Path(sys.argv[2]).write_text(str(server.server_port))
 server.serve_forever()
 PY
@@ -38,4 +43,4 @@ port=$(cat "$validation_directory/port")
 swiftc -parse-as-library -swift-version 5 -target arm64-apple-macos15.0 \
   Sources/CinemaApp/SeekPreviewController.swift scripts/validation/seek-preview/main.swift \
   -o "$validation_directory/check"
-"$validation_directory/check" "$sample" "http://127.0.0.1:$port/ordinary.m3u8" "$validation_directory/rotated.mp4" "$report"
+"$validation_directory/check" "$sample" "http://127.0.0.1:$port/ordinary.m3u8" "$validation_directory/rotated.mp4" "$report" "http://127.0.0.1:$port/opaque-stream"

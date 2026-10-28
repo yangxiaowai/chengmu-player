@@ -236,7 +236,7 @@ struct MediaResponseReadout: View {
     }
     private var isReady: Bool { if case .ready = state { return true }; return false }
     private var explanation: String {
-        let method = "媒体地址的 HTTP HEAD 响应时间，含本次连接开销；不下载影片正文，不是 Ping、起播时间或带宽。同一线路其他集数可能不同。"
+        let method = "媒体地址的 HTTP HEAD 响应时间，含本次连接开销；检测遵循系统网络设置，可能与实际播放路径不同。不是 Ping、起播时间或带宽。同一线路其他集数可能不同。"
         switch state {
         case .ready(let value): return method + "\n检测于 " + value.checkedAt.formatted(date: .omitted, time: .standard) + "，可更新画质与延时重新检测。"
         case .unavailable(let reason, _): return reason + "。仍可尝试播放或换线路。\n" + method
@@ -249,6 +249,7 @@ struct MediaResponseReadout: View {
 
 struct DetailView: View {
     @ObservedObject var app: AppModel
+    @LegacyState private var showAllSources = false
     var body: some View {
         VStack(spacing: 0) {
             HStack { Text("影片详情").font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary); Spacer(); Button { app.dismissDetail() } label: { Image(systemName: "xmark").font(.system(size: 11, weight: .semibold)).frame(width: 29, height: 29).background(CinemaStyle.panel, in: Circle()) }.buttonStyle(.plain).help("关闭详情") }.padding(.horizontal, 30).padding(.vertical, 15)
@@ -282,21 +283,45 @@ struct DetailView: View {
         }
     }
     private var sources: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        let page = app.sourceRecommendations(app.detailSources, limit: showAllSources ? .max : 5)
+        return VStack(alignment: .leading, spacing: 12) {
             HStack { Text("播放来源").font(.system(size: 16, weight: .semibold)); Text("\(app.detailSources.count)").font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary); Spacer(); Button { app.mediaQuality.check(app.detailSources, providers: app.providers, force: true) } label: { Label("更新画质与延时", systemImage: "arrow.clockwise").font(.system(size: 11)) }.buttonStyle(.plain).foregroundStyle(CinemaStyle.secondary) }
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 230), spacing: 9)], spacing: 9) { ForEach(app.detailSources, id: \.self) { source in sourceRow(source) } }
+            Text("按已获取的画质与响应时间排序 · 信息会随检测更新")
+                .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+            if let current = app.detail?.title { Text("当前来源：\(current.providerName)").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary) }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 230), spacing: 9)], spacing: 9) { ForEach(page.candidates.map(\.title), id: \.self) { source in sourceRow(source) } }
+            if page.remainingCount > 0 {
+                Button("查看更多来源（\(page.remainingCount)）") { showAllSources = true; if app.detailMoreHasMore { app.searchMoreDetailSources() } }
+                    .buttonStyle(.plain).foregroundStyle(CinemaStyle.accent).font(.system(size: 12, weight: .medium))
+            } else {
+                HStack(spacing: 18) {
+                    if app.detailMoreHasMore || app.detailMoreSearching {
+                        Button(app.detailMoreSearching ? "正在查找更多来源…" : "搜索更多来源") { showAllSources = true; app.searchMoreDetailSources() }
+                            .disabled(app.detailMoreSearching).foregroundStyle(CinemaStyle.accent)
+                    }
+                    if showAllSources && page.candidates.count > 5 { Button("收起来源") { showAllSources = false }.foregroundStyle(CinemaStyle.secondary) }
+                }.buttonStyle(.plain).font(.system(size: 12))
+            }
+            if let notice = app.detailMoreNotice { Text(notice).font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary) }
         }
     }
     private func sourceRow(_ source: MediaTitle) -> some View {
         let selected = app.detail?.title.providerID == source.providerID && app.detail?.title.id == source.id
         let enabled = app.providers.contains { $0.id == source.providerID && $0.enabled }
-        return Button { app.select(source) } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 7) { Text(source.providerName).font(.system(size: 12, weight: .medium)); QualityReadout(state: app.mediaQuality.state(for: source, providers: app.providers)); MediaResponseReadout(state: app.mediaQuality.responseState(for: source, providers: app.providers)) }
-                Spacer(minLength: 0)
-                if selected { Image(systemName: "checkmark.circle.fill").foregroundStyle(CinemaStyle.accent) }
-            }.padding(14).frame(maxWidth: .infinity, minHeight: 68, alignment: .leading).background(selected ? CinemaStyle.accent.opacity(0.10) : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9)).overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(selected ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1)).contentShape(Rectangle())
-        }.buttonStyle(.plain).disabled(!enabled).opacity(enabled ? 1 : 0.5)
+        return HStack(spacing: 2) {
+            Button { app.select(source) } label: {
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 7) { Text(source.providerName).font(.system(size: 12, weight: .medium)); QualityReadout(state: app.mediaQuality.state(for: source, providers: app.providers)); MediaResponseReadout(state: app.mediaQuality.responseState(for: source, providers: app.providers)) }
+                    Spacer(minLength: 0)
+                    if selected { Image(systemName: "checkmark.circle.fill").foregroundStyle(CinemaStyle.accent) }
+                }.frame(maxWidth: .infinity, minHeight: 68, alignment: .leading).contentShape(Rectangle())
+            }.buttonStyle(.plain).disabled(!enabled)
+            Button { app.mediaQuality.check([source], providers: app.providers, force: true) } label: {
+                Image(systemName: "arrow.clockwise").frame(width: 30, height: 40)
+            }.buttonStyle(.plain).disabled(!enabled || isBusy(app.mediaQuality.state(for: source, providers: app.providers)))
+                .help("更新此来源的画质与延时").accessibilityLabel("更新\(source.providerName)的画质与延时")
+        }.padding(.horizontal, 14).background(selected ? CinemaStyle.accent.opacity(0.10) : CinemaStyle.panel, in: RoundedRectangle(cornerRadius: 9))
+            .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(selected ? CinemaStyle.accent.opacity(0.6) : .clear, lineWidth: 1)).opacity(enabled ? 1 : 0.5)
     }
     private func lines(_ detail: MediaDetail) -> some View {
         VStack(alignment: .leading, spacing: 12) {

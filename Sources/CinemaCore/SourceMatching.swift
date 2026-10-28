@@ -1,8 +1,9 @@
 import Foundation
 
-/// Conservative matching: an explicit season and exact normalized title are required.
+/// Conservative matching keeps seasons and confirmed films separate.
 public enum SourceMatching {
     public static func sameSeasonTitle(_ current: MediaTitle, _ candidate: MediaTitle) -> Bool {
+        guard !isStandaloneClip(current), !isStandaloneClip(candidate) else { return false }
         guard let a = seasonTitle(current.title), let b = seasonTitle(candidate.title), a == b else { return false }
         return current.year.isEmpty || candidate.year.isEmpty || current.year == candidate.year
     }
@@ -14,6 +15,60 @@ public enum SourceMatching {
         }
     }
     public static func hasExplicitSeason(_ title: MediaTitle) -> Bool { seasonTitle(title.title) != nil }
+    /// A catalog label alone is not enough when the item has multiple numbered episodes.
+    /// Unclassified media must contain one explicitly named feature on every line.
+    public static func isConfirmedMovie(_ detail: MediaDetail) -> Bool {
+        guard !isStandaloneClip(detail.title), !containsSeasonMarker(detail.title.title), !isSeriesCategory(detail.title.category),
+              !detail.lines.isEmpty, detail.lines.allSatisfy({ $0.episodes.count == 1 }) else { return false }
+        let episodes = detail.lines.compactMap { $0.episodes.first }
+        guard episodes.allSatisfy({ !episodeName($0.name).hasPrefix("episode") }) else { return false }
+        if isMovieCategory(detail.title.category) { return true }
+        let featureNames: Set<String> = ["正片", "电影", "电影正片", "全片", "fullmovie"]
+        return episodes.allSatisfy { featureNames.contains(compact($0.name)) }
+    }
+
+    /// Requires both years to be present: unknown-year or remakes are not safe matches.
+    public static func sameMovieTitle(_ current: MediaTitle, _ candidate: MediaTitle) -> Bool {
+        let year = current.year.trimmingCharacters(in: .whitespacesAndNewlines)
+        let otherYear = candidate.year.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !isStandaloneClip(current) && !isStandaloneClip(candidate) &&
+            !year.isEmpty && year == otherYear && !compact(current.title).isEmpty &&
+            compact(current.title) == compact(candidate.title) &&
+            !containsSeasonMarker(current.title) && !containsSeasonMarker(candidate.title) &&
+            !isSeriesCategory(current.category) && !isSeriesCategory(candidate.category)
+    }
+
+    /// Search results are only candidates. The caller must recheck isConfirmedMovie on
+    /// the loaded destination detail before choosing its single feature episode.
+    public static func movieCandidates(current: MediaDetail, results: [MediaTitle]) -> [MediaTitle] {
+        guard isConfirmedMovie(current) else { return [] }
+        var seen = Set<MovieIdentity>()
+        return results.filter {
+            let key = MovieIdentity(provider: $0.providerID, id: $0.id)
+            return !($0.providerID == current.title.providerID && $0.id == current.title.id) &&
+                sameMovieTitle(current.title, $0) && seen.insert(key).inserted
+        }
+    }
+    private struct MovieIdentity: Hashable { let provider: String; let id: String }
+
+    private static func isStandaloneClip(_ title: MediaTitle) -> Bool {
+        title.providerID == "wikimedia-commons"
+    }
+
+    private static func containsSeasonMarker(_ title: String) -> Bool {
+        let value = compact(title)
+        let regex = try! NSRegularExpression(pattern: "第[0-9一二三四五六七八九十零两]+季|season[0-9]+", options: .caseInsensitive)
+        return regex.firstMatch(in: value, range: NSRange(value.startIndex..., in: value)) != nil
+    }
+    private static func isSeriesCategory(_ category: String?) -> Bool {
+        let value = compact(category ?? "")
+        return value.hasSuffix("剧") || value.contains("电视剧") || value == "series" || value == "tvseries"
+    }
+    private static func isMovieCategory(_ category: String?) -> Bool {
+        let value = compact(category ?? "")
+        let categories: Set<String> = ["电影", "剧情片", "喜剧片", "动作片", "爱情片", "科幻片", "恐怖片", "战争片", "犯罪片", "悬疑片", "冒险片", "奇幻片", "惊悚片"]
+        return categories.contains(value) || value.hasSuffix("电影")
+    }
     public static func matchEpisode(_ current: Episode, in line: PlaybackLine) -> Episode? {
         let matches = line.episodes.filter {
             $0.number == current.number && episodeName($0.name) == episodeName(current.name)

@@ -6,6 +6,7 @@ struct BoundedHTTPClient {
     var timeout: TimeInterval = 15
     var maximumBytes: Int = 4 * 1024 * 1024
     var configuration: URLSessionConfiguration = .ephemeral
+    var userAgent: String = "Cinema/1.0"
     func get(_ url: URL, prefixBytes: Int? = nil) async throws -> (Data, URL) {
         guard networkURL(url.absoluteString) != nil else { throw SourceError.invalidURL }
         try Task.checkCancellation()
@@ -15,7 +16,7 @@ struct BoundedHTTPClient {
         let session = URLSession(configuration: configuration)
         defer { session.invalidateAndCancel() }
         var request = URLRequest(url: url, timeoutInterval: timeout)
-        request.setValue("Cinema/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         if let prefixBytes {
             guard prefixBytes > 0, prefixBytes <= maximumBytes else { throw SourceError.responseTooLarge }
             request.setValue("bytes=0-\(prefixBytes - 1)", forHTTPHeaderField: "Range")
@@ -42,6 +43,17 @@ public struct SourceService {
     private let client: BoundedHTTPClient
     public init(routing: SourceRequestRouting = .system) { client = BoundedHTTPClient(configuration: routing.configuration()) }
     init(client: BoundedHTTPClient) { self.client = client }
+    private var archiveClient: BoundedHTTPClient {
+        var value = client
+        value.timeout = min(value.timeout, 8)
+        value.maximumBytes = min(value.maximumBytes, 2 * 1024 * 1024)
+        return value
+    }
+    private var commonsClient: BoundedHTTPClient {
+        var value = archiveClient
+        value.userAgent = "Chengmu/0.4 (https://github.com/yangxiaowai/chengmu-player)"
+        return value
+    }
     public func search(query: String, providers: [SourceProvider] = SourceProvider.defaults, page: Int = 1) async -> SearchResponse {
         let pages = Dictionary(providers.map { ($0.id, page) }, uniquingKeysWith: { first, _ in first })
         let results = await searchPages(query: query, providers: providers, pages: pages)
@@ -61,6 +73,15 @@ public struct SourceService {
                 group.addTask {
                     do {
                         let page = pages[provider.id] ?? 1
+                        if CommonsCatalog.recognizes(provider) {
+                            let (data, _) = try await commonsClient.get(try CommonsCatalog.searchURL(query: query, page: page))
+                            return (index, ProviderPageResult(providerID: provider.id, page: try CommonsCatalog.parsePage(data, provider: provider, page: page), error: nil))
+                        }
+                        if ArchiveCatalog.recognizes(provider) {
+                            let url = try ArchiveCatalog.searchURL(query: query, page: page)
+                            let (data, _) = try await archiveClient.get(url)
+                            return (index, ProviderPageResult(providerID: provider.id, page: try ArchiveCatalog.parsePage(data, provider: provider, page: page), error: nil))
+                        }
                         let url = try Self.requestURL(provider: provider, action: provider.searchAction == "detail" ? "detail" : "list", parameters: ["wd": query, "pg": String(page)])
                         let (data, _) = try await client.get(url)
                         return (index, ProviderPageResult(providerID: provider.id, page: try Self.parsePage(data: data, provider: provider, requestedPage: page), error: nil))
@@ -82,6 +103,16 @@ public struct SourceService {
     }
     /// Catalog reachability only. A successful page is not a playback health guarantee.
     public func browse(provider: SourceProvider, categoryID: String? = nil, page: Int = 1) async throws -> CatalogPage {
+        if CommonsCatalog.recognizes(provider) {
+            guard categoryID == nil else { throw SourceError.invalidPage }
+            let (data, _) = try await commonsClient.get(try CommonsCatalog.searchURL(query: "", page: page))
+            return try CommonsCatalog.parsePage(data, provider: provider, page: page)
+        }
+        if ArchiveCatalog.recognizes(provider) {
+            guard categoryID == nil else { throw SourceError.invalidPage }
+            let (data, _) = try await archiveClient.get(try ArchiveCatalog.searchURL(query: "", page: page))
+            return try ArchiveCatalog.parsePage(data, provider: provider, page: page)
+        }
         var parameters = ["pg": String(page)]
         if let categoryID = categoryID?.trimmingCharacters(in: .whitespacesAndNewlines), !categoryID.isEmpty {
             parameters["t"] = categoryID
@@ -108,6 +139,14 @@ public struct SourceService {
     }
     public func detail(title: MediaTitle, provider: SourceProvider) async throws -> MediaDetail {
         guard title.providerID == provider.id else { throw SourceError.invalidResponse }
+        if CommonsCatalog.recognizes(provider) {
+            let (data, _) = try await commonsClient.get(try CommonsCatalog.detailURL(id: title.id))
+            return try CommonsCatalog.parseDetail(data, title: title)
+        }
+        if ArchiveCatalog.recognizes(provider) {
+            let (data, _) = try await archiveClient.get(try ArchiveCatalog.metadataURL(id: title.id))
+            return try ArchiveCatalog.parseDetail(data, title: title)
+        }
         let url = try Self.requestURL(provider: provider, action: "detail", parameters: ["ids": title.id])
         let (data, _) = try await client.get(url)
         return try Self.parseDetail(data: data, title: title)

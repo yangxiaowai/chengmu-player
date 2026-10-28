@@ -27,7 +27,7 @@ if not (library / "libCinemaCore.a").exists():
 binary = root / ".build/headless-network-playback-smoke"
 command = ["swiftc", "-parse-as-library", "-target", f"{platform.machine()}-apple-macos15.0",
            "-I", str(library), "-L", str(library), "-lCinemaCore",
-           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/PlaybackDisplaySleepGuard.swift", "Sources/CinemaApp/QualityPerformanceController.swift", "Sources/CinemaApp/FrameInterpolator.swift", "Sources/CinemaApp/InterpolatedFramePipeline.swift", "Sources/CinemaApp/VideoProcessingPolicy.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift", "Sources/CinemaApp/DetailScaler.swift",
+           "Sources/CinemaApp/PlaybackController.swift", "Sources/CinemaApp/DirectProgressiveResourceLoader.swift", "Sources/CinemaApp/PlaybackDisplaySleepGuard.swift", "Sources/CinemaApp/QualityPerformanceController.swift", "Sources/CinemaApp/FrameInterpolator.swift", "Sources/CinemaApp/InterpolatedFramePipeline.swift", "Sources/CinemaApp/VideoProcessingPolicy.swift", "Sources/CinemaApp/EnhancementPipeline.swift", "Sources/CinemaApp/TemporalRestorer.swift", "Sources/CinemaApp/DetailScaler.swift",
            "Sources/CinemaApp/MediaExperienceInspector.swift",
            "Sources/CinemaApp/AdSkipController.swift", "Sources/CinemaApp/AdFrameAnalyzer.swift",
            "Tests/AppModelSmoke/NetworkPlaybackSmoke.swift", "-o", str(binary)]

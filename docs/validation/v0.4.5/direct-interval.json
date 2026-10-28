@@ -1,0 +1,78 @@
+{
+  "checks" : [
+    {
+      "name" : "eligible_mp4_uses_direct_loader",
+      "passed" : true
+    },
+    {
+      "name" : "direct_route_is_preparing",
+      "passed" : true
+    },
+    {
+      "name" : "direct_route_identifies_http_proxy_exclusion",
+      "passed" : true
+    },
+    {
+      "name" : "direct_item_preview_has_correct_frame_without_stopping_playback",
+      "passed" : true
+    },
+    {
+      "name" : "direct_seek_preserves_pause",
+      "passed" : true
+    },
+    {
+      "name" : "direct_failure_falls_back_preserving_pause_and_resume",
+      "passed" : true
+    },
+    {
+      "name" : "signed_url_stays_native",
+      "passed" : true
+    },
+    {
+      "name" : "hls_stays_native",
+      "passed" : true
+    },
+    {
+      "name" : "signed_redirect_stays_system_route",
+      "passed" : true
+    },
+    {
+      "name" : "basic_auth_challenge_falls_back_without_resuming",
+      "passed" : true
+    },
+    {
+      "name" : "invalid_content_range_falls_back",
+      "passed" : true
+    },
+    {
+      "name" : "cookie_fixture_is_present",
+      "passed" : true
+    },
+    {
+      "name" : "cross_host_cookie_redirect_stays_system_route",
+      "passed" : true
+    },
+    {
+      "name" : "timeout_preserves_pause",
+      "passed" : true
+    },
+    {
+      "name" : "superseded_direct_timeout_does_not_replace_new_item",
+      "passed" : true
+    },
+    {
+      "name" : "shared_session_cancels_only_its_own_loader",
+      "passed" : true
+    },
+    {
+      "name" : "canceled_loading_request_finishes_and_loader_releases",
+      "passed" : true
+    },
+    {
+      "name" : "rapid_start_stop_preserves_final_item",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Local HTTP and real AVPlayer, injected direct-denied\/slow responses, not system proxy or real-world playback"
+}

@@ -16,6 +16,8 @@ final class SeekPreviewController: ObservableObject {
     private struct Frame { let image: CGImage; let time: Double }
     private struct Cached { let frame: Frame; var used: UInt64 }
     private var asset: AVAsset?
+    private var isConfirmedHLS = false
+    private var lastDuration = 0.0
     private var itemID = UUID()
     private var requestID = UUID()
     private var inFlightTime: Double?
@@ -34,18 +36,32 @@ final class SeekPreviewController: ObservableObject {
     private let renderContext = CIContext(options: [.cacheIntermediates: false])
     private let tolerance = 0.45
     private let debounce = 0.15
+    // Retain the existing extension-based fast path; verified playlist metadata also
+    // covers HLS endpoints whose URLs do not expose a file suffix.
     private var usesHLS: Bool {
-        (asset as? AVURLAsset)?.url.pathExtension.lowercased() == "m3u8"
+        isConfirmedHLS || (asset as? AVURLAsset)?.url.pathExtension.lowercased() == "m3u8"
     }
     var cachedFrameCount: Int { cache.count }
 
-    func configure(asset: AVAsset?, itemID: UUID) {
-        guard self.itemID != itemID || self.asset !== asset else { return }
+    func configure(asset: AVAsset?, itemID: UUID, isConfirmedHLS: Bool = false) {
+        if self.itemID == itemID && self.asset === asset {
+            guard self.isConfirmedHLS != isConfirmedHLS else { return }
+            self.isConfirmedHLS = isConfirmedHLS
+            // A verified type may arrive after hovering begins; cancel the old backend,
+            // then retry the same target without moving the visible player's clock.
+            if isLoading || message != nil {
+                let target = requestedTime, duration = lastDuration
+                hide()
+                request(time: target, duration: duration)
+            }
+            return
+        }
         stop()
-        self.asset = asset; self.itemID = itemID
+        self.asset = asset; self.itemID = itemID; self.isConfirmedHLS = isConfirmedHLS
     }
     func request(time: Double, duration: Double) {
         guard asset != nil, time.isFinite, duration.isFinite, duration > 0 else { hide(); message = "预览暂不可用"; return }
+        lastDuration = duration
         let target = min(max(0, time), max(0, duration - 0.05))
         // AppKit may send repeated mouse events without a meaningful change of position.
         // Restarting the debounce and canceling the decoder each time starves slow streams.
@@ -154,6 +170,7 @@ final class SeekPreviewController: ObservableObject {
             let output = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA, kCVPixelBufferMetalCompatibilityKey as String: true, kCVPixelBufferIOSurfacePropertiesKey as String: [String: String]()])
             item.add(output)
             let player = AVPlayer(playerItem: item)
+            if #available(macOS 26.0, *) { player.networkResourcePriority = .low }
             player.isMuted = true; player.volume = 0; player.automaticallyWaitsToMinimizeStalling = false
             decoder = player; decoderItem = item; videoOutput = output
             decoderTransform = usesHLS ? .identity : nil
@@ -205,7 +222,7 @@ final class SeekPreviewController: ObservableObject {
     }
     private func loadDisplayTransform(_ asset: AVAsset, request: Request, item token: UUID) async -> CGAffineTransform? {
         // Loading on our own URL asset makes explicit cancellation safe for the main player's shared asset.
-        let ownedAsset = (asset as? AVURLAsset).map { AVURLAsset(url: $0.url) }
+        let ownedAsset = (asset as? AVURLAsset).flatMap { $0.url.scheme == "cinemadirect" ? nil : AVURLAsset(url: $0.url) }
         let loadingAsset = ownedAsset ?? asset
         return await withCheckedContinuation { continuation in
             let waiter = PreviewWaiter<CGAffineTransform>(continuation)

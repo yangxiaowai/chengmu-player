@@ -155,6 +155,9 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published var isLoading = false
     @Published private(set) var loadingMessage: String?
     @Published private(set) var bufferSnapshot: PlaybackBufferSnapshot?
+    /// Recent bytes actually read by this item's direct loader; nil until a window is available.
+    @Published private(set) var directDownloadSpeed: Double?
+    @Published private(set) var mediaNetworkRoute = "系统网络"
     @Published private(set) var recoverySuggested = false
     @Published var error: String?
     @Published private(set) var hasPlaybackFailure = false
@@ -273,7 +276,13 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var prepareTask: Task<Void, Never>?
     private var preparedItemID: UUID?
     private var loadingWatchdog: Task<Void, Never>?
+    private var directRouteWatchdog: Task<Void, Never>?
+    private var directLoader: DirectProgressiveResourceLoader?
     private var bufferMonitor: Task<Void, Never>?
+    private let accessLogQueue = DispatchQueue(label: "cinema.playback-access-log", qos: .utility)
+    private var accessLogReadInFlight = false
+    private var observedNetworkBitrate = -1.0
+    private var directTransferRate = DirectTransferRateTracker()
     private let forwardBufferTarget = 12.0
     private var waitingID: UUID?
     private var failureResumeTarget: Double?
@@ -314,6 +323,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         experience.$status.map { $0.audioIsAtmos }.removeDuplicates().sink { [weak self] _ in self?.objectWillChange.send() }.store(in: &cancellables)
         adSkipSubscription = adSkip.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         player.volume = volume
+        // Prioritise the visible player when auxiliary preview/scanning players compete for bandwidth.
+        if #available(macOS 26.0, *) { player.networkResourcePriority = .high }
         player.automaticallyWaitsToMinimizeStalling = true
         controlObservation = player.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             Task { @MainActor in
@@ -322,7 +333,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
     }
 
-    func open(url: URL, title: String, episode: String, resume: Double = 0, isAutomaticRecovery: Bool = false) {
+    func open(url: URL, title: String, episode: String, resume: Double = 0, isAutomaticRecovery: Bool = false, forceSystemRoute: Bool = false) {
         let recoveryCues = isAutomaticRecovery ? cues : []
         let recoveryName = isAutomaticRecovery ? externalSubtitleName : nil
         let recoveryOffset = isAutomaticRecovery ? subtitleOffset : 0
@@ -352,7 +363,11 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         adCleanup = AdCleanupSettings()
         ignoredAdSegments = []; adSkipNotice = nil; adSkipInteractions = []
         adSkip.configure(url: url, itemID: token, protectedRegions: adCleanup.protectedRegions)
-        let item = AVPlayerItem(url: url)
+        let loader = forceSystemRoute ? nil : DirectProgressiveResourceLoader(url: url)
+        directLoader = loader
+        observedNetworkBitrate = -1
+        mediaNetworkRoute = url.isFileURL ? "本地文件" : (loader == nil ? "系统网络" : "直连准备中")
+        let item = loader.map { AVPlayerItem(asset: $0.asset) } ?? AVPlayerItem(url: url)
         item.preferredForwardBufferDuration = forwardBufferTarget
         let output = AVPlayerItemLegibleOutput()
         output.suppressesPlayerRendering = true
@@ -372,9 +387,11 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 guard let self, let item, self.itemID == token else { return }
                 switch item.status {
                 case .readyToPlay:
+                    self.directRouteWatchdog?.cancel(); self.directRouteWatchdog = nil
+                    if self.directLoader != nil { self.mediaNetworkRoute = "排除 HTTP 代理的文件直连" }
                     self.prepareReady(item, token: token)
                 case .failed:
-                    self.failCurrentItem(self.describe(item.error))
+                    if !self.fallbackDirectRoute(token: token) { self.failCurrentItem(self.describe(item.error)) }
                 default: break
                 }
             }
@@ -400,6 +417,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         failedObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in
                 guard let self, self.itemID == token, self.player.currentItem === item else { return }
+                if self.fallbackDirectRoute(token: token) { return }
                 // A dropped connection mid-transfer is worth one silent retry at the same position;
                 // the source, the line and the user's play intent are all unchanged.
                 guard self.wantsPlay else {
@@ -436,6 +454,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                     self?.sourceInfo = result
                     self?.experience.updateDeclarations(result.declarations)
                 } catch { /* Playback owns media errors; non-HLS is a valid input. */ }
+            }
+        }
+        if loader != nil {
+            directRouteWatchdog = Task { @MainActor [weak self, weak item] in
+                do { try await Task.sleep(nanoseconds: 7_000_000_000) } catch { return }
+                guard let self, let item, self.itemID == token, self.player.currentItem === item,
+                      item.status == .unknown else { return }
+                _ = self.fallbackDirectRoute(token: token)
             }
         }
         player.defaultRate = rate; player.play()
@@ -791,6 +817,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     private func clearWaitingState() {
         loadingWatchdog?.cancel(); loadingWatchdog = nil; waitingID = nil; recoverySuggested = false
+        observedNetworkBitrate = -1
+        directTransferRate = DirectTransferRateTracker(); directDownloadSpeed = nil
         bufferMonitor?.cancel(); bufferMonitor = nil; bufferSnapshot = nil
     }
     private func updateBufferSnapshot() {
@@ -803,13 +831,45 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         }
         let time = player.currentTime().seconds
         let targetPosition = pendingSeekTarget ?? pendingSkipTarget ?? (desiredResume > 0 ? desiredResume : time)
-        let bitrate = item.accessLog()?.events.last?.observedBitrate ?? -1
-        bufferSnapshot = PlaybackBufferSnapshot(position: targetPosition, ranges: ranges, targetSeconds: forwardBufferTarget, observedBitsPerSecond: bitrate)
+        if let loader = directLoader {
+            directDownloadSpeed = directTransferRate.sample(bytes: loader.receivedByteCount, at: ProcessInfo.processInfo.systemUptime)
+        } else {
+            directDownloadSpeed = nil
+        }
+        if url?.isFileURL == false, directLoader == nil, !accessLogReadInFlight {
+            accessLogReadInFlight = true
+            let token = itemID, wait = waitingID
+            accessLogQueue.async { [weak self, item] in
+                let bitrate = item.accessLog()?.events.last?.observedBitrate ?? -1
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    self.accessLogReadInFlight = false
+                    if self.itemID == token, self.waitingID == wait, self.player.currentItem === item {
+                        self.observedNetworkBitrate = bitrate
+                    }
+                }
+            }
+        }
+        bufferSnapshot = PlaybackBufferSnapshot(position: targetPosition, ranges: ranges, targetSeconds: forwardBufferTarget, observedBitsPerSecond: observedNetworkBitrate)
     }
     private func clearItemObservers() {
         statusObservation = nil
+        directRouteWatchdog?.cancel(); directRouteWatchdog = nil
+        directLoader?.stop(); directLoader = nil
         for value in [finishedObserver, stalledObserver, failedObserver].compactMap({$0}) { NotificationCenter.default.removeObserver(value) }
         finishedObserver = nil; stalledObserver = nil; failedObserver = nil
+    }
+    /// If direct loading cannot start or fails later, retry once using AVPlayer's system route.
+    /// The latest seek target and play/pause intent take precedence over the original request.
+    private func fallbackDirectRoute(token: UUID) -> Bool {
+        guard itemID == token, directLoader != nil, let url else { return false }
+        let resume = pendingSkipTarget ?? pendingSeekTarget ?? (desiredResume > 0 ? desiredResume : position)
+        let shouldPlay = wantsPlay, cleanup = adCleanup
+        open(url: url, title: title, episode: episodeName, resume: resume.isFinite ? max(0, resume) : 0,
+             isAutomaticRecovery: true, forceSystemRoute: true)
+        adCleanup = cleanup
+        if !shouldPlay { pause() }
+        return true
     }
     /// Describes the failure from the actual error, and names transport failures as transport
     /// failures instead of blaming the container or codec.

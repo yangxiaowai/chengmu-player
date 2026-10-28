@@ -54,6 +54,51 @@ import CinemaCore
         app.mediaQuality.check(titles, providers: providers, force: true)
         try await wait()
         check("manual_read_works_with_automatic_off", inspections == titles.count)
+        let recommendations = app.sourceRecommendations(titles)
+        check("source_recommendations_use_measured_quality", recommendations.candidates.first?.title.id == "wide")
+        check("source_recommendations_show_five_and_preserve_more", recommendations.candidates.count == 5 && recommendations.remainingCount == titles.count - 5)
+        let expandedRecommendations = app.sourceRecommendations(titles, limit: Int.max)
+        check("source_recommendations_expand_without_losing_sources", expandedRecommendations.candidates.count == titles.count && expandedRecommendations.remainingCount == 0)
+        app.detailPresented = true; app.detailSources = [titles[0]]
+        app.results = [titles[0], titles.first(where: { $0.id == "wide" })!, titles[1]]
+        app.mergeMoreDetailSources()
+        check("more_pages_add_only_matching_title", Set(app.detailSources.map(\.id)) == Set(["0", "wide"]))
+        let yearKnown = MediaTitle(id: "year-a", title: "同名影片", year: "2020", posterURL: nil, summary: "", providerID: "demo-a", providerName: "A")
+        let yearUnknown = MediaTitle(id: "year-b", title: "同名影片", year: "", posterURL: nil, summary: "", providerID: "demo-b", providerName: "B")
+        let otherYear = MediaTitle(id: "year-c", title: "同名影片", year: "2022", posterURL: nil, summary: "", providerID: "demo-b", providerName: "B")
+        app.detailSources = [yearKnown]; app.results = [yearKnown, yearUnknown]; app.mergeMoreDetailSources()
+        app.results = [yearKnown, yearUnknown, otherYear]; app.mergeMoreDetailSources()
+        check("ambiguous_year_does_not_remain_in_previous_group", app.detailSources == [yearKnown])
+        app.detailSources = [yearKnown, yearUnknown]; app.select(yearUnknown)
+        app.results = [yearKnown, yearUnknown, otherYear]; app.mergeMoreDetailSources()
+        check("more_pages_respect_selected_source_while_detail_loads", app.detailSources == [yearUnknown])
+        app.dismissDetail(); app.detailPresented = true
+        let corrected = MediaTitle(id: yearKnown.id, title: "另一部电影", year: "2022", posterURL: nil, summary: "", providerID: yearKnown.providerID, providerName: yearKnown.providerName)
+        app.detailSources = [yearKnown]; app.results = [yearKnown, yearUnknown]
+        app.mergeMoreDetailSources(confirmed: corrected)
+        check("confirmed_detail_metadata_overrides_stale_search_row", app.detailSources == [corrected])
+        let disabled = (0..<5).map { MediaTitle(id: "disabled-\($0)", title: "示例", year: "", posterURL: nil, summary: "", providerID: "disabled", providerName: "停用") }
+        let enabled = MediaTitle(id: "enabled", title: "示例", year: "", posterURL: nil, summary: "", providerID: "demo-a", providerName: "可用")
+        check("enabled_unknown_sources_precede_disabled_sources", app.sourceRecommendations(disabled + [enabled]).candidates.first?.title.id == "enabled")
+        app.detailSources = [titles[0]]; app.results = [titles[1]]; app.query = "其他作品"
+        var detailQuery = ""
+        app.detailPageSearch = { query, _, _ in
+            detailQuery = query
+            return [ProviderPageResult(providerID: "demo-b", page: CatalogPage(providerID: "demo-b", titles: [titles.first(where: { $0.id == "wide" })!], categories: [], page: 1, pageCount: 1, total: 1), error: nil)]
+        }
+        app.searchMoreDetailSources()
+        let searchDeadline = Date().addingTimeInterval(3)
+        while app.detailMoreSearching, Date() < searchDeadline { try await Task.sleep(nanoseconds: 20_000_000) }
+        check("more_search_uses_current_work_not_old_query", detailQuery == titles[0].title && Set(app.detailSources.map(\.id)) == Set(["0", "wide"]))
+        app.dismissDetail(); app.detailPresented = true; app.detailSources = [titles[0]]
+        app.detailPageSearch = { _, _, _ in
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            return [ProviderPageResult(providerID: "demo-b", page: CatalogPage(providerID: "demo-b", titles: [titles.first(where: { $0.id == "wide" })!], categories: [], page: 1, pageCount: 1, total: 1), error: nil)]
+        }
+        app.searchMoreDetailSources(); await Task.yield(); app.dismissDetail()
+        try await Task.sleep(nanoseconds: 100_000_000)
+        check("late_more_search_cannot_reopen_closed_detail", !app.detailPresented && app.detailSources.isEmpty && !app.detailMoreSearching)
+        app.detailPresented = false; app.detailSources = []; app.results = titles
         app.catalogSort = .resolution
         let best = app.filteredGroups.first.flatMap { app.mediaQuality.best(in: $0.sources, providers: providers) }
         check("group_resolution_sort_uses_best_actual_source", best?.providerName == "演示来源 B" && best?.sample.width == 3840)
@@ -117,6 +162,10 @@ import CinemaCore
         try await snapshot(ContentView(app: app), size: NSSize(width: 1280, height: 900), name: "search-1280")
         app.detail = fixtureDetail(titles[0]); app.detailSources = titles.filter { $0.title == "星际穿越" }; app.selectedLineID = "main"
         try await snapshot(DetailView(app: app), size: NSSize(width: 900, height: 740), name: "detail-900")
+        app.detailSources = (0..<7).map { index in
+            MediaTitle(id: "fixture-source-\(index)", title: "星际穿越", year: "2014", posterURL: nil, summary: "", providerID: "demo-a", providerName: "演示来源 \(index + 1)")
+        }
+        try await snapshot(DetailView(app: app), size: NSSize(width: 900, height: 740), name: "detail-more-sources")
         app.showPlayer = true
         app.playback.player.isMuted = true
         app.playback.selectEnhancementMode(.original)

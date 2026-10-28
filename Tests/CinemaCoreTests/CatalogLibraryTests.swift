@@ -30,6 +30,60 @@ struct CatalogLibraryTests {
         #expect(ambiguous.count == 3)
         #expect(ambiguous.allSatisfy { $0.sources.count == 1 })
     }
+    @Test func conflictingFilmAndSeriesCategoriesRemainSeparate() {
+        var film = title("film", "同名作品", year: "2020", provider: "film"); film.category = "剧情片"
+        var series = title("series", "同名作品", year: "2020", provider: "series"); series.category = "国产剧"
+        let unknown = title("unknown", "同名作品", year: "2020", provider: "unknown")
+        let groups = CatalogGrouping.groups([film, series, unknown])
+        #expect(groups.count == 3)
+        #expect(groups.allSatisfy { $0.sources.count == 1 })
+        #expect(Set(groups.map(\.id)) == Set(CatalogGrouping.groups([unknown, series, film]).map(\.id)))
+        #expect(CatalogGrouping.groups([film, unknown]).count == 1)
+        #expect(CatalogGrouping.groups([series, unknown]).count == 1)
+    }
+    @Test func documentaryAndAnimationLabelsAloneDoNotAssertFilmClassification() {
+        var film = title("film", "同名作品", year: "2020", provider: "film"); film.category = "电影"
+        var series = title("series", "同名作品", year: "2020", provider: "series"); series.category = "电视剧"
+        var doc = title("doc", "同名作品", year: "2020", provider: "doc"); doc.category = "纪录片"
+        var animation = title("animation", "同名作品", year: "2020", provider: "animation"); animation.category = "动画片"
+        let groups = CatalogGrouping.groups([film, series, doc, animation])
+        #expect(groups.count == 3)
+        #expect(groups.contains { Set($0.sources.map(\.id)) == Set(["doc", "animation"]) })
+    }
+    @Test func existingWatchlistFollowsItsKnownCategoryAcrossSplitAndMerge() throws {
+        var film = title("film", "同名作品", year: "2020", provider: "film"); film.category = "电影"
+        var series = title("series", "同名作品", year: "2020", provider: "series"); series.category = "电视剧"
+        let unknown = title("unknown", "同名作品", year: "2020", provider: "unknown")
+        let oldFilm = SavedTitle(group: try #require(CatalogGrouping.groups([film, unknown]).first))
+        let split = CatalogGrouping.groups([film, series, unknown])
+        let filmGroup = try #require(split.first { $0.sources.contains(film) })
+        let seriesGroup = try #require(split.first { $0.sources.contains(series) })
+        let unknownGroup = try #require(split.first { $0.sources.contains(unknown) })
+        #expect(oldFilm.matches(filmGroup))
+        #expect(!oldFilm.matches(seriesGroup))
+        #expect(!oldFilm.matches(unknownGroup))
+        let splitFilm = SavedTitle(group: filmGroup)
+        #expect(splitFilm.matches(try #require(CatalogGrouping.groups([film, unknown]).first)))
+        #expect(!oldFilm.matches(try #require(CatalogGrouping.groups([series]).first)))
+    }
+    @Test func oldBookmarkWithConflictingKnownCategoriesDoesNotFollowEitherSplit() throws {
+        var film = title("film", "同名作品", year: "2020", provider: "film"); film.category = "电影"
+        var series = title("series", "同名作品", year: "2020", provider: "series"); series.category = "电视剧"
+        let oldID = try #require(CatalogGrouping.groups([film]).first).id
+        let oldMixed = SavedTitle(group: MediaGroup(id: oldID, sources: [film, series]))
+        #expect(CatalogGrouping.groups([film, series]).allSatisfy { !oldMixed.matches($0) })
+        #expect(oldMixed.matches(try #require(oldMixed.group)))
+    }
+    @Test func unclassifiedBookmarkKeepsItsOwnSourceWhenCategoriesSplit() throws {
+        let unknown = title("unknown", "同名作品", year: "2020", provider: "unknown")
+        let saved = SavedTitle(group: try #require(CatalogGrouping.groups([unknown]).first))
+        var film = title("film", "同名作品", year: "2020", provider: "film"); film.category = "电影"
+        var series = title("series", "同名作品", year: "2020", provider: "series"); series.category = "电视剧"
+        let groups = CatalogGrouping.groups([film, series, unknown])
+        let unknownGroup = try #require(groups.first { $0.sources.contains(unknown) })
+        #expect(saved.matches(unknownGroup))
+        #expect(groups.filter { saved.matches($0) }.count == 1)
+    }
     @Test func representativeUsesAvailableArtworkWithoutChangingSourceIdentity() {
         let groups = CatalogGrouping.groups([title("1"),title("2",provider:"b",poster:"https://example.test/poster.jpg"),title("1")])
         #expect(groups.count == 1)

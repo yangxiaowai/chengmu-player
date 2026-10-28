@@ -1,0 +1,122 @@
+{
+  "checks" : [
+    {
+      "name" : "automatic_off_does_not_start_visible_probe",
+      "passed" : true
+    },
+    {
+      "name" : "queue_finishes",
+      "passed" : true
+    },
+    {
+      "name" : "manual_read_works_with_automatic_off",
+      "passed" : true
+    },
+    {
+      "name" : "source_recommendations_use_measured_quality",
+      "passed" : true
+    },
+    {
+      "name" : "source_recommendations_show_five_and_preserve_more",
+      "passed" : true
+    },
+    {
+      "name" : "source_recommendations_expand_without_losing_sources",
+      "passed" : true
+    },
+    {
+      "name" : "more_pages_add_only_matching_title",
+      "passed" : true
+    },
+    {
+      "name" : "ambiguous_year_does_not_remain_in_previous_group",
+      "passed" : true
+    },
+    {
+      "name" : "more_pages_respect_selected_source_while_detail_loads",
+      "passed" : true
+    },
+    {
+      "name" : "confirmed_detail_metadata_overrides_stale_search_row",
+      "passed" : true
+    },
+    {
+      "name" : "enabled_unknown_sources_precede_disabled_sources",
+      "passed" : true
+    },
+    {
+      "name" : "more_search_uses_current_work_not_old_query",
+      "passed" : true
+    },
+    {
+      "name" : "late_more_search_cannot_reopen_closed_detail",
+      "passed" : true
+    },
+    {
+      "name" : "group_resolution_sort_uses_best_actual_source",
+      "passed" : true
+    },
+    {
+      "name" : "playing_view_blocks_background_probe_submission",
+      "passed" : true
+    },
+    {
+      "name" : "endpoint_change_does_not_reuse_title_result",
+      "passed" : true
+    },
+    {
+      "name" : "performance_test_cancels_background_metadata",
+      "passed" : true
+    },
+    {
+      "name" : "cancelled_metadata_does_not_reappear_after_self_test",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_home-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_home-minimum",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_watchlist-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_history-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_sources-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_quality-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_search-1280",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_detail-900",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_detail-more-sources",
+      "passed" : true
+    },
+    {
+      "name" : "local_player_fixture_ready",
+      "passed" : true
+    },
+    {
+      "name" : "native_snapshot_player-1280",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Real AppModel\/controller wiring and native SwiftUI bitmap snapshots. Offline injected metadata; film names, providers, descriptions and quality values are demo fixtures, not live-source verification. Optional publicly supplied cover images cached in .build\/catalog-preview-artwork are used only for UI previews; production UI uses source-supplied covers. No pointer interaction or native display-window proof."
+}

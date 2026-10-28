@@ -51,7 +51,10 @@ struct PlayerView: View {
                                             Text(String(format: "已缓冲 %.1f 秒 · 目标 12 秒", seconds))
                                         }.font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                                     }
-                                    if let speed = snapshot.observedBytesPerSecond {
+                                    if let speed = playback.directDownloadSpeed {
+                                        Text(speed < 1 ? "近期下载速度低于测量精度" : "近期下载速度约 \(ByteCountFormatter.string(fromByteCount: Int64(min(speed, 1_000_000_000_000)), countStyle: .binary))/秒")
+                                            .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                                    } else if let speed = snapshot.observedBytesPerSecond {
                                         Text("平均下载速度 \(ByteCountFormatter.string(fromByteCount: Int64(min(speed, 1_000_000_000_000)), countStyle: .binary))/秒")
                                             .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
                                     } else {
@@ -465,7 +468,7 @@ struct PlayerView: View {
             .help(playback.pictureStatusDetail)
             .allowsHitTesting(false)
             SeekBar(value: $slider, duration: playback.duration, asset: playback.player.currentItem?.asset, itemID: playback.itemID,
-                    visible: presentation.controlsVisible,
+                    isConfirmedHLS: playback.sourceInfo != nil, visible: presentation.controlsVisible,
                     onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing); playback.setAdSkipInteraction("seek", active: editing) },
                     onSeek: { playback.seek(to: $0) },
                     onHover: { presentation.interact("seek-preview", active: $0); playback.setAdSkipInteraction("seek-preview", active: $0) })
@@ -523,6 +526,7 @@ struct PlayerView: View {
     private var statistics: some View {
         VStack(alignment: .leading, spacing: 7) {
             Text("播放详情").font(.system(size: 11, weight: .bold))
+            Text("网络 · \(playback.mediaNetworkRoute)").help("文件直连仅表示排除了 HTTP/SOCKS 代理，VPN 与 DNS 仍由系统管理。")
             if let m = playback.metrics {
                 Text("源 \(m.sourceWidth)×\(m.sourceHeight) / 输出 \(m.outputWidth)×\(m.outputHeight)")
                 Text("处理 \(m.processingMS, specifier: "%.2f") ms / 帧")

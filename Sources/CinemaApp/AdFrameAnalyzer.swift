@@ -120,6 +120,7 @@ final class AdFrameAnalyzer {
             let output = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA, kCVPixelBufferIOSurfacePropertiesKey as String: [String: String]()])
             item.add(output)
             let player = AVPlayer(playerItem: item)
+            if #available(macOS 26.0, *) { player.networkResourcePriority = .low }
             player.isMuted = true; player.volume = 0; player.automaticallyWaitsToMinimizeStalling = true
             self.decoder = player; decoderItem = item; self.output = output
             transform = usesHLS ? .identity : nil
@@ -176,6 +177,7 @@ final class AdFrameAnalyzer {
             let output = AVPlayerItemVideoOutput(pixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA, kCVPixelBufferIOSurfacePropertiesKey as String: [String: String]()])
             item.add(output)
             let player = AVPlayer(playerItem: item)
+            if #available(macOS 26.0, *) { player.networkResourcePriority = .low }
             player.isMuted = true; player.volume = 0; player.automaticallyWaitsToMinimizeStalling = false
             self.decoder = player; decoderItem = item; self.output = output
             transform = usesHLS ? .identity : nil

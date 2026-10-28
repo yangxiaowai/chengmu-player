@@ -1,0 +1,55 @@
+{
+  "checks" : [
+    {
+      "name" : "range_get_accepts_extensionless_mp4",
+      "passed" : true
+    },
+    {
+      "name" : "extensionless_hls_playlist_parsed",
+      "passed" : true
+    },
+    {
+      "name" : "ignored_range_uses_bounded_prefix",
+      "passed" : true
+    },
+    {
+      "name" : "reject_html",
+      "passed" : true
+    },
+    {
+      "name" : "reject_bad-range",
+      "passed" : true
+    },
+    {
+      "name" : "reject_redirect-file",
+      "passed" : true
+    },
+    {
+      "name" : "deadline",
+      "passed" : true
+    },
+    {
+      "name" : "cancellation",
+      "passed" : true
+    },
+    {
+      "name" : "head_never_used",
+      "passed" : true
+    },
+    {
+      "name" : "range_requested_for_file",
+      "passed" : true
+    },
+    {
+      "name" : "server_writes_bounded_when_range_ignored",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Local HTTP server and generated MP4. Prefix and manifest checks only; not full decoding or playback.",
+  "server" : {
+    "head" : 0,
+    "ignoredBytes" : 69632,
+    "range" : 2
+  }
+}

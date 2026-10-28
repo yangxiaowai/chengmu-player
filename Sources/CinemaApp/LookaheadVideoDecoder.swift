@@ -33,6 +33,7 @@ final class LookaheadVideoDecoder {
         output.suppressesPlayerRendering = true
         secondaryItem.add(output)
         player = AVPlayer(playerItem: secondaryItem)
+        if #available(macOS 26.0, *) { player.networkResourcePriority = .low }
         player.isMuted = true
         player.volume = 0
         player.automaticallyWaitsToMinimizeStalling = false

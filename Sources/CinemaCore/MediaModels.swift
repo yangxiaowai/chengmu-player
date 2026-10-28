@@ -44,7 +44,9 @@ public struct SourceProvider: Codable, Hashable, Identifiable {
         SourceProvider(id: "ffzy", name: "非凡目录", endpoint: URL(string: "https://ffzy5.tv/api.php/provide/vod")!, searchAction: "detail"),
         SourceProvider(id: "ruyi", name: "如意目录", endpoint: URL(string: "https://cj.rycjapi.com/api.php/provide/vod")!, searchAction: "detail"),
         SourceProvider(id: "mdzy", name: "魔都目录", endpoint: URL(string: "https://www.mdzyapi.com/api.php/provide/vod")!, searchAction: "detail"),
-        SourceProvider(id: "wujin", name: "无尽目录", endpoint: URL(string: "https://api.wujinapi.com/api.php/provide/vod")!, searchAction: "detail")
+        SourceProvider(id: "wujin", name: "无尽目录", endpoint: URL(string: "https://api.wujinapi.com/api.php/provide/vod")!, searchAction: "detail"),
+        SourceProvider(id: "archive-org", name: "Internet Archive 开放影片", endpoint: URL(string: "https://archive.org")!),
+        SourceProvider(id: "wikimedia-commons", name: "Wikimedia Commons 开放短视频", endpoint: URL(string: "https://commons.wikimedia.org")!)
     ]
 }
 public struct SearchResponse {

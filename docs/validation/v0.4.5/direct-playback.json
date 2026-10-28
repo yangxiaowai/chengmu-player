@@ -1,0 +1,118 @@
+{
+  "checks" : [
+    {
+      "name" : "eligible_mp4_uses_direct_loader",
+      "passed" : true
+    },
+    {
+      "name" : "direct_route_is_preparing",
+      "passed" : true
+    },
+    {
+      "name" : "direct_route_identifies_http_proxy_exclusion",
+      "passed" : true
+    },
+    {
+      "name" : "initial_rate_is_unknown",
+      "passed" : true
+    },
+    {
+      "name" : "too_short_rate_window_is_unknown",
+      "passed" : true
+    },
+    {
+      "name" : "rate_counts_actual_bytes",
+      "passed" : true
+    },
+    {
+      "name" : "stall_reports_zero",
+      "passed" : true
+    },
+    {
+      "name" : "counter_reset_is_unknown",
+      "passed" : true
+    },
+    {
+      "name" : "real_throttled_transfer_stall_measures_zero",
+      "passed" : true
+    },
+    {
+      "name" : "real_throttled_transfer_resumes_with_measured_rate",
+      "passed" : true
+    },
+    {
+      "name" : "direct_buffer_stall_displays_measured_zero",
+      "passed" : true
+    },
+    {
+      "name" : "old_transfer_rate_never_leaks_to_new_item",
+      "passed" : true
+    },
+    {
+      "name" : "new_direct_item_starts_with_unknown_speed",
+      "passed" : true
+    },
+    {
+      "name" : "direct_item_preview_has_correct_frame_without_stopping_playback",
+      "passed" : true
+    },
+    {
+      "name" : "direct_seek_preserves_pause",
+      "passed" : true
+    },
+    {
+      "name" : "direct_failure_falls_back_preserving_pause_and_resume",
+      "passed" : true
+    },
+    {
+      "name" : "signed_url_stays_native",
+      "passed" : true
+    },
+    {
+      "name" : "hls_stays_native",
+      "passed" : true
+    },
+    {
+      "name" : "signed_redirect_stays_system_route",
+      "passed" : true
+    },
+    {
+      "name" : "basic_auth_challenge_falls_back_without_resuming",
+      "passed" : true
+    },
+    {
+      "name" : "invalid_content_range_falls_back",
+      "passed" : true
+    },
+    {
+      "name" : "cookie_fixture_is_present",
+      "passed" : true
+    },
+    {
+      "name" : "cross_host_cookie_redirect_stays_system_route",
+      "passed" : true
+    },
+    {
+      "name" : "timeout_preserves_pause",
+      "passed" : true
+    },
+    {
+      "name" : "superseded_direct_timeout_does_not_replace_new_item",
+      "passed" : true
+    },
+    {
+      "name" : "shared_session_cancels_only_its_own_loader",
+      "passed" : true
+    },
+    {
+      "name" : "canceled_loading_request_finishes_and_loader_releases",
+      "passed" : true
+    },
+    {
+      "name" : "rapid_start_stop_preserves_final_item",
+      "passed" : true
+    }
+  ],
+  "passed" : true,
+  "scope" : "Local HTTP and real AVPlayer, injected direct-denied\/slow responses, not system proxy or real-world playback"
+}

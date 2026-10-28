@@ -25,11 +25,14 @@ final class AppModel: ObservableObject {
     @Published var detailLoading = false
     @Published var detailPresented = false
     @Published var detailSources: [MediaTitle] = []
+    @Published private(set) var detailMoreSearching = false
+    @Published private(set) var detailMoreHasMore = true
+    @Published private(set) var detailMoreNotice: String?
     @Published var selectedLineID = ""
     @Published var currentEpisodeID = ""
     @Published var showPlayer = false { didSet { mediaQuality.setSuspended(showPlayer || qualityBenchmarkRunning) } }
     @Published var history: [WatchRecord] = []
-    @Published var providers: [SourceProvider] = SourceProvider.defaults { didSet { mediaQuality.cancelAll() } }
+    @Published var providers: [SourceProvider] = SourceProvider.defaults { didSet { mediaQuality.cancelAll(); resetDetailSourceSearch() } }
     @Published var automaticQualityInspection = true {
         didSet {
             if !automaticQualityInspection { mediaQuality.cancelAll() }
@@ -78,6 +81,15 @@ final class AppModel: ObservableObject {
     let service = SourceService()
     private var searchTask: Task<Void, Never>?
     private var detailTask: Task<Void, Never>?
+    private var detailMoreTask: Task<Void, Never>?
+    private var detailMoreID = UUID()
+    private var detailMorePages: [String: Int] = [:]
+    private var detailMoreProviders: Set<String>?
+    private var detailMoreResults: [MediaTitle] = []
+    private var detailSelectedTitle: MediaTitle?
+    var detailPageSearch: (String, [SourceProvider], [String: Int]) async -> [ProviderPageResult] = { query, providers, pages in
+        await SourceService().searchPages(query: query, providers: providers, pages: pages)
+    }
     private var searchID = UUID()
     private var detailID = UUID()
     private var currentRecord: WatchRecord?
@@ -172,7 +184,52 @@ final class AppModel: ObservableObject {
         }
         var seen = Set<String>()
         results = results.filter { seen.insert($0.providerID + ":" + $0.id).inserted }
+        mergeMoreDetailSources()
         failures = providerErrors.keys.sorted().compactMap { providerErrors[$0] }
+    }
+    func mergeMoreDetailSources(confirmed: MediaTitle? = nil) {
+        guard detailPresented, let seed = confirmed ?? detailSelectedTitle ?? detail?.title ?? detailSources.first,
+              let group = CatalogGrouping.groups([seed] + results + detailMoreResults + detailSources).first(where: { group in
+                  group.sources.contains { $0.providerID == seed.providerID && $0.id == seed.id }
+              }) else { return }
+        let known = Set(detailSources.map { $0.providerID + ":" + $0.id })
+        let added = group.sources.filter { !known.contains($0.providerID + ":" + $0.id) }
+        guard group.sources != detailSources else { return }
+        detailSources = group.sources
+        if automaticQualityInspection && !showPlayer { mediaQuality.check(added, providers: providers) }
+    }
+    func searchMoreDetailSources() {
+        guard detailPresented, !showPlayer, !detailMoreSearching, detailMoreHasMore,
+              let seed = detailSelectedTitle ?? detailSources.first else { return }
+        let sources = providers.filter { $0.enabled && (detailMoreProviders == nil || detailMoreProviders!.contains($0.id)) }
+        guard !sources.isEmpty else { detailMoreHasMore = false; return }
+        let pages = Dictionary(sources.map { ($0.id, (detailMorePages[$0.id] ?? 0) + 1) }, uniquingKeysWith: { first, _ in first })
+        let token = detailMoreID, search = detailPageSearch
+        detailMoreSearching = true; detailMoreNotice = nil
+        detailMoreTask = Task {
+            let responses = await search(seed.title, sources, pages)
+            guard !Task.isCancelled, token == detailMoreID, detailPresented, !showPlayer else { return }
+            var remaining = Set<String>()
+            var failed = false
+            for response in responses {
+                if let page = response.page {
+                    detailMoreResults.append(contentsOf: page.titles)
+                    detailMorePages[response.providerID] = page.page
+                    if page.hasMore { remaining.insert(response.providerID) }
+                } else if response.error != nil {
+                    failed = true; remaining.insert(response.providerID)
+                }
+            }
+            detailMoreProviders = remaining; detailMoreHasMore = !remaining.isEmpty
+            detailMoreSearching = false; detailMoreTask = nil
+            mergeMoreDetailSources()
+            detailMoreNotice = failed ? "部分来源暂未响应，可再次搜索。" : (detailMoreHasMore ? nil : "已查找完当前来源的目录。")
+        }
+    }
+    private func resetDetailSourceSearch() {
+        detailMoreTask?.cancel(); detailMoreTask = nil; detailMoreID = UUID()
+        detailMoreSearching = false; detailMoreHasMore = true; detailMoreNotice = nil
+        detailMorePages = [:]; detailMoreProviders = nil; detailMoreResults = []
     }
     func loadMore() {
         guard !searching, !loadingMore else { return }
@@ -216,35 +273,47 @@ final class AppModel: ObservableObject {
         }
     }
     func selectGroup(_ group: MediaGroup) {
+        resetDetailSourceSearch()
         detailSources = group.sources
         guard let title = ProviderCatalog.preferredTitle(in: group.sources, providers: providers, explicitID: filterProviderID, preferredID: preferredProviderID) else {
             message = "这部作品的来源均已停用或移除，请在媒体来源启用后重试。"; return
         }
         select(title)
+        searchMoreDetailSources()
     }
     func select(_ title: MediaTitle) {
         cancelAlternativeSources()
+        let changedSource = detailSelectedTitle.map { $0.providerID != title.providerID || $0.id != title.id } ?? false
+        if changedSource { resetDetailSourceSearch() }
         detailTask?.cancel(); detailID = UUID()
         let token = detailID
         if !detailSources.contains(where: { $0.providerID == title.providerID && $0.id == title.id }) { detailSources = [title] }
+        detailSelectedTitle = title
         detailPresented = true; detailLoading = true; detail = nil
         guard let provider = providers.first(where: {$0.id == title.providerID && $0.enabled}) else { detailLoading = false; detailPresented = false; message = "此来源已停用或移除，请先在媒体来源启用。"; return }
         detailTask = Task {
             do {
                 let loaded = try await service.detail(title: title, provider: provider)
                 guard !Task.isCancelled, detailID == token else { return }
+                let identityChanged = CatalogGrouping.normalizedTitle(title.title) != CatalogGrouping.normalizedTitle(loaded.title.title)
+                    || title.year != loaded.title.year || title.category != loaded.title.category
+                if identityChanged { resetDetailSourceSearch() }
                 detail = loaded; selectedLineID = loaded.lines.first?.id ?? ""; detailLoading = false
+                detailSelectedTitle = loaded.title; mergeMoreDetailSources()
                 inspectDetailQuality(loaded)
+                if identityChanged { searchMoreDetailSources() }
             } catch {
                 guard !Task.isCancelled, detailID == token else { return }
                 detailLoading = false; message = "无法取得剧集详情：\(error.localizedDescription)"
             }
         }
+        if changedSource { searchMoreDetailSources() }
     }
-    func dismissDetail() { detailTask?.cancel(); detailID = UUID(); detail = nil; detailLoading = false; detailPresented = false; detailSources = [] }
+    func dismissDetail() { resetDetailSourceSearch(); detailTask?.cancel(); detailID = UUID(); detail = nil; detailSelectedTitle = nil; detailLoading = false; detailPresented = false; detailSources = [] }
     func play(_ episode: Episode) {
         cancelAlternativeSources()
         guard let detail, let line = selectedLine else { return }
+        resetDetailSourceSearch()
         mediaQuality.setSuspended(true)
         let id = "\(detail.title.providerID):\(detail.title.id):\(line.id):\(episode.id)"
         playback.saveProgress()
@@ -332,7 +401,8 @@ final class AppModel: ObservableObject {
         guard showPlayer, let record = currentRecord, let context = record.playbackContext else {
             alternativeNotice = "当前媒体没有可核对的季集目录，无法安全匹配其他来源。"; return
         }
-        guard SourceMatching.hasExplicitSeason(context.detail.title) else {
+        let movie = SourceMatching.isConfirmedMovie(context.detail)
+        guard movie || SourceMatching.hasExplicitSeason(context.detail.title) else {
             alternativeNotice = "当前目录标题未标明季数，无法确认其他来源属于同一季。请在片库选择明确标注季数的条目。"; return
         }
         let token = alternativeID, recordID = record.id
@@ -341,19 +411,23 @@ final class AppModel: ObservableObject {
         alternativeTask = Task {
             let found = await alternativeRequests.search(context.detail.title.title, sources)
             guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
-            alternativeSources = SourceMatching.candidates(current: context.detail.title, results: found.titles)
+            alternativeSources = movie ? SourceMatching.movieCandidates(current: context.detail, results: found.titles)
+                : SourceMatching.candidates(current: context.detail.title, results: found.titles)
             alternativesLoading = false; alternativeStage = nil
             let errors = found.failures.joined(separator: "；")
-            alternativeNotice = alternativeSources.isEmpty ? "未找到标题、季数匹配的其他版本。" : "候选画质未知，选择后检查当前集与媒体清单。"
+            alternativeNotice = alternativeSources.isEmpty ? "未找到可核对的其他版本。" : "已找到候选来源，选择后会核对版本与媒体地址。"
             if !errors.isEmpty { alternativeNotice = (alternativeNotice ?? "") + " " + errors }
         }
     }
     func switchAlternativeSource(_ title: MediaTitle) {
         stopAlternativeRequest()
         guard showPlayer, let record = currentRecord, let context = record.playbackContext,
-              SourceMatching.sameSeasonTitle(context.detail.title, title),
               let provider = providers.first(where: { $0.id == title.providerID && $0.enabled }) else {
             alternativesLoading = false; alternativeNotice = "季集或来源已变化，已保留当前播放。"; return
+        }
+        let movie = SourceMatching.isConfirmedMovie(context.detail)
+        guard movie ? SourceMatching.sameMovieTitle(context.detail.title, title) : SourceMatching.sameSeasonTitle(context.detail.title, title) else {
+            alternativesLoading = false; alternativeNotice = "作品或来源已变化，已保留当前播放。"; return
         }
         let token = alternativeID, recordID = record.id
         alternativesLoading = true; alternativeStage = .loadingDetail(provider: provider.name)
@@ -362,12 +436,15 @@ final class AppModel: ObservableObject {
             do {
                 let loaded = try await alternativeRequests.detail(title, provider)
                 guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
-                guard SourceMatching.sameSeasonTitle(context.detail.title, loaded.title) else {
+                let matches = movie ? (SourceMatching.sameMovieTitle(context.detail.title, loaded.title) && SourceMatching.isConfirmedMovie(loaded))
+                    : SourceMatching.sameSeasonTitle(context.detail.title, loaded.title)
+                guard matches else {
                     alternativesLoading = false; alternativeStage = nil; alternativeNotice = "返回作品不属于当前季，已保留当前播放。"; return
                 }
                 var seen = Set<URL>()
                 let candidates: [(PlaybackLine, Episode)] = loaded.lines.compactMap { line in
-                    guard let episode = SourceMatching.matchEpisode(context.episode, in: line), seen.insert(episode.url).inserted else { return nil }
+                    let match = movie ? line.episodes.first : SourceMatching.matchEpisode(context.episode, in: line)
+                    guard let episode = match, seen.insert(episode.url).inserted else { return nil }
                     return (line, episode)
                 }
                 if let first = candidates.first { alternativeStage = .checkingPlaylist(provider: provider.name, line: first.0.name) }
@@ -477,6 +554,22 @@ final class AppModel: ObservableObject {
     }
     func refreshQuality(_ group: MediaGroup) {
         mediaQuality.checkAlternatives(group.sources, providers: providers, force: true)
+    }
+    func sourceRecommendations(_ titles: [MediaTitle], limit: Int = 5) -> SourceRecommendationPage {
+        let enabled = Set(providers.filter(\.enabled).map(\.id))
+        let ordered = titles.filter { enabled.contains($0.providerID) } + titles.filter { !enabled.contains($0.providerID) }
+        let candidates = ordered.map { title in
+            let observation: MediaQualityObservation?
+            if case .ready(let value) = mediaQuality.state(for: title, providers: providers) { observation = value }
+            else { observation = nil }
+            // Never combine a quality sample with a response measured for another URL.
+            let responseState = observation.map { mediaQuality.responseState(for: $0.mediaURL) }
+                ?? mediaQuality.responseState(for: title, providers: providers)
+            let response: MediaResponseSample?
+            if case .ready(let value) = responseState { response = value.sample } else { response = nil }
+            return SourceRecommendationCandidate(title: title, mediaURL: observation?.mediaURL, quality: observation?.sample, response: response)
+        }
+        return SourceRecommendationPolicy.rank(candidates, limit: limit)
     }
     func inspectDetailQuality(_ detail: MediaDetail) {
         guard automaticQualityInspection, !showPlayer else { return }
@@ -641,7 +734,7 @@ struct AlternativeSourceRequests {
         try await SourceService().detail(title: title, provider: provider)
     }
     var inspect: (URL) async throws -> Void = { url in
-        _ = try await HLSProbe().inspect(url: url)
+        _ = try await PlayableMediaProbe().inspect(url: url)
     }
 }
 

@@ -8,6 +8,7 @@ struct SeekBar: View {
     let duration: Double
     let asset: AVAsset?
     let itemID: UUID
+    let isConfirmedHLS: Bool
     let visible: Bool
     let onEditing: (Bool) -> Void
     let onSeek: (Double) -> Void
@@ -33,8 +34,9 @@ struct SeekBar: View {
             }
         }
         .frame(height: 28)
-        .onAppear { preview.configure(asset: asset, itemID: itemID) }
-        .onChange(of: itemID) { _, _ in onEditing(false); dismissPreview(); preview.configure(asset: asset, itemID: itemID) }
+        .onAppear { preview.configure(asset: asset, itemID: itemID, isConfirmedHLS: isConfirmedHLS) }
+        .onChange(of: itemID) { _, _ in onEditing(false); dismissPreview(); preview.configure(asset: asset, itemID: itemID, isConfirmedHLS: isConfirmedHLS) }
+        .onChange(of: isConfirmedHLS) { _, value in preview.configure(asset: asset, itemID: itemID, isConfirmedHLS: value) }
         .onChange(of: duration) { _, value in if !value.isFinite || value <= 0 { onEditing(false); dismissPreview() } }
         .onChange(of: visible) { _, shown in if !shown { dismissPreview() } }
         .onDisappear { onEditing(false); dismissPreview(); preview.stop() }

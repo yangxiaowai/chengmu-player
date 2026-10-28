@@ -81,7 +81,8 @@ import CinemaCore
         let failedPosition = c.position
         c.error = nil
         c.togglePlayback()
-        try await until { c.isPlaying && c.error == nil }
+        // Playback may start before the asynchronous resume seek completes.
+        try await until { c.isPlaying && c.error == nil && abs(c.player.currentTime().seconds - failedPosition) < 0.5 }
         check("dismissed_failure_play_rebuilds_item", c.itemID != failedItem && abs(c.player.currentTime().seconds - failedPosition) < 0.5, "Injected failed-to-end on ready local media, dismissed error text, then explicit Play must rebuild media at retained position.")
         check("play_on_error_explicitly_retries", c.playbackRequested && c.player.rate > 0, "Explicit Play recovers on real local media after dismissing fatal error text.")
         try await ready(30)

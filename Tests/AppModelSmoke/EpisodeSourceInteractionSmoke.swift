@@ -41,6 +41,24 @@ struct EpisodeSourceInteractionSmoke {
             }
             let alternative = detail(provider: "b", media: media)
             let third = detail(provider: "c", media: media)
+            await check("matching_movies_can_find_and_switch_sources") {
+                func movie(_ provider: String, _ name: String) -> MediaDetail {
+                    let title = MediaTitle(id: "film", title: "测试电影", year: "2020", posterURL: nil, summary: "", providerID: provider, providerName: provider, category: "电影")
+                    let episode = Episode(id: provider + ":film", name: name, url: media, number: nil)
+                    return MediaDetail(title: title, lines: [PlaybackLine(id: provider + ":film", name: "正片", episodes: [episode])])
+                }
+                let first = movie("a", "正片"), second = movie("b", "高清")
+                let requests = AlternativeSourceRequests(search: { _, _ in SearchResponse(titles: [second.title], failures: []) }, detail: { _, _ in second }, inspect: { _ in })
+                let value = fixture(directory: directory, original: original, requests: requests)
+                defer { value.closePlayer() }
+                value.resume(record(first, episodeIndex: 0, position: 20)); value.playback.pause()
+                value.findAlternativeSources()
+                try await eventually("film candidate search") { !value.alternativesLoading && value.alternativeSources.count == 1 }
+                value.switchAlternativeSource(second.title)
+                try await eventually("film candidate switch") { value.detail?.title.providerID == "b" && !value.alternativesLoading }
+                try require(!value.playback.playbackRequested, "Movie switch lost pause intent")
+                return "Confirmed same-name, same-year movie with a different episode label switches and retains pause."
+            }
             await check("slow_first_line_does_not_block_fast_matching_line") {
                 var candidate = alternative
                 candidate.lines[0].episodes[1].url = directory.appendingPathComponent("slow.wav")

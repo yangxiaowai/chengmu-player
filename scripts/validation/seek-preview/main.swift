@@ -8,7 +8,8 @@ import AppKit
   let local = URL(fileURLWithPath: CommandLine.arguments[1])
   let hls = URL(string: CommandLine.arguments[2])!
   var cases: [[String:Any]] = []
-  precondition(CommandLine.arguments.count == 5,"Expected local, HLS, rotated fixture, report path")
+  precondition(CommandLine.arguments.count == 6,"Expected local, HLS, rotated fixture, report path, extensionless HLS")
+  let extensionlessHLS = URL(string: CommandLine.arguments[5])!
   func wait() async throws {
    let deadline = Date().addingTimeInterval(12)
    while controller.isLoading, Date() < deadline { try await Task.sleep(nanoseconds:20_000_000) }
@@ -29,6 +30,28 @@ import AppKit
    print("PASS",name,image.size,actual,Date().timeIntervalSince(begin))
    cases.append(["source":name,"image_size":[image.size.width,image.size.height],"requested_time":controller.requestedTime,"actual_time":actual,"latency_seconds":Date().timeIntervalSince(begin),"main_player_unchanged":true])
   }
+  let extensionlessPlayer = AVPlayer(playerItem: AVPlayerItem(url: extensionlessHLS))
+  let extensionlessItemID = UUID()
+  let extensionlessAsset = extensionlessPlayer.currentItem!.asset
+  controller.configure(asset: extensionlessAsset, itemID: extensionlessItemID, isConfirmedHLS: true)
+  let extensionlessStarted = Date()
+  controller.request(time: 7.3, duration: 30)
+  try await wait()
+  guard controller.image != nil, let extensionlessTime = controller.actualTime else { fatalError("extensionless HLS did not return a frame: \(controller.message ?? "unknown")") }
+  let extensionlessLatency = Date().timeIntervalSince(extensionlessStarted)
+  assert(abs(extensionlessTime - 7.3) <= 0.45)
+  assert(extensionlessLatency < 2.5, "Confirmed HLS preview took the slow generator path")
+  assert(extensionlessPlayer.currentTime().seconds == 0 && extensionlessPlayer.rate == 0)
+  // Delayed source inspection must update the same item and restart its pending preview.
+  controller.configure(asset: extensionlessAsset, itemID: extensionlessItemID, isConfirmedHLS: false)
+  controller.request(time: 12.4, duration: 30)
+  try await Task.sleep(nanoseconds: 50_000_000)
+  controller.configure(asset: extensionlessAsset, itemID: extensionlessItemID, isConfirmedHLS: true)
+  try await wait()
+  assert(controller.image != nil && abs((controller.actualTime ?? -100) - 12.4) <= 0.45, "Late HLS confirmation lost the current hover")
+  assert(extensionlessPlayer.currentTime().seconds == 0 && extensionlessPlayer.rate == 0)
+  print("PASS confirmed_extensionless_hls", extensionlessTime)
+  cases.append(["source":"confirmed_extensionless_hls", "requested_time":7.3,"actual_time":extensionlessTime,"latency_seconds":extensionlessLatency,"main_player_unchanged":true])
   let playingMain = AVPlayer(playerItem: AVPlayerItem(url: local))
   playingMain.playImmediately(atRate: 1)
   try await Task.sleep(nanoseconds: 300_000_000)
@@ -39,7 +62,7 @@ import AppKit
   let positionAfter = playingMain.currentTime().seconds
   assert(playingMain.rate == 1 && positionAfter > positionBefore && positionAfter < positionBefore + 2, "Preview paused or sought the playing main clock")
   playingMain.pause()
-  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID())
+  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID(),isConfirmedHLS:true)
   // Mouse events at the same timeline position must not restart an in-flight decode forever.
   var seenRepeatedHoverFrame = false
   for _ in 0..<20 {
@@ -56,7 +79,7 @@ import AppKit
   for index in 0..<55 { controller.request(time:Double(index)*0.5,duration:30); try await wait() }
   assert(controller.cachedFrameCount<=48)
   let cacheCount=controller.cachedFrameCount
-  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID())
+  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID(),isConfirmedHLS:true)
   controller.request(time:18.2,duration:30)
   try await Task.sleep(nanoseconds:200_000_000)
   controller.hide()
@@ -65,7 +88,7 @@ import AppKit
   controller.request(time:4.4,duration:30)
   try await wait()
   assert(abs((controller.actualTime ?? -100)-4.4)<=0.45,"Old item callback overwritten new item")
-  controller.configure(asset:AVURLAsset(url:hls.deletingLastPathComponent().appendingPathComponent("missing.m3u8")),itemID:UUID())
+  controller.configure(asset:AVURLAsset(url:hls.deletingLastPathComponent().appendingPathComponent("missing.m3u8")),itemID:UUID(),isConfirmedHLS:true)
   controller.request(time:4,duration:30)
   try await wait()
   assert(controller.image==nil && controller.actualTime==nil && controller.message != nil)
@@ -73,7 +96,7 @@ import AppKit
   assert(controller.image==nil && !controller.isLoading)
   controller.stop()
   assert(controller.cachedFrameCount==0)
-  let result:[String:Any]=["version":"0.2.4","scope":"Headless local MP4, rotated MP4 and ordinary no-iframe HLS served on loopback; no remote provider availability assertion","cases":cases,"playing_main_clock_untouched":true,"rapid_hover_last_request_only":true,"cache_count_at_limit":cacheCount,"hide_and_item_change_cancelled":true,"failure_cleared_stale_image":true,"invalid_time_rejected":true,"stop_released_cache":true,"passed":true]
+  let result:[String:Any]=["version":"0.2.4","scope":"Headless local MP4, rotated MP4 and ordinary no-iframe HLS, including an extensionless URL, served on loopback; no remote provider availability assertion","cases":cases,"late_hls_confirmation_restarts_hover":true,"playing_main_clock_untouched":true,"rapid_hover_last_request_only":true,"cache_count_at_limit":cacheCount,"hide_and_item_change_cancelled":true,"failure_cleared_stale_image":true,"invalid_time_rejected":true,"stop_released_cache":true,"passed":true]
   let json=try JSONSerialization.data(withJSONObject:result,options:[.prettyPrinted,.sortedKeys])
   try json.write(to:URL(fileURLWithPath:CommandLine.arguments[4]))
   print(String(decoding:json,as:UTF8.self))

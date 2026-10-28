@@ -4,6 +4,7 @@ import CinemaCore
 struct PlayerEpisodePanel: View {
     @ObservedObject private var app: AppModel
     @ObservedObject private var playback: PlaybackController
+    @LegacyState private var showAllAlternativeSources = false
 
     init(app: AppModel) {
         self.app = app
@@ -172,7 +173,7 @@ struct PlayerEpisodePanel: View {
             if !app.alternativeSources.isEmpty {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 7) {
-                        ForEach(app.alternativeSources, id: \.self) { title in
+                        ForEach(app.sourceRecommendations(app.alternativeSources, limit: showAllAlternativeSources ? .max : 5).candidates.map(\.title), id: \.self) { title in
                             Button { app.switchAlternativeSource(title) } label: {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(title.providerName)
@@ -184,7 +185,7 @@ struct PlayerEpisodePanel: View {
                                         .lineLimit(2)
                                     QualityReadout(state: app.mediaQuality.state(for: title, providers: app.providers))
                                     MediaResponseReadout(state: app.mediaQuality.responseState(for: title, providers: app.providers), playbackActive: app.showPlayer)
-                                    Text("切换前请确认季集")
+                                    Text("切换前请确认作品版本")
                                         .font(.system(size: 9))
                                         .foregroundStyle(CinemaStyle.secondary)
                                 }
@@ -203,6 +204,13 @@ struct PlayerEpisodePanel: View {
                     }
                 }
                 .frame(maxHeight: 136)
+                let remaining = app.sourceRecommendations(app.alternativeSources, limit: 5).remainingCount
+                if remaining > 0 {
+                    Button(showAllAlternativeSources ? "收起来源" : "查看更多来源（\(remaining)）") { showAllAlternativeSources.toggle() }
+                        .buttonStyle(.plain).font(.system(size: 11)).foregroundStyle(CinemaStyle.accent)
+                }
+                Text("依据已有画质和响应信息排序；播放中暂停后台检测。")
+                    .font(.system(size: 10)).foregroundStyle(CinemaStyle.secondary)
             }
             if let notice = app.alternativeNotice {
                 Text(notice)
