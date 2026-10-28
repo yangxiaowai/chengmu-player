@@ -471,6 +471,7 @@ struct PlayerView: View {
                     isConfirmedHLS: playback.sourceInfo != nil, visible: presentation.controlsVisible,
                     onEditing: { editing in dragging = editing; presentation.interact("seek", active: editing); playback.setAdSkipInteraction("seek", active: editing) },
                     onSeek: { playback.seek(to: $0) },
+                    onSkip: { playback.skip($0) },
                     onHover: { presentation.interact("seek-preview", active: $0); playback.setAdSkipInteraction("seek-preview", active: $0) })
             HStack(spacing: 5) {
                 Button { playback.skip(-10) } label: { PlayerChromeIcon(systemName: "gobackward.10", symbolSize: 19) }
@@ -709,8 +710,8 @@ private struct PlaybackKeyboardSurface: NSViewRepresentable {
             switch event.keyCode {
             case 49: if !event.isARepeat { playback.togglePlayback() }
             case 53: if presentation?.isFullscreen == true { presentation?.leaveFullscreen() } else { super.keyDown(with: event) }
-            case 123: playback.skip(-10)
-            case 124: playback.skip(10)
+            case 123, 124:
+                if let amount = PlaybackArrowKeyPolicy.offset(keyCode: event.keyCode, isRepeat: event.isARepeat) { playback.skip(amount) }
             case 125: playback.adjustVolume(-0.05)
             case 126: playback.adjustVolume(0.05)
             default:

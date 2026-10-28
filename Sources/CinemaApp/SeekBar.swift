@@ -12,13 +12,14 @@ struct SeekBar: View {
     let visible: Bool
     let onEditing: (Bool) -> Void
     let onSeek: (Double) -> Void
+    let onSkip: (Double) -> Void
     let onHover: (Bool) -> Void
     @StateObject private var preview = SeekPreviewController()
     @LegacyState private var hoverX: CGFloat?
 
     var body: some View {
         GeometryReader { geometry in
-            TimelineSlider(value: $value, duration: duration, itemID: itemID, visible: visible, onEditing: onEditing, onSeek: onSeek) { location in
+            TimelineSlider(value: $value, duration: duration, itemID: itemID, visible: visible, onEditing: onEditing, onSeek: onSeek, onSkip: onSkip) { location in
                 guard visible, let location else { dismissPreview(); return }
                 hoverX = location.x
                 onHover(true)
@@ -88,6 +89,7 @@ private struct TimelineSlider: NSViewRepresentable {
     let visible: Bool
     let onEditing: (Bool) -> Void
     let onSeek: (Double) -> Void
+    let onSkip: (Double) -> Void
     let onHover: (TimelineLocation?) -> Void
 
     func makeNSView(context: Context) -> HoverSlider {
@@ -101,7 +103,7 @@ private struct TimelineSlider: NSViewRepresentable {
     func updateNSView(_ view: HoverSlider, context: Context) {
         if view.itemID != itemID { view.cancelTracking(notify: false); view.itemID = itemID }
         view.previewVisible = visible
-        view.onValue = { value = $0 }; view.onSeek = onSeek
+        view.onValue = { value = $0 }; view.onSeek = onSeek; view.onSkip = onSkip
         view.onEditing = onEditing; view.onHover = onHover
         view.isEnabled = duration.isFinite && duration > 0
         if !view.isEnabled { view.cancelTracking(notify: false) }
@@ -111,11 +113,18 @@ private struct TimelineSlider: NSViewRepresentable {
     }
     static func dismantleNSView(_ view: HoverSlider, coordinator: ()) {
         view.cancelTracking(notify: false)
-        view.onHover = nil; view.onEditing = nil; view.onSeek = nil; view.onValue = nil
+        view.onHover = nil; view.onEditing = nil; view.onSeek = nil; view.onSkip = nil; view.onValue = nil
     }
 }
 
 private struct TimelineLocation { let x: CGFloat; let time: Double }
+
+enum PlaybackArrowKeyPolicy {
+    static func offset(keyCode: UInt16, isRepeat: Bool) -> Double? {
+        guard !isRepeat else { return nil }
+        switch keyCode { case 123: return -10; case 124: return 10; default: return nil }
+    }
+}
 
 private final class HoverSlider: NSSlider {
     var itemID: UUID? { didSet { if oldValue != itemID { invalidateHoverAnchor() } } }
@@ -125,6 +134,7 @@ private final class HoverSlider: NSSlider {
     }
     var onValue: ((Double) -> Void)?
     var onSeek: ((Double) -> Void)?
+    var onSkip: ((Double) -> Void)?
     var onEditing: ((Bool) -> Void)?
     var onHover: ((TimelineLocation?) -> Void)?
     private(set) var isTrackingPointer = false
@@ -140,6 +150,28 @@ private final class HoverSlider: NSSlider {
     private var hoverGeneration = UUID()
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+    override func keyDown(with event: NSEvent) {
+        guard isEnabled, event.modifierFlags.intersection([.command, .control, .option]).isEmpty else {
+            super.keyDown(with: event); return
+        }
+        switch event.keyCode {
+        case 123, 124:
+            if let amount = PlaybackArrowKeyPolicy.offset(keyCode: event.keyCode, isRepeat: event.isARepeat) { onSkip?(amount) }
+        default: super.keyDown(with: event)
+        }
+    }
+    override func accessibilityPerformIncrement() -> Bool {
+        guard isEnabled, let onSkip else { return false }
+        onSkip(10); return true
+    }
+    override func accessibilityPerformDecrement() -> Bool {
+        guard isEnabled, let onSkip else { return false }
+        onSkip(-10); return true
+    }
+    // AppKit and assistive input can dispatch these responder actions directly
+    // without calling keyDown; NSSlider's default is 5% of the whole duration.
+    override func moveRight(_ sender: Any?) { if isEnabled { onSkip?(10) } }
+    override func moveLeft(_ sender: Any?) { if isEnabled { onSkip?(-10) } }
     override func setFrameSize(_ newSize: NSSize) {
         let changed = frame.size != newSize
         super.setFrameSize(newSize)

@@ -17,6 +17,7 @@ struct SeekBarInteractionSmoke {
     @MainActor private final class Recorder {
         var values: [Double] = []
         var seeks: [Double] = []
+        var skips: [Double] = []
         var editing: [Bool] = []
         var hovers: [Double?] = []
     }
@@ -35,6 +36,7 @@ struct SeekBarInteractionSmoke {
             let record = record
             view.onValue = { record.values.append($0) }
             view.onSeek = { record.seeks.append($0) }
+            view.onSkip = { record.skips.append($0) }
             view.onEditing = { record.editing.append($0) }
             view.onHover = { record.hovers.append($0?.time) }
             window.contentView?.addSubview(view)
@@ -57,6 +59,16 @@ struct SeekBarInteractionSmoke {
             guard let event else { throw Failure(description: "Could not create local test event") }
             return event
         }
+        func arrowKey(_ keyCode: UInt16, isRepeat: Bool = false, flags: NSEvent.ModifierFlags = [.function, .numericPad]) throws -> NSEvent {
+            let key = keyCode == 123 ? "\u{F702}" : "\u{F703}"
+            guard let event = NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: flags,
+                                               timestamp: ProcessInfo.processInfo.systemUptime, windowNumber: 0, context: nil,
+                                               characters: key, charactersIgnoringModifiers: key,
+                                               isARepeat: isRepeat, keyCode: keyCode) else {
+                throw Failure(description: "Could not create arrow key event")
+            }
+            return event
+        }
         func beginAndDrag() throws {
             view.mouseDown(with: try event(.leftMouseDown, fraction: 0.5))
             view.mouseDragged(with: try event(.leftMouseDragged, fraction: 0.75))
@@ -68,6 +80,44 @@ struct SeekBarInteractionSmoke {
     @MainActor static func main() async {
         _ = NSApplication.shared
         let cases: [(String, @MainActor () throws -> String)] = [
+            ("focused_progress_slider_arrow_keys_seek_ten_seconds", {
+                let f = Fixture(); f.view.maxValue = 7200; f.view.doubleValue = 1000
+                f.window.makeFirstResponder(f.view)
+                f.view.keyDown(with: try f.arrowKey(124))
+                try require(f.record.skips == [10], "Right arrow must request a 10-second relative skip; got \(f.record.skips)")
+                f.view.keyDown(with: try f.arrowKey(123))
+                try require(f.record.skips == [10, -10] && f.record.seeks.isEmpty, "Left arrow must request one relative -10-second skip without absolute seeks")
+                f.view.keyDown(with: try f.arrowKey(124, isRepeat: true))
+                try require(f.record.skips == [10, -10], "Holding a key must not repeatedly skip")
+                f.view.keyDown(with: try f.arrowKey(124))
+                f.view.keyDown(with: try f.arrowKey(124))
+                try require(f.record.skips == [10, -10, 10, 10], "Separate arrow presses must each skip once")
+                f.view.keyDown(with: try f.arrowKey(124, flags: [.function, .numericPad, .command]))
+                f.view.keyDown(with: try f.arrowKey(123, flags: [.function, .numericPad, .option]))
+                try require(f.record.skips == [10, -10, 10, 10], "Modified shortcuts must not be consumed as unmodified arrows")
+                return "Focused long video: relative ±10 once per press, no system key repeats, modified arrows preserved."
+            }),
+            ("focused_slider_accessibility_adjusts_ten_seconds", {
+                let f = Fixture(); f.view.maxValue = 7200; f.view.doubleValue = 1000
+                try require(f.view.accessibilityPerformIncrement(), "Accessibility increment must be supported")
+                try require(f.view.accessibilityPerformDecrement(), "Accessibility decrement must be supported")
+                try require(f.record.skips == [10, -10] && f.record.seeks.isEmpty, "Accessibility adjustment must request exactly one relative ±10 skip")
+                f.view.isEnabled = false
+                try require(!f.view.accessibilityPerformIncrement() && !f.view.accessibilityPerformDecrement(), "Disabled slider must not adjust")
+                try require(f.record.skips == [10, -10], "Disabled accessibility emitted a skip")
+                return "Accessible increment and decrement each move 10 seconds and respect disabled state."
+            }),
+            ("focused_slider_responder_actions_adjust_ten_seconds", {
+                let f = Fixture(); f.view.maxValue = 3060; f.view.doubleValue = 1000
+                _ = NSApp.sendAction(NSSelectorFromString("moveRight:"), to: f.view, from: f.view)
+                _ = NSApp.sendAction(NSSelectorFromString("moveLeft:"), to: f.view, from: f.view)
+                try require(f.record.skips == [10, -10] && f.record.seeks.isEmpty,
+                            "Native responder actions must request exactly one ±10-second skip, got skips \(f.record.skips), seeks \(f.record.seeks)")
+                f.view.isEnabled = false
+                _ = NSApp.sendAction(NSSelectorFromString("moveRight:"), to: f.view, from: f.view)
+                try require(f.record.skips == [10, -10], "Disabled responder action emitted a skip")
+                return "Native moveRight and moveLeft selectors each request one relative skip, even for a long video."
+            }),
             ("cancel_restores_value_and_ignores_late_mouse_up", {
                 let f = Fixture()
                 try f.beginAndDrag()
@@ -269,7 +319,7 @@ struct SeekBarInteractionSmoke {
                 checks.append(.init(name: "old_dismissal_does_not_hide_\(name)", passed: false, detail: String(describing: error)))
             }
         }
-        let passed = checks.count == 11 + cancelledSettlements.count + layoutChanges.count && checks.allSatisfy(\.passed)
+        let passed = checks.count == 14 + cancelledSettlements.count + layoutChanges.count && checks.allSatisfy(\.passed)
         let summary = Summary(checkedAt: ISO8601DateFormatter().string(from: Date()), passed: passed, checks: checks)
         do {
             let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
