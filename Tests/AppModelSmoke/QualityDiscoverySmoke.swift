@@ -48,6 +48,56 @@ import CinemaCore
         }
         app.results = titles
         app.searchLabel = "为你发现"
+        app.catalogPageSearch = { query, _, _, deliver in
+            let title = MediaTitle(id: query + "-fast", title: query, year: "2020", posterURL: nil, summary: "", providerID: "demo-a", providerName: "演示来源 A")
+            let fast = ProviderPageResult(providerID: "demo-a", page: CatalogPage(providerID: "demo-a", titles: [title], categories: [], page: 1, pageCount: 1, total: 1), error: nil)
+            await deliver(fast)
+            try? await Task.sleep(nanoseconds: 600_000_000)
+            let lateTitle = MediaTitle(id: query + "-late", title: query, year: "2020", posterURL: nil, summary: "", providerID: "demo-b", providerName: "演示来源 B")
+            let late = ProviderPageResult(providerID: "demo-b", page: CatalogPage(providerID: "demo-b", titles: [lateTitle], categories: [], page: 1, pageCount: 1, total: 1), error: nil)
+            await deliver(late)
+            return [fast, late]
+        }
+        app.query = "旧搜索"; app.search()
+        let firstDeadline = Date().addingTimeInterval(2)
+        while app.results.isEmpty, Date() < firstDeadline { try await Task.sleep(nanoseconds: 10_000_000) }
+        check("catalog_fast_source_is_visible_while_other_source_is_pending", app.searching && app.results.map(\.id) == ["旧搜索-fast"])
+        app.query = "新搜索"; app.search()
+        let secondDeadline = Date().addingTimeInterval(3)
+        while app.searching, Date() < secondDeadline { try await Task.sleep(nanoseconds: 20_000_000) }
+        try await Task.sleep(nanoseconds: 100_000_000)
+        check("catalog_superseded_search_never_adds_late_pages", app.results.count == 2 && app.results.allSatisfy { $0.id.hasPrefix("新搜索-") })
+        app.query = "播放时搜索"; app.search()
+        let playDeadline = Date().addingTimeInterval(2)
+        while app.results.isEmpty, Date() < playDeadline { try await Task.sleep(nanoseconds: 10_000_000) }
+        app.showPlayer = true
+        try await Task.sleep(nanoseconds: 100_000_000)
+        check("opening_player_cancels_pending_catalog_search", !app.searching && app.results.map(\.id) == ["播放时搜索-fast"])
+        check("cancelled_unfinished_provider_can_be_retried", app.canLoadMore)
+        app.showPlayer = false
+        app.filterYear = "2020"; app.query = "尚未提交的新词"
+        app.resumeInterruptedCatalog()
+        check("resume_preserves_active_query_and_filters", app.searching && app.catalogQuery == "播放时搜索" && app.filterYear == "2020")
+        app.showPlayer = true; app.showPlayer = false
+        app.discover()
+        let discoveryDeadline = Date().addingTimeInterval(2)
+        while app.results.isEmpty, Date() < discoveryDeadline { try await Task.sleep(nanoseconds: 10_000_000) }
+        app.showPlayer = true
+        check("interrupted_home_discovery_offers_resume", !app.searching && app.canResumeCatalog && !app.results.isEmpty)
+        app.showPlayer = false
+        app.resumeInterruptedCatalog()
+        check("home_discovery_resume_restarts_search", app.searching && !app.canResumeCatalog && !app.results.isEmpty)
+        app.showPlayer = true; app.showPlayer = false
+        let browseApp = AppModel(); browseApp.providers = providers
+        browseApp.openBrowse(); browseApp.filterYear = "2020"; browseApp.showPlayer = true
+        check("interrupted_browse_offers_resume", browseApp.canResumeCatalog && !browseApp.searching)
+        browseApp.showPlayer = false; browseApp.resumeInterruptedCatalog()
+        check("resume_browse_preserves_filters", browseApp.searching && browseApp.filterYear == "2020")
+        browseApp.showPlayer = true; browseApp.showPlayer = false
+        browseApp.browseCatalog(reset: false); browseApp.showPlayer = true
+        check("interrupted_browse_next_page_can_be_retried", !browseApp.loadingMore && browseApp.canLoadMore)
+        browseApp.showPlayer = false
+        app.results = titles; app.query = ""
         app.automaticQualityInspection = false
         app.inspectVisibleQuality(app.groups[0])
         check("automatic_off_does_not_start_visible_probe", inspections == 0)

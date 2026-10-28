@@ -59,7 +59,8 @@ public struct SourceService {
         let results = await searchPages(query: query, providers: providers, pages: pages)
         return SearchResponse(titles: results.flatMap { $0.page?.titles ?? [] }, failures: results.compactMap(\.error))
     }
-    public func searchPages(query: String, providers: [SourceProvider] = SourceProvider.defaults, pages: [String: Int] = [:]) async -> [ProviderPageResult] {
+    public func searchPages(query: String, providers: [SourceProvider] = SourceProvider.defaults, pages: [String: Int] = [:],
+                            onPage: (@Sendable (ProviderPageResult) async -> Void)? = nil) async -> [ProviderPageResult] {
         let query = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty, !Task.isCancelled else { return [] }
         var seen = Set<String>()
@@ -95,7 +96,12 @@ public struct SourceService {
             while let result = await group.next() {
                 results.append(result)
                 if Task.isCancelled { group.cancelAll() }
-                else if next < enabled.count { enqueue(next); next += 1 }
+                else {
+                    // Present each completed provider immediately; the returned array remains
+                    // in provider order for callers that need a complete, deterministic batch.
+                    if result.1.page != nil || result.1.error != nil { await onPage?(result.1) }
+                    if !Task.isCancelled, next < enabled.count { enqueue(next); next += 1 }
+                }
             }
         }
         guard !Task.isCancelled else { return [] }

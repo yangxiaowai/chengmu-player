@@ -4,6 +4,8 @@ import AppKit
 import UniformTypeIdentifiers
 import CinemaCore
 
+typealias CatalogPageDelivery = @Sendable (ProviderPageResult) async -> Void
+
 enum AppSection: String, CaseIterable, Identifiable {
     case discover = "探索", watchlist = "我的待看", history = "继续观看", quality = "画质工作室", sources = "媒体来源"
     var id: String { rawValue }
@@ -18,6 +20,7 @@ final class AppModel: ObservableObject {
     @Published var query = ""
     @Published var results: [MediaTitle] = []
     @Published var searching = false { didSet { mediaQuality.setCatalogBusy(searching || loadingMore) } }
+    @Published private(set) var canResumeCatalog = false
     @Published var searchLabel = "为你找到的剧集"
     @Published var failures: [String] = []
     @Published var message: String?
@@ -30,7 +33,12 @@ final class AppModel: ObservableObject {
     @Published private(set) var detailMoreNotice: String?
     @Published var selectedLineID = ""
     @Published var currentEpisodeID = ""
-    @Published var showPlayer = false { didSet { mediaQuality.setSuspended(showPlayer || qualityBenchmarkRunning) } }
+    @Published var showPlayer = false {
+        didSet {
+            mediaQuality.setSuspended(showPlayer || qualityBenchmarkRunning)
+            if showPlayer { interruptCatalogSearchForPlayback() }
+        }
+    }
     @Published var history: [WatchRecord] = []
     @Published var providers: [SourceProvider] = SourceProvider.defaults { didSet { mediaQuality.cancelAll(); resetDetailSourceSearch() } }
     @Published var automaticQualityInspection = true {
@@ -64,6 +72,8 @@ final class AppModel: ObservableObject {
     @Published var browseCategories: [SourceCategory] = []
     @Published var browsing = false
     private var searchTerms: [String] = []
+    private enum InterruptedCatalog { case search([String]), browse }
+    private var interruptedCatalog: InterruptedCatalog?
     private var loadedPages: [String: Int] = [:]
     private var browsePage = 0
     private var watchlistReadable = true
@@ -79,6 +89,9 @@ final class AppModel: ObservableObject {
     let playback = PlaybackController()
     let store: LibraryStore
     let service = SourceService()
+    var catalogPageSearch: (String, [SourceProvider], [String: Int], @escaping CatalogPageDelivery) async -> [ProviderPageResult] = { query, sources, pages, delivery in
+        await SourceService().searchPages(query: query, providers: sources, pages: pages, onPage: delivery)
+    }
     private var searchTask: Task<Void, Never>?
     private var detailTask: Task<Void, Never>?
     private var detailMoreTask: Task<Void, Never>?
@@ -149,21 +162,53 @@ final class AppModel: ObservableObject {
         if !isDiagnostic { UserDefaults.standard.set(recentSearches, forKey: "recentSearches") }
         runSearch([text == "火线" ? "火线第" : text])
     }
-    private func runSearch(_ terms: [String]) {
+    private func runSearch(_ terms: [String], preserveResults: Bool = false) {
         mediaQuality.cancelAll()
         cancelAlternativeSources(); searchTask?.cancel(); searchID = UUID()
-        let token = searchID, sources = providers
-        catalogQuery = terms.count == 1 ? query.trimmingCharacters(in: .whitespacesAndNewlines) : ""
+        interruptedCatalog = nil; canResumeCatalog = false
+        let token = searchID, sources = providers, searchPages = catalogPageSearch
+        if !preserveResults { catalogQuery = terms.count == 1 ? query.trimmingCharacters(in: .whitespacesAndNewlines) : "" }
         searchTerms = terms; loadedPages = [:]; moreProviderIDs = []; loadingMore = false
-        filterProviderID = ""; filterYear = ""; filterContent = .all; searching = true; failures = []; providerErrors = [:]; results = []
+        if !preserveResults { filterProviderID = ""; filterYear = ""; filterContent = .all }
+        searching = true; failures = []; providerErrors = [:]
+        if !preserveResults { results = [] }
         searchTask = Task {
             for term in terms {
-                let pages = await service.searchPages(query: term, providers: sources)
+                _ = await searchPages(term, sources, [:]) { [weak self = self] page in
+                    await self?.acceptSearchPage(page, token: token, paginated: terms.count == 1)
+                }
                 guard !Task.isCancelled, token == searchID else { return }
-                acceptPages(pages, paginated: terms.count == 1)
             }
             searching = false
         }
+    }
+    private func interruptCatalogSearchForPlayback() {
+        guard searching || loadingMore else { return }
+        if searching {
+            if browsing { interruptedCatalog = .browse }
+            else if !searchTerms.isEmpty { interruptedCatalog = .search(searchTerms) }
+            canResumeCatalog = interruptedCatalog != nil
+        }
+        // Keep not-yet-finished providers retryable after returning to the catalog.
+        if searching, searchTerms.count == 1 {
+            for provider in providers where provider.enabled && loadedPages[provider.id] == nil {
+                moreProviderIDs.insert(provider.id)
+            }
+        }
+        if browsing && loadingMore { moreProviderIDs.insert(browseProviderID) }
+        searchID = UUID(); searchTask?.cancel(); searchTask = nil
+        searching = false; loadingMore = false
+    }
+    func resumeInterruptedCatalog() {
+        guard !showPlayer, let interrupted = interruptedCatalog else { return }
+        switch interrupted {
+        case .search(let terms): runSearch(terms, preserveResults: true)
+        case .browse: browseCatalog(reset: true, preserveFilters: true)
+        }
+    }
+    private func acceptSearchPage(_ page: ProviderPageResult, token: UUID, paginated: Bool) {
+        guard !Task.isCancelled, searchID == token else { return }
+        acceptPages([page], paginated: paginated)
     }
     private func acceptPages(_ pages: [ProviderPageResult], paginated: Bool) {
         for response in pages {
@@ -238,11 +283,13 @@ final class AppModel: ObservableObject {
         let sources = providers.filter { $0.enabled && moreProviderIDs.contains($0.id) }
         guard !sources.isEmpty else { return }
         loadingMore = true
-        let token = searchID, pages = Dictionary(uniqueKeysWithValues: sources.map { ($0.id, (loadedPages[$0.id] ?? 0) + 1) })
+        let token = searchID, searchPages = catalogPageSearch, pages = Dictionary(uniqueKeysWithValues: sources.map { ($0.id, (loadedPages[$0.id] ?? 0) + 1) })
         searchTask = Task {
-            let result = await service.searchPages(query: term, providers: sources, pages: pages)
+            _ = await searchPages(term, sources, pages) { [weak self = self] page in
+                await self?.acceptSearchPage(page, token: token, paginated: true)
+            }
             guard !Task.isCancelled, searchID == token else { return }
-            acceptPages(result, paginated: true); loadingMore = false
+            loadingMore = false
         }
     }
     func openBrowse() {
@@ -250,10 +297,13 @@ final class AppModel: ObservableObject {
         if !providers.contains(where: { $0.id == browseProviderID && $0.enabled }) { browseProviderID = providers.first(where: \.enabled)?.id ?? "" }
         browseCatalog(reset: true)
     }
-    func browseCatalog(reset: Bool = true) {
+    func browseCatalog(reset: Bool = true, preserveFilters: Bool = false) {
         if reset { mediaQuality.cancelAll() }
         guard let provider = providers.first(where: { $0.id == browseProviderID && $0.enabled }) else { return }
-        if reset { searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; filterYear = ""; filterProviderID = ""; filterContent = .all; catalogQuery = "" }
+        if reset {
+            interruptedCatalog = nil; canResumeCatalog = false; searchTask?.cancel(); searchID = UUID(); results = []; browsePage = 0; loadedPages = [:]; providerErrors = [:]; catalogQuery = ""
+            if !preserveFilters { filterYear = ""; filterProviderID = ""; filterContent = .all }
+        }
         cancelAlternativeSources(); browsing = true; searchTerms = []; moreProviderIDs = []
         searching = reset; loadingMore = !reset; failures = []
         let token = searchID, page = browsePage + 1, category = browseCategoryID.isEmpty ? nil : browseCategoryID
@@ -579,10 +629,19 @@ final class AppModel: ObservableObject {
     var canLoadMore: Bool { !moreProviderIDs.isEmpty }
     var canResetWatchlist: Bool { !watchlistReadable }
     var latestHistory: [WatchRecord] {
+        struct SourceIdentity: Hashable { let provider: String; let title: String }
+        let groups = CatalogGrouping.groups(history.compactMap { $0.mediaDetail?.title })
+        var groupBySource: [SourceIdentity: String] = [:]
+        for group in groups {
+            for title in group.sources { groupBySource[SourceIdentity(provider: title.providerID, title: title.id)] = group.id }
+        }
         var seen = Set<String>()
         return history.filter { record in
-            let context = record.mediaDetail?.title
-            let key = context.map { CatalogGrouping.normalizedTitle($0.title) + "|" + $0.year } ?? record.id
+            let group = record.mediaDetail.flatMap { detail in
+                groupBySource[SourceIdentity(provider: detail.title.providerID, title: detail.title.id)]
+            }
+            // Legacy/direct records have no safe work identity and stay distinct.
+            let key = group.map { "group:" + $0 } ?? "record:" + record.id
             return seen.insert(key).inserted
         }
     }
@@ -658,6 +717,27 @@ final class AppModel: ObservableObject {
             match = candidates[0]
         } else {
             message = candidates.isEmpty ? "历史中的影片资源已变化，请手动选择集数。" : "多条线路匹配历史影片，请手动选择线路与集数。"
+            return
+        }
+        if record.isEpisodeCompleted {
+            // Re-evaluate completion against today's verified line, which may now contain
+            // newer episodes than the copy saved in history.
+            var updated = record
+            updated.mediaDetail = detail; updated.lineID = match.line.id; updated.episodeID = match.episode.id
+            updated.url = match.episode.url; updated.episode = match.episode.name
+            guard let target = updated.nextEpisodeToWatch ?? (updated.isCompleted ? match.line.episodes.first : nil) else {
+                message = "下一集尚未确认，请手动选择集数。"
+                return
+            }
+            let targetID = "\(detail.title.providerID):\(detail.title.id):\(match.line.id):\(target.id)"
+            let saved = history.first { $0.id == targetID && $0.canResume(episode: target) }
+            let resumePosition = !updated.isCompleted && saved?.isEpisodeCompleted == false && saved?.position.isFinite == true
+                ? max(0, saved?.position ?? 0) : 0
+            selectedLineID = match.line.id
+            play(target)
+            currentRecord?.position = resumePosition
+            currentRecord?.duration = saved?.duration.isFinite == true ? max(0, saved?.duration ?? 0) : 0
+            playback.resumeWhenReady(resumePosition)
             return
         }
         let resumePosition = record.progress > 0.98 || !record.position.isFinite ? 0 : max(0, record.position)

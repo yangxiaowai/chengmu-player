@@ -11,6 +11,21 @@ struct PlayerEpisodePanel: View {
         self.playback = app.playback
     }
 
+    static func responseURL(for line: PlaybackLine, currentLine: PlaybackLine?, currentEpisodeID: String) -> URL? {
+        guard let currentLine else { return nil }
+        let currentMatches = currentLine.episodes.filter { $0.id == currentEpisodeID }
+        guard currentMatches.count == 1, let current = currentMatches.first else { return nil }
+        if line.id == currentLine.id { return current.url }
+        if let number = current.number {
+            // A duplicated episode number is ambiguous even when only one name matches.
+            guard line.episodes.filter({ $0.number == number }).count == 1 else { return nil }
+        }
+        // SourceMatching checks the normalized label as well as the episode number,
+        // so a different version with the same number is not presented as measured.
+        guard !current.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        return SourceMatching.matchEpisode(current, in: line)?.url
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             heading.padding(.bottom, 20)
@@ -67,13 +82,13 @@ struct PlayerEpisodePanel: View {
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(CinemaStyle.secondary)
             Picker("播放线路", selection: Binding(get: { app.selectedLineID }, set: { app.switchLine($0) })) {
-                ForEach(detail.lines) { line in Text(line.name + " · " + (line.episodes.first.flatMap { app.mediaQuality.responseState(for: $0.url) }?.label ?? "响应未检测")).tag(line.id) }
+                ForEach(detail.lines) { line in Text(line.name + " · " + (Self.responseURL(for: line, currentLine: app.selectedLine, currentEpisodeID: app.currentEpisodeID).flatMap { app.mediaQuality.responseState(for: $0) }?.label ?? "响应未检测")).tag(line.id) }
             }
             .labelsHidden()
             .pickerStyle(.menu)
             .controlSize(.regular)
             .frame(maxWidth: .infinity, alignment: .leading)
-            MediaResponseReadout(state: app.selectedLine?.episodes.first.flatMap { app.mediaQuality.responseState(for: $0.url) }, playbackActive: app.showPlayer)
+            MediaResponseReadout(state: app.selectedLine.flatMap { Self.responseURL(for: $0, currentLine: app.selectedLine, currentEpisodeID: app.currentEpisodeID) }.flatMap { app.mediaQuality.responseState(for: $0) }, playbackActive: app.showPlayer)
 
             HStack(spacing: 8) {
                 PanelActionButton(title: "上一集", symbol: "backward.end.fill", action: app.previousEpisode)

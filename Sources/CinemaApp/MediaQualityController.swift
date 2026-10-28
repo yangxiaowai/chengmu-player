@@ -293,6 +293,10 @@ enum MediaResponseState: Equatable {
                         else {
                             flightID = UUID()
                             flight = Task {
+                                // These observations use independent network requests. Start
+                                // the video read immediately rather than letting a slow HEAD
+                                // consume up to three seconds before decoding can begin.
+                                async let quality = inspector(episode.url)
                                 let response: MediaResponseState
                                 do { response = .ready(.init(sample: try await responseProbe(episode.url), checkedAt: self.now())) }
                                 catch {
@@ -303,7 +307,7 @@ enum MediaResponseState: Equatable {
                                 self.publishResponse(response, url: episode.url, flightID: flightID)
                                 // Latency is an independent observation. An unavailable
                                 // response probe must not discard a usable quality read.
-                                return try await inspector(episode.url)
+                                return try await quality
                             }
                             self.inspections[episode.url] = flight; self.inspectionIDs[episode.url] = flightID
                         }

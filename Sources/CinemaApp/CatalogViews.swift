@@ -19,6 +19,10 @@ struct DiscoveryView: View {
             if !app.failures.isEmpty {
                 DisclosureGroup("部分来源暂时不可用") { ForEach(app.failures, id: \.self) { Text($0).font(.caption).frame(maxWidth: .infinity, alignment: .leading) } }.font(.system(size: 11)).foregroundStyle(CinemaStyle.tertiary)
             }
+            if app.canResumeCatalog && !app.searching {
+                Button(app.browsing ? "重新加载片库" : "继续寻找") { app.resumeInterruptedCatalog() }
+                    .buttonStyle(CinemaActionStyle(compact: true))
+            }
             if app.searching && app.results.isEmpty { HStack { Spacer(); ProgressView("正在寻找影片…"); Spacer() }.padding(60) }
             else if app.filteredGroups.isEmpty { ContentUnavailableView(app.enabledProviderCount == 0 ? "启用来源，开启观影" : "还没有找到这部作品", systemImage: "film.stack", description: Text(app.enabledProviderCount == 0 ? "在媒体来源中选择片库，然后搜索喜欢的影片。" : "试试其他片名，或放宽筛选条件。")) }
             GroupGrid(app: app, groups: app.filteredGroups)

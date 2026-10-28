@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "cases": {
+    "plain": "avplayer_ready=true initial_seconds=0.542183981 subtitle_received=true video_frame_decoded=true seek_succeeded=true seek_frame_decoded=true",
+    "aes": "avplayer_ready=true initial_seconds=0.563318718 subtitle_received=true video_frame_decoded=true seek_succeeded=true seek_frame_decoded=true",
+    "range": "avplayer_ready=true initial_seconds=0.577793928 subtitle_received=true video_frame_decoded=true seek_succeeded=true seek_frame_decoded=true"
+  },
+  "range_requests": 8,
+  "scope": "Local generated HLS and fixed-allowlist proof-of-concept only; no production relay, real proxy routing, authentication, DRM, long playback or actual external media."
+}

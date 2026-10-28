@@ -71,6 +71,69 @@ import CinemaCore
         check("native_resume_preserves_pause_intent", !app.playback.playbackRequested && app.playback.player.rate == 0)
         check("history_selection_does_not_delete_prior_episode", app.history.contains { $0.id == middle.id } && before.count <= app.history.count)
         app.closePlayer(); app.mediaQuality.cancelAll()
+
+        // Detail-sheet Continue should use the same episode-aware semantics as
+        // Continue Watching, rather than restarting the just-completed episode.
+        let detailApp = AppModel(); detailApp.providers = []; detailApp.automaticQualityInspection = false; detailApp.autoNext = false
+        detailApp.history = [middle, partial]; detailApp.detail = detail; detailApp.selectedLineID = "line"
+        detailApp.continueDetail(); detailApp.playback.pause()
+        let detailDeadline = Date().addingTimeInterval(10)
+        while Date() < detailDeadline && (detailApp.playback.player.currentItem?.status != .readyToPlay || abs(detailApp.playback.position - 12) > 0.5) {
+            try await Task.sleep(nanoseconds: 50_000_000)
+        }
+        check("detail_continue_opens_next_episode_with_its_own_progress",
+              detailApp.currentEpisodeID == "e2" && (detailApp.playback.player.currentItem?.asset as? AVURLAsset)?.url == episodes[1].url &&
+              detailApp.playback.player.currentItem?.status == .readyToPlay && abs(detailApp.playback.position - 12) < 0.5)
+        detailApp.closePlayer()
+
+        let replayApp = AppModel(); replayApp.providers = []; replayApp.automaticQualityInspection = false; replayApp.autoNext = false
+        replayApp.history = [final]; replayApp.detail = detail; replayApp.selectedLineID = "line"
+        replayApp.continueDetail(); replayApp.playback.pause()
+        check("detail_completed_series_replays_from_first_episode", replayApp.currentEpisodeID == "e1" &&
+              (replayApp.playback.player.currentItem?.asset as? AVURLAsset)?.url == episodes[0].url)
+        replayApp.closePlayer()
+
+        let gapApp = AppModel(); gapApp.providers = []; gapApp.automaticQualityInspection = false; gapApp.autoNext = false
+        gapApp.history = [gap]; gapApp.detail = gap.mediaDetail; gapApp.selectedLineID = "line"
+        gapApp.continueDetail(); gapApp.playback.pause()
+        check("detail_continue_does_not_skip_missing_episode", gapApp.currentEpisodeID != "e3")
+        gapApp.closePlayer()
+
+        // The previous catalog ended at e2; today's catalog now contains e3.
+        // Recheck the real current lineup instead of replaying a once-complete season.
+        var previousFinal = record(1, position: 97)
+        previousFinal.mediaDetail?.lines[0].episodes.removeLast()
+        let savedNewEpisode = record(2, position: 12, duration: 30)
+        check("old_catalog_final_episode_was_complete", previousFinal.isCompleted)
+        let updatedApp = AppModel(); updatedApp.providers = []; updatedApp.automaticQualityInspection = false; updatedApp.autoNext = false
+        updatedApp.history = [previousFinal, savedNewEpisode]; updatedApp.detail = detail; updatedApp.selectedLineID = "line"
+        updatedApp.continueDetail(); updatedApp.playback.pause()
+        let updatedDeadline = Date().addingTimeInterval(10)
+        while Date() < updatedDeadline && (updatedApp.playback.player.currentItem?.status != .readyToPlay || abs(updatedApp.playback.position - 12) > 0.5) {
+            try await Task.sleep(nanoseconds: 50_000_000)
+        }
+        check("updated_catalog_continues_new_episode_with_its_own_saved_position",
+              updatedApp.currentEpisodeID == "e3" && updatedApp.playback.player.currentItem?.status == .readyToPlay &&
+              abs(updatedApp.playback.position - 12) < 0.5)
+        updatedApp.closePlayer()
+
+        var changedNumber = detail
+        changedNumber.lines[0].episodes[1].number = 4
+        let renumberApp = AppModel(); renumberApp.providers = []; renumberApp.automaticQualityInspection = false
+        renumberApp.history = [middle]; renumberApp.detail = changedNumber; renumberApp.selectedLineID = "line"
+        renumberApp.continueDetail()
+        check("updated_catalog_does_not_skip_when_next_number_changed",
+              !renumberApp.showPlayer && renumberApp.currentEpisodeID.isEmpty && renumberApp.message != nil)
+        renumberApp.closePlayer()
+
+        var removedNext = detail
+        removedNext.lines[0].episodes.remove(at: 1)
+        let removedApp = AppModel(); removedApp.providers = []; removedApp.automaticQualityInspection = false
+        removedApp.history = [middle]; removedApp.detail = removedNext; removedApp.selectedLineID = "line"
+        removedApp.continueDetail()
+        check("updated_catalog_does_not_skip_when_next_episode_is_missing",
+              !removedApp.showPlayer && removedApp.currentEpisodeID.isEmpty && removedApp.message != nil)
+        removedApp.closePlayer()
         let passed = checks.allSatisfy { $0["passed"] as? Bool == true }
         let report: [String: Any] = ["passed": passed, "checks": checks, "scope": "Actual AppModel with isolated history fixtures and local MP4s; native controller opens the next episode and restores saved progress while paused. Three native SwiftUI bitmap layouts, no physical button/fullscreen or full network playback certification."]
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: destination.appendingPathComponent("series-history.json"))
