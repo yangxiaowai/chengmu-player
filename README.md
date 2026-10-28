@@ -101,7 +101,7 @@
 
 ## 下载与安装
 
-### 当前版本：v0.4.6 · build29
+### 当前源码版本：v0.4.6 · build29
 
 | 项目 | 要求 |
 | :--- | :--- |
@@ -111,7 +111,7 @@
 | 安装包 | ZIP 内含 `澄幕.app`，无需安装 Python、FFmpeg 或其他播放器 |
 | 签名状态 | 本地签名，尚未经过 Apple 公证 |
 
-1. 前往 **[Releases 下载页](https://github.com/yangxiaowai/chengmu-player/releases/latest)**，下载 `Chengmu-v0.4.6-macOS-AppleSilicon.zip`。
+1. 前往 **[Releases 下载页](https://github.com/yangxiaowai/chengmu-player/releases/latest)**。目前可下载的安装包为 `Chengmu-v0.4.5-macOS-AppleSilicon.zip`；v0.4.6 的源码已更新，安装包尚待上传。
 2. 解压，将 `澄幕.app` 放到希望保留的位置，例如“应用程序”文件夹，再打开应用。
 3. 升级前正常退出旧版，再替换应用。已有观看记录与偏好沿用，无需重新建立片库。
 
