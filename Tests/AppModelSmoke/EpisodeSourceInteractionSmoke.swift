@@ -41,6 +41,23 @@ struct EpisodeSourceInteractionSmoke {
             }
             let alternative = detail(provider: "b", media: media)
             let third = detail(provider: "c", media: media)
+            await check("slow_first_line_does_not_block_fast_matching_line") {
+                var candidate = alternative
+                candidate.lines[0].episodes[1].url = directory.appendingPathComponent("slow.wav")
+                let requests = AlternativeSourceRequests(detail: { _, _ in candidate }, inspect: { url in
+                    if url.lastPathComponent == "slow.wav" {
+                        try await Task.sleep(nanoseconds: 2_000_000_000)
+                        throw SourceError.invalidPlaylist
+                    }
+                    try await Task.sleep(nanoseconds: 50_000_000)
+                })
+                let value = fixture(directory: directory, original: original, requests: requests)
+                defer { value.closePlayer() }
+                value.switchAlternativeSource(candidate.title)
+                try await Task.sleep(nanoseconds: 700_000_000)
+                try require(value.detail?.title.providerID == "b" && value.selectedLineID == "b:alternate", "Slow first line blocked an available matching line")
+                return "A slower failing first candidate does not delay a faster verified matching line."
+            }
             await check("adjacent_episodes_follow_context_and_stop_at_boundaries") {
                 let value = fixture(directory: directory, original: original)
                 defer { value.closePlayer() }

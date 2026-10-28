@@ -154,6 +154,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     @Published var isPlaying = false
     @Published var isLoading = false
     @Published private(set) var loadingMessage: String?
+    @Published private(set) var bufferSnapshot: PlaybackBufferSnapshot?
     @Published private(set) var recoverySuggested = false
     @Published var error: String?
     @Published private(set) var hasPlaybackFailure = false
@@ -272,6 +273,8 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     private var prepareTask: Task<Void, Never>?
     private var preparedItemID: UUID?
     private var loadingWatchdog: Task<Void, Never>?
+    private var bufferMonitor: Task<Void, Never>?
+    private let forwardBufferTarget = 12.0
     private var waitingID: UUID?
     private var failureResumeTarget: Double?
     /// One automatic recovery per item: `AVPlayerItemFailedToPlayToEndTime` is often a transient
@@ -350,7 +353,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         ignoredAdSegments = []; adSkipNotice = nil; adSkipInteractions = []
         adSkip.configure(url: url, itemID: token, protectedRegions: adCleanup.protectedRegions)
         let item = AVPlayerItem(url: url)
-        item.preferredForwardBufferDuration = 12
+        item.preferredForwardBufferDuration = forwardBufferTarget
         let output = AVPlayerItemLegibleOutput()
         output.suppressesPlayerRendering = true
         output.setDelegate(self, queue: .main)
@@ -435,7 +438,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 } catch { /* Playback owns media errors; non-HLS is a valid input. */ }
             }
         }
-        player.playImmediately(atRate: rate)
+        player.defaultRate = rate; player.play()
         refreshPlaybackState()
     }
 
@@ -448,7 +451,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
             let target = pendingSeekTarget ?? desiredResume; desiredResume = 0
             seek(to: duration > 0 ? min(target, max(0, duration - 1)) : target)
         }
-        if wantsPlay { player.playImmediately(atRate: rate) }
+        if wantsPlay { player.defaultRate = rate; player.play() }
         refreshPlaybackState()
         prepareTask = Task { [weak self, weak item] in
             guard let self, let item else { return }
@@ -498,7 +501,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         } else {
             wantsPlay = true
             if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
-            player.playImmediately(atRate: rate)
+            player.defaultRate = rate; player.play()
         }
         refreshPlaybackState()
     }
@@ -509,7 +512,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         // an explicit resume, not a toggle based on a delayed observation.
         wantsPlay = true
         if duration > 0 && position >= duration - 0.5 { seek(to: 0) }
-        player.playImmediately(atRate: rate)
+        player.defaultRate = rate; player.play()
         refreshPlaybackState()
     }
     func retry() {
@@ -560,7 +563,7 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
                 if let automaticEvent { self.adSkipNotice = automaticEvent }
                 self.generation = UUID()
                 if self.wantsPlay, !self.hasPlaybackFailure, self.error == nil, self.player.timeControlStatus != .playing {
-                    self.player.playImmediately(atRate: self.rate)
+                    self.player.defaultRate = self.rate; self.player.play()
                 }
                 self.tick()
                 self.saveProgress()
@@ -764,6 +767,14 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
         guard waitingID == nil else { return }
         let wait = UUID(), token = itemID
         waitingID = wait; recoverySuggested = false
+        updateBufferSnapshot()
+        bufferMonitor = Task { @MainActor [weak self] in
+            while !Task.isCancelled {
+                do { try await Task.sleep(nanoseconds: 1_000_000_000) } catch { return }
+                guard let self, self.itemID == token, self.waitingID == wait else { return }
+                self.updateBufferSnapshot()
+            }
+        }
         loadingWatchdog = Task { @MainActor [weak self] in
             do { try await Task.sleep(nanoseconds: 15_000_000_000) } catch { return }
             guard let self, self.itemID == token, self.waitingID == wait else { return }
@@ -780,6 +791,20 @@ final class PlaybackController: NSObject, ObservableObject, AVPlayerItemLegibleO
     }
     private func clearWaitingState() {
         loadingWatchdog?.cancel(); loadingWatchdog = nil; waitingID = nil; recoverySuggested = false
+        bufferMonitor?.cancel(); bufferMonitor = nil; bufferSnapshot = nil
+    }
+    private func updateBufferSnapshot() {
+        guard let item = player.currentItem else { bufferSnapshot = nil; return }
+        let ranges = item.loadedTimeRanges.compactMap { value -> ClosedRange<Double>? in
+            let range = value.timeRangeValue
+            let start = range.start.seconds, end = CMTimeRangeGetEnd(range).seconds
+            guard start.isFinite, end.isFinite, end >= start else { return nil }
+            return start...end
+        }
+        let time = player.currentTime().seconds
+        let targetPosition = pendingSeekTarget ?? pendingSkipTarget ?? (desiredResume > 0 ? desiredResume : time)
+        let bitrate = item.accessLog()?.events.last?.observedBitrate ?? -1
+        bufferSnapshot = PlaybackBufferSnapshot(position: targetPosition, ranges: ranges, targetSeconds: forwardBufferTarget, observedBitsPerSecond: bitrate)
     }
     private func clearItemObservers() {
         statusObservation = nil

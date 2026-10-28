@@ -39,6 +39,15 @@ import AppKit
   let positionAfter = playingMain.currentTime().seconds
   assert(playingMain.rate == 1 && positionAfter > positionBefore && positionAfter < positionBefore + 2, "Preview paused or sought the playing main clock")
   playingMain.pause()
+  controller.configure(asset:AVURLAsset(url:hls),itemID:UUID())
+  // Mouse events at the same timeline position must not restart an in-flight decode forever.
+  var seenRepeatedHoverFrame = false
+  for _ in 0..<20 {
+   controller.request(time: 11.2, duration: 30)
+   try await Task.sleep(nanoseconds:100_000_000)
+   if controller.image != nil { seenRepeatedHoverFrame = true; break }
+  }
+  assert(seenRepeatedHoverFrame, "Repeated same-position hover starved preview")
   controller.configure(asset:AVURLAsset(url:local),itemID:UUID())
   for index in 0..<60 { controller.request(time:Double(index)*0.4,duration:30); try await Task.sleep(nanoseconds:5_000_000) }
   try await wait()

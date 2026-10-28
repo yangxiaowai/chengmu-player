@@ -136,12 +136,14 @@ import CinemaCore
         c.open(url: stalledURL, title: "Waiting", episode: "Loopback")
         try await Task.sleep(nanoseconds: 300_000_000)
         check("preparation_survives_paused_transport", c.isLoading && c.loadingMessage == "正在准备媒体" && !c.recoverySuggested, "Loopback server accepts requests and withholds response bytes; AVPlayer remains preparing.")
+        check("buffer_information_during_wait_is_honest", c.bufferSnapshot?.bufferedSeconds == 0 && c.bufferSnapshot?.targetProgress == 0 && c.bufferSnapshot?.observedBytesPerSecond == nil,
+              "A pending loopback stream has no loaded media and no measured throughput; no speed is invented.")
         try await until({ c.recoverySuggested }, seconds: 17)
         check("continuous_wait_suggests_manual_recovery", c.isLoading && Date().timeIntervalSince(waitStarted) >= 15 && c.player.currentItem?.status == .unknown, "Real pending loopback load exceeds 15 seconds; only suggestion, no automatic retry.")
         c.open(url: media, title: "Replacement", episode: "Local", resume: 7); c.pause()
         stage = "paused replacement"
         try await until { c.player.currentItem?.status == .readyToPlay && abs(c.player.currentTime().seconds - 7) < 0.3 && !c.isLoading }
-        check("replacement_clears_wait_suggestion", !c.isLoading && c.loadingMessage == nil && !c.recoverySuggested && c.player.rate == 0,
+        check("replacement_clears_wait_suggestion", !c.isLoading && c.loadingMessage == nil && !c.recoverySuggested && c.bufferSnapshot == nil && c.player.rate == 0,
               "Replacement ready paused item: loading=\(c.isLoading) message=\(c.loadingMessage ?? "none") suggested=\(c.recoverySuggested) rate=\(c.player.rate).")
         c.pause()
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]

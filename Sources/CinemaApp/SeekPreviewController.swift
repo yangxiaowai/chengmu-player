@@ -18,6 +18,7 @@ final class SeekPreviewController: ObservableObject {
     private var asset: AVAsset?
     private var itemID = UUID()
     private var requestID = UUID()
+    private var inFlightTime: Double?
     private var pending: Request?
     private var worker: Task<Void, Never>?
     private var workerID = UUID()
@@ -46,6 +47,13 @@ final class SeekPreviewController: ObservableObject {
     func request(time: Double, duration: Double) {
         guard asset != nil, time.isFinite, duration.isFinite, duration > 0 else { hide(); message = "预览暂不可用"; return }
         let target = min(max(0, time), max(0, duration - 0.05))
+        // AppKit may send repeated mouse events without a meaningful change of position.
+        // Restarting the debounce and canceling the decoder each time starves slow streams.
+        if (isLoading && inFlightTime.map { abs(target - $0) < 0.05 } == true) ||
+           (!isLoading && image != nil && actualTime.map { abs($0 - target) <= tolerance } == true) {
+            requestedTime = target
+            return
+        }
         requestedTime = target; image = nil; actualTime = nil; message = nil
         requestID = UUID(); pending = nil
         cancelOperation?(); cancelOperation = nil
@@ -57,6 +65,7 @@ final class SeekPreviewController: ObservableObject {
             apply(cached.frame); isLoading = false; return
         }
         isLoading = true
+        inFlightTime = target
         pending = Request(id: requestID, time: target, changedAt: Date())
         guard worker == nil else { return }
         let runID = UUID(); workerID = runID
@@ -67,7 +76,7 @@ final class SeekPreviewController: ObservableObject {
         worker?.cancel(); worker = nil; workerID = UUID()
         cancelOperation?(); cancelOperation = nil
         releaseBackend()
-        image = nil; actualTime = nil; isLoading = false; message = nil
+        image = nil; actualTime = nil; isLoading = false; message = nil; inFlightTime = nil
     }
     func stop() { hide(); asset = nil; cache.removeAll(keepingCapacity: false); accessCount = 0 }
 
@@ -84,7 +93,7 @@ final class SeekPreviewController: ObservableObject {
             if !usesHLS { frame = await generatedFrame(next, item: token) }
             if frame == nil, valid(next.id, item: token) { frame = await decodedFrame(next, item: token) }
             guard valid(next.id, item: token) else { continue }
-            isLoading = false
+            isLoading = false; inFlightTime = nil
             if let frame, frame.time.isFinite, abs(frame.time - next.time) <= tolerance {
                 accessCount &+= 1; cache[Int((next.time * 2).rounded())] = Cached(frame: frame, used: accessCount)
                 if cache.count > 48, let oldest = cache.min(by: { $0.value.used < $1.value.used })?.key { cache.removeValue(forKey: oldest) }

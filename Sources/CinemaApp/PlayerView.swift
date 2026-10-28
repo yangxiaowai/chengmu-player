@@ -44,6 +44,20 @@ struct PlayerView: View {
                         if playback.isLoading {
                             VStack(spacing: 14) {
                                 ProgressView(playback.loadingMessage ?? "正在缓冲…")
+                                if let snapshot = playback.bufferSnapshot {
+                                    if let progress = snapshot.targetProgress, let seconds = snapshot.bufferedSeconds {
+                                        VStack(spacing: 5) {
+                                            ProgressView(value: progress).frame(width: 200)
+                                            Text(String(format: "已缓冲 %.1f 秒 · 目标 12 秒", seconds))
+                                        }.font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                                    }
+                                    if let speed = snapshot.observedBytesPerSecond {
+                                        Text("平均下载速度 \(ByteCountFormatter.string(fromByteCount: Int64(min(speed, 1_000_000_000_000)), countStyle: .binary))/秒")
+                                            .font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                                    } else {
+                                        Text("下载速度暂不可用").font(.system(size: 11)).foregroundStyle(CinemaStyle.secondary)
+                                    }
+                                }
                                 if playback.recoverySuggested {
                                     Text("等待时间较长，可以重试当前集或查找其他片源。")
                                         .font(.system(size: 12)).foregroundStyle(CinemaStyle.secondary)

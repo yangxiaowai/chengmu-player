@@ -101,7 +101,7 @@
 
 ## 下载与安装
 
-### 当前版本：v0.4.3 · build26
+### 当前版本：v0.4.4 · build27
 
 | 项目 | 要求 |
 | :--- | :--- |
@@ -111,7 +111,7 @@
 | 安装包 | ZIP 内含 `澄幕.app`，无需安装 Python、FFmpeg 或其他播放器 |
 | 签名状态 | 本地签名，尚未经过 Apple 公证 |
 
-1. 前往 **[Releases 下载页](https://github.com/yangxiaowai/chengmu-player/releases/latest)**，下载 `Chengmu-v0.4.3-macOS-AppleSilicon.zip`。
+1. 前往 **[Releases 下载页](https://github.com/yangxiaowai/chengmu-player/releases/latest)**，下载 `Chengmu-v0.4.4-macOS-AppleSilicon.zip`。
 2. 解压，将 `澄幕.app` 放到希望保留的位置，例如“应用程序”文件夹，再打开应用。
 3. 升级前正常退出旧版，再替换应用。已有观看记录与偏好沿用，无需重新建立片库。
 
@@ -142,11 +142,11 @@
 
 ## 最近更新
 
-**v0.4.3 · 选源先看响应**
+**v0.4.4 · 更稳的播放体验**
 
-修复中间集看完后整部剧从“继续观看”消失的问题：单集完成与作品完成分开判断，最后一集看完才完成当前作品/季。续看下一集可恢复那一集已有进度，缺集时保守处理；全部剧集视图仍可按单集重看。验证范围见本版记录。
+改善缓冲等待、线路检查和进度预览：播放时允许系统等待缓冲，切换来源时并行核对匹配线路，减少同一位置的重复预览请求。缓冲界面展示已缓存时长与可获得的平均下载速度。实际效果取决于网络与片源。
 
-[本版更新说明](docs/releases/v0.4.3.md) · [验证记录](docs/验收记录-v0.4.3.md) · [历史版本](https://github.com/yangxiaowai/chengmu-player/releases)
+[本版更新说明](docs/releases/v0.4.4.md) · [验证记录](docs/验收记录-v0.4.4.md) · [历史版本](https://github.com/yangxiaowai/chengmu-player/releases)
 
 ## 常见问题
 

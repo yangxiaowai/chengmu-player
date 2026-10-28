@@ -365,18 +365,28 @@ final class AppModel: ObservableObject {
                 guard SourceMatching.sameSeasonTitle(context.detail.title, loaded.title) else {
                     alternativesLoading = false; alternativeStage = nil; alternativeNotice = "返回作品不属于当前季，已保留当前播放。"; return
                 }
-                var destination: (PlaybackLine, Episode)?
-                for line in loaded.lines {
-                    guard let episode = SourceMatching.matchEpisode(context.episode, in: line) else { continue }
-                    do {
-                        alternativeStage = .checkingPlaylist(provider: provider.name, line: line.name)
-                        try await alternativeRequests.inspect(episode.url)
-                        guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
-                        destination = (line, episode); break
-                    } catch {
-                        guard !Task.isCancelled, alternativeID == token, currentRecord?.id == recordID else { return }
-                    }
+                var seen = Set<URL>()
+                let candidates: [(PlaybackLine, Episode)] = loaded.lines.compactMap { line in
+                    guard let episode = SourceMatching.matchEpisode(context.episode, in: line), seen.insert(episode.url).inserted else { return nil }
+                    return (line, episode)
                 }
+                if let first = candidates.first { alternativeStage = .checkingPlaylist(provider: provider.name, line: first.0.name) }
+                let inspect = alternativeRequests.inspect
+                let destination = await withTaskGroup(of: Int?.self, returning: (PlaybackLine, Episode)?.self) { group in
+                    var next = 0
+                    func enqueue(_ index: Int) {
+                        let url = candidates[index].1.url
+                        group.addTask { do { try await inspect(url); return index } catch { return nil } }
+                    }
+                    while next < min(3, candidates.count) { enqueue(next); next += 1 }
+                    while let result = await group.next() {
+                        if let index = result { group.cancelAll(); return candidates[index] }
+                        if Task.isCancelled { group.cancelAll(); return nil }
+                        if next < candidates.count { enqueue(next); next += 1 }
+                    }
+                    return nil
+                }
+                guard !Task.isCancelled, alternativeID == token, showPlayer, currentRecord?.id == recordID else { return }
                 guard let (line, episode) = destination else {
                     alternativesLoading = false; alternativeStage = nil; alternativeNotice = "未找到名称、编号一致且清单可达的当前集，已保留当前播放。"; return
                 }
